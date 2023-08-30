@@ -1,2 +1,1 @@
-# CSC3160
-CSC3100 course homepage
+# CSC 6201/CIE 6021 Large Language Models
