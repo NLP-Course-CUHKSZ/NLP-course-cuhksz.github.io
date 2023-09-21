@@ -6,8 +6,8 @@ json jsonlines tqdm
 ## Pipeline
 
 ### Data
-chinese_essay.json: 15 chinese essay
-english_essay.json: 15 english essay
+- /data/chinese_essay.json: 15 chinese essay
+- /data/english_essay.json: 15 english essay
 
 ### Prepare data for GPT(Change prompt here)
 
