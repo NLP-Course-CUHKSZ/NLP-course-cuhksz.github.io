@@ -1,0 +1,30 @@
+# ASSIGNMENT 1: PROMPT ENGINEERING FOR ESSAY POLISHING
+
+## Dependency
+json jsonlines tqdm
+
+## Pipeline
+
+### Data
+chinese_essay.json: 15 chinese essay
+english_essay.json: 15 english essay
+
+### Prepare data for GPT(Change prompt here)
+
+Change the template(Prompt) in prepare_data.py
+```
+cd code
+python prepare_data.py
+```
+
+### Generate data
+
+Change the input_file and output_file
+```
+python chatgpt_data_gen.py
+```
+
+### Self-evaluate
+
+Evaluate the essay by yourself, maybe try another better prompt.
+Fish your report
