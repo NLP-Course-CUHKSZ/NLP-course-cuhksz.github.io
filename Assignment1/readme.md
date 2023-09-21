@@ -28,3 +28,12 @@ python chatgpt_data_gen.py
 
 Evaluate the essay by yourself, maybe try another better prompt.
 Fish your [report](https://www.overleaf.com/read/mndnznyqtcxj) in overleaf.
+
+## Reference resource
+
+- https://www.promptingguide.ai/zh
+- https://www.youtube.com/watch?v=dOxUroR57xs&ab_channel=ElvisSaravia
+- https://github.com/dair-ai/Prompt-Engineering-Guide
+
+
+
