@@ -4,6 +4,7 @@ import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+# from gpt import GPT
 
 class GPT35:
     def __init__(self,api_key,organization = None) -> None:
@@ -37,6 +38,6 @@ class GPT35:
     
     
 if __name__=="__main__":
-    gpt=GPT35('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')
+    gpt=GPT35('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')
     response=gpt.call('hello')
     print(response)
