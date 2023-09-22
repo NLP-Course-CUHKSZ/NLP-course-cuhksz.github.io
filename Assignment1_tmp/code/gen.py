@@ -38,6 +38,7 @@ class GPT35:
     
     
 if __name__=="__main__":
-    gpt=GPT35('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')
+    key="" # API_key
+    gpt=GPT35(key)
     response=gpt.call('hello')
     print(response)
