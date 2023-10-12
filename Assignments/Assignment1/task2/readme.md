@@ -25,11 +25,11 @@ Path: ./data/1.rlhf.json
 
 ### Strategy recommendation:
 1. Adjust User_Prompt
-    - Adjust instruction such as "你是一个药剂师考试能手，每次都考100分，这道题对你来说不在话下，深呼吸，并一步一步思考，并给出正确的答案。"
+    - Adjust instruction
     - Add some examples
     - ...
 2. Adjust System_Prompt
 3. Leverage multiple rounds of dialogue
-4. Optimize answer extraction method
+4. Conduct multiple assessments and tally preferences
 5. ...
 

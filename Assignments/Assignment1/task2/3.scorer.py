@@ -23,44 +23,29 @@ def score_result(input_path, wrong_ans_path, score_path):
     with jsonlines.open(input_path, "r") as reader:
         items = list(reader)
 
-    question_type = ['最佳选择题', '配伍选择题', '综合分析选择题', '多项选择题']
-    type2score = {q_type: {'correct': 0, 'total': 0} for q_type in question_type}
-    wrong_data = []
-
+    correct = 0
+    total = 0
+    wrong_data=[]
     for item in items:
-        q_type = item['question_type']
-        groundtruth = item['groundtruth']
-        is_correct, model_choice = calculate_score(q_type, groundtruth, item['model_answer'])
-
-        if is_correct:
-            type2score[q_type]['correct'] += 1
+        if item['model_answer']==item['groundtruth']:
+            correct += 1
         else:
-            item['model_choice'] = model_choice
             wrong_data.append(item)
+        total += 1
 
-        type2score[q_type]['total'] += 1
-
-    total_correct = 0
-    for q_type, item in type2score.items():
-        sub_total = item['total']
-        if sub_total == 0:
-            continue
-        total_correct = total_correct + item['correct']
-        accuracy = item['correct'] / item['total']
-        print(f'[{q_type}]准确率：{accuracy:.3f}  题目总数：{sub_total}')
-
-    total_questions = len(items)
-    print(f'总分：{total_correct}  / 满分：{total_questions}')
-    print(f'错误题目：{len(wrong_data)}道，已输出到 {wrong_ans_path}')
+    print(f'总分：{correct}  / 满分：{total}')
+    print(f'错误分类：{len(wrong_data)}，已输出到 {wrong_ans_path}')
     
     with open(wrong_ans_path, 'w', encoding='utf-8') as fw:
         json.dump(wrong_data, fw, ensure_ascii=False, indent=4)
 
     # Output scores to a separate file
+    preference_answer = [item['model_answer']for item in items]
     score_info = {
-        'total_score': total_correct,
-        'total_questions': total_questions,
-        'scores_by_type': type2score
+        'correct': correct,
+        'total': total,
+        'num_answer1': preference_answer.count('Answer1'),
+        'num_answer2': preference_answer.count('Answer2'),
     }
     
     with open(score_path, 'w', encoding='utf-8') as fscore:

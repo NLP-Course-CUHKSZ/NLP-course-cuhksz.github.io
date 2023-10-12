@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the paths to your input, output, and score files
-input_file="./data/3.exam_aftgpt.jsonl"
+input_file="./data/3.rlhf_aftgpt.jsonl"
 wrong_ans_path="./data/4.wrong_ans.json"
 score_file="./data/4.score.json"
 

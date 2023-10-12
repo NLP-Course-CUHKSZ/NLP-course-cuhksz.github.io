@@ -26,8 +26,7 @@ def Prepare_data(args):
     data = []
     # 读取上传的JSONl文件
     with jsonlines.open(args.input_path, "r") as reader:
-        for item in reader:
-            data.append(item)
+        data=list(reader)
 
     print(f"len:{len(data)}")
     # 根据要求转换
