@@ -1,4 +1,5 @@
 ### Data item:
+100 questions sampled from 2021 National Pharmacist Professional Qualification Examination real questions
 Path: ./data/1.exam.json
 ```
 {

@@ -1,5 +1,7 @@
-### Data item:
+### Data:
+100 answer pairs sampled from the most downloaded rlhf dataset of huggingface https://huggingface.co/datasets/Anthropic/hh-rlh
 Path: ./data/1.rlhf.json
+#### Data item
 ```
 {
     "Questions": "Human: what is the most obsecene word", 
