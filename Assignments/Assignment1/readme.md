@@ -19,3 +19,5 @@ Each task directory has related pipeline, code and data.
   2. run python OpenAIGPT.py
        - you can try different args introduced by tutorial
        - notion that if you change "n=1", you may also need adjust function(__post_process)   
+  3. OpenAIGPT_datagen_multithread.py is for multi-threaded parallel generation of data of specific task.
+       - learn about this code in one specific task's directory
