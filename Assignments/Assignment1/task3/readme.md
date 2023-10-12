@@ -11,10 +11,6 @@ Path: ./data/1.rlhf.json
 }
 ```
 
-### Dependecy
-pip install retrying, openai, urllib3==1.25.11, tqdm, jsonlines
-
-
 ### Running Steps:
 1. bash 1.run_prepare_data.sh   
     - Prepare data for ChatGPT

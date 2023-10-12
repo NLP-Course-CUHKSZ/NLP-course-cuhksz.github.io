@@ -18,6 +18,9 @@ Path: ./data/1.exam.json
 }
 ```
 
+### Dependecy
+pip install retrying, openai, urllib3==1.25.11, tqdm, jsonlines
+
 
 ### Running Steps:
 0. put the gpt3keys.txt downloaded from weixin group into directory(LLM-course.github.io\Assignments\Assignment1)
