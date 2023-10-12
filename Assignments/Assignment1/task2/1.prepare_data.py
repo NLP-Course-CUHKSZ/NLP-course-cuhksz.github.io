@@ -1,3 +1,4 @@
+import jsonlines
 import json
 import argparse
 
@@ -24,7 +25,7 @@ def generate_query(data):
 def Prepare_data(args):
     data = []
     # 读取上传的JSONl文件
-    with jsonlines.open(input_path, "r") as reader:
+    with jsonlines.open(args.input_path, "r") as reader:
         for item in reader:
             data.append(item)
 

@@ -11,7 +11,6 @@ Path: ./data/1.rlhf.json
 }
 ```
 
-data
 ### Running Steps:
 1. bash 1.run_prepare_data.sh   
     - Prepare data for ChatGPT
