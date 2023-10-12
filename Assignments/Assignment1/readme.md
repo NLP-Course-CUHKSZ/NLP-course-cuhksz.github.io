@@ -9,10 +9,9 @@ You are encouraged  to complete one and only one task listed below.
 - Task4: Using LLMs to remove sensitive info
 - Task5: Jailbreak
 - Task6: Prompt Engineering for public benchmark
-- Task7: Self-instruct
-- Task8: Any other topics
+- Task7: Any other topics
 
-Each task directory has related pipeline, code and data.
+As exampple, we show pipeline, code and data for task1 and task2.
 
 ### Dependecy
 pip install retrying, openai, urllib3==1.25.11, tqdm, jsonlines
@@ -23,4 +22,4 @@ pip install retrying, openai, urllib3==1.25.11, tqdm, jsonlines
        - you can try different args introduced by tutorial
        - notion that if you change "n=1", you may also need adjust function(__post_process)   
   3. OpenAIGPT_datagen_multithread.py is for multi-threaded parallel generation of data of specific task.
-       - learn about this code in one specific task's directory
+       - learn about this code in task1/task2 directory
