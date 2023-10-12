@@ -17,5 +17,5 @@ Each task directory has related pipeline, code and data.
 ### The most basic practice
   1. put the gpt3keys.txt downloaded from weixin group into this directory(LLM-course.github.io\Assignments\Assignment1)
   2. run python OpenAIGPT.py
-    - you can try different args introduced by tutorial
-    - notion that if you change "n=1", you may also need adjust function(__post_process)   
+       - you can try different args introduced by tutorial
+       - notion that if you change "n=1", you may also need adjust function(__post_process)   
