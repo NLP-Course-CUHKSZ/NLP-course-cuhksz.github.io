@@ -11,7 +11,7 @@ You are encouraged  to complete one and only one task listed below.
 - Task6: Prompt Engineering for public benchmark
 - Task7: Any other topics
 
-As exampple, we show pipeline, code and data for task1 and task2.
+As examples, we show the pipeline, code, and data for Task 1 and Task 2.
 
 ### Dependecy
 pip install retrying, openai, urllib3==1.25.11, tqdm, jsonlines
@@ -23,3 +23,4 @@ pip install retrying, openai, urllib3==1.25.11, tqdm, jsonlines
        - notion that if you change "n=1", you may also need adjust function(__post_process)   
   3. OpenAIGPT_datagen_multithread.py is for multi-threaded parallel generation of data of specific task.
        - learn about this code in task1/task2 directory
+
