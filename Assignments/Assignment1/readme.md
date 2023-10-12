@@ -14,6 +14,9 @@ You are encouraged  to complete one and only one task listed below.
 
 Each task directory has related pipeline, code and data.
 
+### Dependecy
+pip install retrying, openai, urllib3==1.25.11, tqdm, jsonlines
+
 ### The most basic practice
   1. put the gpt3keys.txt downloaded from weixin group into this directory(LLM-course.github.io\Assignments\Assignment1)
   2. run python OpenAIGPT.py
