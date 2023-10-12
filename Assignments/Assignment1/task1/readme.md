@@ -19,6 +19,7 @@ Path: ./data/1.exam.json
 
 
 ### Running Steps:
+0. put the gpt3keys.txt downloaded from weixin group into directory(LLM-course.github.io\Assignments\Assignment1)
 1. bash 1.run_prepare_data.sh   
     - Prepare data for ChatGPT
     - You can adjust User_Prompt in this process
