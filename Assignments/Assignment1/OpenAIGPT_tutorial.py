@@ -1,7 +1,7 @@
 import openai
 import random
 
-openai.api_base =  "https://openai.huatuogpt.cn/v1"
+# openai.api_base =  "https://openai.huatuogpt.cn/v1"
 
 class OpenAIGPT:
     def __init__(self, model_name="gpt-3.5-turbo", keys_path=None):
