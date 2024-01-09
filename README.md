@@ -1,1 +1,1 @@
-# CSC 6201/CIE 32 6021 Large Language Models
+# CSC6052/DDA6307/MDS6002  Natural Language Processing
