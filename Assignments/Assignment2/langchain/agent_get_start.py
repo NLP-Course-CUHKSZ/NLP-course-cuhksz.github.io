@@ -4,7 +4,7 @@ import re
 import json
 from langchain_core.output_parsers import StrOutputParser
 from langchain import hub
-from langchain.agents import create_tool_calling_agent
+from langchain.agents import create_tool_calling_agent, create_openai_functions_agent
 from langchain.agents import AgentExecutor
 from langchain_deepseek import ChatDeepSeek
 from langchain_openai import ChatOpenAI
@@ -21,9 +21,9 @@ def get_ans(ans):
     return ''
 
 # %%
-os.environ["TAVILY_API_KEY"] = "your_tavily_api_key"
+os.environ["TAVILY_API_KEY"] = ""
 
-os.environ["OPENAI_API_KEY"] = "your_openai_api_key"
+os.environ["OPENAI_API_KEY"] = ""
 os.environ["OPENAI_BASE_URL"] = "https://apix.ai-gaochao.cn/v1"
 model = ChatOpenAI(model="gpt-4o", temperature=1)
 
@@ -57,18 +57,44 @@ tools = [retrieval_tool, search_tool]
 prompt = hub.pull("hwchase17/openai-functions-agent")
 print(prompt.messages)
 
-agent = create_tool_calling_agent(model, tools, prompt)
+# 使用 create_openai_functions_agent 替代 create_tool_calling_agent
+agent = create_openai_functions_agent(model, tools, prompt)
 
 agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
 # %%
 # execute the agent
 if __name__ == "__main__":
-    agent_executor.invoke({"input": "胃寒应该怎么办"})
+    # agent_executor.invoke({"input": "胃寒应该怎么办"})
 
-    exam = json.load(open("data/exam.json", "r"))
-    agent_executor.invoke({"input": f"请回答下面的多选题，请直接正确答案选项，不要输出其他内容。\n{exam[0]['question']}\n{exam[0]['option']}"})
-    agent_answer = result.get('output', '')
-    processed_answer = get_ans(agent_answer)
-    print(processed_answer)
-# %%
+    exam = json.load(open("data/exam.json", "r", encoding="utf-8"))
+    
+    # 检查数据是否有效
+    if not exam or 'question' not in exam[0] or 'option' not in exam[0]:
+        print("Error: Invalid exam data format")
+    else:
+        question = exam[0].get('question', '')
+        option = exam[0].get('option', '')
+        
+        # 确保问题和选项都是字符串
+        if not isinstance(question, str):
+            question = str(question) if question is not None else "问题内容缺失"
+        if not isinstance(option, str):
+            option = str(option) if option is not None else "选项内容缺失"
+            
+        # 构建有效的输入
+        input_text = f"请回答下面的多选题:\n{question}\n{option}"
+        
+        try:
+            result = agent_executor.invoke({"input": input_text})
+            agent_answer = result.get('output', '')
+            processed_answer = get_ans(agent_answer)
+            print(processed_answer)
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            # 尝试不使用工具直接调用模型
+            from langchain_core.messages import HumanMessage
+            response = model.invoke([HumanMessage(content=input_text)])
+            print("直接模型回答:", response.content)
+            processed_answer = get_ans(response.content)
+            print("处理后答案:", processed_answer)
