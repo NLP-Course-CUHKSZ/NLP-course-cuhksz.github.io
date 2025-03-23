@@ -125,7 +125,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--model_name",
         type=str,
-        default="gpt-3.5-turbo",
+        default="gpt-4o",
         help="要使用的OpenAI模型名称。",
     )
     parser.add_argument(
@@ -152,6 +152,14 @@ if __name__ == "__main__":
         default=10,
         help="并发处理的最大工作线程数。",
     )
+    parser.add_argument(
+        "--base_url",
+        type=str,
+        default="https://api.openai.com/v1",
+        help="API基础URL。",
+    )
     
     args = parser.parse_args()
+    print(f"Using url: {args.base_url}")
+    os.environ["OPENAI_BASE_URL"] = args.base_url
     langchain_datagen(args) 
