@@ -22,9 +22,8 @@ def get_ans(ans):
 
 # %%
 os.environ["TAVILY_API_KEY"] = ""
-
 os.environ["OPENAI_API_KEY"] = ""
-os.environ["OPENAI_BASE_URL"] = "https://apix.ai-gaochao.cn/v1"
+os.environ["OPENAI_BASE_URL"] = "https://api.shubiaobiao.cn/v1"
 model = ChatOpenAI(model="gpt-4o", temperature=1)
 
 # os.environ["DEEPSEEK_API_KEY"] = "your_deepseek_api_key"
@@ -53,14 +52,16 @@ search_tool = TavilySearchResults(max_results=4)
 tools = [retrieval_tool, search_tool]
 
 # %%
-# prepare the agent
-prompt = hub.pull("hwchase17/openai-functions-agent")
-print(prompt.messages)
+# # prepare the agent
+# prompt = hub.pull("hwchase17/openai-functions-agent")
+# print(prompt.messages)
 
-# 使用 create_openai_functions_agent 替代 create_tool_calling_agent
-agent = create_openai_functions_agent(model, tools, prompt)
+# # 使用 create_openai_functions_agent 替代 create_tool_calling_agent
+# agent = create_openai_functions_agent(model, tools, prompt)
+from langgraph.prebuilt import create_react_agent
+from langchain_core.messages import HumanMessage
 
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+agent_executor = create_react_agent(model, tools)
 
 # %%
 # execute the agent
@@ -83,13 +84,13 @@ if __name__ == "__main__":
             option = str(option) if option is not None else "选项内容缺失"
             
         # 构建有效的输入
-        input_text = f"请回答下面的多选题:\n{question}\n{option}"
+        input_text = f"请调用工具回答下面的多选题:\n{question}\n{option}"
         
         try:
-            result = agent_executor.invoke({"input": input_text})
-            agent_answer = result.get('output', '')
-            processed_answer = get_ans(agent_answer)
-            print(processed_answer)
+            # result = agent_executor.invoke({"input": input_text})
+            result = agent_executor.invoke({"messages": [HumanMessage(content=input_text)]})
+            print(result['messages'])
+
         except Exception as e:
             print(f"Error occurred: {e}")
             # 尝试不使用工具直接调用模型
