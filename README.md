@@ -1,1 +1,1 @@
-# CSC6052/DDA6307/MDS6002  Natural Language Processing
+# CSC5051/MDS5110 Natural Language Processing
