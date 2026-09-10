@@ -51,6 +51,30 @@ h2 {
   border-radius: 120px;
   margin-bottom: 10px;
 }
+.photo-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
+  margin: 0 auto 10px;
+  background-color: #e9e9e9;
+  border: 1px solid #ddd;
+}
+.row > [class*="col-"] {
+  margin-bottom: 20px;
+}
+.table > tbody > tr.holiday-row > td {
+  background-color: #fcfbf7;
+  color: #777;
+}
+.table > tbody > tr.holiday-separator > td {
+  border-top: 2px solid #ddd;
+}
+.button-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 3px;
+  vertical-align: -3px;
+}
 .instructor {
   display: inline-block;
   width: 150px;
