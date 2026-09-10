@@ -59,8 +59,17 @@ h2 {
   background-color: #e9e9e9;
   border: 1px solid #ddd;
 }
-.row > [class*="col-"] {
-  margin-bottom: 20px;
+.ta-team > [class*="col-"] {
+  min-height: 205px;
+  margin-bottom: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  overflow-wrap: anywhere;
+}
+.ta-team .instructorphoto,
+.ta-team .photo-placeholder {
+  height: 120px;
+  margin-bottom: 10px;
 }
 .table > tbody > tr.holiday-row > td {
   background-color: #fcfbf7;
@@ -74,6 +83,12 @@ h2 {
   height: 16px;
   margin-right: 3px;
   vertical-align: -3px;
+  object-fit: contain;
+}
+.huggingface-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: -4px;
 }
 .instructor {
   display: inline-block;
