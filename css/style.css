@@ -60,11 +60,21 @@ h2 {
   border: 1px solid #ddd;
 }
 .ta-team > [class*="col-"] {
-  min-height: 205px;
+  min-height: 335px;
   margin-bottom: 24px;
   padding-left: 8px;
   padding-right: 8px;
   overflow-wrap: anywhere;
+}
+.ta-details {
+  max-width: 235px;
+  margin: 12px auto 0;
+  padding-top: 10px;
+  border-top: 1px solid #e2e2e2;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.55;
+  text-align: left;
 }
 .ta-team .instructorphoto,
 .ta-team .photo-placeholder {
