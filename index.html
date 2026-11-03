@@ -210,13 +210,13 @@
 					<li> Language Modeling </li>
 					<li> Transformer and Beyond </li>
 					<li> Large Language Models (LLMs) </li>
-					<li> Agent </li>
+					<li> RL for LLM Post-Training: From Alignment to Reasoning </li>
+					<li> LLM Agents and Harness Engineering </li>
 					<li> Final Projects and Research Sharing </li>
-					<li> Harness Engineering </li>
-					<li> LLM (Medical) Applications </li>
-					<li> Multimodal LLMs </li>
-					<li> Guest Lecture </li>
-					<li> LLM Applications and Future Cont. </li>
+					<li> Medical LLMs: Towards Generalist Medical AI </li>
+					<li> Multimodal LLMs: Vision, Speech, Embodiment and 3D </li>
+					<li> Efficiency in LLMs </li>
+					<li> Guest Lecture / LLM Applications and the Future </li>
 					<li> Final Project Presentation </li>
 				</ul>
 
@@ -376,7 +376,7 @@
 						<a href="https://docs.github.com/en/get-started/quickstart/hello-world/">GitHub</a>
 					</td>
 					<td></td>
-					<td></td>
+					<td>[<a href="materials/tutorials/Tut0-GitHub-LaTeX-Colab.pdf">Slides</a>]</td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -386,13 +386,12 @@
 					<td>Lecture 1: Introduction to NLP</td>
 					<td>
 						<a href="https://huggingface.co/learn/nlp-course/chapter1/1">Hugging Face NLP Course</a><br>
-						<a href="https://github.com/mlabonne/llm-course">Course to get into NLP with roadmaps and Colab notebooks.</a><br>
-						<a href="https://llm-course.github.io/">LLM-Course</a>
+						<a href="https://github.com/mlabonne/llm-course">LLM Course: roadmaps and Colab notebooks</a><br>
 						<a href="https://arxiv.org/abs/2108.07258">On the Opportunities and Risks of Foundation Models</a><br>
 						<a href="https://arxiv.org/abs/2303.12712">Sparks of Artificial General Intelligence: Early experiments with GPT-4</a>
 					</td>
 					<td>What is NLP?</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 1：Introduction.pdf">Slides</a>]</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture01_Introduction.pdf">Slides</a>]</td>
 					<td>[<a href="https://phoenix.llmzoo.com/#/">Phoenix</a>]</td>
 					<td></td>
 				</tr>
@@ -401,49 +400,41 @@
 					<td>Sep. 18th</td>
 					<td>Lecture 2: Basics of Linguistics and Word Representation</td>
 					<td>
-						<a href="https://nlp.stanford.edu/~manning/papers/USD_LREC14_UD_revision.pdf">Universal Stanford Dependencies: A cross-linguistic
-							typology</a><br>
-						<a href="https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1234/slides/cs224n-2023-lecture14-insights-linguistics.pdf">Insights
-							between NLP and Linguistics </a><br>
-						<a href="https://arxiv.org/pdf/1707.07045.pdf">End-to-end Neural Coreference Resolution</a><br>
-						<a href="https://arxiv.org/pdf/1301.3781.pdf"> Efficient Estimation of Word Representations in Vector Space (original word2vec paper)
-						</a><br>
-						<a href="https://aclanthology.org/D15-1036/"> Evaluation methods for unsupervised word embeddings </a><br>
+						<a href="https://nlp.stanford.edu/~manning/papers/USD_LREC14_UD_revision.pdf">Universal Stanford Dependencies: A cross-linguistic typology</a><br>
+						<a href="https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1234/slides/cs224n-2023-lecture14-insights-linguistics.pdf">Insights between NLP and Linguistics</a><br>
+						<a href="https://arxiv.org/abs/1301.3781">Efficient Estimation of Word Representations in Vector Space (word2vec)</a><br>
+						<a href="https://nlp.stanford.edu/pubs/glove.pdf">GloVe: Global Vectors for Word Representation</a><br>
+						<a href="https://aclanthology.org/D15-1036/">Evaluation methods for unsupervised word embeddings</a>
 					</td>
-					<td>
-       						What is structure of language (string of words)? How to model language and the inside words?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 2：Linguistics Basics and Word Representations.pdf">Slides</a>]</td>
-					<td> [<a href="https://github.com/theimpossibleastronaut/awesome-linguistics">Linguistics repo</a>]
-					</td>
-					<td>
-						<b>Assignment 1 <font color="green">out</font></b>
-					</td>
+					<td>What is the structure of language? How do we represent words?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture02_Linguistics_and_Word_Representations.pdf">Slides</a>]</td>
+					<td>[<a href="https://github.com/theimpossibleastronaut/awesome-linguistics">Linguistics repo</a>], [<a href="https://github.com/piskvorky/gensim">gensim</a>]</td>
+					<td><b>Assignment 1 <font color="green">out</font></b></td>
 				</tr>
 
 				<tr class="success">
 					<td>Sep. 18th</td>
-					<td>Tutorial 1: Introduction to Overleaf, GitHub, Python, Pytorch, and Word Embeddings</td>
+					<td><a href="tutorial1.html">Tutorial 1: Introduction to PyTorch and Word Embeddings</a></td>
 					<td>
+						<a href="https://pytorch.org/tutorials/beginner/basics/intro.html">PyTorch: Learn the Basics</a><br>
+						<a href="https://arxiv.org/abs/1607.04606">Enriching Word Vectors with Subword Information (FastText)</a>
 					</td>
+					<td>How does backpropagation work, and what do word vectors learn?</td>
+					<td>[<a href="tutorial1.html">Tutorial page</a>]</td>
+					<td>[<a href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial1/tutorial1_pytorch.ipynb">Notebook 1: PyTorch</a>], [<a href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial1/tutorial1_word_embeddings.ipynb">Notebook 2: Word embeddings</a>]</td>
 					<td></td>
-					<td>
-						
-					</td>
-					<td> [<a href="https://colab.research.google.com/drive/1lk1b9RZ6TgqLRlQbq6uCxwFb4CirXh0o?usp=sharing">Colab</a>]</td>
-					<td> </td>
 				</tr>
 
 				<tr class="holiday-row">
 					<td><del>Sep. 25th</del></td>
 					<td>Mid-Autumn Festival Holiday — No Class</td>
-					<td colspan="5">中秋节假期：9月25日（周五）至9月27日（周日）</td>
+					<td colspan="5">Mid-Autumn Festival holiday: Sep. 25 (Fri) – Sep. 27 (Sun)</td>
 				</tr>
 
 				<tr class="holiday-row holiday-separator">
 					<td><del>Oct. 2nd</del></td>
 					<td>National Day Holiday — No Class</td>
-					<td colspan="5">国庆节假期：10月1日（周四）至10月7日（周三）</td>
+					<td colspan="5">National Day holiday: Oct. 1 (Thu) – Oct. 7 (Wed)</td>
 				</tr>
 
 				<tr>
@@ -452,20 +443,13 @@
 					<td>
 						<a href="https://dl.acm.org/doi/10.5555/944919.944966">A Neural Probabilistic Language Model</a><br>
 						<a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a><br>
-						<a href="https://dl.acm.org/doi/10.5555/944919.944966">A Neural Probabilistic Language Model</a><br>
-						<a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a><br>
+						<a href="https://arxiv.org/abs/2005.14165">Language Models are Few-Shot Learners (GPT-3)</a>
 					</td>
-					<td>
-						What is a language model and how does it work in natural language processing?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 3：Language Model.pdf">Slides</a>]</td>
-					<td>
-						[<a href="https://github.com/google-research/bert"> BERT </a>]
-					</td>
-					<td>
-					</td>
+					<td>What is a language model and how does it work in natural language processing?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture03_Language_Models.pdf">Slides</a>]</td>
+					<td>[<a href="https://github.com/google-research/bert">BERT</a>], [<a href="https://github.com/karpathy/nanoGPT">nanoGPT</a>]</td>
+					<td></td>
 				</tr>
-
 
 				<tr>
 					<td>Oct. 16th</td>
@@ -477,219 +461,188 @@
 						<a href="https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/">The Transformer Family Version 2.0</a><br>
 						<a href="https://openreview.net/forum?id=onxoVA9FxMw">On Position Embeddings in BERT</a>
 					</td>
-					<td>
-						How to better compose words semantically as language?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 4：Transformer.pdf">Slides</a>]</td>
-					<td>
-						[<a href="https://nn.labml.ai/transformers/index.html">Transformer</a>]
-					</td>
-					<td> </td>
+					<td>How to better compose words semantically as language?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture04_Transformer_and_Beyond.pdf">Slides</a>]</td>
+					<td>[<a href="https://nn.labml.ai/transformers/index.html">Annotated Transformer</a>]</td>
+					<td></td>
 				</tr>
-
 
 				<tr>
 					<td>Oct. 23rd</td>
 					<td>Lecture 5: Large Language Models (LLMs)</td>
 					<td>
-						<a href="https://arxiv.org/abs/2203.02155">Training language models to follow instructions with human feedback</a><br>
 						<a href="https://arxiv.org/abs/2302.13971">LLaMA: Open and Efficient Foundation Language Models</a><br>
 						<a href="https://arxiv.org/abs/2307.09288">Llama 2: Open Foundation and Fine-Tuned Chat Models</a><br>
-						<a href="https://openai.com/blog/chatgpt">OpenAI's blog</a>
-						<a href="https://arxiv.org/abs/2412.15115">Qwen2.5 Technical Report</a><br>
-						<a href="https://github.com/deepseek-ai/DeepSeek-V3/blob/main/DeepSeek_V3.pdf">DeepSeek-V3 Technical Report</a><br>
+						<a href="https://arxiv.org/abs/2505.09388">Qwen3 Technical Report</a><br>
+						<a href="https://arxiv.org/abs/2412.19437">DeepSeek-V3 Technical Report</a>
 					</td>
-					<td>
-						what are LARGE language models and why LARGE?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 5：LLMs.pdf">Slides</a>]</td>
-					<td>
-						[<a href="https://colab.research.google.com/drive/1PEQyJO1-f6j0S_XJ8DV50NkpzasXkrzd?usp=sharing">Fine-tune Llama 2</a>]
-					</td>
-
-					<td>
-						<b>Assignment 1 <font color="red">due (11:59pm)</font></b><br>
-						<b>Assignment 2 <font color="green">out</font></b>
-					</td>
+					<td>What are LARGE language models and why LARGE?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture05_Large_Language_Models.pdf">Slides</a>]</td>
+					<td>[<a href="https://colab.research.google.com/drive/1PEQyJO1-f6j0S_XJ8DV50NkpzasXkrzd?usp=sharing">Fine-tune Llama 2</a>]</td>
+					<td><b>Assignment 1 <font color="red">due (11:59pm)</font></b><br>
+						<b>Assignment 2 <font color="green">out</font></b></td>
 				</tr>
-
-
-
 
 				<tr class="success">
 					<td>Oct. 23rd</td>
 					<td>Tutorial 2: SFT and RLHF for LLMs</td>
 					<td>
+						
 					</td>
 					<td>Are you ready to train your own LLMs?</td>
-					<td> </td>
-					<td>[<a href="https://github.com/FreedomIntelligence/LLMZoo">LLMZoo]</a>, [<a href="https://github.com/karpathy/nanoGPT">nanoGPT</a>],
-						[<a href="https://github.com/FreedomIntelligence/LLMFactory">LLMFactory</a>] </td>
-					<td> </td>
+					<td></td>
+					<td>[<a href="https://github.com/FreedomIntelligence/LLMZoo">LLMZoo</a>], [<a href="https://github.com/karpathy/nanoGPT">nanoGPT</a>], [<a href="https://github.com/FreedomIntelligence/LLMFactory">LLMFactory</a>]</td>
+					<td></td>
 				</tr>
 
 				<tr>
-					<td> Oct. 30th </td>
-					<td>Lecture 6: Agent</td>
+					<td>Oct. 30th</td>
+					<td>Lecture 6: RL for LLM Post-Training — From Alignment to Reasoning</td>
 					<td>
-						<a href="https://lilianweng.github.io/posts/2023-06-23-agent/">LLM Powered Autonomous Agents</a><br>
-						<a href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and Acting in Language Models</a><br>
-						<a href="https://arxiv.org/abs/2308.03688">AgentBench</a><br>
-						<a href="https://github.com/X-PLUG/MobileAgent">Mobile Agent</a><br>
+						<a href="https://arxiv.org/abs/2203.02155">Training language models to follow instructions with human feedback (InstructGPT)</a><br>
+						<a href="https://arxiv.org/abs/1707.06347">Proximal Policy Optimization Algorithms (PPO)</a><br>
+						<a href="https://arxiv.org/abs/2305.18290">Direct Preference Optimization (DPO)</a><br>
+						<a href="https://arxiv.org/abs/2310.10505">ReMax: A Simple, Effective, and Efficient RL Method for Aligning LLMs</a><br>
+						<a href="https://arxiv.org/abs/2402.03300">DeepSeekMath (GRPO)</a><br>
+						<a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL</a><br>
+						<a href="https://arxiv.org/abs/2503.14476">DAPO: An Open-Source LLM RL System at Scale</a><br>
+						<a href="https://arxiv.org/abs/2503.18892">SimpleRL-Zoo: Zero RL for Open Base Models</a>
 					</td>
-					<td>
-						How to make LLMs interact with the real world?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 7：LLM Agents.pdf">Slides</a>]</td>
-					<td>
-					</td>
-					<td>
-						<b>Final Project <font color="green">out</font></b>
-					</td>
+					<td>Why does RL — not more SFT — align LLMs and teach them to reason?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture06_RL_for_LLM_Post-Training.pdf">Slides</a>]</td>
+					<td>[<a href="https://github.com/volcengine/verl">verl</a>], [<a href="https://github.com/huggingface/trl">TRL</a>], [<a href="https://github.com/OpenRLHF/OpenRLHF">OpenRLHF</a>], [<a href="https://github.com/liziniu/ReMax">ReMax</a>], [<a href="https://github.com/hkust-nlp/simpleRL-reason">SimpleRL</a>]</td>
+					<td><b>Final Project <font color="green">out</font></b></td>
 				</tr>
 
 				<tr class="success">
 					<td>Oct. 30th</td>
 					<td>Tutorial 3: Prompt Engineering and LLM Agents</td>
 					<td>
-					</td>
-					<td></td>
-					<td>
 						
 					</td>
-					<td> [<a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">Colab</a>]
-					</td>
-					<td> </td>
+					<td></td>
+					<td></td>
+					<td>[<a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">Colab</a>]</td>
+					<td></td>
 				</tr>
 
 				<tr>
-					<td> Nov. 6th </td>
-					<td>Lecture 7: Final Projects and Research Sharing</td>
+					<td>Nov. 6th</td>
+					<td>Lecture 7: LLM Agents and Harness Engineering</td>
+					<td>
+						<a href="https://lilianweng.github.io/posts/2023-06-23-agent/">LLM Powered Autonomous Agents (Lilian Weng)</a><br>
+						<a href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and Acting in Language Models</a><br>
+						<a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective Agents (Anthropic)</a><br>
+						<a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective Context Engineering for AI Agents (Anthropic)</a><br>
+						<a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">Effective Harnesses for Long-Running Agents (Anthropic)</a><br>
+						<a href="https://openai.com/index/harness-engineering/">Harness Engineering: Leveraging Codex in an Agent-First World (OpenAI)</a><br>
+						<a href="https://martinfowler.com/articles/harness-engineering.html">Harness Engineering for Coding Agent Users (Böckeler)</a><br>
+						<a href="https://modelcontextprotocol.io/">Model Context Protocol</a><br>
+						<a href="https://a2a-protocol.org/latest/">Agent2Agent (A2A) Protocol</a><br>
+						<a href="https://cs329z.stanford.edu/">Stanford CS329Z</a>
+					</td>
+					<td>Agent = Model + Harness: what should we build around an LLM, and what should we leave to the model?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture07_LLM_Agents_and_Harness_Engineering.pdf">Slides</a>]</td>
+					<td>[<a href="https://github.com/openai/codex">Codex CLI</a>], [<a href="https://github.com/openclaw/openclaw">OpenClaw</a>], [<a href="https://github.com/modelcontextprotocol/servers">MCP servers</a>], [<a href="https://github.com/langchain-ai/langgraph">LangGraph</a>]</td>
+					<td><b>Assignment 2 <font color="red">due (11:59pm)</font></b><br>
+						<b>Assignment 3 <font color="green">out</font></b></td>
+				</tr>
+
+				<tr>
+					<td>Nov. 13th</td>
+					<td>Lecture 8: Final Projects and Research Sharing</td>
 					<td>
 						<a href="https://github.com/OpenBMB/ToolBench">ToolBench</a><br>
 						<a href="https://github.com/cline/cline">Cline</a><br>
-						<a href="https://github.com/RooVetGit/Roo-Cline">Roo-Cline</a><br>
+						<a href="https://github.com/RooCodeInc/Roo-Code">Roo Code</a>
 					</td>
-					<td>
-						How to define a good final project?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 8：Final Projects.pdf">Slides</a>]</td>
-					<td>
-					</td>
-					<td>						
-						<b>Assignment 2 <font color="red">due (11:59pm)</font></b><br>
-						<b>Assignment 3 <font color="green">out</font></b>
-					</td>
+					<td>How to define a good final project?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture08_Final_Projects_and_Research_Sharing.pdf">Slides</a>]</td>
+					<td></td>
+					<td></td>
 				</tr>
-
-
-
-				<tr>
-					<td> Nov. 13th </td>
-					<td>Lecture 8: Harness Engineering</td>
-					<td>
-						<a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api">Best practices for prompt engineering with OpenAI API</a><br>
-						<a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Prompt Engineering (Lilian Weng)</a><br>
-						<a href="https://arxiv.org/abs/2201.11903">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a><br>
-						<a href="https://arxiv.org/abs/2305.10601">Tree of Thoughts: Deliberate Problem Solving with Large Language Models</a><br>
-					</td>
-					<td>
-						How can prompts, context and tools be engineered as a reliable harness around an LLM?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 6：Prompt Engineering.pdf">Slides</a>]</td>
-					<td>
-					</td>
-					<td>
-					</td>
-				</tr>
-
 
 				<tr class="success">
 					<td>Nov. 13th</td>
 					<td>Tutorial 4: RAG and Agent Development</td>
 					<td>
-					</td>
-					<td></td>
-					<td>
 						
 					</td>
-					<td> [<a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">Colab</a>]
-					</td>
-					<td> 						<b>Optional: Project Proposal <font color="red">due</font></b>
-												<b>Team Formation <font color="red">due</font></b><br>
-					</td>
+					<td></td>
+					<td></td>
+					<td>[<a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">Colab</a>]</td>
+					<td><b>Optional: Project Proposal <font color="red">due</font></b><br>
+						<b>Team Formation <font color="red">due</font></b></td>
 				</tr>
 
-
 				<tr>
-					<td> Nov. 20th </td>
-					<td>Lecture 9: LLM (Medical) Applications</td>
+					<td>Nov. 20th</td>
+					<td>Lecture 9: Medical LLMs — Towards Generalist Medical AI</td>
 					<td>
 						<a href="https://arxiv.org/abs/2305.15075">HuatuoGPT, towards Taming Language Model to Be a Doctor</a><br>
 						<a href="https://arxiv.org/abs/2311.09774">HuatuoGPT-II, One-stage Training for Medical Adaption of LLMs</a><br>
-						<a href="https://arxiv.org/abs/2212.13138">Large Language Models Encode Clinical Knowledge</a><br>
+						<a href="https://arxiv.org/abs/2412.18925">HuatuoGPT-o1, Towards Medical Complex Reasoning with LLMs</a><br>
+						<a href="https://arxiv.org/abs/2212.13138">Large Language Models Encode Clinical Knowledge (Med-PaLM)</a><br>
+						<a href="https://arxiv.org/abs/2401.05654">Towards Conversational Diagnostic AI (AMIE)</a><br>
+						<a href="https://arxiv.org/abs/2405.02957">Agent Hospital: A Simulacrum of Hospital with Evolvable Medical Agents</a><br>
 						<a href="https://arxiv.org/abs/2403.03640">Apollo: Multilingual Medical LLMs</a><br>
+						<a href="https://arxiv.org/abs/2508.14706">ShizhenGPT: Multimodal LLMs for Traditional Chinese Medicine</a>
 					</td>
-					<td>
-						How to apply LLMs in medical and other vertical domains?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 9：LLM Medical Applications.pdf">Slides</a>]</td>
-					<td>
-					</td>
-					<td>
-					</td>
+					<td>From trustworthy to generalist medical AI: what should models — and environments — learn next?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf">Slides</a>]</td>
+					<td>[<a href="https://github.com/FreedomIntelligence/HuatuoGPT">HuatuoGPT</a>], [<a href="https://github.com/FreedomIntelligence/HuatuoGPT-o1">HuatuoGPT-o1</a>], [<a href="https://github.com/FreedomIntelligence/Apollo">Apollo</a>]</td>
+					<td></td>
 				</tr>
 
-
 				<tr>
-					<td> Nov. 27th </td>
+					<td>Nov. 27th</td>
 					<td>Lecture 10: Multimodal LLMs</td>
 					<td>
 						<a href="https://lilianweng.github.io/posts/2022-06-09-vlm/">Blog post: Generalized Visual Language Models</a><br>
 						<a href="https://arxiv.org/abs/2103.00020">CLIP: Learning Transferable Visual Models From Natural Language Supervision</a><br>
 						<a href="https://arxiv.org/abs/2304.08485">LLaVA: Visual Instruction Tuning</a><br>
-						<a href="https://github.com/NExT-GPT/NExT-GPT">NExT-GPT</a><br>
+						<a href="https://arxiv.org/abs/2410.00037">Moshi: a speech-text foundation model for real-time dialogue</a><br>
+						<a href="https://arxiv.org/abs/2503.20215">Qwen2.5-Omni Technical Report</a><br>
+						<a href="https://arxiv.org/abs/2406.09246">OpenVLA: An Open-Source Vision-Language-Action Model</a><br>
+						<a href="https://arxiv.org/abs/2410.24164">π0: A Vision-Language-Action Flow Model for General Robot Control</a><br>
+						<a href="https://arxiv.org/abs/2503.11651">VGGT: Visual Geometry Grounded Transformer</a>
 					</td>
-					<td>
-						Can large models speak, see and perform actions?
-					</td>
-					<td>[<a href="materials/2026_spring_slides/Lecture 10：Multimodal LLMs.pdf">Slides</a>]</td>
-					<td>
-					</td>
-					<td> 
-						<b>Assignment 3 <font color="red">due (11:59pm)</font></b> 
-					</td>
+					<td>Can large models see, hear, speak, act — and understand 3D space?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture10_Multimodal_LLMs.pdf">Slides</a>]</td>
+					<td>[<a href="https://github.com/haotian-liu/LLaVA">LLaVA</a>], [<a href="https://github.com/kyutai-labs/moshi">Moshi</a>], [<a href="https://github.com/openvla/openvla">OpenVLA</a>], [<a href="https://github.com/NExT-GPT/NExT-GPT">NExT-GPT</a>]</td>
+					<td><b>Assignment 3 <font color="red">due (11:59pm)</font></b></td>
 				</tr>
 
 				<tr>
-					<td> Dec. 4th </td>
-					<td>Lecture 11: Guest Lecture </td>
+					<td>Dec. 4th</td>
+					<td>Lecture 11: Efficiency in LLMs</td>
 					<td>
+						<a href="https://arxiv.org/abs/2205.14135">FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a><br>
+						<a href="https://arxiv.org/abs/2309.06180">Efficient Memory Management for LLM Serving with PagedAttention (vLLM)</a><br>
+						<a href="https://arxiv.org/abs/2211.17192">Fast Inference from Transformers via Speculative Decoding</a><br>
+						<a href="https://arxiv.org/abs/2101.03961">Switch Transformers: Scaling to Trillion Parameter Models</a><br>
+						<a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a><br>
+						<a href="https://arxiv.org/abs/2305.14314">QLoRA: Efficient Finetuning of Quantized LLMs</a><br>
+						<a href="https://arxiv.org/abs/1910.02054">ZeRO: Memory Optimizations Toward Training Trillion Parameter Models</a>
 					</td>
+					<td>How do we make LLMs cheaper to train and faster to serve — without losing quality?</td>
+					<td>[<a href="materials/2026_fall_slides/Lecture11_Efficiency_in_LLMs.pdf">Slides</a>]</td>
+					<td>[<a href="https://github.com/vllm-project/vllm">vLLM</a>], [<a href="https://github.com/Dao-AILab/flash-attention">FlashAttention</a>], [<a href="https://github.com/huggingface/peft">PEFT</a>], [<a href="https://github.com/deepspeedai/DeepSpeed">DeepSpeed</a>]</td>
 					<td></td>
-					<td></td>
-					<td>
-					</td>
-					<td>
-					</td>
 				</tr>
+
 				<tr>
-					<td> Dec. 11th </td>
-					<td>Lecture 12: LLM Applications and Future Cont.</td>
+					<td>Dec. 11th</td>
+					<td>Lecture 12: Guest Lecture / LLM Applications and the Future</td>
 					<td>
-						<a href="https://arxiv.org/abs/2212.13138">Large Language Models Encode Clinical Knowledge</a>						
 						<a href="https://arxiv.org/abs/2202.03629">Survey of Hallucination in Natural Language Generation</a><br>
-						<a href="https://openai.com/blog/introducing-superalignment">Superalignment</a><br>
-						<a href="https://arxiv.org/abs/2303.10130">GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language	Models</a>
+						<a href="https://openai.com/blog/introducing-superalignment">Introducing Superalignment</a><br>
+						<a href="https://arxiv.org/abs/2303.10130">GPTs are GPTs: Labor Market Impact Potential of LLMs</a>
 					</td>
-					<td>
-						What are the future of LLMs?
-					</td>
-					<td> </td>
-					<td>
-					</td>
-					<td>
-					</td>
+					<td>What is the future of LLMs?</td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 
 			<tr>

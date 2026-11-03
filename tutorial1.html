@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tutorial 1: PyTorch and Word Embeddings | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<style>
+		.tut-hero { padding: 10px 0 5px 0; }
+		.tut-hero h1 { margin-bottom: 4px; }
+		.tut-meta { color: #666; }
+		.nb-card { border: 1px solid #ddd; border-radius: 6px; padding: 18px 22px; margin: 18px 0; background: #fff; }
+		.nb-card h3 { margin-top: 0; }
+		.nb-card ol { margin-bottom: 8px; }
+		.btn-row a { margin: 4px 8px 4px 0; }
+		.btn-colab { background: #f9ab00; border-color: #e09a00; color: #fff; }
+		.btn-colab:hover { background: #e09a00; color: #fff; }
+		.tag { display: inline-block; background: #f2f2f2; border-radius: 3px; padding: 1px 7px; margin: 2px 3px 2px 0; font-size: 13px; color: #444; }
+		.nb-frame { width: 100%; height: 760px; border: 1px solid #ddd; border-radius: 4px; }
+		.figure { text-align: center; margin: 10px 0; }
+		.figure img { max-width: 520px; width: 100%; border: 1px solid #eee; }
+		.figure p { color: #666; font-size: 14px; }
+		.collapsible { background-color: #f8f8f8; color: #333; cursor: pointer; padding: 12px 15px; width: 100%;
+			border: 1px solid #ddd; text-align: left; outline: none; font-size: 16px; margin: 10px 0 0 0; font-weight: bold; border-radius: 4px; }
+		.collapsible:hover, .collapsible.open { background-color: #e7e7e7; }
+		.nb-panel { display: none; padding-top: 8px; }
+		table.objectives td { padding: 4px 10px; vertical-align: top; }
+	</style>
+</head>
+
+<body>
+	<div id="header">
+		<h1>CSC5051/CSC6052/MDS5110 Natural Language Processing</h1>
+		<h4 style="text-align:center">Fall 2026 &middot; <a href="index.html">&larr; Back to course homepage</a></h4>
+	</div>
+
+	<div class="container sec">
+		<div class="tut-hero">
+			<h1>Tutorial 1: PyTorch and Word Embeddings</h1>
+			<p class="tut-meta">Sep. 18th, 2026 &middot; accompanies Lecture 2 (Basics of Linguistics and Word Representation)</p>
+		</div>
+		<hr />
+
+		<h2><b>Overview</b></h2>
+		<p>
+			This tutorial has two hands-on notebooks. The first builds a feed-forward neural network twice &mdash; once by hand in NumPy
+			(forward pass, backpropagation, parameter update) and once in PyTorch &mdash; so that you see exactly what
+			<code>loss.backward()</code> and <code>optimizer.step()</code> do for you. The second trains and compares the classic word-embedding
+			methods from Lecture 2: Skip-gram Word2Vec, GloVe and FastText, including their memory and compute costs.
+		</p>
+		<table class="objectives">
+			<tr><td>&#10003;</td><td>Implement forward and backward passes of a small network from scratch, and verify them against PyTorch autograd.</td></tr>
+			<tr><td>&#10003;</td><td>Use PyTorch building blocks: <code>nn.Module</code>, <code>nn.Linear</code>, loss functions, optimizers, and <code>Dataset</code>/<code>DataLoader</code> input pipelines.</td></tr>
+			<tr><td>&#10003;</td><td>Train a Skip-gram Word2Vec model in PyTorch and explore the learned vector space (similarity search, t-SNE and PCA plots).</td></tr>
+			<tr><td>&#10003;</td><td>Understand how GloVe and FastText differ from Word2Vec, and what each costs in memory and computation.</td></tr>
+		</table>
+
+		<p class="btn-row">
+			<a class="btn btn-primary" href="materials/tutorials/tutorial1/tutorial1_materials.zip">&#11015; Download all materials (.zip)</a>
+		</p>
+		<p class="tut-meta">Tip: open the notebooks in Google Colab (no installation needed), or run them locally with Python 3.10+ and the packages listed on each card.</p>
+
+		<!-- Notebook 1 -->
+		<div class="nb-card">
+			<h3>Notebook 1 &middot; From NumPy to PyTorch: Building a Feed-Forward Network</h3>
+			<p>
+				<span class="tag">numpy</span><span class="tag">torch</span><span class="tag">torchvision</span>
+				<span class="tag">75 cells</span>
+			</p>
+			<ol>
+				<li><b>Naive implementation of feed-forward layers</b>
+					<ul>
+						<li>A tiny neural network written with NumPy</li>
+						<li>Forward pass</li>
+						<li>Backward pass &mdash; how much did every parameter contribute to the loss?</li>
+						<li>Updating the parameters with gradient descent</li>
+					</ul>
+				</li>
+				<li><b>PyTorch implementation of a feed-forward neural network (FFN)</b>
+					<ul>
+						<li>The FFN layer and the full network as an <code>nn.Module</code></li>
+						<li>Loading data from NumPy</li>
+						<li>Building an input pipeline with <code>Dataset</code> and <code>DataLoader</code></li>
+					</ul>
+				</li>
+			</ol>
+			<p class="btn-row">
+				<a class="btn btn-colab" target="_blank"
+					href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial1/tutorial1_pytorch.ipynb">Open in Colab</a>
+				<a class="btn btn-default" href="materials/tutorials/tutorial1/tutorial1_pytorch.ipynb" download>Download .ipynb</a>
+				<a class="btn btn-default" target="_blank" href="materials/tutorials/tutorial1/tutorial1_pytorch.html">View full notebook</a>
+			</p>
+			<button class="collapsible">&#9656; Preview the notebook here</button>
+			<div class="nb-panel">
+				<iframe class="nb-frame" loading="lazy" data-src="materials/tutorials/tutorial1/tutorial1_pytorch.html" title="Tutorial 1 PyTorch notebook"></iframe>
+			</div>
+		</div>
+
+		<!-- Notebook 2 -->
+		<div class="nb-card">
+			<h3>Notebook 2 &middot; Word Embeddings: Word2Vec, GloVe and FastText</h3>
+			<p>
+				<span class="tag">torch</span><span class="tag">gensim</span><span class="tag">nltk</span><span class="tag">scikit-learn</span>
+				<span class="tag">matplotlib</span><span class="tag">bokeh</span><span class="tag">53 cells</span>
+			</p>
+			<ol>
+				<li><b>Preparation</b> &mdash; install dependencies, load the Quora Question Pairs corpus, tokenize, build the vocabulary and the context windows</li>
+				<li><b>Skip-gram Word2Vec</b> &mdash; batch generator, a two-layer PyTorch model, training, nearest-neighbour search and a t-SNE map of the vectors</li>
+				<li><b>GloVe</b> &mdash; global co-occurrence statistics; explore pre-trained GloVe vectors with gensim</li>
+				<li><b>FastText</b> &mdash; sub-word n-grams for rare and unseen words; explore pre-trained FastText vectors</li>
+				<li><b>Comparing Word2Vec, GloVe and FastText</b> &mdash; quality and behaviour on the same words</li>
+				<li><b>Memory and computational overheads</b> &mdash; parameter counts, training cost, a worked example and a summary</li>
+			</ol>
+			<div class="figure">
+				<img src="materials/tutorials/tutorial1/word_embedding_plot.png" alt="PCA plot of word vectors">
+				<p>Output from the notebook: a 2-D PCA projection of <i>king, queen, man, woman, prince, princess</i> under Skip-gram, GloVe and FastText.</p>
+			</div>
+			<p class="btn-row">
+				<a class="btn btn-colab" target="_blank"
+					href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial1/tutorial1_word_embeddings.ipynb">Open in Colab</a>
+				<a class="btn btn-default" href="materials/tutorials/tutorial1/tutorial1_word_embeddings.ipynb" download>Download .ipynb</a>
+				<a class="btn btn-default" target="_blank" href="materials/tutorials/tutorial1/tutorial1_word_embeddings.html">View full notebook</a>
+			</p>
+			<button class="collapsible">&#9656; Preview the notebook here</button>
+			<div class="nb-panel">
+				<iframe class="nb-frame" loading="lazy" data-src="materials/tutorials/tutorial1/tutorial1_word_embeddings.html" title="Tutorial 1 word embeddings notebook"></iframe>
+			</div>
+		</div>
+
+		<h2><b>Further Reading</b></h2>
+		<ul>
+			<li><a href="https://pytorch.org/tutorials/beginner/basics/intro.html" target="_blank">PyTorch: Learn the Basics</a></li>
+			<li><a href="https://cs231n.github.io/optimization-2/" target="_blank">CS231n notes: Backpropagation, intuitions</a></li>
+			<li><a href="https://arxiv.org/abs/1301.3781" target="_blank">Mikolov et al. (2013). Efficient Estimation of Word Representations in Vector Space</a></li>
+			<li><a href="https://nlp.stanford.edu/pubs/glove.pdf" target="_blank">Pennington et al. (2014). GloVe: Global Vectors for Word Representation</a></li>
+			<li><a href="https://arxiv.org/abs/1607.04606" target="_blank">Bojanowski et al. (2017). Enriching Word Vectors with Subword Information (FastText)</a></li>
+		</ul>
+		<p><a href="index.html">&larr; Back to the course schedule</a></p>
+		<hr />
+	</div>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		var coll = document.getElementsByClassName('collapsible');
+		for (var i = 0; i < coll.length; i++) {
+			coll[i].addEventListener('click', function () {
+				this.classList.toggle('open');
+				var panel = this.nextElementSibling, frame = panel.querySelector('iframe');
+				var show = panel.style.display !== 'block';
+				panel.style.display = show ? 'block' : 'none';
+				this.innerHTML = (show ? '&#9662; Hide the preview' : '&#9656; Preview the notebook here');
+				if (show && frame && !frame.src) { frame.src = frame.getAttribute('data-src'); }
+			});
+		}
+	});
+	</script>
+</body>
+
+</html>
