@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Tutorial 2 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): training your own LLMs with SFT, LoRA/QLoRA, reward models, PPO, GRPO and DPO.">
+	<title>Tutorial 2: Training Your Own LLMs | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./assets/katex/katex.min.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+</head>
+
+<body>
+
+	<!-- ================================================================== HERO -->
+	<div class="hero">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Tutorials</div>
+			<h1>Tutorial 2: Training Your Own LLMs</h1>
+			<p class="lead">SFT &rarr; LoRA &amp; QLoRA &rarr; learning from feedback with PPO, GRPO and DPO. Three runnable notebooks train real
+				models on a free T4 GPU, so you can watch each post-training method work &mdash; and see where it struggles.</p>
+			<div class="badge-row">
+				<span>&#128197; Oct. 23rd, 2026</span>
+				<span>&#128218; Companion to Lectures 5 &amp; 6</span>
+				<span>&#9201; about 2.5&ndash;3 hours</span>
+				<span>&#128187; Kaggle T4 GPU (tested)</span>
+				<span>&#128221; slides + 3 notebooks</span>
+			</div>
+			<a class="btn btn-colab" href="#slides">View the slides</a>
+			<a class="btn btn-kaggle" target="_blank" href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_sft_rm_ppo.ipynb">Notebook A: SFT + RM + PPO</a>
+			<a class="btn btn-kaggle" target="_blank" href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_grpo.ipynb">Notebook B: GRPO</a>
+			<a class="btn btn-kaggle" target="_blank" href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_dpo.ipynb">Notebook C: DPO</a>
+			<a class="btn btn-ghost" href="materials/tutorials/tutorial2/tutorial2_materials.zip">&#11015; Download all (.zip)</a>
+		</div>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">On this page</div>
+					<a href="#overview">1&nbsp; Overview</a>
+					<a href="#slides">2&nbsp; Slides</a>
+					<a href="#setup">3&nbsp; Before you start</a>
+					<a href="#nbA">4&nbsp; Notebook A: SFT, RM, PPO</a>
+					<a class="sub" href="#nbA-setup">One base, three adapters</a>
+					<a class="sub" href="#nbA-sft">Component 1: SFT</a>
+					<a class="sub" href="#nbA-rm">Component 2: Reward model</a>
+					<a class="sub" href="#nbA-ppo">Component 3: PPO</a>
+					<a class="sub" href="#nbA-results">Results</a>
+					<a href="#nbB">5&nbsp; Notebook B: GRPO</a>
+					<a class="sub" href="#nbB-reward">Verifiable rewards</a>
+					<a class="sub" href="#nbB-group">Group-relative advantage</a>
+					<a class="sub" href="#nbB-results">Results</a>
+					<a href="#nbC">6&nbsp; Notebook C: DPO</a>
+					<a class="sub" href="#nbC-loss">The DPO loss</a>
+					<a class="sub" href="#nbC-results">Results</a>
+					<a href="#compare">7&nbsp; Choosing a method</a>
+					<a href="#tools">8&nbsp; AI tools for research</a>
+					<a href="#pitfalls">9&nbsp; Pitfalls &amp; troubleshooting</a>
+					<a href="#exercises">10&nbsp; Exercises</a>
+					<a href="#quiz">11&nbsp; Self-check quiz</a>
+					<a href="#reading">12&nbsp; Further reading &amp; credits</a>
+				</nav>
+			</div>
+
+			<div class="col-md-9">
+
+				<!-- ====================================================== 1 OVERVIEW -->
+				<section id="overview">
+					<h2 class="sec"><span class="num">1</span>Overview</h2>
+					<p>
+						Lecture 5 explained how LLMs are pre-trained; Lecture 6 explained why post-training uses reinforcement learning. This tutorial
+						runs the whole post-training toolbox at small scale. The <b>slides</b> walk through SFT, parameter-efficient fine-tuning
+						(LoRA, QLoRA) and the three feedback-based methods. The <b>notebooks</b> then train real models: each one isolates one way of
+						turning a training signal into better behaviour.
+					</p>
+					<figure>
+						<svg viewBox="0 0 760 248" width="760" role="img" aria-label="post-training pipeline map" xmlns="http://www.w3.org/2000/svg" style="font-family:Roboto,Helvetica,Arial,sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C71B00"/></marker></defs><rect x="10" y="82" width="130" height="56" rx="8" fill="#eee" stroke="none"/><text x="75.0" y="108.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">Pre-trained</text><text x="75.0" y="125.0" text-anchor="middle" font-size="12" fill="#666">base model</text><rect x="180" y="82" width="120" height="56" rx="8" fill="#F6D5CF" stroke="none"/><text x="240.0" y="108.0" text-anchor="middle" font-size="15" fill="#333" font-weight="600">SFT</text><text x="240.0" y="125.0" text-anchor="middle" font-size="12" fill="#666">demonstrations</text><rect x="350" y="12" width="220" height="52" rx="8" fill="#FBEDEA" stroke="none"/><text x="460.0" y="36.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">Reward model → PPO</text><text x="460.0" y="53.0" text-anchor="middle" font-size="12" fill="#666">learned reward + critic</text><line x1="300" y1="110" x2="348" y2="38" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><line x1="570" y1="38" x2="618" y2="110" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><circle cx="350" cy="12" r="11" fill="#C71B00"/><text x="350" y="16.5" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">A</text><rect x="350" y="84" width="220" height="52" rx="8" fill="#FBEDEA" stroke="none"/><text x="460.0" y="108.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">GRPO</text><text x="460.0" y="125.0" text-anchor="middle" font-size="12" fill="#666">verifiable reward, groups</text><line x1="300" y1="110" x2="348" y2="110" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><line x1="570" y1="110" x2="618" y2="110" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><circle cx="350" cy="84" r="11" fill="#C71B00"/><text x="350" y="88.5" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">B</text><rect x="350" y="156" width="220" height="52" rx="8" fill="#FBEDEA" stroke="none"/><text x="460.0" y="180.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">DPO</text><text x="460.0" y="197.0" text-anchor="middle" font-size="12" fill="#666">offline preference pairs</text><line x1="300" y1="110" x2="348" y2="182" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><line x1="570" y1="182" x2="618" y2="110" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><circle cx="350" cy="156" r="11" fill="#C71B00"/><text x="350" y="160.5" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">C</text><circle cx="180" cy="82" r="11" fill="#C71B00"/><text x="180" y="86.5" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">A</text><line x1="140" y1="110" x2="178" y2="110" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><rect x="620" y="82" width="130" height="56" rx="8" fill="#8C1515" stroke="none"/><text x="685.0" y="114.9" text-anchor="middle" font-size="14" fill="#fff" font-weight="600">Aligned model</text><text x="380" y="238" text-anchor="middle" font-size="12" fill="#777" font-weight="400" font-style="italic">Notebooks B and C start from small Instruct models, which have already been SFT-ed.</text></svg>
+						<figcaption>Where each notebook sits in the post-training pipeline. All three use LoRA adapters; Notebook A also uses a 4-bit (QLoRA-style) base model.</figcaption>
+					</figure>
+
+					<div class="tblwrap"><table class="tbl">
+						<tr><th>Notebook</th><th>Method</th><th>Model</th><th>Data</th><th>Training signal</th></tr>
+						<tr><td><b>A</b></td><td>SFT &rarr; reward model &rarr; PPO</td><td>Qwen3-4B-Base, 4-bit NF4 + LoRA</td><td>SST-2 movie reviews</td><td>next-token NLL; human sentiment labels &rarr; learned reward</td></tr>
+						<tr><td><b>B</b></td><td>GRPO</td><td>Qwen2-0.5B-Instruct + LoRA</td><td>128 generated arithmetic questions</td><td>verifiable reward: correct answer + format</td></tr>
+						<tr><td><b>C</b></td><td>DPO</td><td>SmolLM2-135M-Instruct</td><td>UltraFeedback preference pairs</td><td>chosen &#8827; rejected, relative to a frozen reference</td></tr>
+					</table></div>
+
+					<h3>Learning objectives</h3>
+					<ul class="checklist">
+						<li>Explain the SFT loss and why only response tokens are graded; estimate GPU memory for full fine-tuning, LoRA and QLoRA.</li>
+						<li>Explain why LoRA's update <span class="m">\(\Delta W = BA\)</span> starts at zero, and how QLoRA stores the frozen base in 4-bit NF4.</li>
+						<li>Train a reward model from human labels and use it, together with a KL penalty, as the reward for PPO.</li>
+						<li>Follow one PPO iteration: rollouts, rewards, GAE advantages from a value head, clipped policy updates.</li>
+						<li>Compute GRPO's group-relative advantage by hand and recognise when a group gives <i>no</i> learning signal.</li>
+						<li>Write the DPO loss, interpret its training metrics, and say when DPO is preferable to online RL.</li>
+						<li>Read training diagnostics critically: tell a real improvement from noise on a small evaluation set.</li>
+					</ul>
+
+					<h3>Time plan</h3>
+					<div class="tblwrap"><table class="tbl">
+						<tr><th>Part</th><th>What you do</th><th class="num">Time (approx.)</th></tr>
+						<tr><td>Slides</td><td>SFT, LoRA/QLoRA, PPO, GRPO, DPO</td><td class="num">60 min</td></tr>
+						<tr><td>Notebook C (DPO)</td><td>Shortest run: 32 steps, about 40 s of training on a T4</td><td class="num">15 min</td></tr>
+						<tr><td>Notebook B (GRPO)</td><td>Screening + 64 steps, about 3 min of training</td><td class="num">25 min</td></tr>
+						<tr><td>Notebook A (SFT + RM + PPO)</td><td>Longest run: three training stages on a 4B model; start it first and read while it trains</td><td class="num">60+ min</td></tr>
+					</table></div>
+					<div class="callout info"><b class="t">Suggested order</b>Start Notebook A on Kaggle first (it is the slowest), then work through B and C in a second session while A trains.</div>
+				</section>
+
+				<!-- ====================================================== 2 SLIDES -->
+				<section id="slides">
+					<h2 class="sec"><span class="num">2</span>Slides: Training Your Own LLMs</h2>
+					<p>52 slides in four parts &mdash; the big picture, SFT, efficient fine-tuning (LoRA &amp; QLoRA), and learning from feedback (PPO, GRPO, DPO) &mdash;
+						with a running example: turning a 7B base model into a helpful, safe medical assistant.</p>
+					<div class="btn-row">
+						<a class="btn btn-primary" target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf">Open the slides (PDF)</a>
+						<a class="btn btn-default" href="materials/tutorials/tutorial2/tutorial2_slides.pdf" download>Download</a>
+					</div>
+					<div class="gallery">
+						<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=2"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_02.jpg" alt="Slide 2: Today's tutorial"><br>Slide 2 &middot; Today's tutorial</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=10"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_10.jpg" alt="Slide 10: The SFT loss"><br>Slide 10 &middot; The SFT loss</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=14"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_14.jpg" alt="Slide 14: GPU memory for a 7B model"><br>Slide 14 &middot; GPU memory for a 7B model</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=20"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_20.jpg" alt="Slide 20: LoRA: low-rank adaptation"><br>Slide 20 &middot; LoRA: low-rank adaptation</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=33"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_33.jpg" alt="Slide 33: QLoRA"><br>Slide 33 &middot; QLoRA</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=40"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_40.jpg" alt="Slide 40: One PPO iteration"><br>Slide 40 &middot; One PPO iteration</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=45"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_45.jpg" alt="Slide 45: Group-relative advantage"><br>Slide 45 &middot; Group-relative advantage</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=47"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_47.jpg" alt="Slide 47: The DPO loss"><br>Slide 47 &middot; The DPO loss</a>
+<a target="_blank" href="materials/tutorials/tutorial2/tutorial2_slides.pdf#page=51"><img loading="lazy" src="materials/tutorials/tutorial2/fig/slide_51.jpg" alt="Slide 51: Summary: choosing a method"><br>Slide 51 &middot; Summary: choosing a method</a>
+					</div>
+					<button class="toggle" data-target="pvs">&#9656; Read the slides on this page</button>
+					<div class="panel-body2" id="pvs"><iframe class="pdf-frame" loading="lazy" data-src="materials/tutorials/tutorial2/tutorial2_slides.pdf" title="Tutorial 2 slides"></iframe></div>
+
+					<h3>Key ideas from the slides</h3>
+					<div class="grid two">
+						<div class="card">
+							<h4>SFT grades only the answer</h4>
+							<div class="eq m">$$\mathcal{L}_{\text{SFT}} = -\sum_{t\,\in\,\text{response}} \log p_\theta(y_t \mid x, y_{\lt t})$$</div>
+							<p class="muted" style="margin:0">Prompt tokens get label <code>-100</code> and are ignored &mdash; like grading the student's answer, not the question they copied.</p>
+						</div>
+						<div class="card">
+							<h4>Most of the GPU bill is training state</h4>
+							<p style="margin-bottom:4px">Fine-tuning a 7B model needs about 16 bytes per parameter: 2 (weights) + 2 (gradients) + 8 (Adam) + 4 (fp32 copy).</p>
+							<div class="kv"><div><b>&asymp;112 GB</b><span>full fine-tuning</span></div><div><b>&asymp;15 GB</b><span>LoRA</span></div><div><b>&asymp;4 GB</b><span>QLoRA</span></div></div>
+						</div>
+						<div class="card">
+							<h4>LoRA: a low-rank update</h4>
+							<div class="eq m">$$W = W_0 + BA,\quad B\in\mathbb{R}^{d\times r},\ A\in\mathbb{R}^{r\times k},\ r \ll \min(d,k)$$</div>
+							<p class="muted" style="margin:0">With <span class="m">\(d=k=4096,\ r=16\)</span>: 131K instead of 16.8M trainable weights per matrix (128&times; fewer). <span class="m">\(B=0\)</span> at start, so training begins exactly at the pre-trained model.</p>
+						</div>
+						<div class="card">
+							<h4>QLoRA: 4-bit base, 16-bit adapters</h4>
+							<p style="margin-bottom:0">Store the frozen base in <b>NF4</b> (4-bit levels placed at normal-distribution quantiles, dense near zero), dequantize on the fly,
+								and train only BF16 adapters. A 65B model goes from &gt;780 GB to &lt;48 GB &mdash; one GPU.</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 SETUP -->
+				<section id="setup">
+					<h2 class="sec"><span class="num">3</span>Before you start</h2>
+					<div class="grid">
+						<div class="card">
+							<h4>Option A &middot; Kaggle (recommended, tested)</h4>
+							<ol class="steps">
+								<li>Click a <b>Kaggle</b> button above; Kaggle imports the notebook from this site's GitHub repository. Sign in and choose <i>Copy &amp; Edit</i> if asked.</li>
+								<li>In the right panel: <i>Accelerator &rarr; GPU T4</i> (or T4&times;2; only one GPU is used) and <i>Internet &rarr; On</i>. Phone verification is required for both.</li>
+								<li>Start a <b>fresh session</b> and run the first cell before anything else: it installs pinned library versions into a private environment.</li>
+								<li>Run the remaining cells in order. Outputs (adapters, logs, ZIP backups) appear in Kaggle's <i>Output</i> panel.</li>
+							</ol>
+						</div>
+						<div class="card">
+							<h4>Option B &middot; Colab or your own GPU</h4>
+							<p>The notebooks were tested on Kaggle (Python 3.13, PyTorch 2.11, CUDA 12.8). They write to <code>/kaggle/working</code>; on other
+								machines, change that path at the top of each notebook. Any CUDA GPU with &ge; 15 GB memory works.</p>
+							<div class="code"><pre>pip install "transformers==4.51.3" \
+    "trl==0.18.2" "peft==0.15.2" \
+    "datasets==3.5.0" "accelerate==1.6.0" \
+    bitsandbytes math-verify</pre></div>
+							<p class="muted" style="margin:0">These are the pins used by Notebooks B and C. Notebook A installs newer versions in its own first cell.</p>
+						</div>
+					</div>
+					<div class="callout warn"><b class="t">Hugging Face downloads</b>All models and datasets download automatically. If you see
+						<i>&ldquo;unauthenticated requests to the HF Hub&rdquo;</i> or rate limits, add a free <code>HF_TOKEN</code> as a Kaggle secret.</div>
+				</section>
+
+				<!-- ====================================================== 4 NOTEBOOK A -->
+				<section id="nbA">
+					<h2 class="sec"><span class="num">4</span>Notebook A &middot; SFT, reward model and PPO (RLHF)</h2>
+					<div class="nbcard">
+						<h3>Notebook A at a glance</h3>
+						<p><span class="tag">transformers</span><span class="tag">peft</span><span class="tag">bitsandbytes</span><span class="tag">datasets</span><span class="tag">23 cells</span><span class="tag">Kaggle T4</span></p>
+						<p>The classic InstructGPT recipe in miniature. A base model learns to write movie reviews (SFT), a reward model learns to score
+							sentiment from human labels, and PPO steers the SFT model toward reviews the reward model scores as positive.</p>
+						<div class="btn-row">
+							<a class="btn btn-kaggle" target="_blank" href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_sft_rm_ppo.ipynb">Open in Kaggle</a>
+							<a class="btn btn-colab" target="_blank" href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_sft_rm_ppo.ipynb">Open in Colab</a>
+							<a class="btn btn-default" href="materials/tutorials/tutorial2/tutorial2_sft_rm_ppo.ipynb" download>Download .ipynb</a>
+							<a class="btn btn-default" target="_blank" href="materials/tutorials/tutorial2/tutorial2_sft_rm_ppo.html">View full notebook</a>
+						</div>
+						<button class="toggle" data-target="pvA">&#9656; Preview the notebook on this page</button>
+						<div class="panel-body2" id="pvA"><iframe class="nb-frame" loading="lazy" data-src="materials/tutorials/tutorial2/tutorial2_sft_rm_ppo.html" title="Notebook A"></iframe></div>
+					</div>
+
+					<h3 id="nbA-setup">4.1 One frozen 4-bit base, three LoRA adapters</h3>
+					<p>Instead of loading three copies of a 4B model, the notebook loads <b>one</b> base in 4-bit NF4 and attaches three independent LoRA adapters
+						(rank 8 on <code>q,k,v,o</code> projections). Switching the active adapter switches the &ldquo;model&rdquo;:</p>
+					<figure>
+						<svg viewBox="0 0 720 254" width="720" role="img" aria-label="one base model with three LoRA adapters" xmlns="http://www.w3.org/2000/svg" style="font-family:Roboto,Helvetica,Arial,sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C71B00"/></marker></defs><rect x="40" y="168" width="640" height="50" rx="8" fill="#eee" stroke="none"/><text x="360.0" y="198.25" text-anchor="middle" font-size="15" fill="#333" font-weight="600">Qwen3-4B-Base &#8212; frozen, stored once in 4-bit NF4</text><rect x="40" y="62" width="200" height="52" rx="8" fill="#F6D5CF" stroke="none"/><text x="140.0" y="86.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">adapter "sft"</text><text x="140.0" y="103.0" text-anchor="middle" font-size="12" fill="#666">LoRA r = 8</text><line x1="140" y1="114" x2="140" y2="166" stroke="#9A9A9A" stroke-width="1.4" stroke-dasharray="4 3"/><text x="140" y="40" text-anchor="middle" font-size="13" fill="#8C1515" font-weight="600">SFT model = reference π<tspan baseline-shift='sub' font-size='9'>ref</tspan></text><rect x="260" y="62" width="200" height="52" rx="8" fill="#F6D5CF" stroke="none"/><text x="360.0" y="86.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">adapter "reward"</text><text x="360.0" y="103.0" text-anchor="middle" font-size="12" fill="#666">LoRA + reward_head</text><line x1="360" y1="114" x2="360" y2="166" stroke="#9A9A9A" stroke-width="1.4" stroke-dasharray="4 3"/><text x="360" y="40" text-anchor="middle" font-size="13" fill="#8C1515" font-weight="600">reward model s<tspan baseline-shift='sub' font-size='9'>φ</tspan></text><rect x="480" y="62" width="200" height="52" rx="8" fill="#F6D5CF" stroke="none"/><text x="580.0" y="86.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">adapter "ppo"</text><text x="580.0" y="103.0" text-anchor="middle" font-size="12" fill="#666">LoRA + value_head</text><line x1="580" y1="114" x2="580" y2="166" stroke="#9A9A9A" stroke-width="1.4" stroke-dasharray="4 3"/><text x="580" y="40" text-anchor="middle" font-size="13" fill="#8C1515" font-weight="600">policy π<tspan baseline-shift='sub' font-size='9'>θ</tspan> + critic V</text><text x="360" y="244" text-anchor="middle" font-size="12" fill="#666" font-weight="400" font-style="italic">model.set_adapter(name) switches which small set of weights is active</text></svg>
+						<figcaption>The SFT adapter also serves as the frozen reference policy for PPO's KL penalty; the base with adapters disabled is the &ldquo;Base&rdquo; model in the final comparison.</figcaption>
+					</figure>
+					<div class="code"><div class="cap">Notebook A, cell 8 (condensed): QLoRA-style setup</div><div class="hl"><pre><span></span><span class="n">qconfig</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span><span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s2">&quot;nf4&quot;</span><span class="p">,</span>
+                             <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">DTYPE</span><span class="p">)</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">MODEL_ID</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">qconfig</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">prepare_model_for_kbit_training</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">use_gradient_checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">lora</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">lora_alpha</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">lora_dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">target_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;q_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;k_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;v_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;o_proj&quot;</span><span class="p">],</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;CAUSAL_LM&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">lora</span><span class="p">,</span> <span class="n">adapter_name</span><span class="o">=</span><span class="s2">&quot;sft&quot;</span><span class="p">)</span>    <span class="c1"># adapter 1</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_adapter</span><span class="p">(</span><span class="s2">&quot;reward&quot;</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">lora</span><span class="p">))</span>           <span class="c1"># adapter 2</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_adapter</span><span class="p">(</span><span class="s2">&quot;ppo&quot;</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">lora</span><span class="p">))</span>              <span class="c1"># adapter 3</span>
+<span class="n">reward_head</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># score from the last token&#39;s hidden state</span>
+<span class="n">value_head</span>  <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># V(s_t) for every generated token</span>
+</pre></div>
+</div>
+					<p>The SST-2 data are split once and frozen, so every stage sees different reviews:</p>
+					<div class="kv">
+						<div><b>2,048</b><span>SFT reviews</span></div><div><b>4,096</b><span>reward-model reviews</span></div>
+						<div><b>1,024</b><span>PPO prompts</span></div><div><b>128 / 128</b><span>validation / RM test</span></div><div><b>40</b><span>generation test prefixes</span></div>
+					</div>
+
+					<h3 id="nbA-sft">4.2 Component 1 &mdash; SFT: learn the domain</h3>
+					<p>SFT continues next-token training on real movie reviews (128 optimizer steps &times; 8 accumulated reviews, lr 1e-4). It teaches the
+						<i>style</i> of reviews, not positivity: half of the reviews are negative.</p>
+					<div class="kv"><div><b>4.53 &rarr; 3.52</b><span>held-out review NLL, Base &rarr; SFT (lower is better)</span></div></div>
+					<div class="tblwrap"><table class="tbl">
+						<tr><th style="width:24%">Review prefix</th><th>Base model continues&hellip;</th><th>After SFT</th></tr>
+						<tr><td><i>it 's just disappointingly</i></td><td>cheap .<br><span class="muted">How would the previous sentence be correctly capitalized? &hellip;</span></td><td>portable fiction .</td></tr>
+						<tr><td><i>the film is beautifully mounted ,</i></td><td>enthralingly photographed , expertly edited and confidently assembled . yet , overall , the movie falls short because of the shoestring budget &hellip;</td><td>enthralingly photographed and expertly edited .</td></tr>
+					</table></div>
+					<p class="muted">The base model drifts into web-text habits (a capitalization quiz); after SFT the continuations look like SST-2 reviews.</p>
+
+					<h3 id="nbA-rm">4.3 Component 2 &mdash; Reward model: learn what &ldquo;good&rdquo; means</h3>
+					<p>The reward model is the same backbone with its own adapter and a linear <code>reward_head</code> on the last token. It is trained with
+						binary cross-entropy on human sentiment labels:</p>
+					<div class="eq m">$$\mathcal{L}_{\text{RM}} = -\big[\,\ell \log \sigma(s_\phi(x)) + (1-\ell)\log\big(1-\sigma(s_\phi(x))\big)\big],\qquad \ell\in\{0,1\}$$</div>
+					<figure><img src="materials/tutorials/tutorial2/fig/rm_accuracy.svg" alt="reward model accuracy" style="width:100%;max-width:600px;border:0">
+						<figcaption>Validation accuracy during training (every 32 steps) and on the held-out test split: 94.5% (58 + 63 of 128 correct).</figcaption></figure>
+					<div class="callout info"><b class="t">Simplification vs. InstructGPT</b>InstructGPT trains its reward model on <i>pairwise rankings</i> of generated answers
+						(Bradley&ndash;Terry loss). Here the human signal is a pre-collected sentiment label per review &mdash; easier to obtain, and enough to define a reward.</div>
+
+					<h3 id="nbA-ppo">4.4 Component 3 &mdash; PPO: optimise the reward, stay close to SFT</h3>
+					<figure>
+						<svg viewBox="0 0 790 160" width="790" role="img" aria-label="one PPO iteration" xmlns="http://www.w3.org/2000/svg" style="font-family:Roboto,Helvetica,Arial,sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C71B00"/></marker></defs><rect x="10" y="20" width="140" height="64" rx="8" fill="#FBEDEA" stroke="none"/><text x="80.0" y="50.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">1  Sample prefix</text><text x="80.0" y="67.0" text-anchor="middle" font-size="12" fill="#666">6-token review prefix</text><rect x="166" y="20" width="140" height="64" rx="8" fill="#FBEDEA" stroke="none"/><text x="236.0" y="50.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">2  Generate</text><text x="236.0" y="67.0" text-anchor="middle" font-size="12" fill="#666">48 tokens with π<tspan baseline-shift='sub' font-size='9'>θ</tspan></text><line x1="150" y1="52" x2="164" y2="52" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><rect x="322" y="20" width="140" height="64" rx="8" fill="#F6D5CF" stroke="none"/><text x="392.0" y="50.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">3  Score</text><text x="392.0" y="67.0" text-anchor="middle" font-size="12" fill="#666">RM score − β·KL to SFT</text><line x1="306" y1="52" x2="320" y2="52" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><rect x="478" y="20" width="140" height="64" rx="8" fill="#FBEDEA" stroke="none"/><text x="548.0" y="50.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">4  Advantages</text><text x="548.0" y="67.0" text-anchor="middle" font-size="12" fill="#666">GAE with value head V</text><line x1="462" y1="52" x2="476" y2="52" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><rect x="634" y="20" width="140" height="64" rx="8" fill="#FBEDEA" stroke="none"/><text x="704.0" y="50.0" text-anchor="middle" font-size="14" fill="#333" font-weight="600">5  Update</text><text x="704.0" y="67.0" text-anchor="middle" font-size="12" fill="#666">clipped loss, 2 epochs</text><line x1="618" y1="52" x2="632" y2="52" stroke="#555" stroke-width="1.6" marker-end="url(#ar)"/><path d="M714,84 V126 H80 V88" fill="none" stroke="#C71B00" stroke-width="1.6" marker-end="url(#arr)"/><text x="397" y="146" text-anchor="middle" font-size="13" fill="#C71B00" font-weight="600">repeat: 96 iterations × 8 rollouts</text></svg>
+						<figcaption>One PPO iteration in Notebook A (96 iterations &times; 8 rollouts = 768 sampled continuations, 2 update epochs each).</figcaption>
+					</figure>
+					<p>The reward model's score is mapped to <span class="m">\([-1, 1]\)</span> and added at the last token; every token also pays a KL penalty for drifting from the SFT policy:</p>
+					<div class="eq m">$$r_t = -\beta\big(\log\pi_\theta(y_t\mid s_t)-\log\pi_{\text{SFT}}(y_t\mid s_t)\big) + \mathbb{1}[t=T]\,\big(2\sigma(s_\phi(x,y))-1\big),\qquad \beta = 0.05$$</div>
+					<p>A value head estimates <span class="m">\(V(s_t)\)</span>; advantages come from GAE (<span class="m">\(\gamma=1,\ \lambda=0.95\)</span>), and the policy is updated with the clipped objective (<span class="m">\(\epsilon=0.2\)</span>):</p>
+					<div class="eq m">$$\hat A_t=\sum_{l\ge 0}(\gamma\lambda)^l\delta_{t+l},\quad \delta_t=r_t+\gamma V(s_{t+1})-V(s_t),\qquad
+						\mathcal{L}^{\text{CLIP}} = -\mathbb{E}_t\big[\min(\rho_t\hat A_t,\ \operatorname{clip}(\rho_t,1-\epsilon,1+\epsilon)\hat A_t)\big]$$</div>
+					<div class="code"><div class="cap">Notebook A (condensed; masks omitted): rewards, GAE and the PPO loss</div><div class="hl"><pre><span></span><span class="c1"># --- rollout: per-token KL penalty, reward-model score added at the last token</span>
+<span class="n">score</span>   <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">reward_logits</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>          <span class="c1"># in [-1, 1]</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="o">-</span><span class="n">kl_beta</span> <span class="o">*</span> <span class="p">(</span><span class="n">old_logprobs</span> <span class="o">-</span> <span class="n">ref_logprobs</span><span class="p">)</span> <span class="o">*</span> <span class="n">mask</span>
+<span class="n">rewards</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">score</span>
+
+<span class="c1"># --- GAE, computed backwards over the generated tokens</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)):</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">rewards</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">values</span><span class="p">[:,</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">values</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+    <span class="n">carry</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">lam</span> <span class="o">*</span> <span class="n">carry</span>
+    <span class="n">advantage</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">carry</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">advantage</span> <span class="o">+</span> <span class="n">values</span>
+<span class="n">advantage</span> <span class="o">=</span> <span class="p">(</span><span class="n">advantage</span> <span class="o">-</span> <span class="n">advantage</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">advantage</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>  <span class="c1"># normalised</span>
+
+<span class="c1"># --- clipped policy loss + clipped value loss</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logprobs</span> <span class="o">-</span> <span class="n">old_logprobs</span><span class="p">)</span>
+<span class="n">pg</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="o">-</span><span class="n">ratio</span> <span class="o">*</span> <span class="n">adv</span><span class="p">,</span> <span class="o">-</span><span class="n">ratio</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">clip</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">clip</span><span class="p">)</span> <span class="o">*</span> <span class="n">adv</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">vclip</span> <span class="o">=</span> <span class="n">old_values</span> <span class="o">+</span> <span class="p">(</span><span class="n">vpreds</span> <span class="o">-</span> <span class="n">old_values</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="o">-</span><span class="n">value_clip</span><span class="p">,</span> <span class="n">value_clip</span><span class="p">)</span>
+<span class="n">vf</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">maximum</span><span class="p">((</span><span class="n">vpreds</span> <span class="o">-</span> <span class="n">returns</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">vclip</span> <span class="o">-</span> <span class="n">returns</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">pg</span> <span class="o">+</span> <span class="n">value_coef</span> <span class="o">*</span> <span class="n">vf</span>
+</pre></div>
+</div>
+
+					<h3 id="nbA-results">4.5 Results and how to read them</h3>
+					<figure><img src="materials/tutorials/tutorial2/fig/sft_rm_ppo_dashboard.png" alt="training dashboard" style="width:100%;max-width:820px">
+						<figcaption>Notebook output. Top: SFT loss, reward-model loss, noisy per-batch PPO reward. Bottom: external sentiment classifier, held-out NLL, reward-model confusion matrix.</figcaption></figure>
+					<div class="side">
+						<div><figure><img src="materials/tutorials/tutorial2/fig/ppo_validation_reward.png" alt="validation reward" style="width:100%"><figcaption>Reward on fixed validation prefixes rises from &minus;0.29 (SFT) to 0.25 at the final step.</figcaption></figure></div>
+						<div>
+							<div class="tblwrap"><table class="tbl">
+								<tr><th>Metric (40 test prefixes)</th><th class="num">SFT</th><th class="num">SFT + PPO</th></tr>
+								<tr><td>Positive full reviews (external DistilBERT judge)</td><td class="num">57.5%</td><td class="num"><b>67.5%</b></td></tr>
+								<tr><td>Positive continuations only</td><td class="num">50.0%</td><td class="num">52.5%</td></tr>
+								<tr><td>Held-out review NLL</td><td class="num">3.52</td><td class="num">&asymp; 3.52</td></tr>
+							</table></div>
+						</div>
+					</div>
+					<div class="callout warn"><b class="t">Is the improvement real?</b>The mean positive-probability gain from PPO is +0.092, but its paired bootstrap
+						95% interval is [&minus;0.048, +0.226] &mdash; it includes zero. With 40 test prefixes, this run <i>suggests</i> a steering effect but does not
+						establish one. Notice too that most of the gain is in full reviews, i.e. partly carried by the prompt prefix.</div>
+					<figure><img src="materials/tutorials/tutorial2/fig/ppo_diagnostics.png" alt="PPO diagnostics" style="width:100%;max-width:820px">
+						<figcaption>PPO diagnostics. The clip fraction is almost always 0 (updates are small), while value-head gradients are large and noisy &mdash; typical of a short PPO run.</figcaption></figure>
+				</section>
+
+				<!-- ====================================================== 5 NOTEBOOK B -->
+				<section id="nbB">
+					<h2 class="sec"><span class="num">5</span>Notebook B &middot; GRPO with verifiable rewards</h2>
+					<div class="nbcard">
+						<h3>Notebook B at a glance</h3>
+						<p><span class="tag">trl GRPOTrainer</span><span class="tag">peft</span><span class="tag">math-verify</span><span class="tag">19 cells</span><span class="tag">&asymp;3 min training</span></p>
+						<p>The DeepSeek-R1 recipe in miniature: no reward model and no critic. A Python function checks the final answer, and each answer is
+							compared with the other answers sampled for the same question.</p>
+						<div class="btn-row">
+							<a class="btn btn-kaggle" target="_blank" href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_grpo.ipynb">Open in Kaggle</a>
+							<a class="btn btn-colab" target="_blank" href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_grpo.ipynb">Open in Colab</a>
+							<a class="btn btn-default" href="materials/tutorials/tutorial2/tutorial2_grpo.ipynb" download>Download .ipynb</a>
+							<a class="btn btn-default" target="_blank" href="materials/tutorials/tutorial2/tutorial2_grpo.html">View full notebook</a>
+						</div>
+						<button class="toggle" data-target="pvB">&#9656; Preview the notebook on this page</button>
+						<div class="panel-body2" id="pvB"><iframe class="nb-frame" loading="lazy" data-src="materials/tutorials/tutorial2/tutorial2_grpo.html" title="Notebook B"></iframe></div>
+					</div>
+
+					<h3 id="nbB-reward">5.1 Task and verifiable rewards</h3>
+					<p>The policy is Qwen2-0.5B-Instruct with a rank-16 LoRA (2.16M trainable parameters, 0.44% of the model). Training questions are 128
+						generated arithmetic problems (addition, subtraction with negative results, multiplication, two-step expressions, word problems);
+						12 fixed questions are held out. The system prompt asks for a short calculation and a final answer in tags:</p>
+					<div class="out">&lt;think&gt;12 + 7 = 19; 19 * 3 = 57.&lt;/think&gt;&lt;answer&gt;57&lt;/answer&gt;</div>
+					<div class="grid">
+						<div class="card"><h4>Format reward <span class="m">\(r_{\text{fmt}}\in[0,1]\)</span></h4>0.25 each for opening <code>&lt;think&gt;</code>, non-empty thinking,
+							opening <code>&lt;answer&gt;</code>, non-empty answer. Partial credit makes the signal less sparse.</div>
+						<div class="card"><h4>Correctness reward <span class="m">\(r_{\text{acc}}\in\{0,1\}\)</span></h4>1 if the extracted final answer equals the reference
+							(checked with <code>math-verify</code>), else 0. Only the final answer is verified, not each step.</div>
+					</div>
+					<div class="eq m">$$r = 0.1\,r_{\text{fmt}} + r_{\text{acc}}$$</div>
+
+					<h3 id="nbB-group">5.2 Group-relative advantage</h3>
+					<p>For each question GRPO samples a group of <span class="m">\(G=4\)</span> answers and normalises their rewards within the group &mdash; the group mean replaces PPO's learned value model:</p>
+					<div class="eq m">$$A_i = \frac{r_i - \operatorname{mean}(r_1,\dots,r_G)}{\operatorname{std}(r_1,\dots,r_G)+\varepsilon}$$</div>
+					<figure>
+						<svg viewBox="0 0 720 220" width="720" role="img" aria-label="GRPO group-relative advantage example" xmlns="http://www.w3.org/2000/svg" style="font-family:Roboto,Helvetica,Arial,sans-serif"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C71B00"/></marker></defs><rect x="10" y="70" width="150" height="80" rx="8" fill="#F6D5CF" stroke="none"/><text x="85.0" y="108.0" text-anchor="middle" font-size="15" fill="#333" font-weight="600">What is 24 − 58?</text><text x="85.0" y="125.0" text-anchor="middle" font-size="12" fill="#666">one prompt, G = 4</text><text x="250" y="22" text-anchor="middle" font-size="12" fill="#777" font-weight="600">answer</text><text x="345" y="22" text-anchor="middle" font-size="12" fill="#777" font-weight="600">reward r</text><text x="560" y="22" text-anchor="middle" font-size="12" fill="#777" font-weight="600">advantage A</text><line x1="560" y1="32" x2="560" y2="196" stroke="#999" stroke-width="1"/><line x1="160" y1="110" x2="198" y2="51" stroke="#999" stroke-width="1.2" marker-end="url(#ar)"/><rect x="200" y="36" width="100" height="30" rx="6" fill="#eaf5ea" stroke="none"/><text x="250.0" y="55.9" text-anchor="middle" font-size="14" fill="#2f8f46" font-weight="600">-34 ✓</text><text x="345" y="56" text-anchor="middle" font-size="14" fill="#333" font-weight="400">1.10</text><rect x="560" y="41" width="40.0" height="20" rx="3" fill="#2f8f46" opacity=".85"/><text x="608.0" y="56" text-anchor="start" font-size="13" fill="#333" font-weight="600">+0.5</text><line x1="160" y1="110" x2="198" y2="91" stroke="#999" stroke-width="1.2" marker-end="url(#ar)"/><rect x="200" y="76" width="100" height="30" rx="6" fill="#eaf5ea" stroke="none"/><text x="250.0" y="95.9" text-anchor="middle" font-size="14" fill="#2f8f46" font-weight="600">-34 ✓</text><text x="345" y="96" text-anchor="middle" font-size="14" fill="#333" font-weight="400">1.10</text><rect x="560" y="81" width="40.0" height="20" rx="3" fill="#2f8f46" opacity=".85"/><text x="608.0" y="96" text-anchor="start" font-size="13" fill="#333" font-weight="600">+0.5</text><line x1="160" y1="110" x2="198" y2="131" stroke="#999" stroke-width="1.2" marker-end="url(#ar)"/><rect x="200" y="116" width="100" height="30" rx="6" fill="#fbeaea" stroke="none"/><text x="250.0" y="135.9" text-anchor="middle" font-size="14" fill="#a32020" font-weight="600">34 ✗</text><text x="345" y="136" text-anchor="middle" font-size="14" fill="#333" font-weight="400">0.10</text><rect x="440.0" y="121" width="120.0" height="20" rx="3" fill="#C71B00" opacity=".85"/><text x="432.0" y="136" text-anchor="end" font-size="13" fill="#333" font-weight="600">-1.5</text><line x1="160" y1="110" x2="198" y2="171" stroke="#999" stroke-width="1.2" marker-end="url(#ar)"/><rect x="200" y="156" width="100" height="30" rx="6" fill="#eaf5ea" stroke="none"/><text x="250.0" y="175.9" text-anchor="middle" font-size="14" fill="#2f8f46" font-weight="600">-34 ✓</text><text x="345" y="176" text-anchor="middle" font-size="14" fill="#333" font-weight="400">1.10</text><rect x="560" y="161" width="40.0" height="20" rx="3" fill="#2f8f46" opacity=".85"/><text x="608.0" y="176" text-anchor="start" font-size="13" fill="#333" font-weight="600">+0.5</text><text x="345" y="210" text-anchor="middle" font-size="12" fill="#666" font-weight="400" font-style="italic">mean 0.85, std 0.50</text><text x="560" y="210" text-anchor="middle" font-size="12" fill="#666" font-weight="400" font-style="italic">A = (r − 0.85) / 0.50</text></svg>
+						<figcaption>A real training group from the notebook. Three answers are correct; the one that dropped the minus sign is pushed down hard (&minus;1.5).</figcaption>
+					</figure>
+					<p>If all four answers get the same reward, every advantage is zero and the question teaches nothing. The notebook therefore screens training
+						questions first and keeps 8 of the first 12 probes whose answers were <i>mixed</i> (some right, some wrong). Even so, groups often become uniform during training:</p>
+					<figure><img src="materials/tutorials/tutorial2/fig/grpo_zero_signal.svg" alt="GRPO zero-signal groups" style="width:100%;max-width:640px;border:0">
+						<figcaption>Gradient norm on each step that samples a new group. Grey steps (11 of 32) had identical rewards in every group, so their gradient is essentially zero.</figcaption></figure>
+					<div class="code"><div class="cap">Notebook B, cell 15 (condensed): no reward model, just two Python functions</div><div class="hl"><pre><span></span><span class="n">training_args</span> <span class="o">=</span> <span class="n">GRPOConfig</span><span class="p">(</span>
+    <span class="n">num_generations</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>            <span class="c1"># group size G</span>
+    <span class="n">num_iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>             <span class="c1"># reuse each sampled group twice (needs the clip)</span>
+    <span class="n">max_steps</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">top_p</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>  <span class="c1"># sampling must be diverse to get mixed groups</span>
+    <span class="n">beta</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>       <span class="c1"># KL coefficient and clip range</span>
+    <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;grpo&quot;</span><span class="p">,</span> <span class="n">scale_rewards</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">reward_weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>    <span class="c1"># format, correctness</span>
+<span class="p">)</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">GRPOTrainer</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span>
+                      <span class="n">reward_funcs</span><span class="o">=</span><span class="p">[</span><span class="n">format_reward</span><span class="p">,</span> <span class="n">accuracy_reward</span><span class="p">],</span>
+                      <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">peft_config</span><span class="o">=</span><span class="n">lora_config</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+					<div class="callout info"><b class="t">Why is the GRPO loss almost exactly 0?</b>Advantages are centred within each group, so positive and negative terms cancel in the
+						logged loss even when gradients are non-zero. Watch <code>reward_std</code>, <code>frac_reward_zero_std</code>, <code>grad_norm</code> and <code>kl</code> instead.</div>
+
+					<h3 id="nbB-results">5.3 Results on the 12 held-out questions</h3>
+					<div class="kv"><div><b>5 / 12 &rarr; 9 / 12</b><span>correct answers, before &rarr; after GRPO (greedy decoding)</span></div>
+						<div><b>2 &rarr; 0</b><span>answers with no extractable final answer</span></div><div><b>&le; 0.021</b><span>largest KL to the starting model</span></div></div>
+					<div class="tblwrap"><table class="tbl res"><tr><th>#</th><th>Held-out question</th><th class="num">Reference</th><th>Before GRPO</th><th>After GRPO</th></tr><tr><td>1</td><td>27 × 34</td><td class="num">918</td><td class="bad">−888</td><td class="bad">888</td></tr><tr><td>2</td><td>387 + 568</td><td class="num">955</td><td class="bad">−955</td><td class="ok">955 &#10003;</td></tr><tr><td>3</td><td>(17 + 26) × 8</td><td class="num">344</td><td class="ok">344 &#10003;</td><td class="ok">344 &#10003;</td></tr><tr><td>4</td><td>27 − 64</td><td class="num">−37</td><td class="ok">−37 &#10003;</td><td class="ok">−37 &#10003;</td></tr><tr><td>5</td><td>144 / 12 + 7 × 3</td><td class="num">33</td><td class="bad">165</td><td class="ok">33 &#10003;</td></tr><tr><td>6</td><td>18 boxes of 24 pencils, 157 sold: how many remain?</td><td class="num">275</td><td class="none">no answer</td><td class="ok">275 &#10003;</td></tr><tr><td>7</td><td>46 × 17</td><td class="num">782</td><td class="bad">−742</td><td class="bad">742</td></tr><tr><td>8</td><td>623 − 278</td><td class="num">345</td><td class="bad">−345</td><td class="bad">−345</td></tr><tr><td>9</td><td>39 − 82</td><td class="num">−43</td><td class="ok">−43 &#10003;</td><td class="ok">−43 &#10003;</td></tr><tr><td>10</td><td>23 × 7 − 48</td><td class="num">113</td><td class="ok">113 &#10003;</td><td class="ok">113 &#10003;</td></tr><tr><td>11</td><td>(63 − 28) × 6</td><td class="num">210</td><td class="ok">210 &#10003;</td><td class="ok">210 &#10003;</td></tr><tr><td>12</td><td>14 bags of 18 marbles, 95 given away: how many remain?</td><td class="num">157</td><td class="none">no answer</td><td class="ok">157 &#10003;</td></tr><tr><td></td><td><b>Correct</b></td><td></td><td class="num"><b>5 / 12</b></td><td class="num"><b>9 / 12</b></td></tr></table></div>
+					<div class="callout warn"><b class="t">Read this carefully</b>
+						Twelve questions is a tiny test set, and the in-prompt worked example (&ldquo;14 is smaller, so the result is &minus;9&rdquo;) primes the model to add
+						spurious minus signs &mdash; most wrong answers before training are sign errors. GRPO mostly fixed format and sign habits; the multiplication errors
+						(27 &times; 34, 46 &times; 17) and one sign error (623 &minus; 278) remain. A correct final answer also does not certify the reasoning in <code>&lt;think&gt;</code>.</div>
+				</section>
+
+				<!-- ====================================================== 6 NOTEBOOK C -->
+				<section id="nbC">
+					<h2 class="sec"><span class="num">6</span>Notebook C &middot; DPO on preference pairs</h2>
+					<div class="nbcard">
+						<h3>Notebook C at a glance</h3>
+						<p><span class="tag">trl DPOTrainer</span><span class="tag">transformers</span><span class="tag">17 cells</span><span class="tag">&asymp;40 s training</span></p>
+						<p>Offline preference learning: no reward model, no value head, no generation during training. The model learns from fixed pairs of a
+							preferred and a rejected answer to the same prompt.</p>
+						<div class="btn-row">
+							<a class="btn btn-kaggle" target="_blank" href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_dpo.ipynb">Open in Kaggle</a>
+							<a class="btn btn-colab" target="_blank" href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_dpo.ipynb">Open in Colab</a>
+							<a class="btn btn-default" href="materials/tutorials/tutorial2/tutorial2_dpo.ipynb" download>Download .ipynb</a>
+							<a class="btn btn-default" target="_blank" href="materials/tutorials/tutorial2/tutorial2_dpo.html">View full notebook</a>
+						</div>
+						<button class="toggle" data-target="pvC">&#9656; Preview the notebook on this page</button>
+						<div class="panel-body2" id="pvC"><iframe class="nb-frame" loading="lazy" data-src="materials/tutorials/tutorial2/tutorial2_dpo.html" title="Notebook C"></iframe></div>
+					</div>
+
+					<p>The data are 128 short pairs from <code>trl-lib/ultrafeedback_binarized</code> (16 more for evaluation). One example:</p>
+					<div class="grid">
+						<div class="card"><h4>Prompt</h4><span class="muted">Given two Swahili sentences, label the second as the &ldquo;cause&rdquo; or &ldquo;effect&rdquo; of the first.</span></div>
+						<div class="card"><h4 style="color:#1f6b2a">Chosen &#10003;</h4><span class="muted">&ldquo;Effect<br>Confidence: 90%&rdquo;</span></div>
+						<div class="card"><h4 style="color:#a32020">Rejected &#10007;</h4><span class="muted">&ldquo;Effect. The second sentence is an effect of the first one, as it explains the reason why the person is now working in Kenya.&rdquo; (invents a fact)</span></div>
+					</div>
+
+					<h3 id="nbC-loss">6.1 The DPO loss</h3>
+					<p>DPO measures how much more the policy prefers the chosen answer than the frozen reference does, and pushes that margin up:</p>
+					<div class="eq m">$$\Delta = \big[\log\pi_\theta(y^+\mid x)-\log\pi_\theta(y^-\mid x)\big]-\big[\log\pi_{\text{ref}}(y^+\mid x)-\log\pi_{\text{ref}}(y^-\mid x)\big],\qquad
+						\mathcal{L}_{\text{DPO}} = -\log\sigma(\beta\Delta)$$</div>
+					<figure><img src="materials/tutorials/tutorial2/fig/dpo_loss.svg" alt="DPO loss" style="width:100%;max-width:820px;border:0">
+						<figcaption>Left: the loss as a function of the margin with <span class="m">\(\beta=0.1\)</span> (the notebook's worked numbers: Δ = &minus;2, 0, +2 give 0.798, 0.693, 0.598). Right: the training loss of this run.</figcaption></figure>
+					<div class="code"><div class="cap">Notebook C, cell 13 (condensed)</div><div class="hl"><pre><span></span><span class="n">training_args</span> <span class="o">=</span> <span class="n">DPOConfig</span><span class="p">(</span>
+    <span class="n">beta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span>          <span class="c1"># L = -log sigmoid(beta * margin)</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">5e-6</span><span class="p">,</span> <span class="n">max_steps</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">DPOTrainer</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">ref_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>   <span class="c1"># None: TRL makes a frozen copy as reference</span>
+                     <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span> <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+                     <span class="n">eval_dataset</span><span class="o">=</span><span class="n">eval_dataset</span><span class="p">,</span> <span class="n">processing_class</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>   <span class="c1"># rewards/accuracies, rewards/margins, loss</span>
+</pre></div>
+</div>
+
+					<h3 id="nbC-results">6.2 Results: a lesson in reading metrics</h3>
+					<div class="kv"><div><b>0.695</b><span>eval loss (ln 2 = 0.693)</span></div><div><b>56%</b><span>eval pairs where chosen &gt; rejected (chance = 50%)</span></div>
+						<div><b>&minus;0.003</b><span>mean reward margin</span></div><div><b>5 / 8</b><span>demo answers that changed</span></div></div>
+					<p>With 32 steps at learning rate 5e-6, the loss never leaves <span class="m">\(\ln 2\)</span>: the model has barely moved from the reference, and the
+						evaluation margin is indistinguishable from zero. The answers do change (greedy decoding amplifies tiny probability changes) &mdash; for example
+						the photosynthesis explanation became a numbered list &mdash; but these changes are not evidence of learned preferences.</p>
+					<div class="callout info"><b class="t">The point of this notebook</b>DPO's data requirement (fixed preference pairs) and its mechanics (a frozen reference and a
+						classification-style loss) are fully visible here. Getting a measurable effect needs more steps, a larger learning rate or more pairs &mdash; see the exercises.</div>
+				</section>
+
+				<!-- ====================================================== 7 COMPARE -->
+				<section id="compare">
+					<h2 class="sec"><span class="num">7</span>Choosing a method</h2>
+					<div class="tblwrap"><table class="tbl">
+						<tr><th>If you have&hellip;</th><th>Use</th><th>Models in memory</th><th>Generates during training?</th><th>Signal comes from</th></tr>
+						<tr><td>demonstrations (prompt, answer)</td><td><b>SFT</b></td><td>1</td><td>no</td><td>human-written answers</td></tr>
+						<tr><td>a modest GPU</td><td><b>+ LoRA / QLoRA</b></td><td>1 + small adapters</td><td>&mdash;</td><td>&mdash;</td></tr>
+						<tr><td>preference pairs (chosen, rejected)</td><td><b>DPO</b></td><td>2: policy + frozen reference</td><td>no (offline)</td><td>pairwise human/AI judgments</td></tr>
+						<tr><td>a verifiable answer</td><td><b>GRPO</b></td><td>2 + a reward function</td><td>yes, groups of <span class="m">\(G\)</span></td><td>rules: answer checks, tests</td></tr>
+						<tr><td>a reward model and a budget</td><td><b>PPO</b></td><td>4: policy, reference, reward model, critic</td><td>yes</td><td>learned reward model</td></tr>
+					</table></div>
+					<p class="muted">In Notebook A the four PPO &ldquo;models&rdquo; share one 4-bit base: they are adapters and small heads, which is why a 4B model fits on a 16 GB T4.</p>
+				</section>
+
+				<!-- ====================================================== 8 TOOLS -->
+				<section id="tools">
+					<h2 class="sec"><span class="num">8</span>Practical AI tools for research</h2>
+					<p>A short companion deck by Siqi Rao covers three tools you will need for assignments and the final project.</p>
+					<div class="btn-row"><a class="btn btn-primary" target="_blank" href="materials/tutorials/tutorial2/tutorial2_ai_tools_for_research.pdf">Open the deck (PDF, 8 slides)</a></div>
+					<div class="grid">
+						<div class="card"><h4>Codex and coding agents</h4>An agent reads files, edits code, runs tests and iterates within the permissions you grant. Put project rules in
+							<code>AGENTS.md</code>, reusable workflows in Skills, and always review with <code>git diff</code> and your tests.</div>
+						<div class="card"><h4>Cloud GPUs</h4>AutoDL, Alibaba Cloud PAI, Virtai Cloud. Check GPU memory (model and batch size), budget, the CUDA/framework image and
+							persistent storage. Calling a hosted LLM API needs no GPU.</div>
+						<div class="card"><h4>LLM APIs</h4>DeepSeek, Alibaba Cloud Bailian, Volcano Engine Ark, SiliconFlow, Zhipu AI, OpenRouter. Many are OpenAI-compatible:
+							switching providers is mostly a different base URL, key and model name.</div>
+					</div>
+					<div class="code"><div class="cap">Calling an OpenAI-compatible LLM API</div><div class="hl"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>   <span class="c1"># many providers speak the same protocol</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;LLM_API_KEY&quot;</span><span class="p">],</span>          <span class="c1"># never hard-code the key</span>
+                <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://api.deepseek.com&quot;</span><span class="p">)</span>         <span class="c1"># change for another provider</span>
+<span class="n">reply</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;deepseek-chat&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Explain DPO in two sentences.&quot;</span><span class="p">}])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reply</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+					<div class="callout warn"><b class="t">Never commit API keys</b>Read keys from environment variables or Kaggle/Colab secrets, as above, and check model IDs against the provider's current documentation.</div>
+				</section>
+
+				<!-- ====================================================== 9 PITFALLS -->
+				<section id="pitfalls">
+					<h2 class="sec"><span class="num">9</span>Pitfalls &amp; troubleshooting</h2>
+					<div class="tblwrap"><table class="tbl">
+						<tr><th style="width:36%">Symptom</th><th>Cause and fix</th></tr>
+						<tr><td><code>RuntimeError: Start a fresh Kaggle session and run this cell first</code></td><td>Libraries were imported before the pinned environment was set up.
+							<i>Run &rarr; Restart session</i>, then run the setup cell first.</td></tr>
+						<tr><td><code>Enable a Kaggle GPU accelerator</code> / CUDA out of memory</td><td>Select GPU T4 in the session options. On a smaller GPU reduce <code>MAX_COMPLETION_LENGTH</code>,
+							<code>GROUP_SIZE</code> or the rollout batch.</td></tr>
+						<tr><td>Downloads fail or are very slow</td><td>Turn <i>Internet</i> on in Kaggle; add an <code>HF_TOKEN</code> secret to avoid Hub rate limits.</td></tr>
+						<tr><td>Notebook A session timed out mid-run</td><td>Each stage saves a verified ZIP. Download it from the Output panel, attach it as a private dataset and set
+							<code>RUN_MODE = "ppo_retry"</code> to resume PPO without retraining SFT and the reward model.</td></tr>
+						<tr><td>GRPO loss is &asymp; 0 and nothing seems to happen</td><td>Normal for the logged loss (centred advantages). If <code>frac_reward_zero_std</code> is 1, all groups are
+							uniform: use questions of mixed difficulty or a larger group.</td></tr>
+						<tr><td>DPO loss stays at 0.693</td><td>The policy has not moved from the reference: train longer, raise the learning rate, or use more pairs; check <code>rewards/accuracies</code>.</td></tr>
+						<tr><td>PPO reward goes up but outputs get worse</td><td>Reward hacking: the policy exploits the reward model (e.g. generic praise). Increase <span class="m">\(\beta\)</span>,
+							inspect samples, and evaluate with an independent judge.</td></tr>
+						<tr><td>Results change between runs</td><td>Sampling, small data and few steps make runs noisy. Fix seeds, compare on the same prompts, and report intervals rather than single numbers.</td></tr>
+					</table></div>
+				</section>
+
+				<!-- ====================================================== 10 EXERCISES -->
+				<section id="exercises">
+					<h2 class="sec"><span class="num">10</span>Exercises</h2>
+					<p class="muted">Not graded &mdash; but they map directly onto Assignment 2 and typical final-project experiments.</p>
+					<div class="ex"><div class="lvl">Warm-up &middot; slides</div><b>Memory budget.</b> Using 16 bytes/parameter for full fine-tuning, estimate the memory to fine-tune
+						Qwen3-4B fully, with LoRA (bf16 base), and with QLoRA. Which fits on a 16 GB T4?</div>
+					<div class="ex"><div class="lvl">Warm-up &middot; Notebook B</div><b>Advantages by hand.</b> For rewards [1.1, 0.1, 0.1, 0.1] compute the group-relative advantages.
+						Why does a rare correct answer get a large push (compare with slide 45)?</div>
+					<div class="ex"><div class="lvl">Core &middot; Notebook C</div><b>Make DPO learn.</b> Raise <code>MAX_STEPS</code> to 200 and the learning rate to 5e-5. Plot
+						<code>rewards/margins</code> and <code>rewards/accuracies</code>. Then vary <span class="m">\(\beta\in\{0.01, 0.1, 0.5\}\)</span>: what changes?</div>
+					<div class="ex"><div class="lvl">Core &middot; Notebook B</div><b>Remove the prompt bias.</b> Delete the worked subtraction example from the prompt and re-run GRPO.
+						Do sign errors before training disappear? Does GRPO still help?</div>
+					<div class="ex"><div class="lvl">Core &middot; Notebook A</div><b>Turn the KL knob.</b> Re-run PPO with <span class="m">\(\beta=0\)</span> and <span class="m">\(\beta=0.2\)</span>.
+						Compare validation reward, KL, repetition rate and a few raw samples. Do you see reward hacking at <span class="m">\(\beta=0\)</span>?</div>
+					<div class="ex"><div class="lvl">Challenge</div><b>GRPO for something else.</b> Write a reward function for a different verifiable task (e.g. unit conversion,
+						a JSON format checker, or a medical multiple-choice answer key) and train with <code>GRPOTrainer</code>. Report before/after accuracy with a confidence interval.</div>
+					<div class="ex"><div class="lvl">Challenge</div><b>Same data, two methods.</b> Build preference pairs from Notebook B's groups (a correct answer as <i>chosen</i>, a wrong one as
+						<i>rejected</i>) and train DPO on them. Compare with GRPO on the held-out questions: when does online sampling matter?</div>
+				</section>
+
+				<!-- ====================================================== 11 QUIZ -->
+				<section id="quiz">
+					<h2 class="sec"><span class="num">11</span>Self-check quiz</h2>
+					<p class="muted">Click a question to reveal the answer.</p>
+					<details class="q"><summary>1. Why are prompt tokens given the label <code>-100</code> in SFT?</summary>The loss should only teach the model to produce the answer. Positions
+						labelled <code>-100</code> are ignored by the cross-entropy loss, so the model is not trained to reproduce the user's question.</details>
+					<details class="q"><summary>2. Why is LoRA's <span class="m">\(B\)</span> initialised to zero?</summary>So that <span class="m">\(\Delta W=BA=0\)</span> at step 0: training starts exactly
+						from the pre-trained model. <span class="m">\(A\)</span> is random so that gradients for <span class="m">\(B\)</span> are not zero.</details>
+					<details class="q"><summary>3. In Notebook A, what are the four &ldquo;models&rdquo; PPO needs, and how do they fit on one T4?</summary>Policy (PPO adapter), reference (SFT adapter),
+						reward model (reward adapter + head) and critic (value head). They share one frozen 4-bit base and differ only in small adapters and heads.</details>
+					<details class="q"><summary>4. What does the KL penalty <span class="m">\(\beta\)</span> prevent?</summary>It keeps the policy close to the SFT model, which preserves fluent
+						language and limits reward hacking &mdash; exploiting weaknesses of the learned reward model.</details>
+					<details class="q"><summary>5. A GRPO group gets rewards [1, 1, 1, 1]. What is the learning signal?</summary>Zero: every advantage is <span class="m">\((1-1)/(0+\varepsilon)=0\)</span>.
+						Questions that are always solved (or never solved) teach nothing; this is why the notebook screens for mixed groups.</details>
+					<details class="q"><summary>6. Why does GRPO not need a value model?</summary>The mean reward of the other answers to the same question serves as the baseline, replacing
+						the learned <span class="m">\(V(s)\)</span>. This saves memory and avoids training a critic on sparse 0/1 rewards.</details>
+					<details class="q"><summary>7. The DPO training loss stays at 0.693. What does that mean?</summary><span class="m">\(-\log\sigma(0)=\ln 2\approx0.693\)</span>: the
+						reference-adjusted margin is still about zero, so the policy has not learned to prefer chosen answers more than the reference does.</details>
+					<details class="q"><summary>8. PPO raised the positive rate from 57.5% to 67.5%, but the 95% interval of the gain includes zero. What should you conclude?</summary>That the
+						run is consistent with an improvement but does not establish one: 40 test prompts are too few. Use more evaluation prompts, several seeds, and report intervals.</details>
+					<details class="q"><summary>9. When would you choose DPO over GRPO?</summary>When you have preference pairs but no automatic way to verify answers (e.g. helpfulness,
+						tone, safety), and want a cheap, stable offline method. GRPO needs a reward you can compute on fresh samples.</details>
+				</section>
+
+				<!-- ====================================================== 12 READING -->
+				<section id="reading">
+					<h2 class="sec"><span class="num">12</span>Further reading &amp; credits</h2>
+					<div class="grid">
+						<div class="card">
+							<h4>Papers</h4>
+							<ul>
+								<li><a target="_blank" href="https://arxiv.org/abs/2203.02155">Ouyang et al. (2022). InstructGPT</a></li>
+								<li><a target="_blank" href="https://arxiv.org/abs/2106.09685">Hu et al. (2021). LoRA</a></li>
+								<li><a target="_blank" href="https://arxiv.org/abs/2305.14314">Dettmers et al. (2023). QLoRA</a></li>
+								<li><a target="_blank" href="https://arxiv.org/abs/1707.06347">Schulman et al. (2017). PPO</a></li>
+								<li><a target="_blank" href="https://arxiv.org/abs/2402.03300">Shao et al. (2024). DeepSeekMath (GRPO)</a></li>
+								<li><a target="_blank" href="https://arxiv.org/abs/2501.12948">DeepSeek-AI (2025). DeepSeek-R1</a></li>
+								<li><a target="_blank" href="https://arxiv.org/abs/2305.18290">Rafailov et al. (2023). DPO</a></li>
+								<li><a target="_blank" href="https://arxiv.org/abs/2405.09673">Biderman et al. (2024). LoRA Learns Less and Forgets Less</a></li>
+							</ul>
+						</div>
+						<div class="card">
+							<h4>Libraries and guides</h4>
+							<ul>
+								<li><a target="_blank" href="https://huggingface.co/docs/trl/index">TRL documentation</a> (SFT, DPO, GRPO trainers)</li>
+								<li><a target="_blank" href="https://huggingface.co/docs/peft/index">PEFT documentation</a> (LoRA, QLoRA)</li>
+								<li><a target="_blank" href="https://huggingface.co/learn/cookbook/fine_tuning_llm_grpo_trl">HF Cookbook: GRPO in TRL</a></li>
+								<li><a target="_blank" href="https://github.com/huggingface/smol-course">HF Smol Course</a></li>
+								<li><a target="_blank" href="https://cameronrwolfe.substack.com/">Cameron R. Wolfe's deep-learning blog</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="callout info"><b class="t">Credits</b>
+						Slides adapted from material by Martin (<a target="_blank" href="https://martinisadad.github.io">martinisadad.github.io</a>).
+						Notebook A is adapted from Ashwani Kumar's <i>RLHF in Notebooks</i> (Qwen3-4B, with added evaluation). Notebook B is adapted from Sergio Paniego,
+						<i>Post training an LLM for reasoning with GRPO in TRL</i> (Hugging Face Cookbook, Apache 2.0). Notebook C is adapted from the Hugging Face
+						Smol Course DPO notebook (Apache 2.0). AI tools deck by Siqi Rao.</div>
+					<p style="margin-top:14px">Next steps: <a href="materials/2026_fall_slides/Lecture06_RL_for_LLM_Post-Training.pdf">Lecture 6 slides (RL for LLM post-training)</a> &middot;
+						<a href="tutorial1.html">Tutorial 1</a> &middot; <a href="index.html#schedule">Course schedule</a></p>
+				</section>
+
+				<div class="footer2">
+					Tutorial 2 &middot; CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; School of Data Science, CUHK-Shenzhen &middot; Fall 2026.
+					Numbers and outputs on this page come from the provided notebook runs on a Kaggle T4. <a href="index.html">&larr; Back to the course homepage</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./assets/katex/katex.min.js"></script>
+	<script src="./assets/katex/contrib/auto-render.min.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		if (window.renderMathInElement) {
+			renderMathInElement(document.body, {
+				delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}],
+				ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+			});
+		}
+		document.querySelectorAll('img[data-src]').forEach(function (im) { im.src = im.getAttribute('data-src'); });
+		document.querySelectorAll('.toggle').forEach(function (btn) {
+			var label = btn.innerHTML;
+			btn.addEventListener('click', function () {
+				var panel = document.getElementById(btn.getAttribute('data-target'));
+				var frame = panel.querySelector('iframe');
+				var show = panel.style.display !== 'block';
+				panel.style.display = show ? 'block' : 'none';
+				btn.innerHTML = show ? '&#9662; Hide' : label;
+				if (show && frame && !frame.getAttribute('src')) { frame.setAttribute('src', frame.getAttribute('data-src')); }
+			});
+		});
+		var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+		var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+		function onScroll() {
+			var y = window.scrollY + 120, idx = 0;
+			targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top + window.scrollY <= y) idx = i; });
+			links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+		}
+		window.addEventListener('scroll', onScroll, {passive: true}); onScroll();
+	});
+	</script>
+</body>
+
+</html>
