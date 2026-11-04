@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Writing tips, poster and paper samples for the CSC5051/CSC6052/MDS5110 NLP final project (CUHK-Shenzhen, Fall 2026), from Lecture 8.">
+	<title>Writing Tips, Poster &amp; Paper Samples | CSC5051/CSC6052/MDS5110 NLP, Fall 2026</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/project.css">
+	<style>
+		.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; margin: 12px 0 18px; }
+		.gallery figure { margin: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; }
+		.gallery figure.wide { grid-column: 1 / -1; }
+		.gallery img { width: 100%; display: block; }
+		.gallery figcaption { font-size: 13px; padding: 8px 12px; color: #555; line-height: 1.45; }
+		.tip { border: 1px solid var(--line); border-left: 5px solid var(--red); border-radius: 8px; padding: 12px 18px; margin: 12px 0; background: #fff; }
+		.tip h4 { margin: 0 0 6px; font-size: 16.5px; font-weight: 500; }
+		.tip h4 .n { color: var(--red); font-weight: 600; margin-right: 8px; }
+		.tip .zh { color: #7a3b3b; font-size: 13.5px; margin-top: 4px; }
+		.tip .ex { background: #fafafa; border: 1px solid #eee; border-radius: 6px; padding: 8px 12px; font-size: 13.5px; margin: 6px 0; }
+		.tip .ex .bad { color: #a32020; }
+		.tip .ex .good { color: #1f6b2a; }
+		.tip .ex b { font-weight: 600; }
+		.motto { font-size: 20px; font-weight: 500; color: var(--red); margin: 10px 0 2px; }
+		.motto + .note { margin-bottom: 14px; }
+		.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+		@media (max-width: 700px) { .twocol { grid-template-columns: 1fr; } }
+	</style>
+</head>
+
+<body>
+	<div class="hero fp">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; <a href="final-project.html">Final Project</a> &rsaquo; Writing tips &amp; samples</div>
+			<h1>Writing tips, poster &amp; paper samples</h1>
+			<p class="lead">The report is 45 of the 55 project points and writing clarity alone is 15. This page collects the writing advice from Lecture 8
+				(<i>a good paper should read like a smooth film, with no dull stretch</i>), the criteria behind "outstanding project" nominations, past posters and papers from this course,
+				and the templates. 本页汇集第 8 讲的写作建议、优秀项目的标准、往届海报与论文样例，以及模板。</p>
+			<div class="badge-row">
+				<span>&#128196; report 45 pts &middot; clarity 15</span>
+				<span>&#128203; poster 10 pts &middot; 4-minute pitch</span>
+				<span>&#128197; poster Dec. 17 &middot; report Dec. 25</span>
+			</div>
+			<a class="btn btn-colab" href="final-project.html">&#8592; Project guide &amp; tracks</a>
+			<a class="btn btn-ghost" href="https://www.overleaf.com/read/nkgjmyqghssh#3c4f20" target="_blank">Report template (Overleaf)</a>
+			<a class="btn btn-ghost" href="https://docs.google.com/presentation/d/1pBJuB-wazGyGHTiDNQ6msihS2cyyZDYL71VgE6o3FrE/edit" target="_blank">Poster template</a>
+			<a class="btn btn-ghost" href="materials/2026_fall_slides/Lecture08_Final_Projects_and_Research_Sharing.pdf" target="_blank">Lecture 8 slides</a>
+			<a class="btn btn-ghost" href="final-project.html#playbook">Research playbook</a>
+		</div>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<div class="col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">On this page</div>
+					<a href="#outstanding">1&nbsp; What an outstanding project has</a>
+					<a href="#tips">2&nbsp; Tips of NLP report writing</a>
+					<a href="#structure">3&nbsp; Report structure &amp; the arXiv + HF + GitHub habit</a>
+					<a href="#posters">4&nbsp; Poster samples &amp; the 4-minute pitch</a>
+					<a href="#papers">5&nbsp; Paper samples from past terms</a>
+					<a href="#reading">6&nbsp; Further reading</a>
+					<a href="#checklist">7&nbsp; Checklist before you submit</a>
+				</nav>
+			</div>
+
+			<div class="col-md-9">
+
+				<section id="outstanding">
+					<h2 class="sec"><span class="num">1</span>What an outstanding project has</h2>
+					<p>Each term the TAs and the instructor nominate favourites (a 2-point and a 1-point bonus). The nominations keep going to the same kind of work. From Lecture 8, a good paper or project should possess the following:</p>
+					<div class="grid">
+						<div class="card"><h4>&#127919; Valuable topic selection</h4><p>Significant theoretical or practical importance; addresses an existing problem or fills a gap. 选题有价值：解决真实问题或填补空白。</p></div>
+						<div class="card"><h4>&#9998; Standard writing</h4><p>Clear, fluent language; academic norms; accurate citations and references. 写作规范：语言清晰流畅，引用准确。</p></div>
+						<div class="card"><h4>&#129513; Clear structure</h4><p>Logical and coherent, easy for readers to follow. 结构清晰：读者容易跟上。</p></div>
+						<div class="card"><h4>&#128161; Real innovation</h4><p>A novel perspective, method or solution; a breakthrough on existing research, however small. 有创新：新视角、新方法或新解法。</p></div>
+						<div class="card"><h4>&#128202; Clear charts and figures</h4><p>Well-labelled visuals that support the content. 图表清晰：标注完整，支撑论点。</p></div>
+						<div class="card"><h4>&#128270; Thorough data analysis</h4><p>Scientific collection and analysis; results interpreted accurately and supporting the conclusions. 数据分析扎实：方法科学，解读准确。</p></div>
+						<div class="card"><h4>&#9989; Reliable conclusions</h4><p>Conclusions rest on solid data and evidence and are convincing. 结论可靠：有数据和证据支撑。</p></div>
+						<div class="card"><h4>&#128187; Reproducible</h4><p>Code on GitHub, data on Hugging Face, the paper on arXiv: the lab's habit (section 3). 可复现：代码、数据、论文三件套。</p></div>
+					</div>
+				</section>
+
+				<section id="tips">
+					<h2 class="sec"><span class="num">2</span>Tips of NLP report writing <span class="sub">from Lecture 8</span></h2>
+					<div class="motto">一篇好的论文读起来，应该是像看一个流畅的电影，没有尿点。</div>
+					<p class="note">A good paper reads like a smooth film: no scene the reader wants to skip. Every tip below serves that one goal.</p>
+
+					<div class="tip"><h4><span class="n">1</span>From abstract to concrete</h4>
+						<p>First give the general view, then detail it. Do not open with a list of details: it is not pleasant for a reader to digest mixed details without the general picture. A standard way is a paragraph at the top of a technical section describing the sub-components at a high level while pointing to the subsection that details each.</p>
+						<div class="ex"><b>Example (Ravi et al., 2023):</b> "The architecture of our method is shown in Figure 1. We use the same clustering method as in Cattan et al. (2021a) but revise the pairwise scorer. Our goal is to improve the model's ability to resolve coreferences between mention pairs that are not lexically or contextually similar, but where one mention could be inferred from the other using commonsense knowledge and reasoning. Thus, we develop a commonsense inference engine (Sec 3.1) and use it to enhance the pairwise scorer (Sec 3.2)."</div>
+						<p class="zh">先给全貌，再给细节；不要一上来就罗列细节。技术章节开头用一段话概述各组件，并指向对应小节。</p></div>
+
+					<div class="tip"><h4><span class="n">2</span>Less is more</h4>
+						<p>What you tried, whether it succeeded or failed, does not matter by itself. Find the most direct way to tell your main findings, instead of every finding, important or not. A six-page report has room for one story.</p>
+						<p class="zh">少即是多：直接讲主要发现，不要把所有尝试都堆进去。</p></div>
+
+					<div class="tip"><h4><span class="n">3</span>Motivation for the whole paper, and for almost every component</h4>
+						<p>The instructor sometimes asks students to write an independent section called <i>Motivation</i>. Each component also needs its own reason: "Why not a simpler structure? Why is the DAG necessary?" If you cannot answer, the component probably should not be there.</p>
+						<p class="zh">整篇论文要有动机，几乎每个组件也要有动机：为什么不用更简单的结构？</p></div>
+
+					<div class="tip"><h4><span class="n">4</span>Don't try to sound smart</h4>
+						<div class="ex"><span class="bad">utilize</span> &nbsp;&rarr;&nbsp; <span class="good">use</span>. &nbsp;Plain words are fine.</div>
+						<p class="zh">不要为了显得高深而用大词：utilize 不如 use。</p></div>
+
+					<div class="tip"><h4><span class="n">5</span>Be concise</h4>
+						<div class="ex"><span class="bad">"we evaluated our method on 5 distinct datasets"</span>: the five datasets should be distinct in nature, or drop "distinct".<br>
+							<span class="bad">"we're proposing a novel method"</span>: of course you are not proposing an existing method, and it is the reviewer's duty to judge whether it is novel.</div>
+						<p class="zh">简洁：删掉不传递信息的形容词（distinct、novel）。</p></div>
+
+					<div class="tip"><h4><span class="n">6</span>Do not use a new term that was not explained</h4>
+						<div class="ex"><span class="bad">"Complementing our primary findings, we also delve into comprehensive ablation studies, uncovering several non-obvious insights pertinent to GPT-Instruct frameworks."</span><br>
+							The instructor's comment to the PhD student who wrote it: "I never saw this term before, so please define and explain it. Otherwise use the commonly used terms; introduce a new term only when necessary."</div>
+						<p class="zh">不要使用没有解释的新术语；优先用通用术语，必要时才造新词并定义。</p></div>
+
+					<div class="tip"><h4><span class="n">7</span>Be clear and specific</h4>
+						<div class="ex"><span class="bad">"While these methodologies have proven effective, the exploration space is inherently confined to manually designed operations, which may impede the generalization capabilities of LLMs to unfamiliar data or domains."</span><br>
+							Exploration space for <i>what</i>? Readers do not know what it refers to. Ground every term to a concrete object.</div>
+						<p class="zh">清楚而具体：每个词都要落到具体对象上。留白给想象留空间，但科学写作一般不留白。</p></div>
+
+					<div class="tip"><h4><span class="n">8</span>Use fluent logic</h4>
+						<div class="ex">The same sentence hides a missing link: <i>why</i> would manually designed operations hurt generalization? Spell out the chain:<br>
+							<span class="good">manual design is too labour-expensive to cover many questions &rarr; low question coverage &rarr; weaker generalization.</span></div>
+						<p class="zh">逻辑要连贯：把"人工设计 → 覆盖不足 → 泛化差"这样的推理链写出来。</p></div>
+
+					<div class="tip"><h4><span class="n">9</span>Consistent style: three-line tables look better</h4>
+						<div class="gallery"><figure><img src="imgs/final_project/l8_s96.jpg" alt="three-line tables"><figcaption>The same numbers twice: a boxed grid, and the three-line (booktabs) table that most NLP venues expect. Use <code>\toprule \midrule \bottomrule</code>.</figcaption></figure></div>
+						<p class="zh">风格一致：三线表更好看，也是会议的默认风格。</p></div>
+
+					<div class="tip"><h4><span class="n">10</span>Other tips</h4>
+						<ul class="rq">
+							<li>The paper needs to be self-contained.</li>
+							<li>Don't repeat your point within the same section.</li>
+							<li>Don't write overly long sentences.</li>
+							<li>Don't oversell; be honest about the limitations.</li>
+							<li>The related work section is not a shopping list: group papers by theme, draw conclusions, and use them to show the gap your work addresses.</li>
+						</ul>
+						<p class="zh">自洽、不重复、不写长句、不夸大、相关工作不是购物清单（按主题归类并指出空白）。</p></div>
+
+					<div class="gallery">
+						<figure><img src="imgs/final_project/l8_s86.jpg" alt="from abstract to concrete"><figcaption>Lecture 8: "It is not happy for a reader to read mixed details without a general picture."</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s84.jpg" alt="AI Scientist"><figcaption>Lecture 8 also points to Sakana's <a href="https://sakana.ai/ai-scientist-first-publication/" target="_blank">AI Scientist</a>, whose paper passed workshop peer review: use AI to draft and to check, keep humans responsible for the claims, and state the use in the report.</figcaption></figure>
+					</div>
+				</section>
+
+				<section id="structure">
+					<h2 class="sec"><span class="num">3</span>Report structure &amp; the arXiv + Hugging Face + GitHub habit</h2>
+					<div class="twocol">
+						<div>
+							<p>Use the <a href="https://www.overleaf.com/read/nkgjmyqghssh#3c4f20" target="_blank">course template</a>; at most six pages of main text, references excluded (longer submissions are allowed but earn nothing extra). The <a href="final-project.html#playbook">research playbook</a> lists what reviewers look for in each section; in short:</p>
+							<ul class="rq">
+								<li><b>Abstract and introduction:</b> the question in one sentence, the main result in one sentence, one limitation.</li>
+								<li><b>Motivation:</b> why this problem, why this approach; even a reproduction needs its own motivation.</li>
+								<li><b>Related work:</b> grouped by theme, ending in the gap.</li>
+								<li><b>Method:</b> enough to reimplement (prompts, schemas, budgets, hyperparameters; appendix for the long version).</li>
+								<li><b>Evaluation and results:</b> held-out split, metrics, checker, seeds, hardware, cost; the matched comparison and one figure a reader remembers.</li>
+								<li><b>Failures and limitations:</b> a concrete failure with your explanation.</li>
+								<li><b>Contribution and AI-use statements:</b> who did what; where generative AI materially helped.</li>
+							</ul>
+						</div>
+						<div>
+							<p>Lecture 8's example of how the lab publishes: the paper on arXiv links the code on GitHub, and the GitHub README links the paper, the dataset on Hugging Face, the model and a blog. Your course report can follow the same pattern with a public repository, a dataset card and a README that states the question and the headline number.</p>
+							<div class="gallery"><figure><img src="imgs/final_project/l8_s74.jpg" alt="arXiv + HF + GitHub example"><figcaption><a href="https://arxiv.org/abs/2508.18240" target="_blank">MedGen</a> (arXiv 2508.18240) and its <a href="https://github.com/FreedomIntelligence/MedGen" target="_blank">GitHub repository</a> with paper, dataset, model and blog links. "Link your code here."</figcaption></figure></div>
+						</div>
+					</div>
+				</section>
+
+				<section id="posters">
+					<h2 class="sec"><span class="num">4</span>Poster samples &amp; the 4-minute pitch</h2>
+					<p>On December 18 you present your poster on site and give a <b>4-minute introduction</b> to the raters (other groups and TAs). The teaching team prints every poster submitted by the December 17, 17:00 deadline; late posters are printed by the team itself. Start from the <a href="https://docs.google.com/presentation/d/1pBJuB-wazGyGHTiDNQ6msihS2cyyZDYL71VgE6o3FrE/edit" target="_blank">poster template</a>; the blocks can be customised.</p>
+					<div class="callout info"><b class="t">How to present</b>
+						Lead with the question and the comparison figure; the architecture diagram comes second. Bring a live demo or a recorded replay on a laptop and have the failure case ready, not only the success.
+						Prepare a 90-second version and a 4-minute version. Poster quality counts 1 point, oral presentation 4, overall assessment 5: the talk matters more than the layout.</div>
+					<div class="gallery">
+						<figure class="wide"><img src="imgs/final_project/l8_s08.jpg" alt="example posters from Lecture 8"><figcaption>Two example research posters shown in Lecture 8 (SCSS-LIE, a collaborative search system; Quantum-inspired Complex Embedding). Note the numbered sections and the single results table.</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s09.jpg" alt="HuatuoGPT poster in the course template"><figcaption>The course poster template filled with HuatuoGPT: Introduction, Motivation (a ChatGPT-vs-doctor dialogue), Methodology (hybrid data + RLMF), Results (single- and multi-turn evaluation), QR codes for the demo and code.</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s79.jpg" alt="Safety Evaluation of Local LLMs poster"><figcaption>Past course poster: <i>Safety Evaluation of Local LLMs</i>. Five locally deployed models on the "Do Not Answer" dataset, a fine-tuned Longformer judge plus human evaluation, heat-maps by harm type.</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s80.jpg" alt="Multi-agent novel writing poster"><figcaption>Past course poster: <i>LLM-Based Multi-Agent Cooperation Facilitates Internet Novel Writing</i>. Motivation shown as a human-vs-system dialogue; architecture and a GPT-4-scored comparison across six LLMs.</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s81.jpg" alt="StockGPT poster"><figcaption>Past course poster: <i>StockGPT</i>. Two-stage training (sentiment fine-tuning, then embeddings into XGBoost) and a back-test table against the CSI 500.</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s82.jpg" alt="In-context learning poster"><figcaption>Past course poster: <i>In-context Learning: LLM Conversion</i>. Saliency-based metrics across layers, two hypotheses stated up front, results on easy and hard tasks.</figcaption></figure>
+					</div>
+				</section>
+
+				<section id="papers">
+					<h2 class="sec"><span class="num">5</span>Paper samples from past terms</h2>
+					<p>Three reports Lecture 8 showed as relatively good projects. Read the abstracts for the pattern: a concrete problem, the system in one sentence, the comparison, the number, and an honest limitation.</p>
+					<div class="gallery">
+						<figure><img src="imgs/final_project/l8_s75.jpg" alt="ConsumerSim paper"><figcaption><i>ConsumerSim: LLM-Based Consumer Behavior Simulation System</i>. A two-stage cognitive engine with multi-period memory; hundreds of heterogeneous agents reproduce the Permanent Income Hypothesis and voucher effects (MPC 0.65&ndash;0.70).</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s76.jpg" alt="FutureSelf paper"><figcaption><i>Now, from the Future: a "FutureSelf" agent in career planning</i>. A RAG system built on the WOOP framework; a mixed-methods study (N = 24) comparing single-agent and multi-agent modes, with a "divergence paradox" finding.</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s77.jpg" alt="TripGenie paper"><figcaption><i>TripGenie: an agentic AI for personalized trip-plan generation via multi-tool orchestration</i>. Three domain tools over 28 Chinese cities; final pass rate 18.9% against 16% for greedy search, with limitations stated in the abstract.</figcaption></figure>
+						<figure><img src="imgs/final_project/l8_s78.jpg" alt="TripGenie figure"><figcaption>TripGenie's Figure 1: one figure that explains the whole system, the prompting strategies compared, and the delivered plan. Aim for one such figure in your report.</figcaption></figure>
+					</div>
+					<p class="note">Student names and IDs appear as they were shown in the lecture. If you are an author and prefer not to be listed here, tell the teaching team and the sample will be removed.</p>
+				</section>
+
+				<section id="reading">
+					<h2 class="sec"><span class="num">6</span>Further reading</h2>
+					<ul class="rq">
+						<li><a href="https://medium.com/@vered1986/tips-for-writing-nlp-papers-9c729a2f9e1f" target="_blank">Vered Shwartz, "Tips for writing NLP papers"</a>: the source of the abstract-to-concrete example above.</li>
+						<li><a href="https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/" target="_blank">Simon Peyton Jones, "How to write a great research paper"</a>: one idea per paper, state the contributions as a list, write the paper first.</li>
+						<li><a href="https://cs.stanford.edu/people/widom/paper-writing.html" target="_blank">Jennifer Widom, "Tips for writing technical papers"</a>: section-by-section advice, including what an introduction must contain.</li>
+						<li><a href="https://arxiv.org/abs/1807.03341" target="_blank">Lipton &amp; Steinhardt, "Troubling trends in machine learning scholarship"</a>: explanation vs. speculation, mathiness, suggestive language, misuse of "novel".</li>
+						<li><a href="https://www.youtube.com/watch?v=SYk29tnxASs" target="_blank">Mike Morrison, "How to create a better research poster in less time"</a>: the one-sentence-headline poster, useful even if you keep the course template.</li>
+						<li><a href="https://sakana.ai/ai-scientist-first-publication/" target="_blank">The AI Scientist's first peer-reviewed publication</a>: what AI-written papers get right and wrong; read before drafting with an agent.</li>
+						<li><a href="final-project.html#playbook">The research playbook</a> on the project page: experiment design, proposal template, reproducibility checklist.</li>
+					</ul>
+				</section>
+
+				<section id="checklist">
+					<h2 class="sec"><span class="num">7</span>Checklist before you submit</h2>
+					<ul class="checklist">
+						<li>The first paragraph states the question, the main result and one limitation.</li>
+						<li>Every section opens with the general picture before the details.</li>
+						<li>Every component has a stated reason; anything without one is gone.</li>
+						<li>No undefined term, no "novel", no "distinct" without a reason, no sentence over three lines.</li>
+						<li>Related work is grouped by theme and ends with the gap you fill.</li>
+						<li>Tables are three-line tables; figures are labelled; one figure tells the whole story.</li>
+						<li>Limitations are honest; a failure case is shown and explained.</li>
+						<li>Contribution statement and generative-AI use statement are present.</li>
+						<li>Code is public, the README states the question and the headline number, and one command reproduces the main table.</li>
+						<li>Six pages of main text in the course template; poster submitted by Dec. 17, 17:00; report by Dec. 25, 23:59.</li>
+					</ul>
+					<p style="margin-top:14px">Back to: <a href="final-project.html">project guide &amp; tracks</a> &middot; <a href="final-project.html#schedule">schedule and grading</a> &middot; <a href="index.html">course homepage</a></p>
+				</section>
+
+				<div class="footer2">
+					Writing tips &amp; samples &middot; CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; School of Data Science, CUHK-Shenzhen &middot; Fall 2026. Content adapted from the Lecture 8 slides (Final Projects and Research Sharing). <a href="index.html">&larr; Back to the course homepage</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+		var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+		function onScroll() {
+			var y = window.scrollY + 120, idx = 0;
+			targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top + window.scrollY <= y) idx = i; });
+			links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+		}
+		window.addEventListener('scroll', onScroll, {passive: true}); onScroll();
+	});
+	</script>
+</body>
+
+</html>
