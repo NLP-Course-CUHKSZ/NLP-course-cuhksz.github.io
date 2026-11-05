@@ -128,3 +128,12 @@ body.zh .hero .lead { line-height: 1.7; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin: 10px 0; }
 .grid .card { margin: 0; }
 .grid .card h4 { margin-top: 0; font-size: 15px; }
+
+/* ---------- Nov. 5: eight tracks, part dividers, fold counts ---------- */
+h3.part { margin: 26px 0 6px; padding: 8px 12px; background: #f3f5f8; border-left: 4px solid #3C6EA8; border-radius: 4px; font-size: 17px; font-weight: 500; }
+h3.part .sub { font-size: 13px; color: var(--mute); margin-left: 8px; font-weight: 400; }
+p.partintro { color: #444; }
+details.sec-fold > summary .cnt { font-size: 12.5px; color: var(--mute); font-weight: 400; margin-left: 6px; }
+details.callout-fold > summary { font-weight: 500; }
+details.callout-fold > .callout { margin-top: 8px; }
+section > details.sec-fold { margin: 10px 0; }
