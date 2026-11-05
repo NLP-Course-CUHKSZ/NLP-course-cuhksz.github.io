@@ -2418,8 +2418,8 @@ Track and brief (e.g., Track A, brief A2) or custom:
 
 		/* ---------- collapsible blocks ---------- */
 		var UI = {
-			en: { plan: 'Plan, comparison &amp; links', expand: 'expand all', collapse: 'collapse all', lang: '中文', show: 'Show', briefs: 'briefs', cards: 'cards' },
-			zh: { plan: '计划、对比与链接', expand: '全部展开', collapse: '全部折叠', lang: 'EN', show: '展开', briefs: '个选题', cards: '张卡片' }
+			en: { plan: 'Details, plan &amp; links', expand: 'expand all', collapse: 'collapse all', lang: '中文', show: 'Show', briefs: 'briefs', cards: 'cards' },
+			zh: { plan: '详情、计划与链接', expand: '全部展开', collapse: '全部折叠', lang: 'EN', show: '展开', briefs: '个选题', cards: '张卡片' }
 		};
 		var LANG = 'en';
 		function makeDetails(summaryHtml, nodes, cls) {
@@ -2430,14 +2430,16 @@ Track and brief (e.g., Track A, brief A2) or custom:
 		}
 		/* 1. inside each brief: everything after the title, meta and first paragraph */
 		document.querySelectorAll('.brief').forEach(function (b) {
-			var keep = [], rest = [], seenP = false;
+			var keep = [], rest = [];
 			Array.prototype.slice.call(b.children).forEach(function (c) {
 				if (c.tagName === 'H4' || c.classList.contains('meta')) { keep.push(c); return; }
-				if (c.tagName === 'P' && !seenP) { seenP = true; keep.push(c); return; }
 				rest.push(c);
 			});
 			if (!rest.length) return;
-			b.appendChild(makeDetails('<span data-ui="plan">' + UI.en.plan + '</span>', rest, 'brief-fold'));
+			var bd = makeDetails('<span data-ui="plan">' + UI.en.plan + '</span>', rest, 'brief-fold');
+			b.appendChild(bd);
+			var h4 = b.querySelector('h4');
+			if (h4) { h4.style.cursor = 'pointer'; h4.addEventListener('click', function () { bd.open = !bd.open; }); }
 		});
 		/* 2. every h3 block (h3 + following siblings up to the next h3 / part divider / end) becomes a fold;
 		      a trailing warn/info callout gets its own fold titled by its <b class="t"> */
@@ -2446,7 +2448,7 @@ Track and brief (e.g., Track A, brief A2) or custom:
 			function isBreak(el) { return el.tagName === 'H3' || el.tagName === 'H2'; }
 			while (i < kids.length) {
 				var el = kids[i];
-				if (el.tagName === 'H3' && !el.classList.contains('part')) {
+				if (el.tagName === 'H3' && !el.classList.contains('part') && !/^Featured briefs/.test(el.textContent.trim())) {
 					var group = []; var j = i + 1;
 					while (j < kids.length && !isBreak(kids[j]) && !(kids[j].classList && kids[j].classList.contains('callout') && kids[j].classList.contains('warn'))) { group.push(kids[j]); j++; }
 					var label = '<span data-i18n="' + (el.getAttribute('data-i18n') || '') + '">' + el.innerHTML + '</span>';
@@ -2472,7 +2474,7 @@ Track and brief (e.g., Track A, brief A2) or custom:
 			}
 		}
 		document.querySelectorAll('section').forEach(function (sec) {
-			if (sec.id === 'faq') return;
+			if (sec.id === 'faq' || sec.id === 'courses' || sec.id === 'toolbox' || sec.id === 'playbook') return;   /* 3, 4, 5 stay open */
 			foldSection(sec);
 		});
 		/* the callout-fold summaries are translated from the callout's <b class="t"> when the language changes */
