@@ -5,7 +5,7 @@
   var parts = window.L10.parts;
   var video = document.getElementById('video');
   var stage = document.getElementById('stage');
-  var cur = 0, curSlide = -1, curSent = -1, lang = 'both';
+  var cur = 0, curSlide = -1, curSent = -1, lang = 'both', showSlides = true;
 
   function fmt(t) { t = Math.max(0, Math.floor(t)); var m = Math.floor(t / 60), s = t % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
   function $(id) { return document.getElementById(id); }
@@ -22,8 +22,16 @@
     row.title = p.blurb;
     row.innerHTML = '<span class="th" style="background-image:url(' + POSTER_BASE + p.poster + ')"><span class="dur">' + fmt(p.duration) +
       '</span><span class="pb"></span></span><span class="tx"><span class="k">Chapter ' + p.n + ' &middot; slides ' + p.first + '&ndash;' + p.last +
-      '</span><span class="t">' + esc(p.title) + '</span></span>';
-    row.onclick = function (e) { e.preventDefault(); load(i, 0, true); };
+      '</span><span class="t">' + esc(p.title) + '</span></span><span class="ch-tg" title="Show / hide the slides">&#9662;</span>';
+    /* the chevron folds the slide list; clicking the playing chapter folds it too, any other chapter starts playing */
+    row.onclick = function (e) {
+      e.preventDefault();
+      if (i === cur || e.target.classList.contains('ch-tg')) {
+        var open = !ch.classList.contains('open');
+        ch.classList.toggle('open', open);
+        if (i === cur) showSlides = open;
+      } else load(i, 0, true);
+    };
     ch.appendChild(row);
     var sl = document.createElement('div');
     sl.className = 'ch-slides';
@@ -51,7 +59,7 @@
   function scrollToPlayer() { $('watch').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   /* keep an element visible inside the chapters list without moving the page */
   function keepInList(el) {
-    if (!el || chList.matches(':hover')) return;
+    if (!el || !el.offsetParent || chList.matches(':hover')) return;
     var top = el.offsetTop, bot = top + el.offsetHeight;
     if (top < chList.scrollTop + 8 || bot > chList.scrollTop + chList.clientHeight - 8) chList.scrollTop = top - chList.clientHeight / 3;
   }
@@ -110,7 +118,7 @@
   function seek(t, play) { video.currentTime = t; if (play) video.play().catch(function () {}); }
 
   function markActive() {
-    [].forEach.call(chList.children, function (c, k) { c.classList.toggle('active', k === cur); });
+    [].forEach.call(chList.children, function (c, k) { c.classList.toggle('active', k === cur); c.classList.toggle('open', k === cur && showSlides); });
     var ch = chList.children[cur];
     if (ch) chList.scrollTop = ch.offsetTop - 6;
     if (tocParts) [].forEach.call(tocParts.children, function (a, k) { a.classList.toggle('active', k === cur); });

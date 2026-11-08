@@ -15,7 +15,7 @@ html { scroll-behavior: smooth; }
 	padding: 3px 11px; text-decoration: none; transition: background .2s; }
 .hero.hero-v .badge-row a:hover { background: rgba(255,255,255,.3); }
 .theater { margin-top: -128px; position: relative; }
-.theater-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px; }
+.theater-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; }
 .theater .now-bar { padding-top: 10px; }
 
 /* chapters panel: same height as the player column, scrolls inside */
@@ -30,15 +30,15 @@ html { scroll-behavior: smooth; }
 .ch-row .th { flex: 0 0 100px; aspect-ratio: 16 / 9; border-radius: 5px; background: #222 center / cover no-repeat; position: relative; overflow: hidden; }
 .ch-row .th .dur { position: absolute; right: 4px; bottom: 5px; background: rgba(0,0,0,.75); color: #fff; font-size: 11px; padding: 0 5px; border-radius: 3px; }
 .ch-row .th .pb { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--red); }
-.ch-row .tx { min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.ch-row .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
 .ch-row .k { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--mute); }
 .ch-row .t { font-size: 14px; line-height: 1.3; }
 .ch.active > .ch-row { background: var(--soft); }
 .ch.active > .ch-row .k { color: var(--red); }
 .ch.active > .ch-row .t { color: var(--dark); font-weight: 500; }
-.ch-slides { display: none; margin: 2px 4px 8px 22px; border-left: 2px solid #f0d6d0; animation: foldin .35s ease; }
-.ch.active .ch-slides { display: block; }
-.ch-slides a { display: flex; gap: 8px; font-size: 13px; padding: 3px 8px; color: #555; text-decoration: none; border-radius: 0 4px 4px 0; transition: background .2s; }
+.ch-slides { display: none; margin: 0 4px 6px 22px; border-left: 2px solid #f0d6d0; animation: foldin .35s ease; }
+.ch.open .ch-slides { display: block; }
+.ch-slides a { display: flex; gap: 8px; font-size: 12.5px; padding: 2px 8px; line-height: 1.45; color: #555; text-decoration: none; border-radius: 0 4px 4px 0; transition: background .2s; }
 .ch-slides a:hover { background: var(--soft2); color: #222; }
 .ch-slides a .t2 { color: #aaa; min-width: 34px; font-variant-numeric: tabular-nums; }
 .ch-slides a .ti { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -151,12 +151,7 @@ details.fold > .inner { padding: 0 16px 14px; animation: foldin .35s ease; }
 .grid.two > .quote { flex-basis: 340px; }
 
 /* lecture map: five acts */
-.journey { display: flex; flex-wrap: wrap; margin: 4px 0 18px; }
-.journey a { flex: 1 1 auto; white-space: nowrap; text-align: center; padding: 8px 14px 8px 18px; background: var(--soft); color: var(--dark); font-size: 14px; text-decoration: none;
 	clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%); margin-right: -6px; transition: background .2s, color .2s; }
-.journey a:first-child { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
-.journey a:hover { background: var(--red); color: #fff; }
-.journey a b { font-weight: 600; margin-right: 4px; }
 .story > li.act { padding: 6px 0 14px 52px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; scroll-margin-top: 20px; }
 .story > li.act:not(:first-child) { margin-top: 8px; }
 .story > li.act .act-n { position: absolute; left: 0; top: 2px; width: 36px; height: 26px; border-radius: 13px; background: var(--red); color: #fff;
@@ -164,3 +159,24 @@ details.fold > .inner { padding: 0 16px 14px; animation: foldin .35s ease; }
 .story > li.act .act-name { font-size: 20px; color: var(--red); }
 .story > li.act .act-sub { color: #555; font-size: 15px; }
 .story > li.act .act-parts { margin-left: auto; font-size: 12px; color: var(--mute); text-transform: uppercase; letter-spacing: .05em; }
+
+.ch-tg { flex: 0 0 22px; align-self: center; text-align: center; color: #bbb; font-size: 13px; border-radius: 50%; line-height: 22px; transition: transform .25s, color .2s, background .2s; }
+.ch-tg:hover { color: var(--red); background: #fff; }
+.ch.open .ch-tg { transform: rotate(180deg); color: var(--red); }
+
+/* wider page */
+@media (min-width: 1200px) { body.wide .container { width: auto; max-width: 1500px; padding-left: 32px; padding-right: 32px; } }
+
+/* lecture map: five act cards */
+.acts { display: grid; grid-template-columns: .8fr 1.3fr 1.1fr 1.1fr .9fr; gap: 14px; margin: 12px 0 14px; }
+.act-card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-top: 3px solid var(--red); border-radius: 8px; padding: 10px 12px; background: #fff; }
+.act-card:not(:last-child):after { content: "\203A"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--red); font-size: 22px; line-height: 1; }
+.act-card .ac-h { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.act-card .act-n { display: inline-block; min-width: 30px; height: 22px; border-radius: 11px; background: var(--red); color: #fff; font-weight: 600; font-size: 12px; text-align: center; line-height: 22px; padding: 0 6px; }
+.act-card .ac-h b { font-size: 16px; font-weight: 500; color: var(--dark); }
+.act-card .ac-steps a { display: flex; gap: 6px; font-size: 13.5px; line-height: 1.35; color: #333; padding: 3px 4px; border-radius: 4px; text-decoration: none; transition: background .2s, color .2s; }
+.act-card .ac-steps a:hover { background: var(--soft); color: var(--red); }
+.act-card .ac-steps .sn { flex: 0 0 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); font-size: 10.5px; font-weight: 600; text-align: center; line-height: 15px; margin-top: 1px; }
+.act-card .ac-ch { margin-top: auto; padding-top: 6px; font-size: 11.5px; color: var(--mute); text-transform: uppercase; letter-spacing: .05em; }
+@media (max-width: 991px) { .acts { grid-template-columns: 1fr 1fr; } .act-card:after { display: none; } }
+@media (max-width: 560px) { .acts { grid-template-columns: 1fr; } }

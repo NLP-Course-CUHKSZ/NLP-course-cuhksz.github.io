@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="./css/lecture-video.css">
 </head>
 
-<body>
+<body class="wide">
 
 	<!-- ================================================================== HERO + PLAYER -->
 	<div class="hero hero-v">
@@ -75,37 +75,41 @@
 	<div class="container page">
 		<div class="row">
 			<!-- ========================================================== TOC -->
-			<div class="col-md-3 hidden-sm hidden-xs">
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
 				<nav class="toc" id="toc">
 					<div class="toc-title">Video chapters</div>
 					<div id="tocParts"></div>
 					<div class="toc-title" style="margin-top:14px">On this page</div>
 					<a href="#map">1&nbsp; The lecture map</a>
-					<a href="#index">2&nbsp; Concept index</a>
-					<a href="#tutorials">3&nbsp; Try it in Colab</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
 					<a href="#trends">4&nbsp; What's new in 2026</a>
 					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
 					<a href="#about">6&nbsp; About this video</a>
 				</nav>
 			</div>
 
-			<div class="col-md-9">
+			<div class="col-lg-10 col-md-9">
 				<!-- ====================================================== 1 MAP -->
 				<section id="map" class="reveal">
 					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
-					<p>The whole lecture answers one question. It moves in five acts &mdash; <b>why</b>, <b>see</b>, <b>hear, speak &amp; create</b>,
-						<b>act in 3D</b>, <b>next</b> &mdash; and each of the ten steps exists because the previous one left something unsolved.
-						Click a chip to jump straight to that slide in the video.</p>
 					<div class="question">How do we give a language model eyes, ears, a voice and hands &mdash; and a sense of space?</div>
-					<div class="journey"><a href="#act1"><b>I</b> Why</a><a href="#act2"><b>II</b> See</a><a href="#act3"><b>III</b> Hear, speak &amp; create</a><a href="#act4"><b>IV</b> Act in 3D</a><a href="#act5"><b>V</b> Next</a></div>
-					<ol class="story">
-						<li class="act" id="act1"><span class="act-n">I</span><span class="act-name">Why</span><span class="act-sub">Text alone is a narrow window on the world</span><span class="act-parts">Chapter 1</span></li>
+					<p>The lecture answers this in five acts and ten steps; each step exists because the previous one left something unsolved.
+						Every step links to its place in the video.</p>
+					<div class="acts"><div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Why</b></div><div class="ac-steps"><a data-go="1-9"><span class="sn">1</span>Text is a narrow window</a></div><div class="ac-ch">Chapter 1</div></div><div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>See</b></div><div class="ac-steps"><a data-go="2-13"><span class="sn">2</span>CLIP: images and text in one space</a><a data-go="2-28"><span class="sn">3</span>Flamingo: an LLM reads images</a><a data-go="3-40"><span class="sn">4</span>Encoder + connector + LLM</a><a data-go="4-68"><span class="sn">5</span>Align, then instruction-tune</a></div><div class="ac-ch">Chapters 2&ndash;4</div></div><div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Hear, speak &amp; create</b></div><div class="ac-steps"><a data-go="5-86"><span class="sn">6</span>Speech as tokens, full duplex</a><a data-go="6-97"><span class="sn">7</span>Generate images, video, worlds</a></div><div class="ac-ch">Chapters 5&ndash;6</div></div><div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Act in 3D</b></div><div class="ac-steps"><a data-go="7-104"><span class="sn">8</span>VLA and world-action models</a><a data-go="8-113"><span class="sn">9</span>Reconstruct and build 3D</a></div><div class="ac-ch">Chapters 7&ndash;8</div></div><div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Next</b></div><div class="ac-steps"><a data-go="9-118"><span class="sn">10</span>Open problems, 2026 trends</a></div><div class="ac-ch">Chapter 9</div></div></div>
+					<div class="thread"><b>The thread:</b> the model first learns to <b>perceive</b> (II), then to <b>express</b> itself in speech,
+						images and video (III), then to <b>act</b> in a 3D world (IV) &mdash; and through all of it, <b>language stays the hub</b> that connects the modalities.</div>
+					<details class="fold">
+						<summary>The full storyline <span class="muted">ten steps, with the open question that leads to the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+						<li class="act"><span class="act-n">I</span><span class="act-name">Why</span><span class="act-sub">Text alone is a narrow window on the world</span><span class="act-parts">Chapter 1</span></li>
 						<li><span class="dot">1</span><div class="verb">Why</div>
 							<h4>Text is a narrow window</h4>
 							<p>Humans perceive through many senses at once, the web is multimodal, and high-quality text is running out.
 								<span class="q">So: can a model perceive the world the way we do?</span></p>
 							<div class="go"><a class="part" data-go="1">Chapter 1</a><a data-go="1-5">聽 = ear + eye + heart</a><a data-go="1-9">Why multimodality</a><a data-go="1-10">Milestones</a></div></li>
-						<li class="act" id="act2"><span class="act-n">II</span><span class="act-name">See</span><span class="act-sub">Vision meets language: match, read, build, train</span><span class="act-parts">Chapters 2&ndash;4</span></li>
+						<li class="act"><span class="act-n">II</span><span class="act-name">See</span><span class="act-sub">Vision meets language: match, read, build, train</span><span class="act-parts">Chapters 2&ndash;4</span></li>
 						<li><span class="dot">2</span><div class="verb">See &middot; align</div>
 							<h4>Put images and text in one space: CLIP</h4>
 							<p>Contrastive learning on hundreds of millions of web image&ndash;caption pairs gives zero-shot recognition and text-to-image search.
@@ -126,7 +130,7 @@
 							<p>Stage 1 aligns image features with the LLM on captions; stage 2 uses visual instruction data, often written with GPT's help.
 								<span class="q">The data recipe matters as much as the architecture.</span></p>
 							<div class="go"><a class="part" data-go="4">Chapter 4</a><a data-go="4-68">Visual instruction tuning</a><a data-go="4-69">GPT-assisted data</a><a data-go="4-76">Typical training paradigm</a></div></li>
-						<li class="act" id="act3"><span class="act-n">III</span><span class="act-name">Hear, speak &amp; create</span><span class="act-sub">Beyond vision: speech in real time, images, video and simulated worlds</span><span class="act-parts">Chapters 5&ndash;6</span></li>
+						<li class="act"><span class="act-n">III</span><span class="act-name">Hear, speak &amp; create</span><span class="act-sub">Beyond vision: speech in real time, images, video and simulated worlds</span><span class="act-parts">Chapters 5&ndash;6</span></li>
 						<li><span class="dot">6</span><div class="verb">Hear &amp; speak</div>
 							<h4>Turn speech into tokens, then talk in real time</h4>
 							<p>Speech is long, continuous and rich in tone. Tokenize it (semantic vs. acoustic tokens), interleave it with text, listen while
@@ -137,7 +141,7 @@
 							<p>Unify understanding and generation, predict the next frame, and use video models as world simulators.
 								<span class="q">But is the generated world physically right?</span></p>
 							<div class="go"><a class="part" data-go="6">Chapter 6</a><a data-go="6-97">Janus</a><a data-go="6-98">Next-frame prediction</a><a data-go="6-100">Medical world simulator</a><a data-go="6-101">Micro world simulator</a></div></li>
-						<li class="act" id="act4"><span class="act-n">IV</span><span class="act-name">Act in 3D</span><span class="act-sub">Into the physical world: robots and 3D space</span><span class="act-parts">Chapters 7&ndash;8</span></li>
+						<li class="act"><span class="act-n">IV</span><span class="act-name">Act in 3D</span><span class="act-sub">Into the physical world: robots and 3D space</span><span class="act-parts">Chapters 7&ndash;8</span></li>
 						<li><span class="dot">8</span><div class="verb">Act</div>
 							<h4>From seeing to acting: VLA and world models</h4>
 							<p>Vision-language-action models map pixels and instructions to motor commands; System 2 plans while System 1 acts; world-action models
@@ -148,19 +152,46 @@
 							<p>Images are only projections. Feed-forward 3D reconstruction, 3D generation, and an LLM that writes scene graphs.
 								<span class="q">What should a model know about space that pictures can't tell it?</span></p>
 							<div class="go"><a class="part" data-go="8">Chapter 8</a><a data-go="8-112">Why 3D</a><a data-go="8-113">3D reconstruction</a><a data-go="8-115">LLM as scene programmer</a></div></li>
-						<li class="act" id="act5"><span class="act-n">V</span><span class="act-name">Next</span><span class="act-sub">Open problems and the 2026 picture</span><span class="act-parts">Chapter 9</span></li>
+						<li class="act"><span class="act-n">V</span><span class="act-name">Next</span><span class="act-sub">Open problems and the 2026 picture</span><span class="act-parts">Chapter 9</span></li>
 						<li><span class="dot">10</span><div class="verb">Outlook</div>
 							<h4>Open problems and what changed in 2026</h4>
 							<p>Efficiency, evaluation, more modalities, edge devices &mdash; and why multimodal LLMs matter for society.</p>
 							<div class="go"><a class="part" data-go="9">Chapter 9</a><a data-go="9-118">Efficiency</a><a data-go="9-121">Evaluation</a><a data-go="9-125">Edge devices</a><a data-go="9-127">2026: what changed</a></div></li>
 					</ol>
-					<div class="thread"><b>The thread:</b> the model first learns to <b>perceive</b> (II), then to <b>express</b> itself in speech,
-						images and video (III), then to <b>act</b> in a 3D world (IV) &mdash; and through all of it, <b>language stays the hub</b> that connects the modalities.</div>
+						</div>
+					</details>
 				</section>
 
-				<!-- ====================================================== 2 INDEX -->
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. Notebook 2 needs a free T4 GPU (<i>Runtime &rarr; Change runtime type</i>); the others also run on CPU.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapter 2 &middot; ~5 min</div>
+							<h4>CLIP: zero-shot classification and retrieval</h4>
+							<ul><li>Classify images into labels CLIP never trained on</li><li>See a prompt raise P(cat) from 0.24 to 0.69</li>
+								<li>Search images with text, and find where it fails</li><li>Compute the contrastive loss by hand</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_1_clip_zero_shot.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture10/lecture10_1_clip_zero_shot.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapters 3&ndash;4 &middot; ~10 min</div>
+							<h4>Chat with an open multimodal LLM</h4>
+							<ul><li>Ask Qwen2.5-VL-3B about images, alone or several at once</li><li>Count how many tokens an image becomes</li>
+								<li>Find the vision encoder, connector and LLM inside the model</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_2_chat_with_an_mllm.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture10/lecture10_2_chat_with_an_mllm.ipynb">.ipynb</a> &middot; T4 GPU</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapter 5 &middot; ~5 min</div>
+							<h4>Speech as tokens</h4>
+							<ul><li>Compress speech with a neural codec and listen at 1.5&ndash;12 kbps</li><li>Check with Whisper whether the words survive</li>
+								<li>See that speech needs ~160&times; more tokens than its transcript</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_3_speech_as_tokens.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture10/lecture10_3_speech_as_tokens.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
 				<section id="index" class="reveal">
-					<h2 class="sec"><span class="num">2</span>Concept index</h2>
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
 					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
 					<div class="cindex">
 						<div class="grp"><div class="h">Foundations</div>
@@ -200,33 +231,6 @@
 							<a data-go="8-113">Feed-forward 3D reconstruction<span>s113</span></a><a data-go="8-114">3D generation<span>s114</span></a>
 							<a data-go="8-115">LLM as scene programmer<span>s115</span></a><a data-go="9-121">Evaluation<span>s121</span></a>
 							<a data-go="9-125">MLLMs on edge devices<span>s125</span></a><a data-go="9-127">2026: what changed<span>s127</span></a></div>
-					</div>
-				</section>
-
-				<!-- ====================================================== 3 TUTORIALS -->
-				<section id="tutorials" class="reveal">
-					<h2 class="sec"><span class="num">3</span>Try it in Colab</h2>
-					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
-						Each ends with exercises. Notebook 2 needs a free T4 GPU (<i>Runtime &rarr; Change runtime type</i>); the others also run on CPU.</p>
-					<div class="grid">
-						<div class="tut"><div class="k">Notebook 1 &middot; Chapter 2 &middot; ~5 min</div>
-							<h4>CLIP: zero-shot classification and retrieval</h4>
-							<ul><li>Classify images into labels CLIP never trained on</li><li>See a prompt raise P(cat) from 0.24 to 0.69</li>
-								<li>Search images with text, and find where it fails</li><li>Compute the contrastive loss by hand</li></ul>
-							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_1_clip_zero_shot.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
-								<a href="materials/tutorials/lecture10/lecture10_1_clip_zero_shot.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
-						<div class="tut"><div class="k">Notebook 2 &middot; Chapters 3&ndash;4 &middot; ~10 min</div>
-							<h4>Chat with an open multimodal LLM</h4>
-							<ul><li>Ask Qwen2.5-VL-3B about images, alone or several at once</li><li>Count how many tokens an image becomes</li>
-								<li>Find the vision encoder, connector and LLM inside the model</li></ul>
-							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_2_chat_with_an_mllm.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
-								<a href="materials/tutorials/lecture10/lecture10_2_chat_with_an_mllm.ipynb">.ipynb</a> &middot; T4 GPU</div></div>
-						<div class="tut"><div class="k">Notebook 3 &middot; Chapter 5 &middot; ~5 min</div>
-							<h4>Speech as tokens</h4>
-							<ul><li>Compress speech with a neural codec and listen at 1.5&ndash;12 kbps</li><li>Check with Whisper whether the words survive</li>
-								<li>See that speech needs ~160&times; more tokens than its transcript</li></ul>
-							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_3_speech_as_tokens.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
-								<a href="materials/tutorials/lecture10/lecture10_3_speech_as_tokens.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
 					</div>
 				</section>
 
