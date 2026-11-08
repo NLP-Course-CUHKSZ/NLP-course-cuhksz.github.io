@@ -6,7 +6,7 @@
   var video = document.getElementById('video');
   var stage = document.getElementById('stage');
   var card = document.getElementById('titleCard');
-  var cur = 0, curSlide = -1, curSent = -1, countdown = null, lang = 'both';
+  var cur = 0, curSlide = -1, curSent = -1, lang = 'both';
 
   function fmt(t) { t = Math.max(0, Math.floor(t)); var m = Math.floor(t / 60), s = t % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
   function $(id) { return document.getElementById(id); }
@@ -133,7 +133,7 @@
       var ps = $('transcript').querySelectorAll('p');
       [].forEach.call(ps, function (x, k) { x.classList.toggle('cur', k === ni); });
       var box = $('transcript'), el2 = ps[ni];
-      if (el2 && !box.matches(':hover')) box.scrollTop = el2.offsetTop - box.offsetTop - box.clientHeight / 3;
+      if (el2 && box.offsetParent !== null && !box.matches(':hover')) box.scrollTop = el2.offsetTop - box.offsetTop - box.clientHeight / 3;
     }
     if (tocParts) {
       var bar = tocParts.children[cur] && tocParts.children[cur].querySelector('.pbar i');
@@ -142,34 +142,55 @@
   }
   video.addEventListener('timeupdate', function () { updateNow(false); });
 
-  /* ---------- "up next" title card ---------- */
-  function hideCard() { card.classList.remove('show'); if (countdown) { clearInterval(countdown); countdown = null; } }
-  function showNext() {
+  /* ---------- "up next": a small corner toast in the last seconds, then a cross-fade into the next part ---------- */
+  var toast = $('upNext'), autoNext = true, LEAD_IN = 12;
+  function hideCard() { card.classList.remove('show'); toast.classList.remove('show'); }
+  function fillToast() {
     if (cur >= parts.length - 1) {
-      card.innerHTML = '<div class="kicker">Lecture 10 complete</div><div class="big">Thank you for watching!</div>' +
-        '<div class="blurb">See, talk, hear and speak, imagine, act — and understand space.</div>' +
-        '<div class="row-btn"><button class="btn btn-default" id="cardRestart">Watch again from Part 1</button></div>';
-      card.classList.add('show');
-      $('cardRestart').onclick = function () { load(0, 0, true); };
+      toast.innerHTML = '<div class="un-k">Lecture 10 complete</div><div class="un-t">Thank you for watching!</div>' +
+        '<div class="un-row"><button class="un-btn" id="unAgain">&#8634; Watch again</button><a class="un-btn" href="#tutorials">Try the notebooks &rarr;</a></div>';
+      $('unAgain').onclick = function () { load(0, 0, true); };
       return;
     }
-    var n = parts[cur + 1], left = 8, total = 8, C = 2 * Math.PI * 20;
-    card.innerHTML = '<div class="kicker">Up next · Part ' + n.n + '</div><div class="big">' + esc(n.title) + '</div><div class="blurb">' + esc(n.blurb) + '</div>' +
-      '<div class="ring"><svg width="46" height="46"><circle class="bg" cx="23" cy="23" r="20"/><circle class="fg" id="ringFg" cx="23" cy="23" r="20" ' +
-      'stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg><span id="ringN">' + left + '</span></div>' +
-      '<div class="row-btn"><button class="btn btn-default" id="cardPlay">&#9654; Play now</button><button class="btn btn-ghost" id="cardStay">Stay here</button></div>';
-    card.classList.add('show');
-    $('cardPlay').onclick = function () { load(cur + 1, 0, true); };
-    $('cardStay').onclick = hideCard;
-    countdown = setInterval(function () {
-      left -= 1;
-      $('ringN').textContent = left;
-      $('ringFg').style.strokeDashoffset = C * (1 - left / total);
-      if (left <= 0) { clearInterval(countdown); countdown = null; load(cur + 1, 0, true); }
-    }, 1000);
+    var n = parts[cur + 1];
+    toast.innerHTML = '<button class="un-x" id="unX" title="Don\'t play the next part">&times;</button>' +
+      '<div class="un-k">Up next &middot; Part ' + n.n + '</div><div class="un-t">' + esc(n.title) + '</div>' +
+      '<div class="un-bar"><i id="unBar"></i></div><div class="un-row"><button class="un-btn" id="unPlay">&#9654; Play now</button></div>';
+    $('unPlay').onclick = function () { load(cur + 1, 0, true); };
+    $('unX').onclick = function () { autoNext = false; toast.classList.remove('show'); };
   }
-  video.addEventListener('ended', showNext);
-  video.addEventListener('play', hideCard);
+  video.addEventListener('timeupdate', function () {
+    if (!video.duration || cur >= parts.length - 1 || !autoNext) return;
+    var left = video.duration - video.currentTime;
+    if (left <= LEAD_IN && !video.paused) {
+      if (!toast.classList.contains('show')) { fillToast(); toast.classList.add('show'); }
+      var bar = $('unBar');
+      if (bar) bar.style.width = Math.min(100, 100 * (1 - left / LEAD_IN)) + '%';
+    } else if (left > LEAD_IN + 1) {
+      toast.classList.remove('show');
+    }
+  });
+  video.addEventListener('ended', function () {
+    if (cur >= parts.length - 1) { fillToast(); toast.classList.add('show'); return; }
+    if (autoNext) load(cur + 1, 0, true);
+  });
+  video.addEventListener('play', function () { if (video.duration - video.currentTime > LEAD_IN) toast.classList.remove('show'); });
+  video.addEventListener('seeking', function () { autoNext = true; });
+
+  /* ---------- jump from the lecture map / concept index ---------- */
+  window.L10go = function (partNo, slideNo) {
+    var i = partNo - 1, p = parts[i];
+    var s = slideNo ? p.slides.filter(function (x) { return x.n === slideNo; })[0] : null;
+    load(i, s ? s.t + 0.05 : 0, true);
+    scrollToPlayer();
+    return false;
+  };
+  [].forEach.call(document.querySelectorAll('[data-go]'), function (a) {
+    var m2 = /^(\d+)(?:-(\d+))?$/.exec(a.getAttribute('data-go'));
+    if (!m2) return;
+    a.href = '#p' + m2[1] + (m2[2] ? '-s' + m2[2] : '');
+    a.onclick = function (e) { e.preventDefault(); window.L10go(+m2[1], m2[2] ? +m2[2] : 0); };
+  });
 
   /* ---------- controls ---------- */
   $('prevSlide').onclick = function () { var p = parts[cur]; if (curSlide > 0) seek(p.slides[curSlide - 1].t + 0.05, true); else if (cur > 0) load(cur - 1, 0, true); };

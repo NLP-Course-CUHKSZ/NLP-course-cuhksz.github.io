@@ -95,3 +95,72 @@ html { scroll-behavior: smooth; }
 
 @media (max-width: 767px) { .title-card .big { font-size: 22px; } .title-card .blurb { display: none; } }
 @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform: none; transition: none; } .stage video, .title-card { transition: none; } }
+
+/* ---------- "up next" corner toast (replaces the full-screen card) ---------- */
+.upnext { position: absolute; right: 14px; top: 14px; width: 290px; background: rgba(255,255,255,.97); color: #222; border-radius: 10px;
+	box-shadow: 0 8px 26px rgba(0,0,0,.28); padding: 12px 14px 12px; opacity: 0; transform: translateX(24px); pointer-events: none;
+	transition: opacity .45s ease, transform .45s ease; z-index: 3; }
+.upnext.show { opacity: 1; transform: none; pointer-events: auto; }
+.upnext .un-k { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--red); font-weight: 500; }
+.upnext .un-t { font-size: 15px; line-height: 1.35; margin: 3px 22px 8px 0; }
+.upnext .un-bar { height: 3px; background: #eee; border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+.upnext .un-bar i { display: block; height: 100%; width: 0; background: var(--red); transition: width .3s linear; }
+.upnext .un-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.upnext .un-btn { border: 1px solid var(--line); background: #fff; border-radius: 16px; padding: 3px 12px; font-size: 13px; color: #333; text-decoration: none; }
+.upnext .un-btn:hover { border-color: var(--red); color: var(--red); }
+.upnext .un-x { position: absolute; top: 6px; right: 8px; border: 0; background: none; font-size: 20px; line-height: 1; color: #999; }
+.upnext .un-x:hover { color: #333; }
+@media (max-width: 600px) { .upnext { width: auto; left: 10px; right: 10px; bottom: 54px; } }
+
+/* ---------- lecture map: the core logic as a vertical storyline ---------- */
+.question { font-size: 19px; font-style: italic; color: var(--dark); border-left: 4px solid var(--red); padding: 6px 14px; margin: 10px 0 16px; background: var(--soft); border-radius: 4px; }
+.story { list-style: none; padding-left: 0; position: relative; margin: 6px 0 10px; }
+.story:before { content: ""; position: absolute; left: 17px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--red), #e8b8ae); }
+.story > li { position: relative; padding: 0 0 18px 52px; }
+.story > li .dot { position: absolute; left: 4px; top: 0; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 2px solid var(--red);
+	color: var(--red); font-weight: 600; font-size: 13px; text-align: center; line-height: 24px; }
+.story > li .verb { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--red); font-weight: 500; }
+.story > li h4 { margin: 2px 0 4px; font-size: 17px; }
+.story > li p { margin: 0 0 4px; color: #444; font-size: 15px; }
+.story > li .q { color: #777; font-style: italic; }
+.story > li .go a { display: inline-block; font-size: 12.5px; background: #f3f3f3; border-radius: 12px; padding: 1px 9px; margin: 3px 4px 0 0; color: #333; text-decoration: none; transition: background .2s, color .2s; }
+.story > li .go a:hover { background: var(--red); color: #fff; }
+.story > li .go a.part { background: var(--soft); color: var(--dark); font-weight: 500; }
+.thread { font-size: 15px; color: #333; background: #f7f7f7; border-radius: 8px; padding: 12px 16px; }
+
+/* ---------- concept index ---------- */
+.cindex { columns: 3 230px; column-gap: 26px; }
+.cindex .grp { break-inside: avoid; margin-bottom: 14px; }
+.cindex .grp .h { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--red); font-weight: 500; border-bottom: 1px solid var(--line); padding-bottom: 3px; margin-bottom: 4px; }
+.cindex a { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; color: #333; padding: 2px 0; text-decoration: none; }
+.cindex a:hover { color: var(--red); }
+.cindex a span { color: #aaa; font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ---------- foldable panels ---------- */
+details.fold { border: 1px solid var(--line); border-radius: 8px; background: #fff; margin: 12px 0; }
+details.fold > summary { cursor: pointer; list-style: none; padding: 12px 16px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary:before { content: "\25B8"; color: var(--red); transition: transform .25s; display: inline-block; }
+details.fold[open] > summary:before { transform: rotate(90deg); }
+details.fold > summary .muted { font-size: 13px; margin-left: auto; }
+details.fold > .inner { padding: 0 16px 14px; animation: foldin .35s ease; }
+@keyframes foldin { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- tutorials, trends, quotes ---------- */
+.tut { border: 1px solid var(--line); border-top: 4px solid var(--red); border-radius: 10px; padding: 14px 18px; background: #fff; display: flex; flex-direction: column; }
+.tut .k { color: var(--red); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+.tut h4 { margin: 4px 0 6px; }
+.tut ul { padding-left: 18px; margin: 4px 0 8px; font-size: 14.5px; color: #444; }
+.tut .meta { font-size: 12.5px; color: var(--mute); margin-top: auto; padding-top: 6px; }
+.tut .meta img { vertical-align: middle; margin-right: 6px; }
+.trend { border-radius: 10px; padding: 14px 16px; background: linear-gradient(180deg, #fff, #fbf6f5); border: 1px solid #f0dcd7; }
+.trend .ic { font-size: 22px; }
+.trend h4 { margin: 4px 0 6px; font-size: 16px; }
+.trend p { font-size: 14px; color: #444; margin: 0; }
+.trend .src { font-size: 12px; color: var(--mute); margin-top: 6px; }
+.quote { border-left: 4px solid var(--red); padding: 8px 16px; margin: 0; background: #fff; }
+.quote p { font-size: 17px; font-style: italic; color: #333; margin: 0 0 4px; }
+.quote footer { font-size: 13px; color: var(--mute); }
+.quote .why { font-size: 13.5px; color: #555; margin-top: 4px; font-style: normal; }
+.grid > .tut, .grid > .trend, .grid > .quote { flex: 1 1 260px; margin: 0; min-width: 0; }
+.grid.two > .quote { flex-basis: 340px; }

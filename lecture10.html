@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Lecture 10 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Multimodal LLMs. Watch the full lecture in nine parts with bilingual subtitles, a synced transcript and slide-by-slide navigation.">
+	<meta name="description" content="Lecture 10 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Multimodal LLMs. A lecture map, a concept index, the full video lecture in nine parts with bilingual subtitles and a synced transcript, Colab notebooks, and the 2026 trends.">
 	<title>Lecture 10: Multimodal LLMs (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
@@ -21,17 +21,18 @@
 		<div class="container">
 			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
 			<h1>Lecture 10: Multimodal LLMs</h1>
-			<p class="lead">Can large models see, hear, speak, act &mdash; and understand 3D space? Watch the whole lecture in nine short parts,
-				with English and Chinese subtitles, a transcript that follows the video, and a jump to any slide.</p>
+			<p class="lead">Can large models see, hear, speak, act &mdash; and understand 3D space? Start with the lecture map, watch the nine
+				short video parts with English and Chinese subtitles, then try the ideas yourself in three Colab notebooks.</p>
 			<div class="badge-row">
 				<span>&#128197; Nov. 27th, 2026</span>
 				<span>&#127909; 9 parts &middot; 107 min</span>
 				<span>&#128444; 134 slides</span>
 				<span>&#128172; EN + 中文 subtitles</span>
-				<span>&#128221; synced transcript</span>
+				<span>&#128187; 3 Colab notebooks</span>
 			</div>
-			<a class="btn btn-play" href="#watch">&#9654; Start watching</a>
-			<a class="btn btn-ghost" href="#parts">Browse the nine parts</a>
+			<a class="btn btn-play" href="#map">&#129517; The lecture map</a>
+			<a class="btn btn-ghost" href="#watch">&#9654; Watch</a>
+			<a class="btn btn-ghost" href="#tutorials">&#128187; Try it in Colab</a>
 			<a class="btn btn-ghost" href="materials/2026_fall_slides/Lecture10_Multimodal_LLMs.pdf">&#11015; Slides (PDF)</a>
 		</div>
 	</div>
@@ -42,34 +43,133 @@
 			<div class="col-md-3 hidden-sm hidden-xs">
 				<nav class="toc" id="toc">
 					<div class="toc-title">On this page</div>
-					<a href="#overview">1&nbsp; The journey</a>
-					<a href="#watch">2&nbsp; Watch</a>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#index">2&nbsp; Concept index</a>
+					<a href="#watch">3&nbsp; Watch</a>
 					<div id="tocParts"></div>
-					<a href="#slides">3&nbsp; Slides in this part</a>
-					<a href="#transcript-sec">4&nbsp; Transcript</a>
-					<a href="#parts">5&nbsp; All nine parts</a>
-					<a href="#about">6&nbsp; About this video</a>
+					<a href="#tutorials">4&nbsp; Try it in Colab</a>
+					<a href="#trends">5&nbsp; What's new in 2026</a>
+					<a href="#quotes">6&nbsp; Quotes &amp; reading</a>
+					<a href="#parts">7&nbsp; All nine parts</a>
+					<a href="#about">8&nbsp; About this video</a>
 				</nav>
 			</div>
 
 			<div class="col-md-9">
-				<!-- ====================================================== OVERVIEW -->
-				<section id="overview" class="reveal">
-					<h2 class="sec"><span class="num">1</span>The journey</h2>
-					<p>Until now, our language models could only read text. In this lecture we teach them to <b>see</b>, to <b>hear and speak</b>,
-						to <b>imagine</b> new images and videos, to <b>act</b> in the physical world &mdash; and finally to understand <b>space</b>.
-						Each step builds on the last: first we connect vision and language (CLIP, Flamingo), then we build and train multimodal LLMs,
-						and then we go beyond images to speech, generation, embodied agents and 3D.</p>
-					<div class="journey"><span>See</span><span>Talk</span><span>Hear &amp; speak</span><span>Imagine</span><span>Act</span><span>Space (3D)</span></div>
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<p>The whole lecture answers one question. Each part adds one ability, and each step exists because the previous one left
+						something unsolved. Click a chip to jump straight to that slide in the video.</p>
+					<div class="question">How do we give a language model eyes, ears, a voice and hands &mdash; and a sense of space?</div>
+					<ol class="story">
+						<li><span class="dot">1</span><div class="verb">Why</div>
+							<h4>Text is a narrow window</h4>
+							<p>Humans perceive through many senses at once, the web is multimodal, and high-quality text is running out.
+								<span class="q">So: can a model perceive the world the way we do?</span></p>
+							<div class="go"><a class="part" data-go="1">Part 1</a><a data-go="1-5">聽 = ear + eye + heart</a><a data-go="1-9">Why multimodality</a><a data-go="1-10">Milestones</a></div></li>
+						<li><span class="dot">2</span><div class="verb">See &middot; align</div>
+							<h4>Put images and text in one space: CLIP</h4>
+							<p>Contrastive learning on hundreds of millions of web image&ndash;caption pairs gives zero-shot recognition and text-to-image search.
+								<span class="q">But CLIP can only match &mdash; it cannot talk about what it sees.</span></p>
+							<div class="go"><a class="part" data-go="2">Part 2</a><a data-go="2-13">CLIP</a><a data-go="2-20">Contrastive objective</a><a data-go="2-23">Zero-shot classification</a><a data-go="2-24">Retrieval</a></div></li>
+						<li><span class="dot">3</span><div class="verb">See &middot; talk</div>
+							<h4>Let a language model read images: Flamingo</h4>
+							<p>Keep a frozen vision encoder and a frozen LLM, and connect them with a Perceiver Resampler and gated cross-attention, trained
+								on interleaved web pages. <span class="q">Few-shot multimodal dialogue &mdash; the "GPT-3 moment" for vision.</span></p>
+							<div class="go"><a data-go="2-28">Architecture</a><a data-go="2-31">Perceiver Resampler</a><a data-go="2-32">Gated cross-attention</a><a data-go="2-35">CLIP vs. Flamingo</a></div></li>
+						<li><span class="dot">4</span><div class="verb">Build</div>
+							<h4>Language as the pivot: encoder + connector + LLM</h4>
+							<p>Either the LLM is a controller that calls expert tools, or vision is a joint part of the model (LLaVA, Qwen-VL), up to
+								native models like GPT-4o and Gemini and models that also generate images. <span class="q">Which encoder, which connector, how many tokens per image?</span></p>
+							<div class="go"><a class="part" data-go="3">Part 3</a><a data-go="3-40">Language as pivot</a><a data-go="3-42">LLM as controller</a><a data-go="3-47">LLaVA</a><a data-go="3-51">GPT-4o &amp; Gemini</a><a data-go="3-55">Visual encoders</a></div></li>
+						<li><span class="dot">5</span><div class="verb">Train</div>
+							<h4>Align first, then teach it to follow instructions</h4>
+							<p>Stage 1 aligns image features with the LLM on captions; stage 2 uses visual instruction data, often written with GPT's help.
+								<span class="q">The data recipe matters as much as the architecture.</span></p>
+							<div class="go"><a class="part" data-go="4">Part 4</a><a data-go="4-68">Visual instruction tuning</a><a data-go="4-69">GPT-assisted data</a><a data-go="4-76">Typical training paradigm</a></div></li>
+						<li><span class="dot">6</span><div class="verb">Hear &amp; speak</div>
+							<h4>Turn speech into tokens, then talk in real time</h4>
+							<p>Speech is long, continuous and rich in tone. Tokenize it (semantic vs. acoustic tokens), interleave it with text, listen while
+								speaking (full duplex), and split the work between a thinker and a talker. <span class="q">Voice may become the ultimate interface.</span></p>
+							<div class="go"><a class="part" data-go="5">Part 5</a><a data-go="5-80">Why speech is hard</a><a data-go="5-86">Semantic vs. acoustic tokens</a><a data-go="5-88">Interleaving</a><a data-go="5-89">Full duplex</a><a data-go="5-91">Thinker&ndash;Talker</a></div></li>
+						<li><span class="dot">7</span><div class="verb">Imagine</div>
+							<h4>Generate images and videos &mdash; and simulate worlds</h4>
+							<p>Unify understanding and generation, predict the next frame, and use video models as world simulators.
+								<span class="q">But is the generated world physically right?</span></p>
+							<div class="go"><a class="part" data-go="6">Part 6</a><a data-go="6-97">Janus</a><a data-go="6-98">Next-frame prediction</a><a data-go="6-100">Medical world simulator</a><a data-go="6-101">Micro world simulator</a></div></li>
+						<li><span class="dot">8</span><div class="verb">Act</div>
+							<h4>From seeing to acting: VLA and world models</h4>
+							<p>Vision-language-action models map pixels and instructions to motor commands; System 2 plans while System 1 acts; world-action models
+								predict both the future and the action. <span class="q">Embodiment is where perception meets consequences.</span></p>
+							<div class="go"><a class="part" data-go="7">Part 7</a><a data-go="7-104">VLA models</a><a data-go="7-106">System 2 / System 1</a><a data-go="7-108">World models</a><a data-go="7-109">World-action models</a></div></li>
+						<li><span class="dot">9</span><div class="verb">Space</div>
+							<h4>Understand and build the 3D world</h4>
+							<p>Images are only projections. Feed-forward 3D reconstruction, 3D generation, and an LLM that writes scene graphs.
+								<span class="q">What should a model know about space that pictures can't tell it?</span></p>
+							<div class="go"><a class="part" data-go="8">Part 8</a><a data-go="8-112">Why 3D</a><a data-go="8-113">3D reconstruction</a><a data-go="8-115">LLM as scene programmer</a></div></li>
+						<li><span class="dot">10</span><div class="verb">Outlook</div>
+							<h4>Open problems and what changed in 2026</h4>
+							<p>Efficiency, evaluation, more modalities, edge devices &mdash; and why multimodal LLMs matter for society.</p>
+							<div class="go"><a class="part" data-go="9">Part 9</a><a data-go="9-118">Efficiency</a><a data-go="9-121">Evaluation</a><a data-go="9-125">Edge devices</a><a data-go="9-127">2026: what changed</a></div></li>
+					</ol>
+					<div class="thread"><b>The thread:</b> every step widens what the model can perceive or do, while <b>language stays the hub</b> that connects
+						the modalities &mdash; first matching images to text, then reading them, hearing and speaking, imagining, acting, and finally reasoning about space.</div>
 				</section>
 
-				<!-- ====================================================== PLAYER -->
+				<!-- ====================================================== 2 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Foundations</div>
+							<a data-go="1-6">Modality (definition)<span>s6</span></a><a data-go="1-9">Why multimodality<span>s9</span></a>
+							<a data-go="2-17">LAION-5B, web-scale data<span>s17</span></a><a data-go="2-19">Discriminative vs. generative<span>s19</span></a></div>
+						<div class="grp"><div class="h">CLIP</div>
+							<a data-go="2-14">CLIP architecture<span>s14</span></a><a data-go="2-20">Contrastive loss (InfoNCE)<span>s20</span></a>
+							<a data-go="2-23">Zero-shot classification<span>s23</span></a><a data-go="2-24">Text-to-image retrieval<span>s24</span></a>
+							<a data-go="2-25">CLIP for image generation<span>s25</span></a></div>
+						<div class="grp"><div class="h">Flamingo</div>
+							<a data-go="2-31">Perceiver Resampler<span>s31</span></a><a data-go="2-32">Gated cross-attention<span>s32</span></a>
+							<a data-go="2-29">Interleaved image-text data<span>s29</span></a><a data-go="2-33">Autoregressive loss<span>s33</span></a></div>
+						<div class="grp"><div class="h">Architecture</div>
+							<a data-go="3-40">Language as pivot<span>s40</span></a><a data-go="3-42">LLM as controller<span>s42</span></a>
+							<a data-go="3-45">LLM as joint part<span>s45</span></a><a data-go="3-47">LLaVA<span>s47</span></a>
+							<a data-go="3-48">Qwen-VL<span>s48</span></a><a data-go="3-50">Fuyu (no vision encoder)<span>s50</span></a>
+							<a data-go="3-51">GPT-4o &amp; Gemini<span>s51</span></a><a data-go="3-53">Unified understanding &amp; generation<span>s53</span></a>
+							<a data-go="3-55">Visual encoders<span>s55</span></a><a data-go="3-59">Unified multimodal encoder<span>s59</span></a>
+							<a data-go="3-61">Visual tokenization / connectors<span>s61</span></a></div>
+						<div class="grp"><div class="h">Training</div>
+							<a data-go="4-65">Instruction tuning<span>s65</span></a><a data-go="4-68">Visual instruction tuning<span>s68</span></a>
+							<a data-go="4-69">GPT-assisted data generation<span>s69</span></a><a data-go="4-73">Caption (alignment) data<span>s73</span></a>
+							<a data-go="4-76">Multi-stage training<span>s76</span></a></div>
+						<div class="grp"><div class="h">Speech</div>
+							<a data-go="5-83">Cascade vs. end-to-end<span>s83</span></a><a data-go="5-84">Semantic tokens (HuBERT)<span>s84</span></a>
+							<a data-go="5-85">Neural codecs &amp; RVQ<span>s85</span></a><a data-go="5-87">Speech tokenizers compared<span>s87</span></a>
+							<a data-go="5-88">Interleaving text and speech<span>s88</span></a><a data-go="5-89">Full-duplex dialogue<span>s89</span></a>
+							<a data-go="5-91">Thinker&ndash;Talker omni models<span>s91</span></a></div>
+						<div class="grp"><div class="h">Generation</div>
+							<a data-go="6-97">Janus<span>s97</span></a><a data-go="6-98">Next-frame prediction<span>s98</span></a>
+							<a data-go="6-99">Unified understanding &amp; generation<span>s99</span></a><a data-go="6-100">World simulators<span>s100</span></a></div>
+						<div class="grp"><div class="h">Embodiment</div>
+							<a data-go="7-104">Vision-language-action (VLA)<span>s104</span></a><a data-go="7-105">VLA timeline<span>s105</span></a>
+							<a data-go="7-106">System 2 plans, System 1 acts<span>s106</span></a><a data-go="7-108">World models<span>s108</span></a>
+							<a data-go="7-109">World-action models<span>s109</span></a><a data-go="7-110">Spatial intelligence<span>s110</span></a></div>
+						<div class="grp"><div class="h">3D and outlook</div>
+							<a data-go="8-113">Feed-forward 3D reconstruction<span>s113</span></a><a data-go="8-114">3D generation<span>s114</span></a>
+							<a data-go="8-115">LLM as scene programmer<span>s115</span></a><a data-go="9-121">Evaluation<span>s121</span></a>
+							<a data-go="9-125">MLLMs on edge devices<span>s125</span></a><a data-go="9-127">2026: what changed<span>s127</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 WATCH -->
 				<section id="watch">
-					<h2 class="sec"><span class="num">2</span>Watch</h2>
+					<h2 class="sec"><span class="num">3</span>Watch</h2>
 					<div class="chips" id="chips" aria-label="Lecture parts"></div>
 					<div class="stage" id="stage">
 						<video id="video" controls preload="metadata" playsinline></video>
-						<div class="title-card" id="titleCard" aria-live="polite"></div>
+						<div class="title-card" id="titleCard"></div>
+						<div class="upnext" id="upNext" aria-live="polite"></div>
 					</div>
 					<div class="now-bar">
 						<div class="where">
@@ -84,33 +184,111 @@
 							<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
 						</div>
 					</div>
-					<p class="muted" style="font-size:13px">When a part ends, the next one starts automatically after a short countdown. Tip: <b>Shift + &larr;/&rarr;</b> jumps between slides; links like <code>lecture10.html#p5-s88</code> open a specific slide.</p>
+					<p class="muted" style="font-size:13px">Near the end of each part a small card announces the next one, which then starts by itself (close the card to stop).
+						<b>Shift + &larr;/&rarr;</b> jumps between slides; links like <code>lecture10.html#p5-s88</code> open a specific slide.</p>
+
+					<details class="fold" id="slides">
+						<summary>Slides in this part <span class="muted" id="partTitle"></span></summary>
+						<div class="inner"><div class="slides-list" id="slidesList"></div></div>
+					</details>
+					<details class="fold" id="transcript-sec">
+						<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump</span></summary>
+						<div class="inner">
+							<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+							<div class="transcript" id="transcript"></div>
+						</div>
+					</details>
 				</section>
 
-				<!-- ====================================================== SLIDES -->
-				<section id="slides" class="reveal">
-					<h2 class="sec"><span class="num">3</span>Slides in this part</h2>
-					<p class="muted" id="partTitle"></p>
-					<div class="slides-list" id="slidesList"></div>
+				<!-- ====================================================== 4 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">4</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. Notebook 2 needs a free T4 GPU (<i>Runtime &rarr; Change runtime type</i>); the others also run on CPU.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Part 2 &middot; ~5 min</div>
+							<h4>CLIP: zero-shot classification and retrieval</h4>
+							<ul><li>Classify images into labels CLIP never trained on</li><li>See a prompt raise P(cat) from 0.24 to 0.69</li>
+								<li>Search images with text, and find where it fails</li><li>Compute the contrastive loss by hand</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_1_clip_zero_shot.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture10/lecture10_1_clip_zero_shot.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Parts 3&ndash;4 &middot; ~10 min</div>
+							<h4>Chat with an open multimodal LLM</h4>
+							<ul><li>Ask Qwen2.5-VL-3B about images, alone or several at once</li><li>Count how many tokens an image becomes</li>
+								<li>Find the vision encoder, connector and LLM inside the model</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_2_chat_with_an_mllm.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture10/lecture10_2_chat_with_an_mllm.ipynb">.ipynb</a> &middot; T4 GPU</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Part 5 &middot; ~5 min</div>
+							<h4>Speech as tokens</h4>
+							<ul><li>Compress speech with a neural codec and listen at 1.5&ndash;12 kbps</li><li>Check with Whisper whether the words survive</li>
+								<li>See that speech needs ~160&times; more tokens than its transcript</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture10/lecture10_3_speech_as_tokens.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture10/lecture10_3_speech_as_tokens.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+					</div>
 				</section>
 
-				<!-- ====================================================== TRANSCRIPT -->
-				<section id="transcript-sec" class="reveal">
-					<h2 class="sec"><span class="num">4</span>Transcript</h2>
-					<p>The transcript follows the video. Click any sentence to jump there.
-						<span class="seg" style="margin-left:8px"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
-					<div class="transcript" id="transcript"></div>
+				<!-- ====================================================== 5 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">5</span>What's new in 2026</h2>
+					<p>The lecture's last part (<a data-go="9-127">slide 127</a>) lists what changed this year. Six trends to watch:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#127908;</div><h4>Omni is the default</h4>
+							<p>Real-time speech-and-vision models are the new baseline, and assistants now listen while they speak and keep working in the background.</p>
+							<div class="src">Qwen3.5-Omni (Apr 2026) · MOSS-Live full-duplex assistant (Nov 2026)</div></div>
+						<div class="trend"><div class="ic">&#127758;</div><h4>World models became products</h4>
+							<p>Interactive world models moved from research demos to products for driving simulation and developers.</p>
+							<div class="src">Genie 3 → Waymo World Model · World Labs' World API</div></div>
+						<div class="trend"><div class="ic">&#129302;</div><h4>From VLA to world-action models</h4>
+							<p>Robot models now predict the future as well as the action, and can be steered by prompts instead of retraining.</p>
+							<div class="src">DreamZero · GR00T N2 · Physical Intelligence π0.7 (Apr 2026)</div></div>
+						<div class="trend"><div class="ic">&#129504;</div><h4>General models go physical</h4>
+							<p>Frontier general-purpose models are being evaluated as robot planners and released in robotics editions.</p>
+							<div class="src">GPT-6 Astra as robot planner · Gemini Robotics 2</div></div>
+						<div class="trend"><div class="ic">&#129521;</div><h4>3D in one forward pass</h4>
+							<p>Feed-forward reconstruction and native 3D generation are now standard tools rather than hours of per-scene optimization.</p>
+							<div class="src">VGGT and successors (Part 8)</div></div>
+						<div class="trend"><div class="ic">&#128279;</div><h4>One embedding space for everything</h4>
+							<p>Embedding models now map text, images, video, audio and PDFs into a single space &mdash; CLIP's idea, extended to every modality.</p>
+							<div class="src">Gemini Embedding 2 (Mar 2026)</div></div>
+					</div>
 				</section>
 
-				<!-- ====================================================== PARTS -->
+				<!-- ====================================================== 6 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">6</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"The limits of my language mean the limits of my world."</p>
+							<footer>Ludwig Wittgenstein, <i>Tractatus</i> 5.6 (1921)</footer>
+							<div class="why">The case for language as the hub &mdash; and for giving it more of the world to describe.</div></blockquote>
+						<blockquote class="quote"><p>"Language is an imperfect, incomplete, and low-bandwidth serialization protocol for the internal data structures we call thoughts."</p>
+							<footer>Yann LeCun, quoted on <a data-go="1-9">slide 9</a></footer>
+							<div class="why">Why text alone is not enough.</div></blockquote>
+						<blockquote class="quote"><p>"If we want machines to think, we need to teach them to see."</p>
+							<footer>Fei-Fei Li, TED (2015)</footer>
+							<div class="why">The motivation behind ImageNet, and behind Parts 2&ndash;4.</div></blockquote>
+						<blockquote class="quote"><p>"What I cannot create, I do not understand."</p>
+							<footer>Richard Feynman, on his blackboard (1988)</footer>
+							<div class="why">Why generation and world simulators (Part 6) test understanding.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Lilian Weng: <a href="https://lilianweng.github.io/posts/2022-06-09-vlm/">Generalized Visual Language Models</a> &mdash; the best single overview of Parts 2&ndash;3</li>
+						<li><a href="https://arxiv.org/abs/2103.00020">CLIP</a> (2021) &middot; <a href="https://arxiv.org/abs/2204.14198">Flamingo</a> (2022) &middot; <a href="https://arxiv.org/abs/2304.08485">LLaVA: Visual Instruction Tuning</a> (2023)</li>
+						<li><a href="https://arxiv.org/abs/2410.00037">Moshi: a speech-text foundation model for real-time dialogue</a> &middot; <a href="https://arxiv.org/abs/2503.20215">Qwen2.5-Omni</a></li>
+						<li>OpenAI: <a href="https://openai.com/index/video-generation-models-as-world-simulators/">Video generation models as world simulators</a> (2024)</li>
+						<li><a href="https://arxiv.org/abs/2406.09246">OpenVLA</a> &middot; <a href="https://arxiv.org/abs/2410.24164">π0: a vision-language-action flow model</a> &middot; <a href="https://arxiv.org/abs/2503.11651">VGGT</a></li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 7 PARTS -->
 				<section id="parts">
-					<h2 class="sec reveal"><span class="num">5</span>All nine parts</h2>
+					<h2 class="sec reveal"><span class="num">7</span>All nine parts</h2>
 					<div class="parts-grid" id="partsGrid"></div>
 				</section>
 
-				<!-- ====================================================== ABOUT -->
+				<!-- ====================================================== 8 ABOUT -->
 				<section id="about" class="reveal">
-					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<h2 class="sec"><span class="num">8</span>About this video</h2>
 					<div class="callout info">
 						<b class="t">This is an AI-narrated version of the lecture.</b>
 						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
@@ -118,11 +296,6 @@
 						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
 						in-class lecture &mdash; and please tell us, so we can fix it.
 					</div>
-					<ul class="checklist">
-						<li>Nine parts that follow the lecture's sections, so you can watch in short sessions.</li>
-						<li>English subtitles with Chinese translation, plus the same text in the transcript above.</li>
-						<li>The <a href="materials/2026_fall_slides/Lecture10_Multimodal_LLMs.pdf">slides (PDF)</a> and the reading list are on the <a href="index.html">course page</a>.</li>
-					</ul>
 				</section>
 
 				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
