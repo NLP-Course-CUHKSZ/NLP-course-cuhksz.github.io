@@ -1,37 +1,46 @@
-/* Lecture 10 video page: part switching with fades, "up next" title card, slide jumps, synced transcript, deep links. */
+/* Lecture 10 video page: chapter switching with fades, "up next" toast, slide jumps, synced transcript, deep links. */
 (function () {
   var VIDEO_BASE = window.L10_VIDEO_BASE || 'materials/videos/lecture10/';
   var POSTER_BASE = 'imgs/lecture10/';
   var parts = window.L10.parts;
   var video = document.getElementById('video');
   var stage = document.getElementById('stage');
-  var card = document.getElementById('titleCard');
   var cur = 0, curSlide = -1, curSent = -1, lang = 'both';
 
   function fmt(t) { t = Math.max(0, Math.floor(t)); var m = Math.floor(t / 60), s = t % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
   function $(id) { return document.getElementById(id); }
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  /* ---------- build static UI ---------- */
-  var chips = $('chips'), grid = $('partsGrid'), tocParts = $('tocParts');
+  /* ---------- build static UI: the chapters panel next to the player, and the side TOC ---------- */
+  var chList = $('chList'), tocParts = $('tocParts');
   parts.forEach(function (p, i) {
-    var b = document.createElement('button');
-    b.textContent = p.n + '. ' + p.title.replace(/:.*$/, '');
-    b.title = p.title;
-    b.onclick = function () { load(i, 0, true); };
-    chips.appendChild(b);
-
-    var c = document.createElement('div');
-    c.className = 'pcard reveal';
-    c.innerHTML = '<div class="thumb" style="background-image:url(' + POSTER_BASE + p.poster + ')"><span class="dur">' + fmt(p.duration) +
-      '</span><span class="playic">&#9654;</span></div><div class="body"><div class="k">Part ' + p.n + ' &middot; slides ' + p.first + '&ndash;' + p.last +
-      '</div><h4>' + esc(p.title) + '</h4><p>' + esc(p.blurb) + '</p></div>';
-    c.onclick = function () { load(i, 0, true); scrollToPlayer(); };
-    grid.appendChild(c);
+    var ch = document.createElement('div');
+    ch.className = 'ch';
+    var row = document.createElement('a');
+    row.className = 'ch-row';
+    row.href = '#p' + p.n;
+    row.title = p.blurb;
+    row.innerHTML = '<span class="th" style="background-image:url(' + POSTER_BASE + p.poster + ')"><span class="dur">' + fmt(p.duration) +
+      '</span><span class="pb"></span></span><span class="tx"><span class="k">Chapter ' + p.n + ' &middot; slides ' + p.first + '&ndash;' + p.last +
+      '</span><span class="t">' + esc(p.title) + '</span></span>';
+    row.onclick = function (e) { e.preventDefault(); load(i, 0, true); };
+    ch.appendChild(row);
+    var sl = document.createElement('div');
+    sl.className = 'ch-slides';
+    p.slides.forEach(function (s) {
+      var a = document.createElement('a');
+      a.href = '#p' + p.n + '-s' + s.n;
+      a.title = s.title;
+      a.innerHTML = '<span class="t2">' + fmt(s.t) + '</span><span class="ti">' + s.n + ' &middot; ' + esc(s.title) + '</span>';
+      a.onclick = function (e) { e.preventDefault(); load(i, s.t + 0.05, true); };
+      sl.appendChild(a);
+    });
+    ch.appendChild(sl);
+    chList.appendChild(ch);
 
     if (tocParts) {
       var a = document.createElement('a');
-      a.href = '#watch';
+      a.href = '#p' + p.n;
       a.className = 'sub part-link';
       a.innerHTML = p.n + '&nbsp; ' + esc(p.title.replace(/:.*$/, '')) + '<span class="pbar"><i></i></span>';
       a.onclick = function (e) { e.preventDefault(); load(i, 0, true); scrollToPlayer(); };
@@ -40,23 +49,19 @@
   });
 
   function scrollToPlayer() { $('watch').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  /* keep an element visible inside the chapters list without moving the page */
+  function keepInList(el) {
+    if (!el || chList.matches(':hover')) return;
+    var top = el.offsetTop, bot = top + el.offsetHeight;
+    if (top < chList.scrollTop + 8 || bot > chList.scrollTop + chList.clientHeight - 8) chList.scrollTop = top - chList.clientHeight / 3;
+  }
 
-  /* ---------- per-part lists ---------- */
+  /* ---------- transcript of the current chapter ---------- */
   function buildLists(p) {
-    var sl = $('slidesList');
-    sl.innerHTML = '';
-    p.slides.forEach(function (s, k) {
-      var a = document.createElement('a');
-      a.href = '#p' + p.n + '-s' + s.n;
-      a.innerHTML = '<span class="t">' + fmt(s.t) + '</span><span class="n">' + s.n + '</span><span class="ti">' + esc(s.title) + '</span>';
-      a.title = s.title;
-      a.onclick = function (e) { e.preventDefault(); seek(s.t + 0.05, true); };
-      sl.appendChild(a);
-    });
     var tr = $('transcript');
     tr.innerHTML = '';
     var last = -1;
-    p.sents.forEach(function (x, k) {
+    p.sents.forEach(function (x) {
       if (x[2] !== last) {
         last = x[2];
         var h = document.createElement('div');
@@ -70,7 +75,6 @@
       el.onclick = function () { seek(x[0], true); };
       tr.appendChild(el);
     });
-    $('partTitle').textContent = 'Part ' + p.n + ' · ' + p.title;
   }
 
   /* ---------- loading parts with a fade ---------- */
@@ -106,8 +110,9 @@
   function seek(t, play) { video.currentTime = t; if (play) video.play().catch(function () {}); }
 
   function markActive() {
-    [].forEach.call(chips.children, function (b, k) { b.classList.toggle('active', k === cur); });
-    [].forEach.call(grid.children, function (c, k) { c.classList.toggle('active', k === cur); });
+    [].forEach.call(chList.children, function (c, k) { c.classList.toggle('active', k === cur); });
+    var ch = chList.children[cur];
+    if (ch) chList.scrollTop = ch.offsetTop - 6;
     if (tocParts) [].forEach.call(tocParts.children, function (a, k) { a.classList.toggle('active', k === cur); });
   }
 
@@ -122,8 +127,10 @@
       var el = $('nowSlide');
       el.style.opacity = 0;
       setTimeout(function () { el.textContent = 'Slide ' + s.n + ' · ' + s.title; el.style.opacity = 1; }, 150);
-      $('nowPart').textContent = 'Part ' + p.n + ' of ' + parts.length + ' · ' + p.title;
-      [].forEach.call($('slidesList').children, function (a, k) { a.classList.toggle('cur', k === si); });
+      $('nowPart').textContent = 'Chapter ' + p.n + ' of ' + parts.length + ' · ' + p.title;
+      var sl = chList.children[cur].querySelector('.ch-slides');
+      [].forEach.call(sl.children, function (a, k) { a.classList.toggle('cur', k === si); });
+      if (!force) keepInList(sl.children[si]);
       history.replaceState(null, '', '#p' + p.n + '-s' + s.n);
     }
     var ni = -1;
@@ -135,16 +142,19 @@
       var box = $('transcript'), el2 = ps[ni];
       if (el2 && box.offsetParent !== null && !box.matches(':hover')) box.scrollTop = el2.offsetTop - box.offsetTop - box.clientHeight / 3;
     }
-    if (tocParts) {
-      var bar = tocParts.children[cur] && tocParts.children[cur].querySelector('.pbar i');
-      if (bar && video.duration) bar.style.width = (100 * t / video.duration) + '%';
+    if (video.duration) {
+      var w = (100 * t / video.duration) + '%';
+      var pb = chList.children[cur].querySelector('.pb');
+      if (pb) pb.style.width = w;
+      var bar = tocParts && tocParts.children[cur] && tocParts.children[cur].querySelector('.pbar i');
+      if (bar) bar.style.width = w;
     }
   }
   video.addEventListener('timeupdate', function () { updateNow(false); });
 
   /* ---------- "up next": a small corner toast in the last seconds, then a cross-fade into the next part ---------- */
   var toast = $('upNext'), autoNext = true, LEAD_IN = 12;
-  function hideCard() { card.classList.remove('show'); toast.classList.remove('show'); }
+  function hideCard() { toast.classList.remove('show'); }
   function fillToast() {
     if (cur >= parts.length - 1) {
       toast.innerHTML = '<div class="un-k">Lecture 10 complete</div><div class="un-t">Thank you for watching!</div>' +
@@ -154,7 +164,7 @@
     }
     var n = parts[cur + 1];
     toast.innerHTML = '<button class="un-x" id="unX" title="Don\'t play the next part">&times;</button>' +
-      '<div class="un-k">Up next &middot; Part ' + n.n + '</div><div class="un-t">' + esc(n.title) + '</div>' +
+      '<div class="un-k">Up next &middot; Chapter ' + n.n + '</div><div class="un-t">' + esc(n.title) + '</div>' +
       '<div class="un-bar"><i id="unBar"></i></div><div class="un-row"><button class="un-btn" id="unPlay">&#9654; Play now</button></div>';
     $('unPlay').onclick = function () { load(cur + 1, 0, true); };
     $('unX').onclick = function () { autoNext = false; toast.classList.remove('show'); };
