@@ -1,0 +1,97 @@
+/* Video-lecture pages (Lecture 10, ...). Builds on tutorial.css. */
+html { scroll-behavior: smooth; }
+.hero .btn-play { background: #fff; color: var(--dark); font-weight: 500; border-color: #fff; }
+.hero .btn-play:hover, .hero .btn-play:focus { background: #ffe9e4; color: var(--dark); }
+
+/* ---------- reveal on scroll ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ---------- player ---------- */
+.stage { background: #111; border-radius: 10px; overflow: hidden; position: relative; box-shadow: 0 8px 28px rgba(0,0,0,.18); }
+.stage video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #111; transition: opacity .35s ease; }
+.stage.switching video { opacity: 0; }
+.stage .title-card { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center;
+	text-align: center; color: #fff; background: radial-gradient(circle at 50% 40%, rgba(90,42,34,.92), rgba(20,20,20,.96));
+	opacity: 0; pointer-events: none; transition: opacity .45s ease; padding: 20px; }
+.stage .title-card.show { opacity: 1; pointer-events: auto; }
+.title-card .kicker { letter-spacing: .14em; text-transform: uppercase; font-size: 13px; color: #ffcfc5; }
+.title-card .big { font-size: 30px; font-weight: 400; margin: 8px 0 6px; max-width: 760px; }
+.title-card .blurb { font-size: 15px; color: #e6e6e6; max-width: 640px; }
+.title-card .row-btn { margin-top: 16px; }
+.title-card .row-btn .btn { margin: 0 6px; }
+.ring { width: 46px; height: 46px; margin: 14px auto 0; position: relative; }
+.ring svg { transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 4; }
+.ring .bg { stroke: rgba(255,255,255,.2); }
+.ring .fg { stroke: #fff; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+.ring span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+
+.now-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 12px 2px 4px; }
+.now-bar .where { flex: 1 1 320px; min-width: 0; }
+.now-bar .where .p { color: var(--red); font-weight: 500; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; }
+.now-bar .where .s { font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity .25s; }
+.now-bar .ctrl .btn { margin-left: 4px; }
+.now-bar .ctrl .btn.on { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* part chips (also the mobile TOC) */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
+.chips button { border: 1px solid var(--line); background: #fff; border-radius: 16px; padding: 4px 12px; font-size: 13px; color: #444;
+	transition: background .25s, color .25s, border-color .25s; }
+.chips button:hover { border-color: var(--red); color: var(--red); }
+.chips button.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+/* ---------- slide list ---------- */
+.slides-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 6px 14px; margin-top: 8px; }
+.slides-list a { display: flex; gap: 10px; padding: 6px 10px; border-radius: 6px; color: #333; text-decoration: none; font-size: 14px;
+	transition: background .25s, color .25s; }
+.slides-list a:hover { background: var(--soft2); }
+.slides-list a .t { color: var(--mute); font-variant-numeric: tabular-nums; min-width: 42px; }
+.slides-list a .n { color: #aaa; min-width: 28px; }
+.slides-list a .ti { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slides-list a.cur { background: var(--soft); color: var(--dark); }
+.slides-list a.cur .t, .slides-list a.cur .n { color: var(--red); }
+
+/* ---------- transcript ---------- */
+.transcript { max-height: 420px; overflow-y: auto; border: 1px solid var(--line); border-radius: 8px; padding: 8px 6px; background: #fff; scroll-behavior: smooth; }
+.transcript .slide-h { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--mute); padding: 10px 10px 2px; }
+.transcript p { margin: 0; padding: 5px 10px; border-radius: 6px; cursor: pointer; line-height: 1.55; transition: background .3s, color .3s; }
+.transcript p:hover { background: var(--soft2); }
+.transcript p .zh { display: block; color: #8a6d3b; font-size: 14px; }
+.transcript p.cur { background: var(--soft); color: var(--dark); }
+.transcript.en .zh, .transcript.zh .en { display: none; }
+.transcript.zh p .zh { color: inherit; font-size: inherit; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { border: 0; background: #fff; padding: 4px 12px; font-size: 13px; color: #444; }
+.seg button.on { background: var(--red); color: #fff; }
+
+/* ---------- part cards ---------- */
+.parts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+.pcard { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; cursor: pointer;
+	transition: transform .25s ease, box-shadow .25s ease, border-color .25s; display: flex; flex-direction: column; }
+.pcard:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,.10); border-color: #e7c4bc; }
+.pcard .thumb { position: relative; aspect-ratio: 16 / 9; background: #222 center / cover no-repeat; }
+.pcard .thumb .dur { position: absolute; right: 8px; bottom: 8px; background: rgba(0,0,0,.72); color: #fff; font-size: 12px; padding: 1px 7px; border-radius: 4px; }
+.pcard .thumb .playic { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .25s;
+	background: rgba(0,0,0,.25); color: #fff; font-size: 40px; }
+.pcard:hover .thumb .playic { opacity: 1; }
+.pcard .body { padding: 12px 14px 14px; }
+.pcard .body .k { color: var(--red); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+.pcard .body h4 { margin: 4px 0 6px; font-size: 16px; }
+.pcard .body p { font-size: 14px; color: #555; margin: 0; }
+.pcard .body .meta { font-size: 12.5px; color: var(--mute); margin-top: 8px; }
+.pcard.active { border-color: var(--red); box-shadow: 0 0 0 2px rgba(199,27,0,.15); }
+
+/* progress in the side TOC */
+.toc .part-link { position: relative; }
+.toc .part-link .pbar { display: block; height: 2px; background: var(--line); margin-top: 3px; border-radius: 1px; overflow: hidden; }
+.toc .part-link .pbar i { display: block; height: 100%; width: 0; background: var(--red); transition: width .5s linear; }
+
+/* "journey" strip: see / talk / hear & speak / imagine / act / space */
+.journey { display: flex; flex-wrap: wrap; gap: 0; margin: 14px 0 4px; }
+.journey span { flex: 1 1 90px; text-align: center; padding: 8px 4px; background: var(--soft); color: var(--dark); font-size: 14px;
+	clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%); margin-right: -6px; }
+.journey span:first-child { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
+
+@media (max-width: 767px) { .title-card .big { font-size: 22px; } .title-card .blurb { display: none; } }
+@media (prefers-reduced-motion: reduce) { .reveal, .reveal.in { opacity: 1; transform: none; transition: none; } .stage video, .title-card { transition: none; } }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 10 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Multimodal LLMs. Watch the full lecture in nine parts with bilingual subtitles, a synced transcript and slide-by-slide navigation.">
+	<title>Lecture 10: Multimodal LLMs (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body>
+
+	<!-- ================================================================== HERO -->
+	<div class="hero">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 10: Multimodal LLMs</h1>
+			<p class="lead">Can large models see, hear, speak, act &mdash; and understand 3D space? Watch the whole lecture in nine short parts,
+				with English and Chinese subtitles, a transcript that follows the video, and a jump to any slide.</p>
+			<div class="badge-row">
+				<span>&#128197; Nov. 27th, 2026</span>
+				<span>&#127909; 9 parts &middot; 107 min</span>
+				<span>&#128444; 134 slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<span>&#128221; synced transcript</span>
+			</div>
+			<a class="btn btn-play" href="#watch">&#9654; Start watching</a>
+			<a class="btn btn-ghost" href="#parts">Browse the nine parts</a>
+			<a class="btn btn-ghost" href="materials/2026_fall_slides/Lecture10_Multimodal_LLMs.pdf">&#11015; Slides (PDF)</a>
+		</div>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">On this page</div>
+					<a href="#overview">1&nbsp; The journey</a>
+					<a href="#watch">2&nbsp; Watch</a>
+					<div id="tocParts"></div>
+					<a href="#slides">3&nbsp; Slides in this part</a>
+					<a href="#transcript-sec">4&nbsp; Transcript</a>
+					<a href="#parts">5&nbsp; All nine parts</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-md-9">
+				<!-- ====================================================== OVERVIEW -->
+				<section id="overview" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The journey</h2>
+					<p>Until now, our language models could only read text. In this lecture we teach them to <b>see</b>, to <b>hear and speak</b>,
+						to <b>imagine</b> new images and videos, to <b>act</b> in the physical world &mdash; and finally to understand <b>space</b>.
+						Each step builds on the last: first we connect vision and language (CLIP, Flamingo), then we build and train multimodal LLMs,
+						and then we go beyond images to speech, generation, embodied agents and 3D.</p>
+					<div class="journey"><span>See</span><span>Talk</span><span>Hear &amp; speak</span><span>Imagine</span><span>Act</span><span>Space (3D)</span></div>
+				</section>
+
+				<!-- ====================================================== PLAYER -->
+				<section id="watch">
+					<h2 class="sec"><span class="num">2</span>Watch</h2>
+					<div class="chips" id="chips" aria-label="Lecture parts"></div>
+					<div class="stage" id="stage">
+						<video id="video" controls preload="metadata" playsinline></video>
+						<div class="title-card" id="titleCard" aria-live="polite"></div>
+					</div>
+					<div class="now-bar">
+						<div class="where">
+							<div class="p" id="nowPart"></div>
+							<div class="s" id="nowSlide"></div>
+						</div>
+						<div class="ctrl">
+							<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+							<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+							<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+							<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+							<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+						</div>
+					</div>
+					<p class="muted" style="font-size:13px">When a part ends, the next one starts automatically after a short countdown. Tip: <b>Shift + &larr;/&rarr;</b> jumps between slides; links like <code>lecture10.html#p5-s88</code> open a specific slide.</p>
+				</section>
+
+				<!-- ====================================================== SLIDES -->
+				<section id="slides" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Slides in this part</h2>
+					<p class="muted" id="partTitle"></p>
+					<div class="slides-list" id="slidesList"></div>
+				</section>
+
+				<!-- ====================================================== TRANSCRIPT -->
+				<section id="transcript-sec" class="reveal">
+					<h2 class="sec"><span class="num">4</span>Transcript</h2>
+					<p>The transcript follows the video. Click any sentence to jump there.
+						<span class="seg" style="margin-left:8px"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+					<div class="transcript" id="transcript"></div>
+				</section>
+
+				<!-- ====================================================== PARTS -->
+				<section id="parts">
+					<h2 class="sec reveal"><span class="num">5</span>All nine parts</h2>
+					<div class="parts-grid" id="partsGrid"></div>
+				</section>
+
+				<!-- ====================================================== ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+					<ul class="checklist">
+						<li>Nine parts that follow the lecture's sections, so you can watch in short sessions.</li>
+						<li>English subtitles with Chinese translation, plus the same text in the transcript above.</li>
+						<li>The <a href="materials/2026_fall_slides/Lecture10_Multimodal_LLMs.pdf">slides (PDF)</a> and the reading list are on the <a href="index.html">course page</a>.</li>
+					</ul>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture10-data.js"></script>
+	<script src="./js/lecture10.js"></script>
+</body>
+
+</html>
