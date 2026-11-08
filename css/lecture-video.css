@@ -104,14 +104,10 @@ html { scroll-behavior: smooth; }
 .story > li { position: relative; padding: 0 0 18px 52px; }
 .story > li .dot { position: absolute; left: 4px; top: 0; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 2px solid var(--red);
 	color: var(--red); font-weight: 600; font-size: 13px; text-align: center; line-height: 24px; }
-.story > li .verb { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--red); font-weight: 500; }
 .story > li h4 { margin: 2px 0 4px; font-size: 17px; }
 .story > li p { margin: 0 0 4px; color: #444; font-size: 15px; }
-.story > li .q { color: #777; font-style: italic; }
 .story > li .go a { display: inline-block; font-size: 12.5px; background: #f3f3f3; border-radius: 12px; padding: 1px 9px; margin: 3px 4px 0 0; color: #333; text-decoration: none; transition: background .2s, color .2s; }
 .story > li .go a:hover { background: var(--red); color: #fff; }
-.story > li .go a.part { background: var(--soft); color: var(--dark); font-weight: 500; }
-.thread { font-size: 15px; color: #333; background: #f7f7f7; border-radius: 8px; padding: 12px 16px; }
 
 /* ---------- concept index ---------- */
 .cindex { columns: 3 230px; column-gap: 26px; }
@@ -152,13 +148,12 @@ details.fold > .inner { padding: 0 16px 14px; animation: foldin .35s ease; }
 
 /* lecture map: five acts */
 	clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%); margin-right: -6px; transition: background .2s, color .2s; }
-.story > li.act { padding: 6px 0 14px 52px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; scroll-margin-top: 20px; }
+.story > li.act { padding: 6px 0 14px 52px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0; scroll-margin-top: 20px; }
 .story > li.act:not(:first-child) { margin-top: 8px; }
 .story > li.act .act-n { position: absolute; left: 0; top: 2px; width: 36px; height: 26px; border-radius: 13px; background: var(--red); color: #fff;
 	font-weight: 600; font-size: 13px; text-align: center; line-height: 26px; }
-.story > li.act .act-name { font-size: 20px; color: var(--red); }
+.story > li.act .act-name { font-size: 20px; color: var(--red); margin-right: 10px; }
 .story > li.act .act-sub { color: #555; font-size: 15px; }
-.story > li.act .act-parts { margin-left: auto; font-size: 12px; color: var(--mute); text-transform: uppercase; letter-spacing: .05em; }
 
 .ch-tg { flex: 0 0 22px; align-self: center; text-align: center; color: #bbb; font-size: 13px; border-radius: 50%; line-height: 22px; transition: transform .25s, color .2s, background .2s; }
 .ch-tg:hover { color: var(--red); background: #fff; }
@@ -168,15 +163,22 @@ details.fold > .inner { padding: 0 16px 14px; animation: foldin .35s ease; }
 @media (min-width: 1200px) { body.wide .container { width: auto; max-width: 1500px; padding-left: 32px; padding-right: 32px; } }
 
 /* lecture map: five act cards */
-.acts { display: grid; grid-template-columns: .8fr 1.3fr 1.1fr 1.1fr .9fr; gap: 14px; margin: 12px 0 14px; }
+.acts { display: grid; grid-template-columns: 1fr 1.25fr 1.2fr 1.2fr 1fr; gap: 14px; margin: 12px 0 14px; }
 .act-card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-top: 3px solid var(--red); border-radius: 8px; padding: 10px 12px; background: #fff; }
 .act-card:not(:last-child):after { content: "\203A"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--red); font-size: 22px; line-height: 1; }
 .act-card .ac-h { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .act-card .act-n { display: inline-block; min-width: 30px; height: 22px; border-radius: 11px; background: var(--red); color: #fff; font-weight: 600; font-size: 12px; text-align: center; line-height: 22px; padding: 0 6px; }
 .act-card .ac-h b { font-size: 16px; font-weight: 500; color: var(--dark); }
-.act-card .ac-steps a { display: flex; gap: 6px; font-size: 13.5px; line-height: 1.35; color: #333; padding: 3px 4px; border-radius: 4px; text-decoration: none; transition: background .2s, color .2s; }
-.act-card .ac-steps a:hover { background: var(--soft); color: var(--red); }
-.act-card .ac-steps .sn { flex: 0 0 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); font-size: 10.5px; font-weight: 600; text-align: center; line-height: 15px; margin-top: 1px; }
-.act-card .ac-ch { margin-top: auto; padding-top: 6px; font-size: 11.5px; color: var(--mute); text-transform: uppercase; letter-spacing: .05em; }
 @media (max-width: 991px) { .acts { grid-template-columns: 1fr 1fr; } .act-card:after { display: none; } }
 @media (max-width: 560px) { .acts { grid-template-columns: 1fr; } }
+.map-lead { font-size: 15.5px; color: #333; max-width: 980px; }
+.act-card .ac-gain { font-size: 13.5px; color: #666; line-height: 1.4; margin-bottom: 8px; min-height: 38px; }
+.act-card .ac-ch { border-top: 1px dashed var(--line); padding-top: 6px; }
+.act-card .ac-ch a { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222; padding: 4px 4px; border-radius: 5px; text-decoration: none; transition: background .2s, color .2s; }
+.act-card .ac-ch a:hover { background: var(--soft); color: var(--red); }
+.act-card .ac-ch .cn, .story > li .dot { font-variant-numeric: tabular-nums; }
+.act-card .ac-ch .cn { flex: 0 0 22px; height: 22px; border-radius: 5px; background: var(--soft); color: var(--red); font-size: 12px; font-weight: 600; text-align: center; line-height: 22px; }
+.act-card .ac-ch a:hover .cn { background: var(--red); color: #fff; }
+.story > li h4 a { color: var(--ink); text-decoration: none; cursor: pointer; }
+.story > li h4 a:hover { color: var(--red); }
+.story > li .nextq { font-size: 14px; color: #777; font-style: italic; margin: 2px 0 2px; }

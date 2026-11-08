@@ -5,7 +5,7 @@
   var parts = window.L10.parts;
   var video = document.getElementById('video');
   var stage = document.getElementById('stage');
-  var cur = 0, curSlide = -1, curSent = -1, lang = 'both', showSlides = true;
+  var cur = 0, curSlide = -1, curSent = -1, lang = 'both', showSlides = false;
 
   function fmt(t) { t = Math.max(0, Math.floor(t)); var m = Math.floor(t / 60), s = t % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
   function $(id) { return document.getElementById(id); }

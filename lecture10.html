@@ -94,70 +94,35 @@
 				<section id="map" class="reveal">
 					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
 					<div class="question">How do we give a language model eyes, ears, a voice and hands &mdash; and a sense of space?</div>
-					<p>The lecture answers this in five acts and ten steps; each step exists because the previous one left something unsolved.
-						Every step links to its place in the video.</p>
-					<div class="acts"><div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Why</b></div><div class="ac-steps"><a data-go="1-9"><span class="sn">1</span>Text is a narrow window</a></div><div class="ac-ch">Chapter 1</div></div><div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>See</b></div><div class="ac-steps"><a data-go="2-13"><span class="sn">2</span>CLIP: images and text in one space</a><a data-go="2-28"><span class="sn">3</span>Flamingo: an LLM reads images</a><a data-go="3-40"><span class="sn">4</span>Encoder + connector + LLM</a><a data-go="4-68"><span class="sn">5</span>Align, then instruction-tune</a></div><div class="ac-ch">Chapters 2&ndash;4</div></div><div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Hear, speak &amp; create</b></div><div class="ac-steps"><a data-go="5-86"><span class="sn">6</span>Speech as tokens, full duplex</a><a data-go="6-97"><span class="sn">7</span>Generate images, video, worlds</a></div><div class="ac-ch">Chapters 5&ndash;6</div></div><div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Act in 3D</b></div><div class="ac-steps"><a data-go="7-104"><span class="sn">8</span>VLA and world-action models</a><a data-go="8-113"><span class="sn">9</span>Reconstruct and build 3D</a></div><div class="ac-ch">Chapters 7&ndash;8</div></div><div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Next</b></div><div class="ac-steps"><a data-go="9-118"><span class="sn">10</span>Open problems, 2026 trends</a></div><div class="ac-ch">Chapter 9</div></div></div>
-					<div class="thread"><b>The thread:</b> the model first learns to <b>perceive</b> (II), then to <b>express</b> itself in speech,
-						images and video (III), then to <b>act</b> in a 3D world (IV) &mdash; and through all of it, <b>language stays the hub</b> that connects the modalities.</div>
+					<p class="map-lead">Five acts, nine chapters. The model first learns to <b>see</b>, then to <b>hear, speak and create</b>,
+						then to <b>act</b> in a 3D world &mdash; and through all of it, <b>language stays the hub</b> that connects the modalities.
+						Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Why</b></div><div class="ac-gain">Why text alone is not enough</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>Why multimodality?</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>See</b></div><div class="ac-gain">Match images to text, then read them</div><div class="ac-ch"><a data-go="2"><span class="cn">2</span>CLIP and Flamingo</a><a data-go="3"><span class="cn">3</span>Architecture</a><a data-go="4"><span class="cn">4</span>Training</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Hear, speak &amp; create</b></div><div class="ac-gain">Talk in real time; create images and video</div><div class="ac-ch"><a data-go="5"><span class="cn">5</span>Speech language models</a><a data-go="6"><span class="cn">6</span>Generation &amp; world simulators</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Act in 3D</b></div><div class="ac-gain">Turn perception into action in space</div><div class="ac-ch"><a data-go="7"><span class="cn">7</span>VLA &amp; world models</a><a data-go="8"><span class="cn">8</span>3D understanding</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Next</b></div><div class="ac-gain">What is still open</div><div class="ac-ch"><a data-go="9"><span class="cn">9</span>Research directions</a></div></div>
+					</div>
 					<details class="fold">
-						<summary>The full storyline <span class="muted">ten steps, with the open question that leads to the next</span></summary>
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
 						<div class="inner">
 						<ol class="story">
-						<li class="act"><span class="act-n">I</span><span class="act-name">Why</span><span class="act-sub">Text alone is a narrow window on the world</span><span class="act-parts">Chapter 1</span></li>
-						<li><span class="dot">1</span><div class="verb">Why</div>
-							<h4>Text is a narrow window</h4>
-							<p>Humans perceive through many senses at once, the web is multimodal, and high-quality text is running out.
-								<span class="q">So: can a model perceive the world the way we do?</span></p>
-							<div class="go"><a class="part" data-go="1">Chapter 1</a><a data-go="1-5">聽 = ear + eye + heart</a><a data-go="1-9">Why multimodality</a><a data-go="1-10">Milestones</a></div></li>
-						<li class="act"><span class="act-n">II</span><span class="act-name">See</span><span class="act-sub">Vision meets language: match, read, build, train</span><span class="act-parts">Chapters 2&ndash;4</span></li>
-						<li><span class="dot">2</span><div class="verb">See &middot; align</div>
-							<h4>Put images and text in one space: CLIP</h4>
-							<p>Contrastive learning on hundreds of millions of web image&ndash;caption pairs gives zero-shot recognition and text-to-image search.
-								<span class="q">But CLIP can only match &mdash; it cannot talk about what it sees.</span></p>
-							<div class="go"><a class="part" data-go="2">Chapter 2</a><a data-go="2-13">CLIP</a><a data-go="2-20">Contrastive objective</a><a data-go="2-23">Zero-shot classification</a><a data-go="2-24">Retrieval</a></div></li>
-						<li><span class="dot">3</span><div class="verb">See &middot; talk</div>
-							<h4>Let a language model read images: Flamingo</h4>
-							<p>Keep a frozen vision encoder and a frozen LLM, and connect them with a Perceiver Resampler and gated cross-attention, trained
-								on interleaved web pages. <span class="q">Few-shot multimodal dialogue &mdash; the "GPT-3 moment" for vision.</span></p>
-							<div class="go"><a data-go="2-28">Architecture</a><a data-go="2-31">Perceiver Resampler</a><a data-go="2-32">Gated cross-attention</a><a data-go="2-35">CLIP vs. Flamingo</a></div></li>
-						<li><span class="dot">4</span><div class="verb">Build</div>
-							<h4>Language as the pivot: encoder + connector + LLM</h4>
-							<p>Either the LLM is a controller that calls expert tools, or vision is a joint part of the model (LLaVA, Qwen-VL), up to
-								native models like GPT-4o and Gemini and models that also generate images. <span class="q">Which encoder, which connector, how many tokens per image?</span></p>
-							<div class="go"><a class="part" data-go="3">Chapter 3</a><a data-go="3-40">Language as pivot</a><a data-go="3-42">LLM as controller</a><a data-go="3-47">LLaVA</a><a data-go="3-51">GPT-4o &amp; Gemini</a><a data-go="3-55">Visual encoders</a></div></li>
-						<li><span class="dot">5</span><div class="verb">Train</div>
-							<h4>Align first, then teach it to follow instructions</h4>
-							<p>Stage 1 aligns image features with the LLM on captions; stage 2 uses visual instruction data, often written with GPT's help.
-								<span class="q">The data recipe matters as much as the architecture.</span></p>
-							<div class="go"><a class="part" data-go="4">Chapter 4</a><a data-go="4-68">Visual instruction tuning</a><a data-go="4-69">GPT-assisted data</a><a data-go="4-76">Typical training paradigm</a></div></li>
-						<li class="act"><span class="act-n">III</span><span class="act-name">Hear, speak &amp; create</span><span class="act-sub">Beyond vision: speech in real time, images, video and simulated worlds</span><span class="act-parts">Chapters 5&ndash;6</span></li>
-						<li><span class="dot">6</span><div class="verb">Hear &amp; speak</div>
-							<h4>Turn speech into tokens, then talk in real time</h4>
-							<p>Speech is long, continuous and rich in tone. Tokenize it (semantic vs. acoustic tokens), interleave it with text, listen while
-								speaking (full duplex), and split the work between a thinker and a talker. <span class="q">Voice may become the ultimate interface.</span></p>
-							<div class="go"><a class="part" data-go="5">Chapter 5</a><a data-go="5-80">Why speech is hard</a><a data-go="5-86">Semantic vs. acoustic tokens</a><a data-go="5-88">Interleaving</a><a data-go="5-89">Full duplex</a><a data-go="5-91">Thinker&ndash;Talker</a></div></li>
-						<li><span class="dot">7</span><div class="verb">Imagine</div>
-							<h4>Generate images and videos &mdash; and simulate worlds</h4>
-							<p>Unify understanding and generation, predict the next frame, and use video models as world simulators.
-								<span class="q">But is the generated world physically right?</span></p>
-							<div class="go"><a class="part" data-go="6">Chapter 6</a><a data-go="6-97">Janus</a><a data-go="6-98">Next-frame prediction</a><a data-go="6-100">Medical world simulator</a><a data-go="6-101">Micro world simulator</a></div></li>
-						<li class="act"><span class="act-n">IV</span><span class="act-name">Act in 3D</span><span class="act-sub">Into the physical world: robots and 3D space</span><span class="act-parts">Chapters 7&ndash;8</span></li>
-						<li><span class="dot">8</span><div class="verb">Act</div>
-							<h4>From seeing to acting: VLA and world models</h4>
-							<p>Vision-language-action models map pixels and instructions to motor commands; System 2 plans while System 1 acts; world-action models
-								predict both the future and the action. <span class="q">Embodiment is where perception meets consequences.</span></p>
-							<div class="go"><a class="part" data-go="7">Chapter 7</a><a data-go="7-104">VLA models</a><a data-go="7-106">System 2 / System 1</a><a data-go="7-108">World models</a><a data-go="7-109">World-action models</a></div></li>
-						<li><span class="dot">9</span><div class="verb">Space</div>
-							<h4>Understand and build the 3D world</h4>
-							<p>Images are only projections. Feed-forward 3D reconstruction, 3D generation, and an LLM that writes scene graphs.
-								<span class="q">What should a model know about space that pictures can't tell it?</span></p>
-							<div class="go"><a class="part" data-go="8">Chapter 8</a><a data-go="8-112">Why 3D</a><a data-go="8-113">3D reconstruction</a><a data-go="8-115">LLM as scene programmer</a></div></li>
-						<li class="act"><span class="act-n">V</span><span class="act-name">Next</span><span class="act-sub">Open problems and the 2026 picture</span><span class="act-parts">Chapter 9</span></li>
-						<li><span class="dot">10</span><div class="verb">Outlook</div>
-							<h4>Open problems and what changed in 2026</h4>
-							<p>Efficiency, evaluation, more modalities, edge devices &mdash; and why multimodal LLMs matter for society.</p>
-							<div class="go"><a class="part" data-go="9">Chapter 9</a><a data-go="9-118">Efficiency</a><a data-go="9-121">Evaluation</a><a data-go="9-125">Edge devices</a><a data-go="9-127">2026: what changed</a></div></li>
-					</ol>
+							<li class="act"><span class="act-n">I</span><span class="act-name">Why</span><span class="act-sub">Why text alone is not enough</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">Why Multimodality?</a></h4><p>Humans perceive through many senses at once, the web is multimodal, and high-quality text is running out.</p><div class="nextq">&rarr; Can a model perceive the world the way we do?</div><div class="go"><a data-go="1-5">聽 = ear + eye + heart</a><a data-go="1-9">Why multimodality</a><a data-go="1-10">Milestones</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">See</span><span class="act-sub">Match images to text, then read them</span></li>
+							<li><span class="dot">2</span><h4><a data-go="2">Connecting Vision and Language: CLIP and Flamingo</a></h4><p>CLIP puts images and text in one space by contrastive learning, which gives zero-shot recognition and retrieval. Flamingo lets a frozen LLM read images through a Perceiver Resampler and gated cross-attention.</p><div class="nextq">&rarr; Matching and few-shot reading work &mdash; but how should a general model be built?</div><div class="go"><a data-go="2-13">CLIP</a><a data-go="2-20">Contrastive objective</a><a data-go="2-23">Zero-shot classification</a><a data-go="2-28">Flamingo</a><a data-go="2-31">Perceiver Resampler</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Multimodal LLMs: Architecture</a></h4><p>Language is the pivot. The LLM either controls expert tools, or vision becomes part of the model (encoder + connector + LLM, as in LLaVA and Qwen-VL), up to native models such as GPT-4o and Gemini.</p><div class="nextq">&rarr; The architecture is set &mdash; what data teaches it?</div><div class="go"><a data-go="3-40">Language as pivot</a><a data-go="3-42">LLM as controller</a><a data-go="3-47">LLaVA</a><a data-go="3-51">GPT-4o &amp; Gemini</a><a data-go="3-55">Visual encoders</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Training Multimodal LLMs</a></h4><p>Stage 1 aligns image features with the LLM on captions; stage 2 tunes it on visual instructions, often written with GPT's help.</p><div class="nextq">&rarr; Images work &mdash; what about sound?</div><div class="go"><a data-go="4-68">Visual instruction tuning</a><a data-go="4-69">GPT-assisted data</a><a data-go="4-76">Typical training paradigm</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Hear, speak &amp; create</span><span class="act-sub">Talk in real time; create images and video</span></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Speech Language Models</a></h4><p>Speech is long, continuous and rich in tone. Turn it into tokens, interleave them with text, listen while speaking, and split the work between a thinker and a talker.</p><div class="nextq">&rarr; The model can understand and talk &mdash; can it also create?</div><div class="go"><a data-go="5-80">Why speech is hard</a><a data-go="5-86">Semantic vs. acoustic tokens</a><a data-go="5-89">Full duplex</a><a data-go="5-91">Thinker&ndash;Talker</a></div></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Generation and World Simulators</a></h4><p>Unify understanding and generation, predict the next frame, and use video models as simulators of the world.</p><div class="nextq">&rarr; Is a generated world physically right &mdash; and can a model act in it?</div><div class="go"><a data-go="6-97">Janus</a><a data-go="6-98">Next-frame prediction</a><a data-go="6-100">Medical world simulator</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Act in 3D</span><span class="act-sub">Turn perception into action in space</span></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Embodied Intelligence: VLA and World Models</a></h4><p>Vision-language-action models map pixels and instructions to motor commands: System 2 plans while System 1 acts, and world-action models predict both the future and the action.</p><div class="nextq">&rarr; Acting needs space &mdash; what do pictures miss?</div><div class="go"><a data-go="7-104">VLA models</a><a data-go="7-106">System 2 / System 1</a><a data-go="7-108">World models</a><a data-go="7-109">World-action models</a></div></li>
+							<li><span class="dot">8</span><h4><a data-go="8">3D Understanding and Generation</a></h4><p>Images are only projections. Feed-forward 3D reconstruction, 3D generation, and an LLM that writes scene graphs.</p><div class="nextq">&rarr; What is still open?</div><div class="go"><a data-go="8-112">Why 3D</a><a data-go="8-113">3D reconstruction</a><a data-go="8-115">LLM as scene programmer</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Next</span><span class="act-sub">What is still open</span></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Research Directions and Outlook</a></h4><p>Efficiency, evaluation, more modalities, edge devices &mdash; and what changed in 2026.</p><div class="go"><a data-go="9-118">Efficiency</a><a data-go="9-121">Evaluation</a><a data-go="9-125">Edge devices</a><a data-go="9-127">2026: what changed</a></div></li>
+						</ol>
 						</div>
 					</details>
 				</section>
