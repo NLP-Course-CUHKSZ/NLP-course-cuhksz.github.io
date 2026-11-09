@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 2 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Basics of Linguistics and Word Representation. The full video lecture in ten chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 2: Basics of Linguistics and Word Representation (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 2: Basics of Linguistics and Word Representation</h1>
+			<p class="lead">What is language made of &mdash; and how can a model learn what a word means from the company it keeps? Watch the
+				lecture in ten short chapters with English and Chinese subtitles, follow the lecture map below, then try the ideas in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Sep. 18th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture02_Linguistics_and_Word_Representations.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">What is language made of &mdash; and how can a model learn what a word means from the company it keeps?</div>
+					<p class="map-lead">Five acts, ten chapters. The first half climbs the <b>levels of language</b> &mdash; characters, words,
+						subwords, sentences, discourse &mdash; and asks where that structure went in today's LLMs. The second half turns words into
+						<b>vectors</b>: first by <b>counting</b> contexts, then by <b>predicting</b> them with word2vec. The thread through both
+						halves is <b>context</b>. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Structure</b></div><div class="ac-gain">Language has structure below the surface</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>What is linguistics?</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>Units</b></div><div class="ac-gain">From bytes and characters to words and subword tokens</div><div class="ac-ch"><a data-go="2"><span class="cn">2</span>Characters to words</a><a data-go="3"><span class="cn">3</span>Morphemes &amp; BPE</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Sentences &amp; beyond</b></div><div class="ac-gain">Who did what to whom &mdash; and what LLMs learn of it</div><div class="ac-ch"><a data-go="4"><span class="cn">4</span>Syntax &amp; discourse</a><a data-go="5"><span class="cn">5</span>Linguistics meets deep learning</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Count</b></div><div class="ac-gain">Turn where words occur into vectors</div><div class="ac-ch"><a data-go="6"><span class="cn">6</span>TF-IDF &amp; LSA</a><a data-go="7"><span class="cn">7</span>Distributional semantics</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Predict</b></div><div class="ac-gain">Learn dense vectors by predicting context</div><div class="ac-ch"><a data-go="8"><span class="cn">8</span>Word2vec skip-gram</a><a data-go="9"><span class="cn">9</span>Negative sampling &amp; evaluation</a><a data-go="10"><span class="cn">10</span>Gradients</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Structure</span><span class="act-sub">Language has structure below the surface</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">What Is Linguistics? Structure, Grammar and Englishes</a></h4><p>Linguistics is the scientific study of language. Substitution tests on "The cat sat on the mat" reveal constituents, "Colorless green ideas sleep furiously" separates form from meaning, and English varieties remind us that communication is cooperative.</p><div class="nextq">&rarr; Structure exists at many levels &mdash; what are the smallest units a computer actually stores?</div><div class="go"><a data-go="1-2">Pipeline vs. end-to-end</a><a data-go="1-8">Structure underlies language</a><a data-go="1-12">Substitution tests</a><a data-go="1-16">Grammaticality</a><a data-go="1-21">脸皮越厚，英语越溜</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">Units</span><span class="act-sub">From bytes and characters to words and subword tokens</span></li>
+							<li><span class="dot">2</span><h4><a data-go="2">From Characters to Words: Scripts, Unicode, Tokens</a></h4><p>Chinese characters carry sound and meaning; encodings from GB2312 to Unicode and UTF-8 map them to bytes. Spaces do not define words, normalization is a trade-off, and Zipf's long tail guarantees out-of-vocabulary words.</p><div class="nextq">&rarr; How can a model represent a word it has never seen?</div><div class="go"><a data-go="2-29">Semantic-phonetic compounds</a><a data-go="2-36">Unicode code points</a><a data-go="2-38">Same text, different bytes</a><a data-go="2-41">Split at spaces?</a><a data-go="2-46">Zipf's law</a><a data-go="2-49">OOV words</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Morphemes, Chinese Words and Byte Pair Encoding</a></h4><p>Words are built from morphemes; Chinese words have little inflection and ambiguous boundaries (乒乓球拍卖完了). GPT-style models sidestep both with byte-level BPE, which learns frequent pieces and can always fall back to bytes. Parts of speech give words a grammatical role.</p><div class="nextq">&rarr; Words have categories &mdash; how do they combine into sentences?</div><div class="go"><a data-go="3-51">Morphemes</a><a data-go="3-56">Segmentation ambiguity</a><a data-go="3-58">GPT tokenization</a><a data-go="3-60">BPE learner &amp; segmenter</a><a data-go="3-61">Byte-level BPE</a><a data-go="3-62">Parts of speech</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Sentences &amp; beyond</span><span class="act-sub">Who did what to whom &mdash; and what LLMs learn of it</span></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Sentences and Discourse: Parse Trees to Coherence</a></h4><p>Phrase-structure trees group words into constituents; dependency trees link each word to its head. Ambiguity ("I shot an elephant in my pajamas") makes parsing hard, and discourse relations connect sentences into a coherent text.</p><div class="nextq">&rarr; Do modern language models still need all this annotation?</div><div class="go"><a data-go="4-67">Phrase structure grammar</a><a data-go="4-74">A full constituency tree</a><a data-go="4-76">Dependency syntax</a><a data-go="4-79">Attachment ambiguity</a><a data-go="4-84">Coherence relations</a></div></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Linguistics Meets Deep Learning: The Pendulum</a></h4><p>A review with a contrastive "but" once needed a pipeline of separate analysis stages; a language model trained only to predict text handles it end to end, and probes find linguistic structure inside it. The field swings between empiricism and rationalism &mdash; may it swing back?</p><div class="nextq">&rarr; If we describe a word with a short list of numbers, what should the numbers tell us?</div><div class="go"><a data-go="5-90">The roommate review</a><a data-go="5-93">Self-supervised training</a><a data-go="5-95">Probing for structure</a><a data-go="5-98">The pendulum</a><a data-go="5-101">Will it swing back?</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Count</span><span class="act-sub">Turn where words occur into vectors</span></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Words for Search: Term Matching, TF-IDF and LSA</a></h4><p>Search needs a score, not just a match. The vector space model with TF-IDF weights ranks documents; latent semantic analysis compresses the term-document matrix with SVD so related words meet even without exact matches.</p><div class="nextq">&rarr; Can the same counting represent individual words?</div><div class="go"><a data-go="6-110">IDs carry no meaning</a><a data-go="6-113">Vector space model</a><a data-go="6-114">TF-IDF</a><a data-go="6-117">LSA with SVD</a><a data-go="6-118">Beyond exact matching</a></div></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Distributional Semantics: Context Becomes Vectors</a></h4><p>Hand-built resources like WordNet are costly; the distributional hypothesis lets text do the work. You can guess "ongchoi" from its contexts, and so can a computer: co-occurrence counts, cosine similarity, PPMI weighting, and SVD for dense vectors.</p><div class="nextq">&rarr; Instead of counting and factorizing, can we learn dense vectors by prediction?</div><div class="go"><a data-go="7-128">What do words mean?</a><a data-go="7-133">The company it keeps</a><a data-go="7-135">Guess "ongchoi"</a><a data-go="7-141">Cosine similarity</a><a data-go="7-142">PPMI</a><a data-go="7-145">SVD for dense vectors</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Predict</span><span class="act-sub">Learn dense vectors by predicting context</span></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Word Embeddings and the Word2vec Skip-Gram Model</a></h4><p>Embedding spaces capture neighbors, analogies (king &minus; man + woman), cross-lingual structure, semantic change &mdash; and social bias. Skip-gram learns them by predicting context words with a softmax over the vocabulary, using two tables of 2|V|d parameters.</p><div class="nextq">&rarr; Every update sums over the whole vocabulary &mdash; how can training be cheap?</div><div class="go"><a data-go="8-151">king &minus; man + woman</a><a data-go="8-152">Cross-lingual mapping</a><a data-go="8-154">Bias in embeddings</a><a data-go="8-156">Skip-gram</a><a data-go="8-159">Softmax probability</a><a data-go="8-162">2|V|d parameters</a></div></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Negative Sampling, GloVe and Evaluating Embeddings</a></h4><p>Negative sampling turns prediction into a few binary decisions, touching K + 2 vectors per update. CBOW flips the direction, GloVe fits global counts, pretrained vectors save training, and intrinsic and extrinsic tests answer different questions.</p><div class="nextq">&rarr; Where exactly does the full-softmax cost come from?</div><div class="go"><a data-go="9-166">Negative sampling</a><a data-go="9-169">K + 2 vectors per update</a><a data-go="9-171">GloVe</a><a data-go="9-173">Using pretrained vectors</a><a data-go="9-175">Intrinsic vs. extrinsic</a><a data-go="9-179">Word analogies</a></div></li>
+							<li><span class="dot">10</span><h4><a data-go="10">Wrap-Up and Appendix: Deriving Word2vec Gradients</a></h4><p>A recap of the thread from structure to representation, then the calculus: the center-word gradient is the expected context vector minus the observed one, and the full-softmax update costs about |V|&middot;d per pair, against K&middot;d with negative sampling.</p><div class="go"><a data-go="10-182">Recap</a><a data-go="10-185">Vectorized gradients</a><a data-go="10-188">One center&ndash;context pair</a><a data-go="10-192">Expected minus observed</a><a data-go="10-194">Why full softmax is expensive</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. All three run on the free CPU runtime; no GPU is needed.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 2&ndash;3 &middot; ~3 min</div>
+							<h4>From bytes to tokens</h4>
+							<ul><li>See 自然语言处理 as code points, UTF-8, UTF-16 and GBK bytes &mdash; and as mojibake</li><li>Draw Zipf's law and the long tail of a novel</li><li>Watch a segmenter split 乒乓球拍卖完了 two ways</li><li>Write BPE from scratch, then compare GPT-2 (about 2 tokens per Chinese character) with Qwen2.5 (自然 | 语言 | 处理)</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture02/lecture02_1_from_bytes_to_tokens.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture02/lecture02_1_from_bytes_to_tokens.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapters 6&ndash;7 &middot; ~3 min</div>
+							<h4>From counts to vectors: TF-IDF, LSA and PPMI</h4>
+							<ul><li>Build a TF-IDF search engine by hand</li><li>Let LSA match titles that share no word with the query</li><li>Count co-occurrences in Wikipedia; compare cosine with the dot product</li><li>PPMI + SVD: <i>coffee</i> finds <i>milk</i>, <i>red</i> finds <i>blue</i></li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture02/lecture02_2_from_counts_to_vectors.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture02/lecture02_2_from_counts_to_vectors.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 8&ndash;10 &middot; ~10 min</div>
+							<h4>Word2vec from scratch, and how to evaluate it</h4>
+							<ul><li>Time full softmax against negative sampling</li><li>Train skip-gram with negative sampling in PyTorch on 1.7 M words</li><li>Neighbors and analogies with your vectors and with pretrained GloVe</li><li>Score both on WordSim-353 and the Google analogies; probe for gender bias</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture02/lecture02_3_word2vec_from_scratch.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture02/lecture02_3_word2vec_from_scratch.ipynb">.ipynb</a> &middot; CPU</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Linguistics basics</div>
+							<a data-go="1-5">Linguistics (definition)<span>s5</span></a><a data-go="1-7">Levels of structure<span>s7</span></a>
+							<a data-go="1-10">Constituents &amp; substitution<span>s10</span></a><a data-go="1-16">Grammaticality<span>s16</span></a>
+							<a data-go="1-18">Language varieties<span>s18</span></a><a data-go="2-24">Characters &rarr; words &rarr; sentences &rarr; discourse<span>s24</span></a></div>
+						<div class="grp"><div class="h">Characters &amp; encoding</div>
+							<a data-go="2-27">Pictographs<span>s27</span></a><a data-go="2-29">Semantic-phonetic compounds<span>s29</span></a>
+							<a data-go="2-31">Traditional vs. simplified<span>s31</span></a><a data-go="2-32">Variant characters<span>s32</span></a>
+							<a data-go="2-34">GB2312, GBK, GB18030<span>s34</span></a><a data-go="2-36">Unicode code points<span>s36</span></a>
+							<a data-go="2-37">UTF-8 and UTF-16<span>s37</span></a></div>
+						<div class="grp"><div class="h">Words &amp; tokens</div>
+							<a data-go="2-42">Word boundaries<span>s42</span></a><a data-go="2-43">Tokenization<span>s43</span></a>
+							<a data-go="2-44">Case &amp; spelling normalization<span>s44</span></a><a data-go="2-45">Tokens vs. types<span>s45</span></a>
+							<a data-go="2-46">Zipf's law<span>s46</span></a><a data-go="2-48">Lemmatization &amp; stemming<span>s48</span></a>
+							<a data-go="2-49">Out-of-vocabulary (OOV)<span>s49</span></a></div>
+						<div class="grp"><div class="h">Morphology &amp; subwords</div>
+							<a data-go="3-51">Morphemes, stems, affixes<span>s51</span></a><a data-go="3-54">Chinese word formation<span>s54</span></a>
+							<a data-go="3-55">Limited morphological marking<span>s55</span></a><a data-go="3-56">Segmentation ambiguity<span>s56</span></a>
+							<a data-go="3-57">Subword tokens<span>s57</span></a><a data-go="3-59">Byte pair encoding (BPE)<span>s59</span></a>
+							<a data-go="3-60">Token learner vs. segmenter<span>s60</span></a><a data-go="3-61">Byte-level BPE<span>s61</span></a>
+							<a data-go="3-63">Part-of-speech tags<span>s63</span></a></div>
+						<div class="grp"><div class="h">Syntax &amp; discourse</div>
+							<a data-go="4-65">Phrases<span>s65</span></a><a data-go="4-67">Phrase structure grammar<span>s67</span></a>
+							<a data-go="4-68">Parsing<span>s68</span></a><a data-go="4-74">Constituency tree<span>s74</span></a>
+							<a data-go="4-76">Dependency syntax<span>s76</span></a><a data-go="4-78">ROOT, cycles, projectivity<span>s78</span></a>
+							<a data-go="4-80">Lexical vs. structural ambiguity<span>s80</span></a><a data-go="4-84">Coherence relations<span>s84</span></a>
+							<a data-go="4-86">Implicit discourse relations<span>s86</span></a><a data-go="4-87">Coherence models<span>s87</span></a></div>
+						<div class="grp"><div class="h">Linguistics in modern NLP</div>
+							<a data-go="5-91">Traditional pipelines<span>s91</span></a><a data-go="5-93">Self-supervised training<span>s93</span></a>
+							<a data-go="5-94">End-to-end learning<span>s94</span></a><a data-go="5-95">Probing<span>s95</span></a>
+							<a data-go="5-98">Empiricism vs. rationalism<span>s98</span></a><a data-go="5-100">BERT vs. GPT objectives<span>s100</span></a></div>
+						<div class="grp"><div class="h">Retrieval</div>
+							<a data-go="6-111">Term matching<span>s111</span></a><a data-go="6-113">Vector space model<span>s113</span></a>
+							<a data-go="6-114">TF-IDF<span>s114</span></a><a data-go="6-115">Inverted index, length normalization<span>s115</span></a>
+							<a data-go="6-116">Latent semantic analysis<span>s116</span></a><a data-go="6-117">Truncated SVD<span>s117</span></a></div>
+						<div class="grp"><div class="h">Distributional semantics</div>
+							<a data-go="7-126">Meaning as similarity<span>s126</span></a><a data-go="7-128">Synonymy vs. relatedness<span>s128</span></a>
+							<a data-go="7-130">WordNet<span>s130</span></a><a data-go="7-132">Distributional hypothesis<span>s132</span></a>
+							<a data-go="7-140">Co-occurrence vectors<span>s140</span></a><a data-go="7-141">Cosine similarity<span>s141</span></a>
+							<a data-go="7-142">PMI and PPMI<span>s142</span></a><a data-go="7-143">Sparse vs. dense vectors<span>s143</span></a></div>
+						<div class="grp"><div class="h">Word embeddings</div>
+							<a data-go="8-149">The embedding learning problem<span>s149</span></a><a data-go="8-151">Analogies as directions<span>s151</span></a>
+							<a data-go="8-152">Cross-lingual mapping<span>s152</span></a><a data-go="8-153">Semantic change<span>s153</span></a>
+							<a data-go="8-154">Bias in embeddings<span>s154</span></a><a data-go="8-155">CBOW vs. skip-gram<span>s155</span></a>
+							<a data-go="8-158">Skip-gram objective<span>s158</span></a><a data-go="8-159">Softmax over the vocabulary<span>s159</span></a>
+							<a data-go="8-163">Center and context vectors<span>s163</span></a></div>
+						<div class="grp"><div class="h">Training &amp; evaluation</div>
+							<a data-go="9-166">Negative sampling (SGNS)<span>s166</span></a><a data-go="9-167">Unigram<sup>3/4</sup> noise<span>s167</span></a>
+							<a data-go="9-170">CBOW<span>s170</span></a><a data-go="9-171">GloVe<span>s171</span></a>
+							<a data-go="9-172">Pretrained embeddings<span>s172</span></a><a data-go="9-176">Extrinsic evaluation<span>s176</span></a>
+							<a data-go="9-177">Word similarity, Spearman<span>s177</span></a><a data-go="9-179">Word analogy<span>s179</span></a>
+							<a data-go="10-192">Skip-gram gradient<span>s192</span></a><a data-go="10-194">Full-softmax cost<span>s194</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>Word2vec and GloVe date from 2013&ndash;2014, and BPE entered NLP in 2016. The questions in this lecture &mdash; what a token
+						should be, and what a vector should capture &mdash; are still moving. Five developments to watch:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#128218;</div><h4>Bigger, more multilingual vocabularies</h4>
+							<p>GPT-2's byte-level BPE vocabulary (the idea on <a data-go="3-61">slide 61</a>) has 50,257 tokens. Llama 3 moved to 128K tokens and reports up to
+								15% fewer tokens than Llama 2; Gemma 3 uses 262K, chosen to be more balanced for non-English text &mdash; the cost gap that
+								<a data-go="3-58">slide 58</a> shows for Chinese.</p>
+							<div class="src">Meta, Introducing Llama 3 (Apr 2024) · Gemma 3 Technical Report (Mar 2025)</div></div>
+						<div class="trend"><div class="ic">&#128640;</div><h4>Tokens that cross the space bar</h4>
+							<p>Spaces do not define words (<a data-go="2-41">"New York"</a>). SuperBPE lets tokens span whitespace: at a fixed 200K
+								vocabulary it encodes text with up to 33% fewer tokens, and an 8B model trained with it gains 4.0 points on average over
+								30 tasks.</p>
+							<div class="src">Liu et al., SuperBPE: Space Travel for Language Models (COLM 2025)</div></div>
+						<div class="trend"><div class="ic">&#129513;</div><h4>Tokenizer-free models are catching up</h4>
+							<p>Instead of a fixed BPE vocabulary, models read raw bytes and learn their own grouping: BLT forms patches by next-byte
+								entropy, Bolmo converts an existing Olmo 3 model to bytes, and ByteFlow learns segmentation by compression.</p>
+							<div class="src">Meta BLT (Dec 2024) · Ai2 Bolmo (Dec 2025) · ByteFlow (Mar 2026)</div></div>
+						<div class="trend"><div class="ic">&#9889;</div><h4>Static embeddings are back &mdash; for speed</h4>
+							<p>A lookup table plus averaging, like the baseline on <a data-go="9-176">slide 176</a>, trained with modern objectives:
+								Sentence Transformers' static models run 100&ndash;400&times; faster on CPU and keep at least 85% of the quality of
+								transformer encoders.</p>
+							<div class="src">Hugging Face blog, Train 400x faster Static Embedding Models (Jan 2025)</div></div>
+						<div class="trend"><div class="ic">&#127760;</div><h4>Shared concepts across languages, inside LLMs</h4>
+							<p>Cross-lingual structure (<a data-go="8-152">slide 152</a>) shows up inside large models too: interpretability work found
+								language-independent features for concepts such as "small" and "opposite", and the shared fraction grows with model scale.</p>
+							<div class="src">Anthropic, Tracing the thoughts of a large language model (Mar 2025)</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"You shall know a word by the company it keeps."</p>
+							<footer>J. R. Firth, <i>A Synopsis of Linguistic Theory, 1930&ndash;1955</i> (1957), quoted on <a data-go="7-133">slide 133</a></footer>
+							<div class="why">The one-line summary of Chapters 7&ndash;9.</div></blockquote>
+						<blockquote class="quote"><p>"Difference of meaning correlates with difference of distribution."</p>
+							<footer>Zellig Harris, "Distributional Structure", <i>Word</i> 10 (1954)</footer>
+							<div class="why">The distributional hypothesis (<a data-go="7-132">slide 132</a>) stated as a testable claim.</div></blockquote>
+						<blockquote class="quote"><p>"Colorless green ideas sleep furiously."</p>
+							<footer>Noam Chomsky, <i>Syntactic Structures</i> (1957), on <a data-go="1-16">slide 16</a></footer>
+							<div class="why">Grammatical form and meaning are different things.</div></blockquote>
+						<blockquote class="quote"><p>"The meaning of a word is its use in the language."</p>
+							<footer>Ludwig Wittgenstein, <i>Philosophical Investigations</i> &sect;43 (1953)</footer>
+							<div class="why">The philosophical root of learning meaning from usage.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Jurafsky &amp; Martin: <a href="https://web.stanford.edu/~jurafsky/slp3/">Speech and Language Processing</a> (3rd ed. draft) &mdash; the chapters on words and tokens and on vector semantics cover Chapters 2&ndash;9</li>
+						<li><a href="https://arxiv.org/abs/1301.3781">Efficient Estimation of Word Representations in Vector Space (word2vec)</a> (2013) &middot; <a href="https://arxiv.org/abs/1310.4546">Distributed Representations of Words and Phrases</a> (negative sampling, 2013) &middot; <a href="https://aclanthology.org/D14-1162/">GloVe</a> (2014)</li>
+						<li>Levy, Goldberg &amp; Dagan: <a href="https://aclanthology.org/Q15-1016/">Improving Distributional Similarity with Lessons Learned from Word Embeddings</a> (2015) &mdash; why PPMI + SVD and word2vec are closer than they look</li>
+						<li>Sennrich, Haddow &amp; Birch: <a href="https://arxiv.org/abs/1508.07909">Neural Machine Translation of Rare Words with Subword Units</a> (BPE, 2016) &middot; Andrej Karpathy: <a href="https://www.youtube.com/watch?v=zduSFxRajkE">Let's build the GPT Tokenizer</a> (video, 2024)</li>
+						<li>Kenneth Church: <a href="https://languagelog.ldc.upenn.edu/myl/ldc/swung-too-far.pdf">A Pendulum Swung Too Far</a> (2011) &mdash; the empiricism&ndash;rationalism curve on <a data-go="5-99">slide 99</a> &middot; Manning et al.: <a href="https://www.pnas.org/doi/10.1073/pnas.1907367117">Emergent Linguistic Structure in Artificial Neural Networks Trained by Self-Supervision</a> (PNAS 2020)</li>
+						<li>Bolukbasi et al.: <a href="https://arxiv.org/abs/1607.06520">Man is to Computer Programmer as Woman is to Homemaker?</a> (2016) &middot; Hamilton et al.: <a href="https://arxiv.org/abs/1605.09096">Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change</a> (2016) &middot; <a href="https://universaldependencies.org/">Universal Dependencies</a></li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture02-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

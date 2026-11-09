@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 3 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Language Modeling. The full video lecture in nine chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 3: Language Modeling (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 3: Language Modeling</h1>
+			<p class="lead">How can one simple task &mdash; predicting the next word &mdash; carry us from counting word pairs in <i>Alice in Wonderland</i>
+				to BERT, T5 and GPT? Watch the lecture in nine short chapters with English and Chinese subtitles, follow the lecture map below,
+				then build and sample your own language models in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Oct. 9th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture03_Language_Models.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">What is a language model &mdash; and how did one objective, predicting the next word, grow from counting n-grams into BERT, T5 and GPT?</div>
+					<p class="map-lead">Five acts, nine chapters. First <b>why</b> next-word prediction is so powerful, then the narrow sense:
+						<b>count</b> n-grams and generate with them, <b>fix and measure</b> them with smoothing and perplexity. Then the broad sense:
+						<b>learn representations</b> with neural LMs, word vectors, ELMo and BERT, and finally <b>choose an architecture</b> &mdash;
+						encoder, encoder-decoder or decoder &mdash; and see why decoders took over. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Why</b></div><div class="ac-gain">What an LM is, and why next-word prediction teaches so much</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>LMs in a nutshell</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>Count</b></div><div class="ac-gain">Build an LM from probability and counts, then let it write</div><div class="ac-ch"><a data-go="2"><span class="cn">2</span>Probability</a><a data-go="3"><span class="cn">3</span>N-gram models</a><a data-go="4"><span class="cn">4</span>Spin the wheel</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Fix &amp; measure</b></div><div class="ac-gain">Unseen events, smoothing, perplexity and WER</div><div class="ac-ch"><a data-go="5"><span class="cn">5</span>Sparsity, smoothing, evaluation</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Learn</b></div><div class="ac-gain">From counts to vectors, from static to contextual</div><div class="ac-ch"><a data-go="6"><span class="cn">6</span>Neural LMs &amp; word vectors</a><a data-go="7"><span class="cn">7</span>ELMo &amp; BERT</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Scale</b></div><div class="ac-gain">Three architectures, and why the decoder won</div><div class="ac-ch"><a data-go="8"><span class="cn">8</span>Encoders &amp; encoder-decoders</a><a data-go="9"><span class="cn">9</span>GPT, LLaMA &amp; beyond</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Why</span><span class="act-sub">What an LM is, and why next-word prediction teaches so much</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">Language Models in a Nutshell, and Why They Matter</a></h4><p>A language model scores how likely a text is, or equivalently predicts the next word; a neural LM generates "我思故我在" one token at a time. Because the text is its own label, the task scales, and filling blanks forces the model to learn arithmetic, sentiment, coreference and world knowledge.</p><div class="nextq">&rarr; What exactly is "the probability of a sentence"?</div><div class="go"><a data-go="1-7">Monkey vs. "ChatGPT is all you need"</a><a data-go="1-9">Two equivalent views</a><a data-go="1-11">Autoregressive generation</a><a data-go="1-14">Three model families</a><a data-go="1-16">Why LMs scale</a><a data-go="1-17">Fill in the blank</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">Count</span><span class="act-sub">Build an LM from probability and counts, then let it write</span></li>
+							<li><span class="dot">2</span><h4><a data-go="2">Probability Foundations: Distributions and the Chain Rule</a></h4><p>A bag of colored shapes, then the Alice passage as a bag of words: sampling, distributions, conditional probability, and the chain rule that turns a sentence probability into a product of next-word predictions.</p><div class="nextq">&rarr; The full history is too long to count &mdash; what can we assume instead?</div><div class="go"><a data-go="2-25">A bag of shapes</a><a data-go="2-27">Alice as a bag of words</a><a data-go="2-29">Probability distribution</a><a data-go="2-31">The chain rule</a><a data-go="2-33">Independence assumptions</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">N-gram Language Models: Counting and Estimation</a></h4><p>The Markov assumption keeps only the last n&minus;1 words. Unigram and bigram models for Alice, estimated by relative frequency (MLE), become proper language models once we add EOS, UNK and BOS.</p><div class="nextq">&rarr; What kind of text does such a model write?</div><div class="go"><a data-go="3-36">Markov assumption</a><a data-go="3-37">Unigram word salad</a><a data-go="3-38">Bigram model for Alice</a><a data-go="3-40">MLE by counting</a><a data-go="3-43">EOS: any length</a><a data-go="3-45">Unknown words</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Generating Text: Spinning the N-gram Wheel</a></h4><p>Sampling is spinning a roulette wheel whose slices are the next-word probabilities. The bigram wheel writes "the book her sister was reading"; the trigram wheel has a single slice almost every time and mostly copies the passage.</p><div class="nextq">&rarr; Bigger n is more fluent &mdash; what does it cost?</div><div class="go"><a data-go="4-48">Quiz: which is most fluent?</a><a data-go="4-49">Sampling from a distribution</a><a data-go="4-50">Bigram wheel</a><a data-go="4-57">Trigram wheel</a><a data-go="4-60">Two lessons</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Fix &amp; measure</span><span class="act-sub">Unseen events, smoothing, perplexity and WER</span></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Sparsity, Smoothing and Evaluation: Perplexity and WER</a></h4><p>Large n copies the corpus, and 99.96% of possible Shakespeare bigrams never occur, so MLE gives most sentences probability zero. Smoothing moves mass to unseen events; perplexity (computed in log space) and word error rate tell us which model is better.</p><div class="nextq">&rarr; Counts cannot share statistics between similar words &mdash; can a neural network?</div><div class="go"><a data-go="5-62">Generating Shakespeare</a><a data-go="5-64">Sparsity in numbers</a><a data-go="5-65">MLE and unseen events</a><a data-go="5-67">Smoothing methods</a><a data-go="5-72">Perplexity</a><a data-go="5-78">Word error rate</a><a data-go="5-80">Let the LM decide</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Learn</span><span class="act-sub">From counts to vectors, from static to contextual</span></li>
+							<li><span class="dot">6</span><h4><a data-go="6">From N-grams to Neural LMs and Word Vectors</a></h4><p>N-grams suffer from sparsity and storage. The fixed-window neural LM (Bengio et al., 2003) embeds the context instead of counting it, and its embeddings lead to word vectors and word2vec; subword models handle words the vocabulary has never seen.</p><div class="nextq">&rarr; One vector per word &mdash; but which "bank"?</div><div class="go"><a data-go="6-86">"the students opened their"</a><a data-go="6-87">Sparsity and backoff</a><a data-go="6-90">Fixed-window neural LM</a><a data-go="6-93">Embeddings as a by-product</a><a data-go="6-95">Word2vec objective</a><a data-go="6-96">Subword models</a></div></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Contextualized Word Vectors: ELMo and BERT</a></h4><p>ELMo reads with two LSTM language models; BERT uses a bidirectional Transformer trained with masked LM and next sentence prediction, then fine-tunes all weights. A three-step walk-through follows one example from data to inference.</p><div class="nextq">&rarr; How else can we pretrain &mdash; and which architecture scales?</div><div class="go"><a data-go="7-100">What's wrong with word2vec</a><a data-go="7-103">ELMo</a><a data-go="7-108">Why LMs are one-directional</a><a data-go="7-109">Masked LM</a><a data-go="7-117">BERT step by step</a><a data-go="7-123">GPT scales better</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Scale</span><span class="act-sub">Three architectures, and why the decoder won</span></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Encoders, Encoder-Decoders and Their Trade-offs</a></h4><p>Encoder variants (RoBERTa, SpanBERT, ALBERT, ELECTRA) and encoder-decoders (T5's text-to-text span corruption, BART's denoising), then a side-by-side table of the three families &mdash; including the KV cache &mdash; and DeepSeek-V4.1-Flash's causal encoder-decoder.</p><div class="nextq">&rarr; Back to plain next-word prediction &mdash; at scale.</div><div class="go"><a data-go="8-126">Three architectures</a><a data-go="8-127">RoBERTa</a><a data-go="8-134">ELECTRA step by step</a><a data-go="8-139">T5: text-to-text</a><a data-go="8-141">BART step by step</a><a data-go="8-143">Trade-offs</a><a data-go="8-144">DeepSeek-V4.1-Flash</a></div></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Back to Next-Word Prediction: GPT, LLaMA and Beyond</a></h4><p>Pretrained decoders as classifiers and as generators, GPT-2's unicorn story, GPT-3's in-context learning and open LLaMA models &mdash; ending with the two questions every student should be able to answer.</p><div class="go"><a data-go="9-146">Pretraining decoders</a><a data-go="9-148">GPT-2 generations</a><a data-go="9-149">In-context learning</a><a data-go="9-150">LLaMA and open models</a><a data-go="9-151">Final questions</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. All three run on a free CPU runtime; no GPU is needed.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 3&ndash;5 &middot; ~2 min</div>
+							<h4>N-gram LMs: counting, sampling, smoothing, perplexity</h4>
+							<ul><li>Reproduce the Alice counts and replay the spin-the-wheel runs with the slides' random numbers</li><li>Generate Shakespeare with 1- to 4-grams and measure how much is copied</li>
+								<li>Watch MLE give most test lines probability zero</li><li>Compare add-k smoothing and interpolation by perplexity</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture03/lecture03_1_ngram_language_models.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture03/lecture03_1_ngram_language_models.ipynb">.ipynb</a> &middot; CPU, pure Python</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapter 6 &middot; ~5&ndash;8 min</div>
+							<h4>A fixed-window neural LM</h4>
+							<ul><li>Build Bengio et al.'s model in 15 lines of PyTorch</li><li>Train it on the same Shakespeare split and compare perplexity with a trigram model</li>
+								<li>Sample with different temperatures</li><li>Inspect the word embeddings it learned along the way</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture03/lecture03_2_fixed_window_neural_lm.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture03/lecture03_2_fixed_window_neural_lm.ipynb">.ipynb</a> &middot; CPU (GPU optional)</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 1, 7, 9 &middot; ~5 min</div>
+							<h4>Sampling from GPT-2, filling BERT's blanks</h4>
+							<ul><li>Score the monkey's string, real and shuffled text with GPT-2</li><li>Run the autoregressive loop by hand, with and without the KV cache</li>
+								<li>Sample with temperature, top-k and top-p</li><li>Fill <code>[MASK]</code> with DistilBERT and compare the vectors of "bank"</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture03/lecture03_3_sampling_gpt2_and_bert.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture03/lecture03_3_sampling_gpt2_and_bert.ipynb">.ipynb</a> &middot; CPU or GPU &middot; ~0.8 GB download</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">What is an LM?</div>
+							<a data-go="1-7">Language model (intuition)<span>s7</span></a><a data-go="1-8">Next-word prediction<span>s8</span></a>
+							<a data-go="1-9">Sentence probability = next-word prediction<span>s9</span></a><a data-go="1-11">Autoregressive generation<span>s11</span></a>
+							<a data-go="1-12">History of LMs<span>s12</span></a><a data-go="1-13">LM in the narrow sense<span>s13</span></a>
+							<a data-go="1-14">LM in the broad sense<span>s14</span></a><a data-go="1-16">Why LMs are powerful<span>s16</span></a>
+							<a data-go="1-17">Learning by reconstructing the input<span>s17</span></a></div>
+						<div class="grp"><div class="h">Probability</div>
+							<a data-go="2-23">Why NLP needs LMs<span>s23</span></a><a data-go="2-26">Sampling with replacement<span>s26</span></a>
+							<a data-go="2-28">Sample space, event, random variable<span>s28</span></a><a data-go="2-29">Probability distribution<span>s29</span></a>
+							<a data-go="2-30">Conditional probability<span>s30</span></a><a data-go="2-31">Chain rule<span>s31</span></a>
+							<a data-go="2-32">Independence<span>s32</span></a><a data-go="2-33">Independence assumptions<span>s33</span></a></div>
+						<div class="grp"><div class="h">N-gram models</div>
+							<a data-go="3-35">N-gram assumption<span>s35</span></a><a data-go="3-36">Markov assumption<span>s36</span></a>
+							<a data-go="3-37">Unigram model<span>s37</span></a><a data-go="3-38">Bigram model<span>s38</span></a>
+							<a data-go="3-40">Maximum likelihood estimation<span>s40</span></a><a data-go="3-43">End-of-sentence token (EOS)<span>s43</span></a>
+							<a data-go="3-45">Unknown words (UNK)<span>s45</span></a><a data-go="3-46">Beginning-of-sentence (BOS)<span>s46</span></a></div>
+						<div class="grp"><div class="h">Generation</div>
+							<a data-go="4-49">Sampling from a distribution<span>s49</span></a><a data-go="4-50">Bigram generation<span>s50</span></a>
+							<a data-go="4-55">Trigram generation<span>s55</span></a><a data-go="5-61">Generating the WSJ<span>s61</span></a>
+							<a data-go="5-62">Generating Shakespeare<span>s62</span></a></div>
+						<div class="grp"><div class="h">Sparsity &amp; smoothing</div>
+							<a data-go="5-63">Drawbacks of large N<span>s63</span></a><a data-go="5-64">Sparsity<span>s64</span></a>
+							<a data-go="5-65">Unseen events<span>s65</span></a><a data-go="5-66">Smoothing<span>s66</span></a>
+							<a data-go="5-67">Interpolation, discounting, Kneser-Ney<span>s67</span></a><a data-go="5-68">Add-one (Laplace)<span>s68</span></a>
+							<a data-go="6-87">Backoff<span>s87</span></a><a data-go="6-88">Storage problem<span>s88</span></a></div>
+						<div class="grp"><div class="h">Evaluation</div>
+							<a data-go="5-70">Intrinsic vs. extrinsic<span>s70</span></a><a data-go="5-72">Perplexity<span>s72</span></a>
+							<a data-go="5-73">Log probabilities, underflow<span>s73</span></a><a data-go="5-76">LMs for scoring candidates<span>s76</span></a>
+							<a data-go="5-77">LMs in speech recognition<span>s77</span></a><a data-go="5-78">Word error rate<span>s78</span></a>
+							<a data-go="5-80">Fluency vs. faithfulness (信达雅)<span>s80</span></a></div>
+						<div class="grp"><div class="h">Neural LMs &amp; word vectors</div>
+							<a data-go="6-90">Fixed-window neural LM<span>s90</span></a><a data-go="6-91">Neural probabilistic LM (2003)<span>s91</span></a>
+							<a data-go="6-94">Distributional semantics<span>s94</span></a><a data-go="6-95">Word2vec objective<span>s95</span></a>
+							<a data-go="6-96">Subword models<span>s96</span></a><a data-go="6-98">MorphTE<span>s98</span></a></div>
+						<div class="grp"><div class="h">Contextual LMs</div>
+							<a data-go="7-101">Contextualized embeddings<span>s101</span></a><a data-go="7-103">ELMo<span>s103</span></a>
+							<a data-go="7-106">BERT<span>s106</span></a><a data-go="7-109">Masked language model<span>s109</span></a>
+							<a data-go="7-110">80/10/10 masking<span>s110</span></a><a data-go="7-112">Next sentence prediction<span>s112</span></a>
+							<a data-go="7-115">Pre-training and fine-tuning<span>s115</span></a><a data-go="7-116">WordPiece, segment embeddings<span>s116</span></a>
+							<a data-go="7-120">Foundation models<span>s120</span></a><a data-go="7-123">Emergent abilities<span>s123</span></a></div>
+						<div class="grp"><div class="h">Encoders &amp; encoder-decoders</div>
+							<a data-go="8-127">RoBERTa<span>s127</span></a><a data-go="8-128">SpanBERT<span>s128</span></a>
+							<a data-go="8-129">Whole word masking<span>s129</span></a><a data-go="8-130">ERNIE<span>s130</span></a>
+							<a data-go="8-131">ALBERT<span>s131</span></a><a data-go="8-133">ELECTRA<span>s133</span></a>
+							<a data-go="8-137">Span corruption<span>s137</span></a><a data-go="8-139">T5 text-to-text<span>s139</span></a>
+							<a data-go="8-141">BART denoising<span>s141</span></a><a data-go="8-143">KV cache &amp; prefix caching<span>s143</span></a>
+							<a data-go="8-144">Causal encoder-decoder<span>s144</span></a></div>
+						<div class="grp"><div class="h">Decoders</div>
+							<a data-go="9-146">Pretraining decoders<span>s146</span></a><a data-go="9-148">GPT-2<span>s148</span></a>
+							<a data-go="9-149">In-context learning<span>s149</span></a><a data-go="9-150">LLaMA, open models<span>s150</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The lecture ends with the architecture trade-offs (<a data-go="8-143">slide 143</a>) and a September 2026 release
+						(<a data-go="8-144">slide 144</a>). Six things to watch around this lecture's topic:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#10145;&#65039;</div><h4>Decoder-only is still the default</h4>
+							<p>One simple objective on raw text, one text-in/text-out interface, cheap generation with the KV cache and predictable
+								scaling: the deck's four reasons why almost all large models are decoder-only.</p>
+							<div class="src"><a data-go="8-143">Slide 143</a> · <a data-go="9-151">slide 151</a></div></div>
+						<div class="trend"><div class="ic">&#128260;</div><h4>Encoder-decoder is back &mdash; causally</h4>
+							<p>DeepSeek-V4.1-Flash splits 40 layers into a 20-layer <i>causal</i> encoder and a 20-layer decoder that reads one shared
+								KV cache, about a quarter of V4-Flash's KV memory. The name is back; the bidirectional T5 recipe is not.</p>
+							<div class="src"><a data-go="8-144">Slide 144</a> · DeepSeek-V4.1-Flash technical report (<a href="https://arxiv.org/abs/2609.19969">arXiv 2609.19969</a>, Sep 2026)</div></div>
+						<div class="trend"><div class="ic">&#128218;</div><h4>N-grams return, as memory</h4>
+							<p>DeepSeek's Engram adds hashed n-gram embeddings that a Transformer looks up in constant time and gates into its hidden
+								state. V4.1-Flash uses it with n-gram orders 2&ndash;4 and 196B Engram parameters next to its 552B backbone.</p>
+							<div class="src">Engram (<a href="https://arxiv.org/abs/2601.07372">arXiv 2601.07372</a>, Jan 2026) · <a href="https://arxiv.org/abs/2609.19969">arXiv 2609.19969</a></div></div>
+						<div class="trend"><div class="ic">&#127787;</div><h4>Not left to right: diffusion LMs</h4>
+							<p>Diffusion language models write a whole block at once and refine it, a relative of BERT's masked-word prediction.
+								DiffusionGemma, fine-tuned from Gemma 4, denoises 256-token blocks and can still decode autoregressively.</p>
+							<div class="src">DiffusionGemma Technical Report (<a href="https://arxiv.org/abs/2608.00146">arXiv 2608.00146</a>, Jul 2026)</div></div>
+						<div class="trend"><div class="ic">&#128269;</div><h4>Encoders still earn their keep</h4>
+							<p>BERT-style models remain the tool for understanding, retrieval and embeddings. ModernBERT brought the encoder up to date:
+								trained on 2 trillion tokens with a native 8,192-token context.</p>
+							<div class="src"><a data-go="8-143">Slide 143</a> · ModernBERT (<a href="https://arxiv.org/abs/2412.13663">arXiv 2412.13663</a>, Dec 2024)</div></div>
+						<div class="trend"><div class="ic">&#127922;</div><h4>A language model helped teach this lecture</h4>
+							<p>The spin-the-wheel animation was built with Claude Opus 5.5 from the sampling slide, the Alice passage and a short
+								instruction in Chinese &mdash; a model that itself writes by sampling the next token, just with a far better distribution.</p>
+							<div class="src"><a data-go="9-153">Slide 153</a></div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"You shall know a word by the company it keeps."</p>
+							<footer>J. R. Firth, <i>A Synopsis of Linguistic Theory 1930&ndash;1955</i> (1957), quoted on <a data-go="6-94">slide 94</a></footer>
+							<div class="why">Distributional semantics: the idea behind word2vec and every embedding since.</div></blockquote>
+						<blockquote class="quote"><p>"The fundamental problem of communication is that of reproducing at one point either exactly or approximately a message selected at another point."</p>
+							<footer>Claude Shannon, <i>A Mathematical Theory of Communication</i> (1948)</footer>
+							<div class="why">Text as a choice among possible messages &mdash; the probabilistic view of language. The same paper already generated English from word n-gram approximations, as in Chapter 5.</div></blockquote>
+						<blockquote class="quote"><p>"But it must be recognized that the notion of &lsquo;probability of a sentence&rsquo; is an entirely useless one, under any known interpretation of this term."</p>
+							<footer>Noam Chomsky (1969), as quoted by Peter Norvig, <a href="https://www.norvig.com/chomsky.html"><i>On Chomsky and the Two Cultures of Statistical Learning</i></a></footer>
+							<div class="why">Norvig reads it as: a sentence never seen before must get probability zero. Smoothing (<a data-go="5-66">slide 66</a>) and neural LMs are the answer.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Jurafsky &amp; Martin, <i>Speech and Language Processing</i> (3rd ed. draft): <a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf">Chapter 3, N-gram Language Models</a> &mdash; the best companion to Chapters 2&ndash;5</li>
+						<li><a href="https://www.jmlr.org/papers/v3/bengio03a.html">A Neural Probabilistic Language Model</a> (Bengio et al., 2003) &middot; <a href="https://arxiv.org/abs/1301.3781">word2vec</a> (2013)</li>
+						<li><a href="https://arxiv.org/abs/1802.05365">ELMo</a> (2018) &middot; <a href="https://arxiv.org/abs/1810.04805">BERT</a> (2018) &middot; <a href="https://arxiv.org/abs/1907.11692">RoBERTa</a> (2019) &middot; <a href="https://arxiv.org/abs/2003.10555">ELECTRA</a> (2020)</li>
+						<li><a href="https://arxiv.org/abs/1910.10683">T5</a> (2019) &middot; <a href="https://arxiv.org/abs/1910.13461">BART</a> (2019) &middot; <a href="https://arxiv.org/abs/2405.05254">YOCO: You Only Cache Once</a> (2024)</li>
+						<li><a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a> (2019) &middot; <a href="https://arxiv.org/abs/2005.14165">GPT-3: Language Models are Few-Shot Learners</a> (2020) &middot; <a href="https://arxiv.org/abs/2302.13971">LLaMA</a> (2023)</li>
+						<li><a href="https://arxiv.org/abs/2401.17377">Infini-gram: scaling unbounded n-gram LMs to a trillion tokens</a> (2024) &middot; <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> &mdash; train a small GPT yourself</li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture03-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

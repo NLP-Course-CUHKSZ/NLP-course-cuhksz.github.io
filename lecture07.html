@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 7 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): LLM Agents and Harness Engineering. The full video lecture in ten chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 7: LLM Agents and Harness Engineering (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 7: LLM Agents and Harness Engineering</h1>
+			<p class="lead">How do you turn a good model into something that actually gets work done? Put it in a loop, give it planning, tools,
+				memory and actions, and engineer everything around it &mdash; the harness. Watch the lecture in ten short chapters with English and
+				Chinese subtitles, follow the lecture map below, then build a small agent yourself in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Nov. 6th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture07_LLM_Agents_and_Harness_Engineering.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">Agent = Model + Harness: what should we build around an LLM, and what should we leave to the model?</div>
+					<p class="map-lead">Five acts, ten chapters. Prompting tricks grow into a <b>loop</b>; the loop gets four <b>elements</b> &mdash;
+						planning, tools, memory and action; then the second half engineers the <b>harness</b> around the model, takes agents into the
+						<b>wild</b> and its benchmarks, and ends with whole <b>societies</b> of agents. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>From prompts to a loop</b></div><div class="ac-gain">One call with imagined feedback becomes a loop with real feedback</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>From prompts to agents</a><a data-go="2"><span class="cn">2</span>What is an agent?</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>The four elements</b></div><div class="ac-gain">Planning, tools, memory and action</div><div class="ac-ch"><a data-go="3"><span class="cn">3</span>Planning &amp; reflection</a><a data-go="4"><span class="cn">4</span>Tools &amp; MCP</a><a data-go="5"><span class="cn">5</span>Memory &amp; action</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Harness engineering</b></div><div class="ac-gain">Everything in an agent except the model</div><div class="ac-ch"><a data-go="6"><span class="cn">6</span>Principles</a><a data-go="7"><span class="cn">7</span>Real harnesses &amp; multi-agent</a><a data-go="8"><span class="cn">8</span>Fault tolerance, evals &amp; the bitter lesson</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>In the wild</b></div><div class="ac-gain">Where agents work, and how we measure them</div><div class="ac-ch"><a data-go="9"><span class="cn">9</span>Applications &amp; benchmarks</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Societies</b></div><div class="ac-gain">When the environment is made of other agents</div><div class="ac-ch"><a data-go="10"><span class="cn">10</span>Economic world models</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">From prompts to a loop</span><span class="act-sub">One call with imagined feedback becomes a loop with real feedback</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">From Prompts to Agents: ICL, CoT and Self-Refine</a></h4><p>2026 is the race for the personal agent. The road there starts with tricks inside one model call &mdash; in-context examples, chain of thought, sampling and voting, self-critique &mdash; which later become planning, tools, memory and sensors.</p><div class="nextq">&rarr; If an agent is these tricks running in a loop, what exactly is an agent?</div><div class="go"><a data-go="1-2">MOSS-Live</a><a data-go="1-3">The personal-agent race</a><a data-go="1-10">Chain of thought</a><a data-go="1-13">Self-consistency in action</a><a data-go="1-16">Tricks &rarr; components</a></div></li>
+							<li><span class="dot">2</span><h4><a data-go="2">What Is an Agent? From ELIZA to the Agent Loop</a></h4><p>A system that acts in an environment and learns from feedback. The idea runs from Minsky's Society of Mind through ELIZA and RL agents to LLM agents, and fits in a five-line loop: think, act, observe.</p><div class="nextq">&rarr; The loop is simple &mdash; what makes it useful?</div><div class="go"><a data-go="2-20">Society of Mind</a><a data-go="2-22">Three levels of LLM agents</a><a data-go="2-28">The Lilian Weng picture</a><a data-go="2-29">Compound AI systems</a><a data-go="2-31">The agent loop</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">The four elements</span><span class="act-sub">Planning, tools, memory and action</span></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Planning and Reflection: ToT, LLM+P and ReAct</a></h4><p>Decompose with least-to-most, search over thoughts with Tree of Thoughts, hand planning to a classical planner with LLM+P, reflect on real feedback, and interleave reasoning with acting in ReAct.</p><div class="nextq">&rarr; Plans need hands &mdash; how does a model act?</div><div class="go"><a data-go="3-35">Least-to-most</a><a data-go="3-37">ToT: Game of 24</a><a data-go="3-39">LLM+P pipeline</a><a data-go="3-40">Self-reflection</a><a data-go="3-41">ReAct</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Tools: From Program of Thoughts to MCP</a></h4><p>Let code do the math, let expert models and robot skills do the work, then see a tool call step by step: the model only writes a request, the harness decides whether to run it. MCP standardizes the connection.</p><div class="nextq">&rarr; Every call adds tokens to a finite window &mdash; what does the agent remember?</div><div class="go"><a data-go="4-46">Program of Thoughts</a><a data-go="4-49">HuggingGPT</a><a data-go="4-52">Tool calling, step by step</a><a data-go="4-53">MCP on the wire</a><a data-go="4-54">An MCP server in ten lines</a></div></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Memory and Action: Embeddings, RAG and Robots</a></h4><p>Short-term memory is the context window; long-term memory is retrieval, built on text embeddings, or simply files with an index. Then action leaves the screen: PaLM-E, vision-language-action models and &pi;0.</p><div class="nextq">&rarr; We have all four elements &mdash; why does the same model make a mediocre agent in one system and an excellent one in another?</div><div class="go"><a data-go="5-60">Text embeddings</a><a data-go="5-61">Embeddings in pseudocode</a><a data-go="5-66">What goes back into the context</a><a data-go="5-67">Memory as files</a><a data-go="5-73">From planners to VLAs</a><a data-go="5-74">Inside &pi;0</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Harness engineering</span><span class="act-sub">Everything in an agent except the model</span></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Harness Engineering: Context, Skills, Guides and Sensors</a></h4><p>Prompt, then context, then harness engineering. The harness alone moves scores by 10&ndash;20 points. Manage the finite attention budget, package know-how as skills, connect tools through MCP, and steer with guides and sensors.</p><div class="nextq">&rarr; How do real products apply these principles?</div><div class="go"><a data-go="6-79">Agent = Model + Harness</a><a data-go="6-80">Same model, different harness</a><a data-go="6-84">Four moves of context engineering</a><a data-go="6-89">Skills: progressive disclosure</a><a data-go="6-94">The steering loop</a><a data-go="6-96">AGENTS.md as a map</a></div></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Harnesses in Practice: Claude Code, Codex and Multi-Agent</a></h4><p>Three products, one loop: Claude Code bets on a simple single loop, Codex on one core for many surfaces, OpenClaw on being always on. When one agent is not enough, A2A lets agents hire agents &mdash; but more agents often hurt.</p><div class="nextq">&rarr; Agents run for hours and crash &mdash; how do we keep them running, and prove they work?</div><div class="go"><a data-go="7-100">Claude Code</a><a data-go="7-101">Codex</a><a data-go="7-102">OpenClaw</a><a data-go="7-107">Model or harness?</a><a data-go="7-111">A2A</a><a data-go="7-115">Why multi-agent systems fail</a><a data-go="7-116">When more agents help</a></div></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Fault Tolerance, Evaluation and the Bitter Lesson</a></h4><p>Retries, checkpoints and durable execution; sessions that outlive the context window; safety for agents that touch real systems; evals graded on outcomes with pass@k and pass^k &mdash; and why the best harness gets thinner as models improve.</p><div class="nextq">&rarr; Where do agents already work, and how do we know?</div><div class="go"><a data-go="8-118">What breaks</a><a data-go="8-119">Durable execution</a><a data-go="8-122">Safety</a><a data-go="8-125">pass@k vs. pass^k</a><a data-go="8-129">Models internalize the harness</a><a data-go="8-131">Ten principles</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">In the wild</span><span class="act-sub">Where agents work, and how we measure them</span></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Agents in the Wild and How We Benchmark Them</a></h4><p>Single agents (Devin), open worlds (Minecraft), multi-agent games and markets, and science (ChemCrow). Benchmarks moved from WebShop and SWE-bench to finishing whole jobs: fast kernels, unknown games, companies and AI research.</p><div class="nextq">&rarr; What happens when the environment itself is made of agents?</div><div class="go"><a data-go="9-134">Three kinds of applications</a><a data-go="9-140">ChemCrow</a><a data-go="9-144">SWE-bench</a><a data-go="9-145">Benchmarks in 2026</a><a data-go="9-147">ARC-AGI-3</a><a data-go="9-149">RSI-Exam</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Societies</span><span class="act-sub">When the environment is made of other agents</span></li>
+							<li><span class="dot">10</span><h4><a data-go="10">Agent Societies and Economic World Models</a></h4><p>Planets don't react to predictions; people do. Economic world models simulate the economy through the beliefs and actions of many LLM agents, as in WonderEcon, and double as training gyms and safety tests. The lecture closes with five takeaways.</p><div class="go"><a data-go="10-152">Newton and the South Sea Bubble</a><a data-go="10-154">Physical vs. economic world models</a><a data-go="10-157">The EWM loop</a><a data-go="10-160">WonderEcon</a><a data-go="10-166">Gyms and safety tests</a><a data-go="10-176">Takeaways</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. All three run on a free CPU runtime; a T4 GPU only makes Notebook 1 faster and lets you try bigger models.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 2&ndash;4 &middot; ~15 min on CPU, ~5 on GPU</div>
+							<h4>A ReAct agent loop in 40 lines</h4>
+							<ul><li>Declare tools with JSON schemas and write the five-line loop</li><li>Watch a real 0.5B model (Qwen2.5) write its own tool calls</li>
+								<li>Add a permission gate, errors that teach and a step budget</li><li>Measure the same model in two harnesses</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture07/lecture07_1_react_agent_loop.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture07/lecture07_1_react_agent_loop.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapter 8 &middot; ~2 min</div>
+							<h4>pass@k vs. pass^k</h4>
+							<ul><li>Reproduce slide 125: 75% per try gives 98% pass@3 but 42% pass^3</li><li>Estimate both from a finite number of trials</li>
+								<li>See why retries need a grader, and test whether a harness fix really helped</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture07/lecture07_2_pass_at_k_vs_pass_hat_k.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture07/lecture07_2_pass_at_k_vs_pass_hat_k.ipynb">.ipynb</a> &middot; CPU, no model</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapter 5 &middot; ~3 min</div>
+							<h4>Agent memory: files vs. embeddings</h4>
+							<ul><li>Embed English and Chinese sentences and see meaning as geometry</li><li>Build a <code>MEMORY.md</code> file memory and search it with grep</li>
+								<li>Compare grep and a vector index on paraphrases, Chinese queries and updated facts</li><li>Compute the InfoNCE loss with in-batch negatives</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture07/lecture07_3_agent_memory_files_vs_embeddings.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture07/lecture07_3_agent_memory_files_vs_embeddings.ipynb">.ipynb</a> &middot; CPU</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Prompting</div>
+							<a data-go="1-8">In-context learning<span>s8</span></a><a data-go="1-10">Chain of thought<span>s10</span></a>
+							<a data-go="1-11">Zero-shot CoT<span>s11</span></a><a data-go="1-12">Self-consistency<span>s12</span></a>
+							<a data-go="1-14">Self-refine<span>s14</span></a><a data-go="1-15">Accuracy vs. cost<span>s15</span></a></div>
+						<div class="grp"><div class="h">Agents</div>
+							<a data-go="2-18">Agent (definition)<span>s18</span></a><a data-go="2-20">Society of Mind<span>s20</span></a>
+							<a data-go="2-22">Text, LLM and reasoning agents<span>s22</span></a><a data-go="2-25">Agents in RL<span>s25</span></a>
+							<a data-go="2-29">Compound AI systems<span>s29</span></a><a data-go="2-31">Think &rarr; act &rarr; observe loop<span>s31</span></a></div>
+						<div class="grp"><div class="h">Planning</div>
+							<a data-go="3-35">Least-to-most prompting<span>s35</span></a><a data-go="3-36">Tree of Thoughts<span>s36</span></a>
+							<a data-go="3-38">LLM+P and PDDL<span>s38</span></a><a data-go="3-40">Self-reflection (Reflexion)<span>s40</span></a>
+							<a data-go="3-41">ReAct<span>s41</span></a></div>
+						<div class="grp"><div class="h">Tools</div>
+							<a data-go="4-46">Program of Thoughts<span>s46</span></a><a data-go="4-49">HuggingGPT<span>s49</span></a>
+							<a data-go="4-51">Code as Policies<span>s51</span></a><a data-go="4-52">Function calling<span>s52</span></a>
+							<a data-go="4-53">Model Context Protocol (MCP)<span>s53</span></a><a data-go="4-54">Writing an MCP server<span>s54</span></a></div>
+						<div class="grp"><div class="h">Memory</div>
+							<a data-go="5-57">Types of agent memory<span>s57</span></a><a data-go="5-59">Retrieval-augmented generation<span>s59</span></a>
+							<a data-go="5-60">Text embeddings<span>s60</span></a><a data-go="5-61">InfoNCE, hard negatives<span>s61</span></a>
+							<a data-go="5-63">Rerankers<span>s63</span></a><a data-go="5-65">Multilingual &amp; multimodal embeddings<span>s65</span></a>
+							<a data-go="5-67">Memory as files (MEMORY.md)<span>s67</span></a></div>
+						<div class="grp"><div class="h">Action</div>
+							<a data-go="5-70">Embodied AI<span>s70</span></a><a data-go="5-71">PaLM-E<span>s71</span></a>
+							<a data-go="5-73">Vision-language-action (VLA)<span>s73</span></a><a data-go="5-74">&pi;0 and flow matching<span>s74</span></a></div>
+						<div class="grp"><div class="h">Harness principles</div>
+							<a data-go="6-78">Prompt &rarr; context &rarr; harness<span>s78</span></a><a data-go="6-79">Agent = Model + Harness<span>s79</span></a>
+							<a data-go="6-81">The harness tax<span>s81</span></a><a data-go="6-83">Context rot, attention budget<span>s83</span></a>
+							<a data-go="6-85">Compaction<span>s85</span></a><a data-go="6-86">Sub-agents<span>s86</span></a>
+							<a data-go="6-89">Agent skills (SKILL.md)<span>s89</span></a><a data-go="6-91">MCP primitives<span>s91</span></a>
+							<a data-go="6-93">Guides and sensors<span>s93</span></a><a data-go="6-94">Steering loop<span>s94</span></a>
+							<a data-go="6-96">AGENTS.md<span>s96</span></a></div>
+						<div class="grp"><div class="h">Harness practice</div>
+							<a data-go="7-100">Claude Code<span>s100</span></a><a data-go="7-101">Codex<span>s101</span></a>
+							<a data-go="7-102">OpenClaw, heartbeat<span>s102</span></a><a data-go="7-109">Agent protocol stack<span>s109</span></a>
+							<a data-go="7-111">A2A<span>s111</span></a><a data-go="7-112">Polling, streaming, push<span>s112</span></a>
+							<a data-go="7-114">Multi-agent patterns<span>s114</span></a><a data-go="7-115">MAST failure modes<span>s115</span></a></div>
+						<div class="grp"><div class="h">Production &amp; evaluation</div>
+							<a data-go="8-118">Fault tolerance<span>s118</span></a><a data-go="8-119">Durable execution<span>s119</span></a>
+							<a data-go="8-121">Multi-session harness<span>s121</span></a><a data-go="8-122">Prompt injection, permissions<span>s122</span></a>
+							<a data-go="8-124">Agent eval 4-tuple<span>s124</span></a><a data-go="8-125">pass@k and pass^k<span>s125</span></a>
+							<a data-go="8-127">The bitter lesson<span>s127</span></a><a data-go="8-130">Self-evolving harnesses<span>s130</span></a></div>
+						<div class="grp"><div class="h">Benchmarks</div>
+							<a data-go="9-142">WebShop<span>s142</span></a><a data-go="9-143">WebArena<span>s143</span></a>
+							<a data-go="9-144">SWE-bench<span>s144</span></a><a data-go="9-146">KernelBench, fast_p<span>s146</span></a>
+							<a data-go="9-147">ARC-AGI-3<span>s147</span></a><a data-go="9-148">CEO-Bench<span>s148</span></a>
+							<a data-go="9-149">RSI-Exam<span>s149</span></a></div>
+						<div class="grp"><div class="h">Agent societies</div>
+							<a data-go="10-153">Reflexive feedback<span>s153</span></a><a data-go="10-154">Lucas critique<span>s154</span></a>
+							<a data-go="10-156">Economic world model<span>s156</span></a><a data-go="10-157">The EWM loop<span>s157</span></a>
+							<a data-go="10-158">Six capability levels<span>s158</span></a><a data-go="10-160">WonderEcon<span>s160</span></a>
+							<a data-go="10-166">FinGym, EconSafeBench<span>s166</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The lecture's outlook (<a data-go="8-132">slide 132</a>) lists where harness engineering is going. Six trends to watch:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#128295;</div><h4>The harness got a name</h4>
+							<p>"Harness engineering" became the 2026 term for building the system a model runs in. In OpenAI's case study, Codex agents wrote a whole internal product &mdash; about 1,500 merged pull requests and roughly a million lines in five months &mdash; while engineers designed the agents' workplace (<a data-go="6-95">slide 95</a>).</p>
+							<div class="src">OpenAI, <a href="https://openai.com/index/harness-engineering/">Harness engineering</a> (Feb. 11, 2026)</div></div>
+						<div class="trend"><div class="ic">&#128202;</div><h4>A score belongs to a model&ndash;harness pair</h4>
+							<p>On Terminal-Bench, the same model scores 10&ndash;20 points apart in different harnesses, more than the gap between many frontier models. Leaderboards now list every model&ndash;harness pair as its own row (<a data-go="6-81">slide 81</a>, <a data-go="7-107">slide 107</a>).</p>
+							<div class="src">Terminal-Bench 2.0 / 2.1 leaderboards, as shown on the slides; numbers change with each release</div></div>
+						<div class="trend"><div class="ic">&#128279;</div><h4>One open protocol stack</h4>
+							<p>MCP for tools, A2A between agents, AGENTS.md and skills for know-how. MCP, AGENTS.md and goose moved to a neutral foundation, and Agent Skills became an open standard (<a data-go="7-109">slide 109</a>, <a data-go="7-110">slide 110</a>).</p>
+							<div class="src"><a href="https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation">Linux Foundation: Agentic AI Foundation</a> (Dec. 9, 2025) &middot; <a href="https://agentskills.io/">agentskills.io</a> (Dec. 18, 2025)</div></div>
+						<div class="trend"><div class="ic">&#128241;</div><h4>Personal agents that never sleep</h4>
+							<p>The race for the personal agent: a real-time front end in front of an agent harness, as in MOSS-Live, or an always-on gateway with a heartbeat that wakes the agent to check its to-do list, as in OpenClaw (<a data-go="1-2">slide 2</a>, <a data-go="1-3">slide 3</a>, <a data-go="7-102">slide 102</a>).</p>
+							<div class="src">MOSS-Live (Nov. 2026) &middot; <a href="https://github.com/openclaw/openclaw">OpenClaw</a></div></div>
+						<div class="trend"><div class="ic">&#129504;</div><h4>Models absorb the scaffolding</h4>
+							<p>"Let's think step by step" became reasoning models, ReAct templates became native tool calling, and hand-written compaction became models trained to compact their own context. What stays in the harness: permissions, state, connectors and evals (<a data-go="8-128">slide 128</a>, <a data-go="8-129">slide 129</a>).</p>
+							<div class="src">Sutton, <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a> (2019), applied to harnesses (Chapter 8)</div></div>
+						<div class="trend"><div class="ic">&#127919;</div><h4>Benchmarks measure finishing the job</h4>
+							<p>From "answer the question" to "finish the job": ARC-AGI-3 asks agents to learn unknown games by playing them; at launch humans solved every environment and frontier models scored under 1% (<a data-go="9-147">slide 147</a>). RSI-Exam replays an agent's research artifact on a sealed split (<a data-go="9-149">slide 149</a>).</p>
+							<div class="src">ARC Prize, <a href="https://arxiv.org/abs/2603.24621">ARC-AGI-3 technical report</a> (launched Mar. 25, 2026)</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"What magical trick makes us intelligent? The trick is that there is no trick. The power of intelligence stems from our vast diversity, not from any single, perfect principle."</p>
+							<footer>Marvin Minsky, <i>The Society of Mind</i> (1986), quoted on <a data-go="2-21">slide 21</a></footer>
+							<div class="why">Agents are not new &mdash; and the multi-agent societies of Chapter 10 are Minsky's question with LLMs as the agents.</div></blockquote>
+						<blockquote class="quote"><p>"Consistently, the most successful implementations weren't using complex frameworks or specialized libraries. Instead, they were building with simple, composable patterns."</p>
+							<footer>Anthropic, <a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective Agents</a> (Dec. 2024)</footer>
+							<div class="why">Why Claude Code is a deliberately simple single loop (Chapter 7), and principle 1: start with one loop.</div></blockquote>
+						<blockquote class="quote"><p>"Good context engineering means finding the smallest possible set of high-signal tokens that maximize the likelihood of some desired outcome."</p>
+							<footer>Anthropic, <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective Context Engineering for AI Agents</a> (Sept. 2025)</footer>
+							<div class="why">The principle behind <a data-go="6-83">slide 83</a>: context is a finite attention budget.</div></blockquote>
+						<blockquote class="quote"><p>"The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin."</p>
+							<footer>Rich Sutton, <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a> (2019)</footer>
+							<div class="why">Why the best harness gets thinner as models get stronger &mdash; and principle 10: delete regularly.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Lilian Weng: <a href="https://lilianweng.github.io/posts/2023-06-23-agent/">LLM Powered Autonomous Agents</a> (2023) &mdash; the picture behind Chapters 2&ndash;5</li>
+						<li><a href="https://arxiv.org/abs/2201.11903">Chain-of-Thought Prompting</a> &middot; <a href="https://arxiv.org/abs/2203.11171">Self-Consistency</a> &middot; <a href="https://arxiv.org/abs/2305.10601">Tree of Thoughts</a> &middot; <a href="https://arxiv.org/abs/2303.11366">Reflexion</a> &middot; <a href="https://arxiv.org/abs/2210.03629">ReAct</a></li>
+						<li><a href="https://arxiv.org/abs/2405.15793">SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering</a> (2024) &mdash; the "same model, different harness" experiment on slide 80</li>
+						<li>Anthropic: <a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">Effective Harnesses for Long-Running Agents</a> &middot; OpenAI: <a href="https://openai.com/index/harness-engineering/">Harness Engineering</a> &middot; B&ouml;ckeler: <a href="https://martinfowler.com/articles/harness-engineering.html">Harness Engineering for Coding Agent Users</a></li>
+						<li>Specs: <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> &middot; <a href="https://a2a-protocol.org/latest/">Agent2Agent (A2A)</a> &middot; <a href="https://agentskills.io/">Agent Skills</a> &middot; <a href="https://agents.md/">AGENTS.md</a></li>
+						<li><a href="https://arxiv.org/abs/2503.13657">Why Do Multi-Agent LLM Systems Fail?</a> (MAST, 2025) &middot; <a href="https://arxiv.org/abs/2406.12045">&tau;-bench</a> (2024), where pass^k comes from &middot; <a href="https://arxiv.org/abs/2107.03374">Evaluating LLMs Trained on Code</a> (2021), the pass@k estimator</li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture07-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

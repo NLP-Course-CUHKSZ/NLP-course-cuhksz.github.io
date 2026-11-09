@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 4 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Transformer and Beyond. The full video lecture in eleven chapters with bilingual subtitles and a synced transcript, Colab notebooks on self-attention, positional encodings and attention in pretrained models, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 4: Transformer and Beyond (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 4: Transformer and Beyond</h1>
+			<p class="lead">How should a network combine words into meaning? Build the answer from two operations &mdash; composing tokens and
+				abstracting features &mdash; through MLPs, CNNs and RNNs, take the Transformer apart piece by piece, and see what scale buys.
+				Watch the lecture in short chapters with English and Chinese subtitles, follow the lecture map below, then try the ideas in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Oct. 16th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture04_Transformer_and_Beyond.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">How should a neural network compose words into meaning &mdash; and why did the Transformer's answer win?</div>
+					<p class="map-lead">Five acts, eleven chapters. Every encoder needs two operations: <b>composition</b> (letting tokens exchange
+						information) and <b>abstraction</b> (transforming the features of each token). MLPs, CNNs and RNNs mix the two and pay with
+						fixed windows, local reach or long, fragile paths. The <b>Transformer separates them</b> &mdash; attention composes,
+						feed-forward layers abstract &mdash; and it keeps improving as it <b>scales</b>. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>The problem</b></div><div class="ac-gain">What a contextual encoder must do</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>Tasks &amp; pre-training</a><a data-go="2"><span class="cn">2</span>Composition &amp; abstraction</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>Before attention</b></div><div class="ac-gain">Windows, filters and recurrent states</div><div class="ac-ch"><a data-go="3"><span class="cn">3</span>MLPs</a><a data-go="4"><span class="cn">4</span>CNNs &amp; ConvS2S</a><a data-go="5"><span class="cn">5</span>RNN, LSTM, GRU</a><a data-go="6"><span class="cn">6</span>Mamba, RWKV &amp; gradients</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>The Transformer</b></div><div class="ac-gain">Attention composes, feed-forward abstracts</div><div class="ac-ch"><a data-go="7"><span class="cn">7</span>Encoder &amp; decoder</a><a data-go="8"><span class="cn">8</span>Attention &amp; positions</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Beyond</b></div><div class="ac-gain">What changes, what matters, what scale buys</div><div class="ac-ch"><a data-go="9"><span class="cn">9</span>Variants &amp; ablations</a><a data-go="10"><span class="cn">10</span>Scaling &amp; emergence</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Appendix</b></div><div class="ac-gain">The chain rule, worked by hand</div><div class="ac-ch"><a data-go="11"><span class="cn">11</span>Backpropagation</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">The problem</span><span class="act-sub">What a contextual encoder must do</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">NLP Tasks, Pre-training and Why Transformers</a></h4><p>From bigram counts to masked language models and pre-train-then-fine-tune. Four task interfaces &mdash; one label per sentence, a tag per character, a start&ndash;end span, and token-by-token generation &mdash; all sit on one contextual encoder.</p><div class="nextq">&rarr; Every task needs context &mdash; how should a network combine the words?</div><div class="go"><a data-go="1-5">Masked LM</a><a data-go="1-6">Pre-training &amp; fine-tuning</a><a data-go="1-7">Three architectures</a><a data-go="1-13">Span prediction</a><a data-go="1-14">Translation</a><a data-go="1-17">Why Transformer?</a></div></li>
+							<li><span class="dot">2</span><h4><a data-go="2">Inductive Bias: Semantic Composition and Abstraction</a></h4><p>Abstraction transforms features within a token; composition lets tokens interact. Local windows, recurrent states and global attention are different inductive biases, and the decisive word can lie far away.</p><div class="nextq">&rarr; How do concrete architectures implement composition?</div><div class="go"><a data-go="2-19">Semantic abstraction</a><a data-go="2-21">Semantic composition</a><a data-go="2-25">Inductive bias</a><a data-go="2-28">Long-range interaction</a><a data-go="2-29">The Bitter Lesson</a><a data-go="2-31">Attention vs. FFN</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">Before attention</span><span class="act-sub">Windows, filters and recurrent states</span></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Multilayer Perceptrons and Neural Language Models</a></h4><p>Concatenate word embeddings, apply fully-connected layers, learn from the prediction error by backpropagation &mdash; one worked gradient step lifts P(Positive) from 0.40 to 0.81. Bengio's neural LM uses the same recipe over a fixed window.</p><div class="nextq">&rarr; A fixed input layout cannot handle variable lengths &mdash; can we reuse one filter at every position?</div><div class="go"><a data-go="3-35">Embeddings to classifier</a><a data-go="3-36">Learning from error</a><a data-go="3-37">Training challenges</a><a data-go="3-39">Neural probabilistic LM</a><a data-go="3-41">MLP vs. CNN vs. RNN</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Convolutional Networks and ConvS2S</a></h4><p>Convolution multiplies a window by a filter and sums, sliding over 2D images or 1D token sequences. Causal convolutions generate text by predict-append-repeat; ConvS2S trains all positions in parallel with teacher forcing.</p><div class="nextq">&rarr; A window only sees its neighbours &mdash; can a state carry the whole past?</div><div class="go"><a data-go="4-43">Multiply, then sum</a><a data-go="4-45">2D vs. 1D convolution</a><a data-go="4-46">Autoregressive generation</a><a data-go="4-47">ConvS2S</a></div></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Recurrent Networks: RNN, LSTM and GRU</a></h4><p>An RNN reuses one update to carry a hidden state through time, so any length works &mdash; but steps run one after another. Teacher forcing trains on gold prefixes; LSTM gates keep, write and expose memory, and the GRU resets, then blends.</p><div class="nextq">&rarr; Can recurrence be made efficient again &mdash; and why do distant words still fade?</div><div class="go"><a data-go="5-51">RNN language model</a><a data-go="5-52">Pros and cons</a><a data-go="5-56">Teacher forcing vs. free running</a><a data-go="5-57">LSTM</a><a data-go="5-58">GRU</a></div></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Mamba, RWKV and Gradient Flow Through Time</a></h4><p>Gates compared, deeper and bidirectional RNNs, and the modern recurrent revival: Mamba's selective state updates and RWKV's recurrent inference. Backpropagation through time multiplies Jacobians, so gradients vanish or explode; residual connections give them a direct path.</p><div class="nextq">&rarr; What if every token could reach every other token in one step?</div><div class="go"><a data-go="6-59">What the gates control</a><a data-go="6-61">Mamba</a><a data-go="6-62">RWKV</a><a data-go="6-63">BPTT</a><a data-go="6-69">Vanishing gradients</a><a data-go="6-71">Residuals and gradients</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">The Transformer</span><span class="act-sub">Attention composes, feed-forward abstracts</span></li>
+							<li><span class="dot">7</span><h4><a data-go="7">The Transformer Architecture: Encoder and Decoder</a></h4><p>A tour of the original model: position embeddings added to word embeddings, Add &amp; Norm around every sublayer, a per-token feed-forward network, N stacked blocks, masked self-attention in the decoder and cross-attention to the encoder's memory.</p><div class="nextq">&rarr; What exactly does the self-attention box compute?</div><div class="go"><a data-go="7-75">The architecture</a><a data-go="7-81">Position embeddings</a><a data-go="7-82">Residual connections</a><a data-go="7-83">Feed-forward layer</a><a data-go="7-86">Masked self-attention</a><a data-go="7-88">Cross-attention</a></div></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Self-attention, Multi-head Attention and Positions</a></h4><p>Queries, keys and values; scores 112 and 96 become weights 0.88 and 0.12 after scaling and softmax; several heads run in parallel. Order comes from sinusoidal encodings, from rotating queries and keys (RoPE), or from recurrent layers in hybrids such as Kimi Linear.</p><div class="nextq">&rarr; Full attention compares all pairs &mdash; what does that cost, and which parts really matter?</div><div class="go"><a data-go="8-91">Q, K, V</a><a data-go="8-93">Scale and softmax</a><a data-go="8-94">Weighted sum</a><a data-go="8-103">Multi-head attention</a><a data-go="8-106">Sinusoidal encoding</a><a data-go="8-110">RoPE</a><a data-go="8-111">Kimi Linear</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Beyond</span><span class="act-sub">What changes, what matters, what scale buys</span></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Transformer Variants, Applications and Ablations</a></h4><p>Attention is quadratic in length; Linformer compresses, Longformer and Big Bird sparsify. The same block runs on image patches, diffusion latents, robot actions and music. Ablations test what each part does: pure attention loses rank, MLP-Mixer and FNet mix tokens without attention.</p><div class="nextq">&rarr; If the architecture scales, how predictable is the gain from scale?</div><div class="go"><a data-go="9-114">Quadratic cost</a><a data-go="9-116">Sparse attention</a><a data-go="9-119">Vision Transformer</a><a data-go="9-121">&pi;&#8320; actions</a><a data-go="9-124">Why pre-training + Transformers</a><a data-go="9-127">Pure attention</a><a data-go="9-129">FNet</a></div></li>
+							<li><span class="dot">10</span><h4><a data-go="10">Scaling Laws and Emergent Abilities</a></h4><p>Loss falls smoothly with model size, data and compute, well enough to predict a large run from small ones. The budget decides the best model size; test-time compute and agents are new axes. Emergent abilities may partly reflect the choice of metric.</p><div class="nextq">&rarr; Appendix: how are all these gradients actually computed?</div><div class="go"><a data-go="10-136">Scaling laws</a><a data-go="10-137">Predicting at scale</a><a data-go="10-138">Training budget</a><a data-go="10-142">Test-time compute</a><a data-go="10-146">Emergent abilities</a><a data-go="10-147">Choice of metric</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Appendix</span><span class="act-sub">The chain rule, worked by hand</span></li>
+							<li><span class="dot">11</span><h4><a data-go="11">Appendix: Backpropagation Worked Examples</a></h4><p>Upstream gradient times local derivative, node by node: a small graph, a sigmoid built from elementary operations, the module interface in PyTorch, and three ways gradients fail &mdash; saturation, dying ReLUs and explosion.</p><div class="go"><a data-go="11-151">Backprop, step by step</a><a data-go="11-152">Computation graph</a><a data-go="11-156">Sigmoid module</a><a data-go="11-160">Dying ReLU</a><a data-go="11-161">Exploding gradients</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn Chapters 7&ndash;8 into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. All three run on the free CPU runtime; no GPU needed.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 7&ndash;8 &middot; ~2 min</div>
+							<h4>Self-attention from scratch</h4>
+							<ul><li>Reproduce slide 93: scores 112 and 96 become 0.88 and 0.12</li><li>See why scores are divided by &radic;d<sub>k</sub></li>
+								<li>Write single- and multi-head attention and match PyTorch exactly</li><li>Shuffle the input, add a causal mask</li>
+								<li>Train one attention layer on a long-range task: 100% accuracy with positions, about 19% without</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture04/lecture04_1_self_attention_from_scratch.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture04/lecture04_1_self_attention_from_scratch.ipynb">.ipynb</a> &middot; CPU, no downloads</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapter 8 &middot; ~1 min</div>
+							<h4>Positional encodings: sinusoids and rotations</h4>
+							<ul><li>From a binary counter to the sinusoidal encoding</li><li>Redraw slide 108 and print the table of slide 109</li>
+								<li>Check that a shift is a rotation and similarity depends on distance</li><li>Rebuild the RoPE example of slide 110 and verify it</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture04/lecture04_2_positional_encodings.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture04/lecture04_2_positional_encodings.ipynb">.ipynb</a> &middot; CPU, no downloads</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 7&ndash;8 &middot; ~5 min</div>
+							<h4>Inside a pretrained Transformer</h4>
+							<ul><li>Compare the attention masks of DistilBERT (encoder) and GPT-2 (decoder)</li><li>Measure where <i>who</i> attends in the slides' sentence &mdash; and test it with a control</li>
+								<li>Find previous-token heads in GPT-2</li><li>Look at GPT-2's learned position embeddings</li><li>Time the quadratic cost of attention</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture04/lecture04_3_inspecting_attention.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture04/lecture04_3_inspecting_attention.ipynb">.ipynb</a> &middot; CPU, downloads ~0.8 GB</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Tasks &amp; pre-training</div>
+							<a data-go="1-3">Bigram language model<span>s3</span></a><a data-go="1-5">Masked language model<span>s5</span></a>
+							<a data-go="1-6">Pre-training &amp; fine-tuning<span>s6</span></a><a data-go="1-7">Encoder / decoder / encoder-decoder<span>s7</span></a>
+							<a data-go="1-11">BIES word segmentation<span>s11</span></a><a data-go="1-13">Span prediction<span>s13</span></a>
+							<a data-go="1-14">Autoregressive generation<span>s14</span></a><a data-go="1-15">Contextual encoder<span>s15</span></a></div>
+						<div class="grp"><div class="h">Inductive bias</div>
+							<a data-go="2-19">Semantic abstraction<span>s19</span></a><a data-go="2-21">Semantic composition<span>s21</span></a>
+							<a data-go="2-24">Mean pooling (CBOW)<span>s24</span></a><a data-go="2-25">Inductive bias<span>s25</span></a>
+							<a data-go="2-28">Long-range dependencies<span>s28</span></a><a data-go="2-29">The Bitter Lesson<span>s29</span></a>
+							<a data-go="2-30">Global token interaction<span>s30</span></a></div>
+						<div class="grp"><div class="h">MLPs &amp; CNNs</div>
+							<a data-go="3-34">Fully-connected layer<span>s34</span></a><a data-go="3-36">Gradient descent step<span>s36</span></a>
+							<a data-go="3-37">Training challenges<span>s37</span></a><a data-go="3-39">Neural probabilistic LM<span>s39</span></a>
+							<a data-go="4-43">Convolution<span>s43</span></a><a data-go="4-45">1D text convolution<span>s45</span></a>
+							<a data-go="4-46">Causal convolution<span>s46</span></a><a data-go="4-47">ConvS2S<span>s47</span></a></div>
+						<div class="grp"><div class="h">Recurrent networks</div>
+							<a data-go="5-51">Hidden-state recurrence<span>s51</span></a><a data-go="5-54">Teacher forcing<span>s54</span></a>
+							<a data-go="5-56">Free-running generation<span>s56</span></a><a data-go="5-57">LSTM<span>s57</span></a>
+							<a data-go="5-58">GRU<span>s58</span></a><a data-go="6-60">Bidirectional &amp; stacked RNNs<span>s60</span></a>
+							<a data-go="6-61">Mamba (selective state)<span>s61</span></a><a data-go="6-62">RWKV<span>s62</span></a></div>
+						<div class="grp"><div class="h">Gradient flow</div>
+							<a data-go="6-63">Backpropagation through time<span>s63</span></a><a data-go="6-69">Vanishing / exploding gradients<span>s69</span></a>
+							<a data-go="6-70">Residual block<span>s70</span></a><a data-go="6-71">Gradients with residuals<span>s71</span></a>
+							<a data-go="11-153">Local rule of backprop<span>s153</span></a><a data-go="11-156">Sigmoid derivative<span>s156</span></a>
+							<a data-go="11-160">Dying ReLU<span>s160</span></a><a data-go="11-161">Gradient clipping<span>s161</span></a></div>
+						<div class="grp"><div class="h">Transformer</div>
+							<a data-go="7-75">Encoder&ndash;decoder Transformer<span>s75</span></a><a data-go="7-81">Position embeddings<span>s81</span></a>
+							<a data-go="7-82">Add &amp; Norm<span>s82</span></a><a data-go="7-83">Feed-forward network<span>s83</span></a>
+							<a data-go="7-86">Masked self-attention<span>s86</span></a><a data-go="7-88">Cross-attention<span>s88</span></a></div>
+						<div class="grp"><div class="h">Attention &amp; positions</div>
+							<a data-go="8-91">Queries, keys, values<span>s91</span></a><a data-go="8-93">Scaled dot-product &amp; softmax<span>s93</span></a>
+							<a data-go="8-94">Weighted sum of values<span>s94</span></a><a data-go="8-103">Multi-head attention<span>s103</span></a>
+							<a data-go="8-106">Sinusoidal encoding<span>s106</span></a><a data-go="8-110">Rotary embedding (RoPE)<span>s110</span></a>
+							<a data-go="8-111">NoPE in Kimi Linear<span>s111</span></a></div>
+						<div class="grp"><div class="h">Variants &amp; ablations</div>
+							<a data-go="9-114">Quadratic complexity<span>s114</span></a><a data-go="9-115">Linformer<span>s115</span></a>
+							<a data-go="9-116">Longformer &amp; Big Bird<span>s116</span></a><a data-go="9-119">Vision Transformer<span>s119</span></a>
+							<a data-go="9-120">Diffusion Transformer<span>s120</span></a><a data-go="9-121">&pi;&#8320; flow matching<span>s121</span></a>
+							<a data-go="9-122">Music Transformer<span>s122</span></a><a data-go="9-127">Rank collapse of pure attention<span>s127</span></a>
+							<a data-go="9-128">MLP-Mixer<span>s128</span></a><a data-go="9-129">FNet<span>s129</span></a>
+							<a data-go="9-130">Sublayer ordering<span>s130</span></a><a data-go="9-132">DeepNorm<span>s132</span></a>
+							<a data-go="9-133">Wider vs. deeper<span>s133</span></a></div>
+						<div class="grp"><div class="h">Scaling</div>
+							<a data-go="10-136">Scaling laws<span>s136</span></a><a data-go="10-137">Predictable scaling<span>s137</span></a>
+							<a data-go="10-138">Compute-optimal training<span>s138</span></a><a data-go="10-139">Learning-rate schedules<span>s139</span></a>
+							<a data-go="10-141">Test-time scaling<span>s141</span></a><a data-go="10-143">Scaling agents<span>s143</span></a>
+							<a data-go="10-146">Emergent abilities<span>s146</span></a><a data-go="10-147">Emergence and metrics<span>s147</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The lecture already points at the newest designs (<a data-go="8-111">Kimi Linear, slide 111</a>; <a data-go="10-144">new scaling directions, slide 144</a>). Six trends to watch:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#129516;</div><h4>Hybrid attention goes mainstream</h4>
+							<p>Instead of full attention everywhere, several open models use cheap linear-attention layers (Gated DeltaNet, Kimi Delta
+								Attention) for most of the stack and keep about one full-attention layer in four.</p>
+							<div class="src">Kimi Linear (Oct 2025, <a data-go="8-111">slide 111</a>) · Qwen3-Next (Sep 2025) · Qwen3.5 (Feb 2026)</div></div>
+						<div class="trend"><div class="ic">&#128260;</div><h4>Recurrence, reinvented</h4>
+							<p>Mamba and RWKV keep a fixed-size state instead of a growing cache of keys and values, so inference work grows
+								linearly with length &mdash; the recurrent idea of Chapter 5, revisited with learned, input-dependent updates.</p>
+							<div class="src">Lecture <a data-go="6-61">slide 61</a> (Mamba) · <a data-go="6-62">slide 62</a> (RWKV)</div></div>
+						<div class="trend"><div class="ic">&#129517;</div><h4>Position moves into the layers</h4>
+							<p>RoPE rotates queries and keys rather than adding a vector; Kimi Linear goes further and uses no explicit position encoding
+								in its full-attention layers, letting the recurrent layers carry order.</p>
+							<div class="src">Lecture <a data-go="8-110">slide 110</a> (RoPE) · <a data-go="8-111">slide 111</a> (NoPE in Kimi Linear)</div></div>
+						<div class="trend"><div class="ic">&#9986;</div><h4>Sparse attention in production</h4>
+							<p>DeepSeek Sparse Attention adds a small "lightning indexer" that picks which earlier tokens each query attends to &mdash;
+								a learned version of the sparse patterns on slide 116, aimed at long contexts.</p>
+							<div class="src">DeepSeek-V3.2-Exp (Sep 2025) · DeepSeek-V3.2 (arXiv:2512.02556) · also used in GLM-5</div></div>
+						<div class="trend"><div class="ic">&#129692;</div><h4>Attention across depth</h4>
+							<p>Attention Residuals replace the fixed sum of a residual stream with softmax attention over earlier layers, so each layer
+								chooses which earlier layers to read &mdash; attention over depth instead of over time.</p>
+							<div class="src">Kimi Team, Attention Residuals (Mar 2026, arXiv:2603.15031) · mentioned on <a data-go="8-111">slide 111</a></div></div>
+						<div class="trend"><div class="ic">&#9203;</div><h4>Scaling beyond parameters</h4>
+							<p>Compute spent at test time (sampling, longer reasoning, search), during RL training, on tools, memory and agents is now
+								measured as its own axis &mdash; with gains that depend on how good the selection signal is.</p>
+							<div class="src">Lecture <a data-go="10-141">slides 141</a>&ndash;<a data-go="10-144">144</a> · OpenAI, Learning to Reason with LLMs (2024)</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely."</p>
+							<footer>Vaswani et al., <i>Attention Is All You Need</i> (2017)</footer>
+							<div class="why">The sentence that ended Act II &mdash; and the diagram of <a data-go="7-75">Chapter 7</a>.</div></blockquote>
+						<blockquote class="quote"><p>"The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin."</p>
+							<footer>Richard Sutton, <i>The Bitter Lesson</i> (2019), quoted on <a data-go="2-29">slide 29</a></footer>
+							<div class="why">Why a weaker inductive bias can win once data and compute grow.</div></blockquote>
+						<blockquote class="quote"><p>"The loss scales as a power-law with model size, dataset size, and the amount of compute used for training, with some trends spanning more than seven orders of magnitude."</p>
+							<footer>Kaplan et al., <i>Scaling Laws for Neural Language Models</i> (2020)</footer>
+							<div class="why">The empirical basis of <a data-go="10-136">Chapter 10</a>.</div></blockquote>
+						<blockquote class="quote"><p>"&hellip;emergent abilities appear due to the researcher's choice of metric rather than due to fundamental changes in model behavior with scale."</p>
+							<footer>Schaeffer, Miranda &amp; Koyejo, <i>Are Emergent Abilities of Large Language Models a Mirage?</i> (2023)</footer>
+							<div class="why">The counterpoint on <a data-go="10-147">slide 147</a>: read capability curves as carefully as loss curves.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> (2017) &middot; Jay Alammar: <a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a> (the figures of Chapter 8) &middot; Harvard NLP: <a href="https://nlp.seas.harvard.edu/annotated-transformer/">The Annotated Transformer</a></li>
+						<li>Christopher Olah: <a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/">Understanding LSTM Networks</a> &middot; <a href="https://arxiv.org/abs/2312.00752">Mamba</a> &middot; <a href="https://aclanthology.org/2023.findings-emnlp.936/">RWKV</a> &mdash; Chapters 5&ndash;6</li>
+						<li>Amirhossein Kazemnejad: <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/">Transformer Architecture: The Positional Encoding</a> &middot; <a href="https://arxiv.org/abs/2104.09864">RoFormer (RoPE)</a> &middot; <a href="https://openreview.net/forum?id=onxoVA9FxMw">On Position Embeddings in BERT</a></li>
+						<li>Lilian Weng: <a href="https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/">The Transformer Family Version 2.0</a> &mdash; a survey of the variants of Chapter 9 &middot; <a href="https://arxiv.org/abs/2510.26692">Kimi Linear</a> (2025)</li>
+						<li><a href="https://arxiv.org/abs/2001.08361">Scaling Laws for Neural Language Models</a> &middot; <a href="https://arxiv.org/abs/2203.15556">Training Compute-Optimal LLMs (Chinchilla)</a> &middot; <a href="https://arxiv.org/abs/2206.07682">Emergent Abilities of LLMs</a> &middot; <a href="https://arxiv.org/abs/2304.15004">&hellip; a Mirage?</a></li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture04-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

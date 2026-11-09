@@ -182,3 +182,6 @@ details.fold > .inner { padding: 0 16px 14px; animation: foldin .35s ease; }
 .story > li h4 a { color: var(--ink); text-decoration: none; cursor: pointer; }
 .story > li h4 a:hover { color: var(--red); }
 .story > li .nextq { font-size: 14px; color: #777; font-style: italic; margin: 2px 0 2px; }
+
+/* auto-filled counts inside hero badges stay plain text */
+.badge-row span span { display: inline; background: none; border: 0; padding: 0; margin: 0; font-size: inherit; }

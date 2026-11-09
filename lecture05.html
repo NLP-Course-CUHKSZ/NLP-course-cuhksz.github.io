@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 5 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Large Language Models (LLMs). The full video lecture in eleven chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 5: Large Language Models (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 5: Large Language Models (LLMs)</h1>
+			<p class="lead">What makes a language model <i>large</i>, why does size matter so much &mdash; and how do you build a ChatGPT from scratch?
+				Watch the lecture in short chapters with English and Chinese subtitles, follow the lecture map below, then try the ideas in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Oct. 23rd, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture05_Large_Language_Models.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">What makes a language model <i>large</i>, why does size matter &mdash; and how is a ChatGPT built, step by step?</div>
+					<p class="map-lead">Five acts, eleven chapters. First we see <b>why scale</b> turns a next-word predictor into a general problem solver,
+						then follow <b>the ChatGPT story</b> and the cheapest way to <b>use</b> such a model. Then we <b>build one</b>: tokenizer, pretraining,
+						instruction tuning and RLHF &mdash; and finally <b>compare the stages</b> and ask whether bigger is still better. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Why large</b></div><div class="ac-gain">Scale turns a next-word predictor into a general problem solver</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>Recap &amp; scaling</a><a data-go="2"><span class="cn">2</span>What is an LLM?</a><a data-go="3"><span class="cn">3</span>Why larger?</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>The ChatGPT story</b></div><div class="ac-gain">GPT-3 + code + instructions + human feedback</div><div class="ac-ch"><a data-go="4"><span class="cn">4</span>GPT-3 to ChatGPT and o1</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Use it</b></div><div class="ac-gain">Prompts and agents, no training needed</div><div class="ac-ch"><a data-go="5"><span class="cn">5</span>Prompting &amp; agents</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Build it</b></div><div class="ac-gain">Tokens &rarr; pretraining &rarr; SFT &rarr; RLHF</div><div class="ac-ch"><a data-go="6"><span class="cn">6</span>Pipeline &amp; tokenization</a><a data-go="7"><span class="cn">7</span>Pretraining</a><a data-go="8"><span class="cn">8</span>Instruction tuning</a><a data-go="9"><span class="cn">9</span>RLHF</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Reflect</b></div><div class="ac-gain">Compare the stages; what comes after scaling</div><div class="ac-ch"><a data-go="10"><span class="cn">10</span>Multi-turn data &amp; stages compared</a><a data-go="11"><span class="cn">11</span>Small LLMs &amp; the future</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Why large</span><span class="act-sub">Scale turns a next-word predictor into a general problem solver</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">What's New, a Transformer Recap and Why Scale Matters</a></h4><p>The field moves in weeks: new models, film-quality video and an agent that &ldquo;actually does things&rdquo;. Back to the Transformer: less built-in structure scales better, loss falls along a power law, and some abilities only switch on at scale.</p><div class="nextq">&rarr; So what exactly is a &ldquo;large&rdquo; language model?</div><div class="go"><a data-go="1-2">What happened</a><a data-go="1-5">OpenClaw</a><a data-go="1-9">Less structure scales</a><a data-go="1-11">Scaling laws</a><a data-go="1-12">Emergent abilities</a><a data-go="1-13">Outline</a></div></li>
+							<li><span class="dot">2</span><h4><a data-go="2">What Is an LLM? Compression, AGI and How Large Is Large</a></h4><p>One model for nearly everything. Predicting the next word well forces a network to compress the internet &mdash; and the facts in it. &ldquo;Large&rdquo; means billions of parameters, enormous compute and trillions of tokens (36 trillion for Qwen3).</p><div class="nextq">&rarr; Why is all that size worth it?</div><div class="go"><a data-go="2-16">One model for everything</a><a data-go="2-18">The one-minute rule</a><a data-go="2-21">Intelligence as compression</a><a data-go="2-22">Next word &rArr; world knowledge</a><a data-go="2-24">Parameters</a><a data-go="2-27">Trillions of tokens</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Why Larger Models: Emergent Abilities and Generalization</a></h4><p>Bigger models know more, learn tasks from a few examples or a plain description, and generalize by recombining what they have seen. Even techniques such as chain-of-thought and RLHF only start to help above a certain size.</p><div class="nextq">&rarr; How did these ingredients come together in practice?</div><div class="go"><a data-go="3-31">LM vs. LLM</a><a data-go="3-32">Why larger</a><a data-go="3-34">Few-shot</a><a data-go="3-35">Zero-shot</a><a data-go="3-39">RL needs scale</a><a data-go="3-40">Scalable ingredients</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">The ChatGPT story</span><span class="act-sub">GPT-3 + code + instructions + human feedback</span></li>
+							<li><span class="dot">4</span><h4><a data-go="4">A Case Study: From GPT-3 to ChatGPT, GPT-4 and o1</a></h4><p>ChatGPT was GPT-3 plus code training, instruction tuning and RLHF &mdash; a breakthrough in interaction more than in knowledge. Then GPT-4, GPT-4V, Sora and o1, and three trends of the modern LLM: large-scale RL, looped Transformers and on-policy distillation.</p><div class="nextq">&rarr; How can you use such a model yourself?</div><div class="go"><a data-go="4-42">Family tree</a><a data-go="4-45">What ChatGPT does</a><a data-go="4-48">Mixture of Experts</a><a data-go="4-51">Three-step recipe</a><a data-go="4-58">OpenAI o1</a><a data-go="4-59">Modern LLMs</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Use it</span><span class="act-sub">Prompts and agents, no training needed</span></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Using LLMs, Level 1: Prompt Engineering and Agents</a></h4><p>Use the model as a fixed black box: prompt it in a chat window or through an API, or wrap it in an agent with memory, tools, planning and actions &mdash; from LangChain and Dify to Manus in the cloud and OpenClaw on your own machine.</p><div class="nextq">&rarr; Agents are easy to build &mdash; but what happens inside the model when you train your own?</div><div class="go"><a data-go="5-60">Three levels</a><a data-go="5-62">Prompt engineering</a><a data-go="5-63">Agent anatomy</a><a data-go="5-65">LangChain</a><a data-go="5-68">OpenClaw</a><a data-go="5-69">Homework</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Build it</span><span class="act-sub">Tokens &rarr; pretraining &rarr; SFT &rarr; RLHF</span></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Training from Zero: The Pipeline and Tokenization (BPE)</a></h4><p>A model learns like a student: words, textbooks, exercises, a teacher's feedback. Step zero is tokenization: subwords balance vocabulary size and sequence length, BPE learns them by merging frequent pairs, and a tokenizer that ignores your language makes everything slower and costlier.</p><div class="nextq">&rarr; With tokens in hand, how does the model read its textbooks?</div><div class="go"><a data-go="6-74">From zero to ChatGPT</a><a data-go="6-75">The student analogy</a><a data-go="6-79">Subword modeling</a><a data-go="6-83">BPE</a><a data-go="6-84">LLaMA on Chinese</a><a data-go="6-86">Tokens beyond text</a></div></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Pretraining: Language Modeling and Eight Data Tips</a></h4><p>Pretraining is next-token prediction over trillions of tokens, and the secret sauce is the data: sources and mixing ratios, continued pretraining, and eight tips &mdash; filter, reformat, deduplicate, mix, order, scale (Chinchilla), mask and synthesize.</p><div class="nextq">&rarr; A base model continues text &mdash; how do we make it follow instructions?</div><div class="go"><a data-go="7-89">Language modeling</a><a data-go="7-92">Mixing ratios</a><a data-go="7-94">Continued pretraining</a><a data-go="7-99">Deduplication</a><a data-go="7-102">Chinchilla</a><a data-go="7-104">Synthetic data</a></div></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Instruction Finetuning (SFT): Hypotheses and Tips</a></h4><p>Language modeling is not assisting users. SFT trains on instruction&ndash;response pairs; it mostly teaches format (LIMA), sometimes knowledge, and generalizes with diverse tasks (FLAN). Tips: distillation, self-instruct, loss on the output only, complex instructions.</p><div class="nextq">&rarr; The token-level loss treats every mistake alike &mdash; can we optimize directly for what humans prefer?</div><div class="go"><a data-go="8-106">LM &ne; assisting users</a><a data-go="8-112">Superficial alignment</a><a data-go="8-114">FLAN-T5</a><a data-go="8-117">Alpaca / self-instruct</a><a data-go="8-119">Loss on output only</a><a data-go="8-122">Limitations</a></div></li>
+							<li><span class="dot">9</span><h4><a data-go="9">RLHF: Reward Models, InstructGPT and ChatGPT</a></h4><p>Comparing answers is easier than writing them. Learn a reward model from human comparisons, then optimize the policy against it with PPO. A 1.3B RLHF model beat a 12.9B supervised one; InstructGPT scaled the recipe and ChatGPT added conversation &mdash; but human judges have biases.</p><div class="nextq">&rarr; Where do the rest of us get conversation data &mdash; and how do the stages compare?</div><div class="go"><a data-go="9-127">Helpful, honest, harmless</a><a data-go="9-132">Reward model</a><a data-go="9-136">Pairwise comparisons</a><a data-go="9-137">The full pipeline</a><a data-go="9-138">RLHF beats 10&times; size</a><a data-go="9-142">Judgement biases</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Reflect</span><span class="act-sub">Compare the stages; what comes after scaling</span></li>
+							<li><span class="dot">10</span><h4><a data-go="10">Multi-turn Data, PlatoLM and Pretraining vs. SFT vs. RL</a></h4><p>ShareGPT gave open models real conversations; PlatoLM trains a user simulator to ask like people do. Pretraining and SFT share one loss, so documents can be turned into Q&amp;A. RL generalizes where SFT memorizes: incentivize, don't teach.</p><div class="nextq">&rarr; If data and RL matter so much, do we still need ever-larger models?</div><div class="go"><a data-go="10-147">ShareGPT</a><a data-go="10-149">PlatoLM</a><a data-go="10-153">Pretraining vs. SFT</a><a data-go="10-154">Backtranslation</a><a data-go="10-157">SFT memorizes, RL generalizes</a><a data-go="10-159">Incentivize, don't teach</a></div></li>
+							<li><span class="dot">11</span><h4><a data-go="11">Small LLMs, the Densing Law and the End of Scaling?</a></h4><p>Data and hardware put walls in front of scaling. Small models on phones, Phi-4 built on synthetic data, and capability density that keeps rising. Pretraining as we know it may end &mdash; next come test-time scaling, agents, denser models and applications.</p><div class="go"><a data-go="11-161">Two walls</a><a data-go="11-163">Phi-4</a><a data-go="11-164">Densing law</a><a data-go="11-166">End of pretraining?</a><a data-go="11-167">What next</a><a data-go="11-169">Why does it work?</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. All three run on a free CPU runtime; notebook 2 trains six small models, so a free T4 GPU
+						(<i>Runtime &rarr; Change runtime type</i>) cuts it from about ten minutes to a couple.
+						To fine-tune and RL-train real models, continue with <a href="tutorial2.html">Tutorial 2: Training Your Own LLMs</a>.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapter 6 &middot; ~3 min</div>
+							<h4>Tokenizers: BPE from scratch</h4>
+							<ul><li>Replay slide 83's merges: aaabdaaabac &rarr; XdXac</li><li>Train your own BPE and watch &ldquo;tokenizing&rdquo; split into subwords</li>
+								<li>See the original LLaMA tokenizer turn 28 Chinese characters into 35 tokens</li><li>Compare GPT-2, LLaMA and Qwen on English, Chinese and Arabic</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture05/lecture05_1_tokenizers_and_bpe.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture05/lecture05_1_tokenizers_and_bpe.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapters 1 &amp; 7 &middot; ~10 min</div>
+							<h4>Scaling laws: fit your own power law</h4>
+							<ul><li>Train six tiny GPTs (3K&ndash;800K parameters) on Shakespeare</li><li>Fit loss = a&middot;N<sup>&minus;&alpha;</sup> + c on a log-log plot and extrapolate</li>
+								<li>Split a compute budget between parameters and tokens with the Chinchilla law</li><li>See two fits of the same data disagree (~70 vs. ~20 tokens per parameter)</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture05/lecture05_2_scaling_laws.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture05/lecture05_2_scaling_laws.ipynb">.ipynb</a> &middot; CPU (T4 GPU faster)</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 3 &amp; 8 &middot; ~5 min</div>
+							<h4>Base vs. instruction-tuned: prompting a small LLM</h4>
+							<ul><li>Ask SmolLM2-135M base and instruct the moon-landing question of slide 106</li><li>Zero-shot vs. few-shot sentiment, scored by next-token probabilities</li>
+								<li>Look at the chat template: what SFT data really looks like</li><li>Build the &ldquo;loss on the output only&rdquo; mask of slide 119</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture05/lecture05_3_base_vs_instruct.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture05/lecture05_3_base_vs_instruct.ipynb">.ipynb</a> &middot; CPU</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Scale</div>
+							<a data-go="1-8">Inductive bias<span>s8</span></a><a data-go="1-9">Less structure scales better<span>s9</span></a>
+							<a data-go="1-11">Scaling laws (power laws)<span>s11</span></a><a data-go="1-12">Emergent abilities<span>s12</span></a>
+							<a data-go="2-16">Foundation model<span>s16</span></a><a data-go="2-21">Learning as compression<span>s21</span></a>
+							<a data-go="2-24">Parameter counts<span>s24</span></a><a data-go="2-25">Training compute (FLOPs)<span>s25</span></a>
+							<a data-go="2-27">Data scaling: trillions of tokens<span>s27</span></a></div>
+						<div class="grp"><div class="h">Abilities</div>
+							<a data-go="3-31">LM vs. LLM<span>s31</span></a><a data-go="3-34">Few-shot / in-context learning<span>s34</span></a>
+							<a data-go="3-35">Zero-shot prompting<span>s35</span></a><a data-go="3-36">Text-to-text multitask (T5)<span>s36</span></a>
+							<a data-go="3-38">Combinational generalization<span>s38</span></a><a data-go="3-39">RL only works at scale<span>s39</span></a>
+							<a data-go="3-40">Scalable architecture, objective, data<span>s40</span></a></div>
+						<div class="grp"><div class="h">The ChatGPT story</div>
+							<a data-go="4-42">GPT-3 &rarr; ChatGPT family tree<span>s42</span></a><a data-go="4-47">Inferring model size<span>s47</span></a>
+							<a data-go="4-48">Mixture of Experts, active parameters<span>s48</span></a><a data-go="4-51">SFT &rarr; reward model &rarr; PPO<span>s51</span></a>
+							<a data-go="4-52">Pretraining vs. fine-tuning cost<span>s52</span></a><a data-go="4-57">Spacetime patches (Sora)<span>s57</span></a>
+							<a data-go="4-58">Reasoning models (o1)<span>s58</span></a><a data-go="4-59">Looped Transformer, on-policy distillation<span>s59</span></a></div>
+						<div class="grp"><div class="h">Using LLMs</div>
+							<a data-go="5-62">Prompt engineering<span>s62</span></a><a data-go="5-63">Agent: memory, tools, planning, action<span>s63</span></a>
+							<a data-go="5-64">Tool use (HuggingGPT, API-Bank)<span>s64</span></a><a data-go="5-65">LangChain<span>s65</span></a>
+							<a data-go="5-67">Cloud sandbox agent (Manus)<span>s67</span></a><a data-go="5-68">Local agent (OpenClaw)<span>s68</span></a></div>
+						<div class="grp"><div class="h">Tokenization</div>
+							<a data-go="6-77">Tokenization<span>s77</span></a><a data-go="6-79">Word vs. character vs. subword<span>s79</span></a>
+							<a data-go="6-82">WordPiece, Unigram, SentencePiece<span>s82</span></a><a data-go="6-83">Byte-pair encoding (BPE)<span>s83</span></a>
+							<a data-go="6-84">Byte fallback, vocabulary extension<span>s84</span></a><a data-go="6-86">Image, speech and DNA tokens<span>s86</span></a></div>
+						<div class="grp"><div class="h">Pretraining</div>
+							<a data-go="7-89">Conditional language modeling<span>s89</span></a><a data-go="7-91">Pretraining data sources<span>s91</span></a>
+							<a data-go="7-92">Data mixing ratios, epochs<span>s92</span></a><a data-go="7-94">Continued pretraining, forgetting<span>s94</span></a>
+							<a data-go="7-96">Quality and toxicity filters<span>s96</span></a><a data-go="7-99">Deduplication<span>s99</span></a>
+							<a data-go="7-100">DoReMi data mixture<span>s100</span></a><a data-go="7-101">In-context pretraining<span>s101</span></a>
+							<a data-go="7-102">Chinchilla, compute-optimal<span>s102</span></a><a data-go="7-103">Selective LM (RHO-1)<span>s103</span></a>
+							<a data-go="7-104">Synthetic data (Phi-4)<span>s104</span></a></div>
+						<div class="grp"><div class="h">Instruction tuning</div>
+							<a data-go="8-106">LM &ne; assisting users<span>s106</span></a><a data-go="8-107">Instruction / input / output<span>s107</span></a>
+							<a data-go="8-112">Superficial alignment (LIMA)<span>s112</span></a><a data-go="8-113">Task recognition vs. task learning<span>s113</span></a>
+							<a data-go="8-114">Task generalization (FLAN-T5)<span>s114</span></a><a data-go="8-116">Distillation from top LLMs<span>s116</span></a>
+							<a data-go="8-117">Self-instruct (Alpaca)<span>s117</span></a><a data-go="8-119">Loss on the output only<span>s119</span></a>
+							<a data-go="8-121">Evol-Instruct (WizardLM)<span>s121</span></a></div>
+						<div class="grp"><div class="h">RLHF and beyond</div>
+							<a data-go="9-127">Helpful, honest, harmless<span>s127</span></a><a data-go="9-132">Reward model<span>s132</span></a>
+							<a data-go="9-136">Pairwise comparisons (Bradley&ndash;Terry)<span>s136</span></a><a data-go="9-137">PPO with a KL penalty<span>s137</span></a>
+							<a data-go="9-139">InstructGPT<span>s139</span></a><a data-go="9-142">Verbosity, position, authority bias<span>s142</span></a>
+							<a data-go="10-147">ShareGPT<span>s147</span></a><a data-go="10-149">User simulator (PlatoLM)<span>s149</span></a>
+							<a data-go="10-154">Backtranslation to SFT data<span>s154</span></a><a data-go="10-157">SFT memorizes, RL generalizes<span>s157</span></a>
+							<a data-go="10-158">Rule-based rewards (R1-Zero)<span>s158</span></a></div>
+						<div class="grp"><div class="h">Small models and outlook</div>
+							<a data-go="11-161">Data wall, hardware wall<span>s161</span></a><a data-go="11-162">Small language models<span>s162</span></a>
+							<a data-go="11-164">Densing law<span>s164</span></a><a data-go="11-166">&ldquo;The fossil fuel of AI&rdquo;<span>s166</span></a>
+							<a data-go="11-167">Test-time scaling, agents, denser models<span>s167</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The lecture opens with the news of early 2026 (<a data-go="1-2">slide 2</a>) and closes Chapter 4 with three trends of the modern LLM
+						(<a data-go="4-59">slide 59</a>). Six things to watch:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#9201;</div><h4>&ldquo;State of the art&rdquo; lasts weeks</h4>
+							<p>Around the 2026 Spring Festival almost every major Chinese lab shipped a new model, ByteDance released a new video model,
+								and OpenAI followed with GPT-5.4 &mdash; which is why the course teaches principles, not model names.</p>
+							<div class="src">Qwen 3.5-Plus · GLM-5 · MiniMax M2.5 · Kimi K2.5 · Seedance 2.0 · GPT-5.4 (<a data-go="1-2">slide 2</a>)</div></div>
+						<div class="trend"><div class="ic">&#129438;</div><h4>Agents that actually do things</h4>
+							<p>OpenClaw runs on your own machine, talks to you through your chat apps, remembers, browses and runs commands &mdash;
+								and became popular far beyond developers. The lecture's homework: install it and find where it fails.</p>
+							<div class="src">OpenClaw (<a data-go="1-5">slides 5&ndash;6</a>, <a data-go="5-68">68&ndash;69</a>) · Lecture 7 covers agents and harness engineering</div></div>
+						<div class="trend"><div class="ic">&#127919;</div><h4>RL becomes a main training stage</h4>
+							<p>After o1 and DeepSeek-R1, reinforcement learning is no longer a final polish: it is a major, compute-heavy stage,
+								especially for reasoning and agentic tasks.</p>
+							<div class="src"><a data-go="4-59">Slide 59</a> · <a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> (2025) · Lecture 6</div></div>
+						<div class="trend"><div class="ic">&#128257;</div><h4>Depth by looping, small models by on-policy distillation</h4>
+							<p>Looped Transformers reuse one block several times for more computation per token without more parameters.
+								On-policy distillation lets a teacher grade the student's own answers token by token.</p>
+							<div class="src"><a data-go="4-59">Slide 59</a> · Thinking Machines Lab, <a href="https://thinkingmachines.ai/blog/on-policy-distillation/">On-Policy Distillation</a> (Oct 2025)</div></div>
+						<div class="trend"><div class="ic">&#127981;</div><h4>Models build the data for the next models</h4>
+							<p>Qwen3 was pretrained on 36 trillion tokens in 119 languages, with text extracted from PDFs and trillions of
+								synthesized tokens; 40% of Phi-4's pretraining comes from synthetic data.</p>
+							<div class="src"><a href="https://arxiv.org/abs/2505.09388">Qwen3 Technical Report</a> (<a data-go="2-28">slide 28</a>) · <a href="https://arxiv.org/abs/2412.08905">Phi-4</a> (<a data-go="7-104">slide 104</a>)</div></div>
+						<div class="trend"><div class="ic">&#128142;</div><h4>Denser, not just bigger</h4>
+							<p>With data running out and servers limited in memory, the focus shifts from the scaling law to capability density:
+								the same ability with fewer parameters. The densing-law paper finds that the maximum density of open models has doubled roughly every three months.</p>
+							<div class="src"><a href="https://arxiv.org/abs/2412.04315">Densing Law of LLMs</a> (<a data-go="11-164">slide 164</a>) · <a data-go="11-161">slide 161</a></div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin."</p>
+							<footer>Rich Sutton, <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html"><i>The Bitter Lesson</i></a> (2019)</footer>
+							<div class="why">The idea behind <a data-go="1-9">slide 9</a>: less hand-built structure, more scale.</div></blockquote>
+						<blockquote class="quote"><p>"The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests."</p>
+							<footer>OpenAI, <a href="https://openai.com/index/chatgpt/"><i>Introducing ChatGPT</i></a> (2022), quoted on <a data-go="4-45">slide 45</a></footer>
+							<div class="why">ChatGPT's breakthrough was in interaction and alignment, not in raw knowledge.</div></blockquote>
+						<blockquote class="quote"><p>"Almost all knowledge in large language models is learned during pretraining, and only limited instruction tuning data is necessary to teach models to produce high quality output."</p>
+							<footer>Zhou et al., <a href="https://arxiv.org/abs/2305.11206"><i>LIMA: Less Is More for Alignment</i></a> (2023)</footer>
+							<div class="why">The superficial alignment hypothesis of <a data-go="8-112">slide 112</a> &mdash; with its question mark.</div></blockquote>
+						<blockquote class="quote"><p>"Pre-training as we know it will end. &hellip; Data is not growing: we have but one internet, the fossil fuel of AI."</p>
+							<footer>Ilya Sutskever, NeurIPS 2024 talk, shown on <a data-go="11-166">slide 166</a></footer>
+							<div class="why">Why the lecture ends with denser models, reasoning and agents instead of &ldquo;just scale&rdquo;.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Andrej Karpathy: <a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">Intro to Large Language Models</a> (1-hour talk) &mdash; the best companion to Chapters 2 and 4</li>
+						<li>Yao Fu et al.: <a href="https://yaofu.notion.site/How-does-GPT-Obtain-its-Ability-Tracing-Emergent-Abilities-of-Language-Models-to-their-Sources-b9a57ac0fcf74f30a1ab9e3e36fa1dc1">How does GPT obtain its ability?</a> &mdash; the GPT-3 &rarr; ChatGPT family tree of Chapter 4</li>
+						<li><a href="https://arxiv.org/abs/2001.08361">Scaling Laws for Neural Language Models</a> (2020) &middot; <a href="https://arxiv.org/abs/2203.15556">Chinchilla: Training Compute-Optimal LLMs</a> (2022) &middot; <a href="https://arxiv.org/abs/2206.07682">Emergent Abilities of LLMs</a> (2022)</li>
+						<li><a href="https://arxiv.org/abs/2005.14165">GPT-3: Language Models are Few-Shot Learners</a> &middot; <a href="https://arxiv.org/abs/1508.07909">Sennrich et al.: subword units with BPE</a></li>
+						<li><a href="https://arxiv.org/abs/2212.10560">Self-Instruct</a> &middot; <a href="https://arxiv.org/abs/2009.01325">Learning to summarize from human feedback</a> &middot; <a href="https://arxiv.org/abs/2203.02155">InstructGPT</a></li>
+						<li><a href="https://arxiv.org/abs/2501.17161">SFT Memorizes, RL Generalizes</a> (2025) &middot; <a href="https://arxiv.org/abs/2412.04315">Densing Law of LLMs</a> (2024)</li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture05-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

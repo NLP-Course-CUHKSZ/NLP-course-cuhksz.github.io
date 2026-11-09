@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 8 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Final Projects and Research Sharing. The full video lecture in seven chapters with bilingual subtitles and a synced transcript, a lecture map, a concept index, links to the project guide and writing tips, and a starter notebook for fair comparisons.">
+	<title>Lecture 8: Final Projects and Research Sharing (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 8: Final Projects and Research Sharing</h1>
+			<p class="lead">What makes a good final project, and how do you get from a question to a poster and a paper in four weeks?
+				Watch the lecture in short chapters with English and Chinese subtitles, then open the <a href="final-project.html">project guide</a>
+				and the <a href="writing-tips.html">writing tips</a>: they are the reference for everything said here.</p>
+			<div class="badge-row">
+				<span>&#128197; Nov. 13th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128640; Get started</a>
+				<a href="final-project.html">&#128203; Project guide (EN/中文)</a>
+				<a href="writing-tips.html">&#9998; Writing tips</a>
+				<a href="materials/2026_fall_slides/Lecture08_Final_Projects_and_Research_Sharing.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Get started</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">What makes a good final project &mdash; and how do you get from a question to a poster and a paper in four weeks?</div>
+					<p class="map-lead">Four acts, seven chapters. First the <b>rules</b>: what you deliver and how it is graded. Then the longest part,
+						<b>choosing</b> a topic from eight tracks and a handful of fresh ideas. Then <b>what good looks like</b>, from past students' projects.
+						And finally <b>writing</b>, because clarity is worth as many points as soundness. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Rules</b></div><div class="ac-gain">What you deliver, when, and how it is graded</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>Deliverables &amp; grading</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>Choose</b></div><div class="ac-gain">Eight tracks, fresh ideas, and how to pick</div><div class="ac-ch"><a data-go="2"><span class="cn">2</span>Agents &amp; training (A, B)</a><a data-go="3"><span class="cn">3</span>Interaction &amp; evaluation (C, D)</a><a data-go="4"><span class="cn">4</span>Society to startups (E&ndash;H)</a><a data-go="5"><span class="cn">5</span>Fresh ideas &amp; picking a topic</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Learn from the best</b></div><div class="ac-gain">What strong projects look like</div><div class="ac-ch"><a data-go="6"><span class="cn">6</span>Outstanding projects</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Write</b></div><div class="ac-gain">Show it so the reader sees it too</div><div class="ac-ch"><a data-go="7"><span class="cn">7</span>Writing your paper</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Rules</span><span class="act-sub">What you deliver, when, and how it is graded</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">The Final Project: Deliverables, Deadlines and Grading</a></h4><p>Your first mini research project, worth 55% of the grade: teams of up to three with a concrete contribution statement, a poster session on Dec. 18 (file in by 17:00 on Dec. 17 for free printing), and a six-page report on Dec. 25. Writing clarity (15%) counts as much as technical soundness (15%).</p><div class="nextq">&rarr; So what should you actually build?</div><div class="go"><a data-go="1-5">Teams &amp; contributions</a><a data-go="1-6">Two deliverables, two dates</a><a data-go="1-9">Poster template</a><a data-go="1-10">The four-minute pitch</a><a data-go="1-13">How the report is graded</a><a data-go="1-14">Bonuses &amp; the ethics penalty</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">Choose</span><span class="act-sub">Eight tracks, fresh ideas, and how to pick</span></li>
+							<li><span class="dot">2</span><h4><a data-go="2">Choosing a Track: Agents and Training Your Own Model</a></h4><p>Pick one of 77 briefs in eight tracks, or propose your own LLM-related topic, and follow six rules of thumb. Track A studies the agent harness at a matched budget (a new skill, an audited AI-written survey); Track B trains models, from nanoGPT speedruns to vertical models such as HuatuoGPT, AceGPT and Soundwave.</p><div class="nextq">&rarr; What if you would rather build something people interact with, or measure the models?</div><div class="go"><a data-go="2-16">Two options</a><a data-go="2-17">Eight tracks</a><a data-go="2-18">Six rules of thumb</a><a data-go="2-19">Track A</a><a data-go="2-21">A new skill</a><a data-go="2-23">Track B</a><a data-go="2-24">HuatuoGPT</a><a data-go="2-27">Soundwave</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Interactive Systems, Evaluation and Datasets</a></h4><p>Track C makes interaction the variable: LLM NPCs on a virtual campus, tools for education, picture books and open tutorials, judged on fidelity and transfer rather than engagement. Track D builds benchmarks (a dataset with a scoring rule), physician-style rubrics, datasets and RAG systems whose citations can be checked.</p><div class="nextq">&rarr; What about projects that need no GPU at all &mdash; or real users?</div><div class="go"><a data-go="3-29">Track C</a><a data-go="3-30">AI campus</a><a data-go="3-32">Education</a><a data-go="3-36">Track D</a><a data-go="3-37">OpenRouter</a><a data-go="3-39">Rubric-based evaluation</a><a data-go="3-41">Retrieval &amp; RAG</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Society, Efficiency, Competitions and Startups</a></h4><p>Track E argues a falsifiable position and tests it, for example with a matched-persona audit; Track F measures speed with fresh-input correctness checks; Track G turns a contest into a controlled comparison; Track H runs a startup prototype judged on retention and cost, with two student startups from our campus.</p><div class="nextq">&rarr; Beyond the tracks, where else can ideas come from?</div><div class="go"><a data-go="4-42">Track E</a><a data-go="4-43">Reading by question</a><a data-go="4-44">Track F</a><a data-go="4-45">Track G</a><a data-go="4-46">Track H</a><a data-go="4-47">Startup basics</a><a data-go="4-49">薯塔AI in numbers</a></div></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Fresh Ideas, Hospital Deployments and Picking a Topic</a></h4><p>Seeds to brainstorm with (a robot bar, an AI seller, simulated patients, AI + VR, text-to-3D printing, text-to-game, an incubator simulator), agents deployed in the CUHK-Shenzhen hospital, and how to choose: your expertise, your background, real needs around you, and above all your interest. The teaching team is there to help, not only to judge.</p><div class="nextq">&rarr; What does a really good project look like?</div><div class="go"><a data-go="5-51">Brainstorming seeds</a><a data-go="5-54">Expertise training</a><a data-go="5-56">Text for 3D printing</a><a data-go="5-59">Hospital deployment</a><a data-go="5-62">OpenClaw-Med</a><a data-go="5-65">How to choose</a><a data-go="5-67">Judge &rarr; help</a><a data-go="5-68">Your TAs</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Learn from the best</span><span class="act-sub">What strong projects look like</span></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Outstanding Projects from Past Terms</a></h4><p>A valuable question, solid evidence and clear communication. MedGen links paper, code and data; ConsumerSim brings a question from economics; FutureSelf reports a result against its own hypothesis; TripGenie gives an honest number with a proper baseline; and four posters run from a local-LLM safety audit to an analysis of in-context learning.</p><div class="nextq">&rarr; How do you write it up so the reader sees it too?</div><div class="go"><a data-go="6-70">What makes a project good</a><a data-go="6-71">arXiv + HF + GitHub</a><a data-go="6-72">ConsumerSim</a><a data-go="6-73">FutureSelf</a><a data-go="6-74">TripGenie</a><a data-go="6-76">Safety evaluation</a><a data-go="6-79">In-context learning analysis</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Write</span><span class="act-sub">Show it so the reader sees it too</span></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Writing Your Paper: Tips That Save Points</a></h4><p>A paper should read like a film with no 尿点: go from abstract to concrete, keep the straight path, motivate the paper and every component, use plain words, cut empty ones, define every term, be specific, spell out the logic, keep a consistent style &mdash; and related work is not a shopping list. Then a wrap-up and Q&amp;A.</p><div class="go"><a data-go="7-81">The AI Scientist</a><a data-go="7-83">No 尿点</a><a data-go="7-84">Abstract to concrete</a><a data-go="7-86">Less is more</a><a data-go="7-88">Motivate components</a><a data-go="7-91">Undefined terms</a><a data-go="7-93">Fluent logic</a><a data-go="7-94">Three-line tables</a><a data-go="7-96">Wrap-up</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 GET STARTED -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Get started</h2>
+					<div class="callout info"><b class="t">The project guide and the writing tips are the reference.</b>
+						The <a href="final-project.html"><b>Final Project Guide &amp; Challenge Tracks</b></a> page (English and 中文) holds every brief, the rules,
+						the schedule and the FAQ; the <a href="writing-tips.html"><b>Writing tips &amp; samples</b></a> page collects the writing advice from this lecture
+						with past posters and papers. If anything in the video differs from those pages or the <a href="index.html#grading">course page</a>, the pages win.</div>
+					<div class="kv">
+						<div><b>Nov. 13</b><span>team formation &amp; optional one-page proposal</span></div>
+						<div><b>Dec. 17, 17:00</b><span>poster file due (printed for you if on time)</span></div>
+						<div><b>Dec. 18</b><span>poster session, a 4-minute pitch per team</span></div>
+						<div><b>Dec. 25, 23:59</b><span>final report due (max. 6 pages)</span></div>
+					</div>
+					<div class="grid">
+						<div class="tut"><div class="k">Start here &middot; Chapters 2&ndash;5</div>
+							<h4><a href="final-project.html">Project guide &amp; tracks</a></h4>
+							<ul><li><a href="final-project.html#tracks">Eight tracks, 77 briefs</a>, each with a question, comparison, metric and four-week plan</li>
+								<li>The <a href="final-project.html#finder">track finder</a> and the compute filter</li>
+								<li>The <a href="final-project.html#playbook">research playbook</a> and a copyable <a href="final-project.html#tpl-proposal">proposal template</a></li>
+								<li><a href="final-project.html#schedule">Schedule &amp; grading</a> and the <a href="final-project.html#faq">FAQ</a></li></ul>
+							<div class="meta"><a href="final-project.html">final-project.html</a> &middot; EN / 中文 &middot; <a href="materials/final_project/NLP-Final-Project-Guide-2026.pdf">PDF guide</a></div></div>
+						<div class="tut"><div class="k">Before you write &middot; Chapters 6&ndash;7</div>
+							<h4><a href="writing-tips.html">Writing tips &amp; samples</a></h4>
+							<ul><li><a href="writing-tips.html#tips">Ten writing tips</a> from this lecture, with examples</li>
+								<li><a href="writing-tips.html#structure">Report structure</a> and the arXiv + Hugging Face + GitHub habit</li>
+								<li><a href="writing-tips.html#posters">Poster samples &amp; the 4-minute pitch</a>, <a href="writing-tips.html#papers">past papers</a></li>
+								<li>A <a href="writing-tips.html#checklist">checklist</a> before you submit</li></ul>
+							<div class="meta"><a href="writing-tips.html">writing-tips.html</a></div></div>
+						<div class="tut"><div class="k">Templates &middot; Chapter 1</div>
+							<h4>Report, poster and grading</h4>
+							<ul><li><a href="https://www.overleaf.com/read/nkgjmyqghssh#3c4f20" target="_blank">Overleaf report template</a> (copy the project, max. 6 pages plus references)</li>
+								<li><a href="https://docs.google.com/presentation/d/1pBJuB-wazGyGHTiDNQ6msihS2cyyZDYL71VgE6o3FrE/edit" target="_blank">Poster template</a> (<a data-go="1-9">slide 9</a>)</li>
+								<li><a href="index.html#grading">Grading policy</a>: poster 10, report 45, bonuses and the ethics penalty</li>
+								<li>TAs' office hours and research areas on the <a href="index.html">course page</a> (<a data-go="5-68">slide 68</a>)</li></ul>
+							<div class="meta">Submit the report through Blackboard</div></div>
+						<div class="tut"><div class="k">Starter notebook &middot; Chapter 2 &middot; ~5 min</div>
+							<h4>A fair comparison, in code</h4>
+							<ul><li>Freeze and fingerprint a held-out test split</li><li>Compare a baseline and one change at a matched tuning budget</li>
+								<li>Seeds, a paired bootstrap interval and an exact sign test</li><li>Check a judge against gold labels; write traces and a booktabs table</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture08/lecture08_1_fair_comparison.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture08/lecture08_1_fair_comparison.ipynb">.ipynb</a> &middot; CPU, no API key</div></div>
+					</div>
+					<h3>Your first week</h3>
+					<p>The closing advice of the lecture (<a data-go="7-98">slide 98</a>), plus the rules of thumb from the project page (<a data-go="2-18">slide 18</a>):</p>
+					<ol class="steps">
+						<li><b>Form your team</b> this week, and agree on who does what; the report needs a concrete contribution statement (<a data-go="1-5">slide 5</a>).</li>
+						<li><b>Skim the <a href="final-project.html">project page</a> tonight</b> and pick two candidate briefs, or write down your own LLM-related question (<a data-go="2-16">slide 16</a>).</li>
+						<li><b>Talk to a TA</b> whose background fits your topic, with a concrete question (<a data-go="5-67">slides 67&ndash;68</a>).</li>
+						<li><b>Freeze</b> the task, a held-out split and the primary metric, and have a <b>working baseline by the end of week one</b>.</li>
+					</ol>
+					<ul class="checklist">
+						<li><b>One change</b> &mdash; test one idea at a time.</li>
+						<li><b>Matched budget</b> &mdash; your method and the baseline get the same compute, tokens or model calls.</li>
+						<li><b>Held-out split</b> &mdash; never tune on your test data.</li>
+						<li><b>Independent checker</b> &mdash; don't let the model grade its own work.</li>
+						<li><b>Seeds</b> &mdash; run more than once.</li>
+						<li><b>Replayable traces</b> &mdash; log everything so someone can check it.</li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key ideas of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Rules &amp; grading</div>
+							<a data-go="1-4">Your first mini research project<span>s4</span></a><a data-go="1-5">Teams &amp; contribution statement<span>s5</span></a>
+							<a data-go="1-6">Poster and paper deadlines<span>s6</span></a><a data-go="1-7">Poster vs. paper audiences<span>s7</span></a>
+							<a data-go="1-9">Poster template<span>s9</span></a><a data-go="1-10">The four-minute pitch<span>s10</span></a>
+							<a data-go="1-11">Start writing early<span>s11</span></a><a data-go="1-12">Presentation grading (10%)<span>s12</span></a>
+							<a data-go="1-13">Report grading (45%)<span>s13</span></a><a data-go="1-14">Bonuses &amp; ethics penalty<span>s14</span></a></div>
+						<div class="grp"><div class="h">Choosing a topic</div>
+							<a data-go="2-16">Brief or your own topic<span>s16</span></a><a data-go="2-17">Eight tracks by compute<span>s17</span></a>
+							<a data-go="2-18">Six rules of thumb<span>s18</span></a><a data-go="5-65">How to choose your topic<span>s65</span></a>
+							<a data-go="5-67">The teaching team helps<span>s67</span></a><a data-go="5-68">TAs &amp; office hours<span>s68</span></a></div>
+						<div class="grp"><div class="h">Agents &amp; training</div>
+							<a data-go="2-19">Harness at a matched budget<span>s19</span></a><a data-go="2-20">Agent workflow tools<span>s20</span></a>
+							<a data-go="2-21">Agent Skills<span>s21</span></a><a data-go="2-22">AutoSurvey &amp; auditing<span>s22</span></a>
+							<a data-go="2-23">nanoGPT speedrun<span>s23</span></a><a data-go="2-24">Data recipe of a vertical model<span>s24</span></a>
+							<a data-go="2-25">Domain models<span>s25</span></a><a data-go="2-26">Language &amp; cultural adaptation<span>s26</span></a>
+							<a data-go="2-27">Adding speech (Soundwave)<span>s27</span></a><a data-go="2-28">Ascend NPUs<span>s28</span></a></div>
+						<div class="grp"><div class="h">Interaction &amp; evaluation</div>
+							<a data-go="3-29">Fidelity and transfer, not engagement<span>s29</span></a><a data-go="3-30">LLM NPCs on campus<span>s30</span></a>
+							<a data-go="3-31">Classify, retrieve, respond<span>s31</span></a><a data-go="3-32">AI for education<span>s32</span></a>
+							<a data-go="3-33">AI for babies<span>s33</span></a><a data-go="3-34">Open tutorials<span>s34</span></a>
+							<a data-go="3-36">Benchmark = dataset + scoring rule<span>s36</span></a><a data-go="3-37">One API for many models<span>s37</span></a>
+							<a data-go="3-39">Rubric-based evaluation<span>s39</span></a><a data-go="3-40">Datasets as contributions<span>s40</span></a>
+							<a data-go="3-41">RAG with checkable citations<span>s41</span></a></div>
+						<div class="grp"><div class="h">Society, efficiency, contests, startups</div>
+							<a data-go="4-42">Matched-persona audit<span>s42</span></a><a data-go="4-43">Dialect prejudice<span>s43</span></a>
+							<a data-go="4-44">Fresh-input correctness checks<span>s44</span></a><a data-go="4-45">The comparison is the grade<span>s45</span></a>
+							<a data-go="4-46">Retention and cost<span>s46</span></a><a data-go="4-47">Mom Test &amp; unit economics<span>s47</span></a>
+							<a data-go="4-49">Product-market fit, small scale<span>s49</span></a><a data-go="4-50">Start from your own problem<span>s50</span></a></div>
+						<div class="grp"><div class="h">Ideas &amp; medicine</div>
+							<a data-go="5-52">Robot bar<span>s52</span></a><a data-go="5-53">AI seller<span>s53</span></a>
+							<a data-go="5-54">Simulated patients<span>s54</span></a><a data-go="5-56">Printable 3D from text<span>s56</span></a>
+							<a data-go="5-57">Text-to-game<span>s57</span></a><a data-go="5-58">Simulated users vs. real ones<span>s58</span></a>
+							<a data-go="5-59">Hospital deployment<span>s59</span></a><a data-go="5-60">Medical skills<span>s60</span></a>
+							<a data-go="5-62">Doctor in the loop<span>s62</span></a><a data-go="5-64">Outpatient referral<span>s64</span></a></div>
+						<div class="grp"><div class="h">Outstanding projects</div>
+							<a data-go="6-70">What makes a project good<span>s70</span></a><a data-go="6-71">Link paper, code and data<span>s71</span></a>
+							<a data-go="6-72">Expertise + AI<span>s72</span></a><a data-go="6-73">A well-explained negative result<span>s73</span></a>
+							<a data-go="6-74">An honest baseline<span>s74</span></a><a data-go="6-75">One figure tells the story<span>s75</span></a>
+							<a data-go="6-76">Evaluation protocol<span>s76</span></a><a data-go="6-77">Check your LLM judge<span>s77</span></a>
+							<a data-go="6-78">A well-organised poster<span>s78</span></a><a data-go="6-79">Reproduce and stress-test<span>s79</span></a></div>
+						<div class="grp"><div class="h">Writing</div>
+							<a data-go="7-81">AI-written papers<span>s81</span></a><a data-go="7-83">A film with no 尿点<span>s83</span></a>
+							<a data-go="7-84">Abstract to concrete<span>s84</span></a><a data-go="7-85">The overview paragraph<span>s85</span></a>
+							<a data-go="7-86">Less is more<span>s86</span></a><a data-go="7-87">Motivate the paper<span>s87</span></a>
+							<a data-go="7-88">Motivate each component<span>s88</span></a><a data-go="7-89">Don't try to sound smart<span>s89</span></a>
+							<a data-go="7-90">Be concise<span>s90</span></a><a data-go="7-91">Define new terms<span>s91</span></a>
+							<a data-go="7-92">Be clear and specific<span>s92</span></a><a data-go="7-93">Fluent logic<span>s93</span></a>
+							<a data-go="7-94">Three-line tables<span>s94</span></a><a data-go="7-95">Related work is not a shopping list<span>s95</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The Fall 2026 tracks add several things that were not there last year. Six to know before you pick a topic:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#129520;</div><h4>Skills are a project</h4>
+							<p>An Agent Skill is a folder of instructions, sometimes with scripts, that an agent loads only when it needs it. New this year: build one
+								for a real recurring task and show that it measurably helps (brief A9).</p>
+							<div class="src">Lecture: <a data-go="2-19">slide 19</a>, <a data-go="2-21">slide 21</a> · <a href="final-project.html#trackA">Track A</a></div></div>
+						<div class="trend"><div class="ic">&#128221;</div><h4>AI can write a passable paper</h4>
+							<p>A paper generated end to end by Sakana AI's AI Scientist-v2 passed peer review at an ICLR 2025 workshop (scores 6, 7, 6) &mdash;
+								reporting a negative result &mdash; and was withdrawn after review. Use AI tools, describe how, and own every claim.</p>
+							<div class="src"><a href="https://sakana.ai/ai-scientist-first-publication/">Sakana AI, Mar. 2025</a> · <a data-go="7-81">slide 81</a></div></div>
+						<div class="trend"><div class="ic">&#128203;</div><h4>Rubrics for open-ended answers</h4>
+							<p>When there is no single gold answer, experts write what a good answer must contain. HealthBench has 5,000 health conversations
+								and 48,562 rubric criteria from 262 physicians; the same rubrics can become RL rewards (brief D8).</p>
+							<div class="src"><a href="https://arxiv.org/abs/2505.08775">HealthBench (OpenAI, May 2025)</a> · <a data-go="3-39">slide 39</a></div></div>
+						<div class="trend"><div class="ic">&#9201;</div><h4>Speedruns as a research lab</h4>
+							<p>The community nanoGPT speedrun trains a 124M-parameter GPT-2-style model to 3.28 validation loss on FineWeb as fast as
+								possible on 8&times;H100. Try one architecture change at matched time and plot the curve.</p>
+							<div class="src"><a href="https://github.com/KellerJordan/modded-nanogpt">KellerJordan/modded-nanogpt</a> · <a data-go="2-23">slide 23</a></div></div>
+						<div class="trend"><div class="ic">&#127973;</div><h4>Agents at the doctor's desk</h4>
+							<p>OpenClaw-Med runs on a small local machine in the CUHK-Shenzhen hospital: it drafts a reference from the record, then suggests
+								diagnosis and treatment once results are in. The doctor stays in control at every step.</p>
+							<div class="src">Lecture: <a data-go="5-61">slide 61</a>, <a data-go="5-62">slide 62</a> · <a data-go="5-63">want to deploy something? slide 63</a></div></div>
+						<div class="trend"><div class="ic">&#127942;</div><h4>Contests and startups count</h4>
+							<p>Competitions (Track G) and startup prototypes (Track H) are formal project options &mdash; but the grade is the controlled comparison,
+								and for startups retention and cost, not the leaderboard or the pitch deck.</p>
+							<div class="src">Lecture: <a data-go="4-45">slide 45</a>, <a data-go="4-46">slide 46</a> · <a href="final-project.html#trackG">Track G</a> · <a href="final-project.html#trackH">Track H</a></div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"If you do not work on an important problem, it's unlikely you'll do important work."</p>
+							<footer>Richard Hamming, <i>You and Your Research</i> (Bell Communications Research colloquium, 1986)</footer>
+							<div class="why">Chapters 2&ndash;5: pick a question worth four weeks &mdash; and one you can actually attack.</div></blockquote>
+						<blockquote class="quote"><p>"The first principle is that you must not fool yourself &mdash; and you are the easiest person to fool."</p>
+							<footer>Richard Feynman, <i>Cargo Cult Science</i>, Caltech commencement address (1974)</footer>
+							<div class="why">Why the rules of thumb exist: matched budgets, held-out splits and independent checkers.</div></blockquote>
+						<blockquote class="quote"><p>"Never use a long word where a short one will do."</p>
+							<footer>George Orwell, <i>Politics and the English Language</i> (1946)</footer>
+							<div class="why">"Utilize" or "use"? Just say "use" (<a data-go="7-89">slide 89</a>).</div></blockquote>
+						<blockquote class="quote"><p>"一篇好的论文读起来，应该是像看一个流畅的电影，没有尿点。"</p>
+							<footer>Benyou Wang, on <a data-go="7-83">slide 83</a></footer>
+							<div class="why">A good paper reads like a smooth film: no moment where the reader can safely leave.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>The course's own <a href="final-project.html">project guide</a> and <a href="writing-tips.html">writing tips &amp; samples</a> &mdash; read these first</li>
+						<li>Vered Shwartz: <a href="https://medium.com/@vered1986/tips-for-writing-nlp-papers-9c729a2f9e1f">Tips for writing NLP papers</a> &mdash; the source of the example on <a data-go="7-85">slide 85</a></li>
+						<li>Simon Peyton Jones: <a href="https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/">How to write a great research paper</a> (talk, slides and video) &middot;
+							Richard Hamming: <a href="https://www.cs.virginia.edu/~robins/YouAndYourResearch.pdf">You and Your Research</a> (transcript)</li>
+						<li>Dror et al.: <a href="https://aclanthology.org/P18-1128/">The Hitchhiker's Guide to Testing Statistical Significance in NLP</a> (ACL 2018) &mdash; for the comparison in your report</li>
+						<li><a href="https://arxiv.org/abs/2406.10252">AutoSurvey</a> (NeurIPS 2024) &middot; <a href="https://arxiv.org/abs/2505.08775">HealthBench</a> (2025) &middot;
+							Hofmann et al.: <a href="https://www.nature.com/articles/s41586-024-07856-5">AI generates covertly racist decisions about people based on their dialect</a> (Nature, 2024)</li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture08-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

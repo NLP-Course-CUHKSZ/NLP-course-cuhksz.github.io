@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 11 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Efficiency in LLMs. The full video lecture in eleven chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 11: Efficiency in LLMs (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 11: Efficiency in LLMs</h1>
+			<p class="lead">How do we make LLMs cheaper to train and faster to serve &mdash; without losing quality? Our last regular lecture
+				follows one question, <i>where do the time and memory go?</i>, from efficient attention and Mixture of Experts through quantization,
+				LoRA and ZeRO to the KV cache, speculative decoding, FlashAttention and vLLM. Watch it in short chapters with English and Chinese
+				subtitles, follow the lecture map below, then try the ideas in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Dec. 4th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture11_Efficiency_in_LLMs.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">Where do the time and memory go &mdash; and how do we get the same quality for far less?</div>
+					<p class="map-lead">Four acts, eleven chapters. First <b>why</b> efficiency decides who can build and use LLMs; then two ways to
+						<b>change the model</b> (efficient architectures and compression); then two ways to <b>change how we run it</b>: cheaper
+						<b>training</b> and faster <b>serving</b>. Keep the four costs from <a data-go="1-2">slide 2</a> in mind &mdash; FLOPs, bytes
+						moved, bytes stored and communication &mdash; because every trick attacks one of them. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Why</b></div><div class="ac-gain">Demand grows faster than hardware</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>Why efficiency?</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>Change the model</b></div><div class="ac-gain">Cheaper attention, sparse FFNs, fewer bits, smaller students</div><div class="ac-ch"><a data-go="2"><span class="cn">2</span>Efficient attention</a><a data-go="3"><span class="cn">3</span>Mixture of Experts</a><a data-go="4"><span class="cn">4</span>Quantization</a><a data-go="5"><span class="cn">5</span>Pruning &amp; distillation</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Train it cheaper</b></div><div class="ac-gain">Train fewer parameters; split the rest across GPUs</div><div class="ac-ch"><a data-go="6"><span class="cn">6</span>LoRA &amp; PEFT</a><a data-go="7"><span class="cn">7</span>Distributed training &amp; ZeRO</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Serve it faster</b></div><div class="ac-gain">Fewer bytes per token, more tokens per pass</div><div class="ac-ch"><a data-go="8"><span class="cn">8</span>KV cache &amp; PagedAttention</a><a data-go="9"><span class="cn">9</span>Speculative decoding</a><a data-go="10"><span class="cn">10</span>FlashAttention</a><a data-go="11"><span class="cn">11</span>vLLM &amp; outlook</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Why</span><span class="act-sub">Demand grows faster than hardware</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">Why Efficiency? Scaling Laws, Costs and the Memory Gap</a></h4><p>Scaling laws reward ever more compute, model size grows far faster than GPU memory, and frontier models are expensive to use. The methods split into changes within the Transformer and changes that work on any trained network &mdash; and for LLMs, memory and communication join FLOPs as the costs that matter.</p><div class="nextq">&rarr; Where inside a Transformer is the work we could avoid?</div><div class="go"><a data-go="1-2">Four costs</a><a data-go="1-6">Scaling laws</a><a data-go="1-7">The memory gap</a><a data-go="1-11">Type I: within the Transformer</a><a data-go="1-12">Type II: beyond it</a><a data-go="1-14">Space efficiency</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">Change the model</span><span class="act-sub">Cheaper attention, sparse FFNs, fewer bits, smaller students</span></li>
+							<li><span class="dot">2</span><h4><a data-go="2">Redundancy and Efficient Attention: Sparse, GQA and MLA</a></h4><p>Trained weights are low-rank and attention heads and FFN neurons are decomposable, so there is redundancy to remove. Sparse patterns (Longformer, Big Bird) let each token attend to fewer tokens; MQA, GQA and MLA store fewer keys and values per token.</p><div class="nextq">&rarr; Attention is cheaper &mdash; what about the FFN, which holds most of the parameters?</div><div class="go"><a data-go="2-22">Parameter redundancy</a><a data-go="2-25">FFN is decomposable</a><a data-go="2-27">Longformer</a><a data-go="2-29">Big Bird</a><a data-go="2-31">MQA &amp; GQA</a><a data-go="2-32">MLA</a><a data-go="2-33">MHA &rarr; GQA &rarr; MQA &rarr; MLA</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Mixture of Experts: Routing, Experts and DeepSeekMoE</a></h4><p>A router sends each token to only a few expert FFNs: the capacity of a huge model at the compute of a small one. Top-k and hash routing, fine-grained and shared experts, load-balancing losses, DeepSeekMoE and DeepSeek-V2, and upcycling a dense model into an MoE.</p><div class="nextq">&rarr; What if the model is already trained, and simply too big?</div><div class="go"><a data-go="3-36">Each token visits a few experts</a><a data-go="3-38">Top-1 vs. top-2 routing</a><a data-go="3-40">Random hash also works</a><a data-go="3-43">Fine-grained &amp; shared experts</a><a data-go="3-45">Auxiliary loss</a><a data-go="3-47">DeepSeekMoE 16B</a><a data-go="3-49">Sparse upcycling</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Quantization: Fewer Bits per Weight</a></h4><p>Snap every weight to a small integer grid with a scale and a zero point. Outliers stretch the grid, so LLM.int8() keeps them in FP16, and GPTQ and AWQ make 4-bit work. INT8 is almost free; INT4 is the sweet spot for local models.</p><div class="nextq">&rarr; We kept every weight, just with fewer bits &mdash; do we need every weight at all?</div><div class="go"><a data-go="4-52">Scale &amp; zero point</a><a data-go="4-53">INT4 and the outlier problem</a><a data-go="4-54">LLM.int8()</a><a data-go="4-55">Mixed-precision training</a><a data-go="4-56">GPTQ, AWQ, GGUF</a><a data-go="4-57">Which method when</a></div></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Pruning and Knowledge Distillation</a></h4><p>Pruning removes weights, heads or whole layers; only structured pruning makes dense hardware faster, and the model needs to recover afterwards, as in LLM-Shearing. Distillation trains a small student on a teacher's soft labels &mdash; and for LLMs, mostly on the teacher's generated data.</p><div class="nextq">&rarr; The model is smaller &mdash; but how do we afford to train and adapt it?</div><div class="go"><a data-go="5-61">Prune and fine-tune</a><a data-go="5-62">Structured vs. unstructured</a><a data-go="5-64">LLM-Shearing</a><a data-go="5-69">Soft labels</a><a data-go="5-70">TinyBERT</a><a data-go="5-73">Data distillation</a><a data-go="5-74">Self- and cross-model distillation</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Train it cheaper</span><span class="act-sub">Train fewer parameters; split the rest across GPUs</span></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Parameter-Efficient Fine-Tuning: LoRA, Adapters, Modules</a></h4><p>Freeze the pre-trained model and learn a thin update: LoRA's B&middot;A trains about 0.4% of a 4096&times;4096 matrix and merges back with zero latency. Adapters and prefix-tuning insert parameters elsewhere, and small modules might be composed like Lego bricks.</p><div class="nextq">&rarr; What if the model itself does not fit on one GPU?</div><div class="go"><a data-go="6-77">Where to insert parameters</a><a data-go="6-80">LoRA</a><a data-go="6-81">LoRA in numbers</a><a data-go="6-83">Adapters</a><a data-go="6-85">Prefix-tuning</a><a data-go="6-92">Modular retrieval</a></div></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Distributed Training: Data and Model Parallelism, ZeRO</a></h4><p>Data parallelism copies the model and splits the data; model parallelism splits the model. Mixed-precision Adam needs 16 bytes per parameter &mdash; 112 GB for a 7B model &mdash; and ZeRO shards optimizer states, gradients and weights so memory per GPU falls with the number of GPUs.</p><div class="nextq">&rarr; Training happens once &mdash; inference runs billions of times. What makes it slow?</div><div class="go"><a data-go="7-95">Why distributed</a><a data-go="7-96">Data parallelism</a><a data-go="7-99">Model parallelism</a><a data-go="7-104">DP vs. MP</a><a data-go="7-107">16 bytes per parameter</a><a data-go="7-108">VRAM for a 7B model</a><a data-go="7-109">ZeRO stages</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Serve it faster</span><span class="act-sub">Fewer bytes per token, more tokens per pass</span></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Inference Bottlenecks, the KV Cache and PagedAttention</a></h4><p>Prefill is compute-bound, decoding is memory-bound. The KV cache grows with every token and, not the weights, limits the batch size; PagedAttention stores it in small blocks like virtual memory, cutting the waste from 60&ndash;80% to under 4%.</p><div class="nextq">&rarr; Memory is under control &mdash; but each request still makes one big pass per token.</div><div class="go"><a data-go="8-114">Prefill vs. decode</a><a data-go="8-115">Why serving is hard</a><a data-go="8-117">What is the KV cache?</a><a data-go="8-118">KV bytes per token</a><a data-go="8-119">Shrinking the cache</a><a data-go="8-120">PagedAttention</a></div></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Speculative Decoding: Draft, Verify, Stay Exact</a></h4><p>A small draft model proposes several tokens and the large model checks them all in one pass. Accept with probability min(1, q/p), otherwise resample from the normalized max(0, q&minus;p): the output distribution is exactly the big model's, typically 2&ndash;3&times; faster.</p><div class="nextq">&rarr; Fewer big passes &mdash; but where does the time go inside one pass?</div><div class="go"><a data-go="9-123">Easy vs. hard tokens</a><a data-go="9-124">Parallel verification</a><a data-go="9-125">Worked example</a><a data-go="9-126">Faster and exact</a><a data-go="9-134">The corrected distribution</a><a data-go="9-137">Measured speedups</a></div></li>
+							<li><span class="dot">10</span><h4><a data-go="10">FlashAttention: Tiling and the Online Softmax</a></h4><p>Standard attention writes the N&times;N score matrix to slow HBM and reads it back. FlashAttention computes attention tile by tile in on-chip SRAM, using a running max and sum to merge softmax blocks exactly: more FLOPs, 9&times; fewer bytes moved, 5.7&times; faster.</p><div class="nextq">&rarr; We have all the building blocks &mdash; how does a real serving engine combine them?</div><div class="go"><a data-go="10-139">The problem is memory traffic</a><a data-go="10-140">The idea in one slide</a><a data-go="10-142">Tiling</a><a data-go="10-143">Online softmax</a><a data-go="10-152">IO, not FLOPs</a><a data-go="10-154">Ascend chips</a></div></li>
+							<li><span class="dot">11</span><h4><a data-go="11">Serving with vLLM and the Road Ahead</a></h4><p>vLLM looks like an operating system: a scheduler with continuous batching, a block manager with page tables, copy-on-write sharing for parallel sampling and beam search, and preemption. The outlook: sparse and hybrid attention, low-bit formats, disaggregated serving and efficient reasoning.</p><div class="go"><a data-go="11-156">vLLM architecture</a><a data-go="11-157">Continuous batching</a><a data-go="11-160">Ragged batching</a><a data-go="11-161">Memory sharing</a><a data-go="11-163">Preemption</a><a data-go="11-165">Outlook 2026</a><a data-go="11-167">Group discussion</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture's arithmetic into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. All three run on the free CPU runtime with small models (SmolLM2-135M, GPT-2); no GPU needed.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 2 &amp; 8 &middot; ~5&ndash;10 min</div>
+							<h4>The KV cache: a memory calculator and GQA</h4>
+							<ul><li>Reproduce <a data-go="8-117">slide 117</a>: one 4K-token LLaMA-2-70B request needs 10.7 GB of KV cache with MHA, 1.34 GB with GQA</li>
+								<li>Read seven open models' configs: GQA saves 4&ndash;8&times;, DeepSeek's MLA about 57&times;</li>
+								<li>Qwen2.5-7B on an 80 GB GPU at 8K context: 137 requests fit instead of 19</li>
+								<li>Measure a real cache, time decoding with and without it, and see why sharing K/V heads <i>after</i> training breaks GPT-2</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture11/lecture11_1_kv_cache_and_gqa.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture11/lecture11_1_kv_cache_and_gqa.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapter 4 &middot; ~5&ndash;10 min</div>
+							<h4>Quantize a small model and watch its perplexity</h4>
+							<ul><li>Watch one outlier round every other INT4 weight to zero</li>
+								<li>SmolLM2-135M on WikiText-2: INT8 costs +0.4% perplexity; INT4 goes from broken (one scale per tensor) to +39% (groups of 64)</li>
+								<li>Find activation outliers above 2,000 and keep them in full precision, as LLM.int8() does</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture11/lecture11_2_quantize_a_small_model.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture11/lecture11_2_quantize_a_small_model.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 6&ndash;7 &middot; ~5&ndash;10 min</div>
+							<h4>LoRA parameter counts and training memory</h4>
+							<ul><li>LoRA rank 8 on a 4096&times;4096 matrix: 65,536 parameters, 0.39%</li>
+								<li>Redo the memory bill for a 7B model: 112 GB for full fine-tuning, ~15 GB with LoRA, ~4 GB with QLoRA (before activations)</li>
+								<li>Reproduce ZeRO's 120 / 31.4 / 16.6 / 1.9 GB per GPU</li>
+								<li>Write LoRA from scratch, train it on CPU, and merge B&middot;A back into W</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture11/lecture11_3_lora_and_training_memory.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture11/lecture11_3_lora_and_training_memory.ipynb">.ipynb</a> &middot; CPU</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Foundations</div>
+							<a data-go="1-2">Four costs: FLOPs, bytes moved, bytes stored, communication<span>s2</span></a><a data-go="1-6">Scaling laws<span>s6</span></a>
+							<a data-go="1-7">Model size vs. GPU memory<span>s7</span></a><a data-go="1-8">Model compression pipeline<span>s8</span></a>
+							<a data-go="1-11">Efficiency within the Transformer<span>s11</span></a><a data-go="1-12">Efficiency beyond the Transformer<span>s12</span></a>
+							<a data-go="1-14">Space efficiency &amp; communication<span>s14</span></a></div>
+						<div class="grp"><div class="h">Efficient attention</div>
+							<a data-go="2-19">FFN holds most parameters<span>s19</span></a><a data-go="2-22">Low-rank redundancy (PCA)<span>s22</span></a>
+							<a data-go="2-23">Decomposability<span>s23</span></a><a data-go="2-27">Sliding-window attention (Longformer)<span>s27</span></a>
+							<a data-go="2-28">Global attention<span>s28</span></a><a data-go="2-29">Random attention (Big Bird)<span>s29</span></a>
+							<a data-go="2-30">Long-short range attention<span>s30</span></a><a data-go="2-31">Multi-query &amp; grouped-query attention<span>s31</span></a>
+							<a data-go="2-32">Multi-head latent attention (MLA)<span>s32</span></a></div>
+						<div class="grp"><div class="h">Mixture of Experts</div>
+							<a data-go="3-35">Gating network<span>s35</span></a><a data-go="3-36">Sparse top-k router<span>s36</span></a>
+							<a data-go="3-37">Switch Transformer<span>s37</span></a><a data-go="3-39">Hash routing<span>s39</span></a>
+							<a data-go="3-42">MoE design choices<span>s42</span></a><a data-go="3-43">Fine-grained &amp; shared experts<span>s43</span></a>
+							<a data-go="3-45">Load-balancing (auxiliary) loss<span>s45</span></a><a data-go="3-48">DeepSeek-V2<span>s48</span></a>
+							<a data-go="3-49">Sparse upcycling<span>s49</span></a></div>
+						<div class="grp"><div class="h">Quantization</div>
+							<a data-go="4-51">Quantization error<span>s51</span></a><a data-go="4-52">Scale &amp; zero point<span>s52</span></a>
+							<a data-go="4-53">INT4 and outliers<span>s53</span></a><a data-go="4-54">LLM.int8() mixed-precision decomposition<span>s54</span></a>
+							<a data-go="4-55">FP16, BF16, FP8 &amp; loss scaling<span>s55</span></a><a data-go="4-56">GPTQ, AWQ, GGUF<span>s56</span></a>
+							<a data-go="4-57">INT8 vs. INT4 rule of thumb<span>s57</span></a></div>
+						<div class="grp"><div class="h">Pruning &amp; distillation</div>
+							<a data-go="5-60">Pruning synapses vs. neurons<span>s60</span></a><a data-go="5-61">Iterative pruning &amp; fine-tuning<span>s61</span></a>
+							<a data-go="5-62">Structured vs. unstructured pruning<span>s62</span></a><a data-go="5-63">Pruning as L0-constrained optimization<span>s63</span></a>
+							<a data-go="5-65">Targeted structured pruning<span>s65</span></a><a data-go="5-66">Dynamic batch loading<span>s66</span></a>
+							<a data-go="5-69">Soft labels, temperature, dark knowledge<span>s69</span></a><a data-go="5-70">Layer-wise distillation (TinyBERT)<span>s70</span></a>
+							<a data-go="5-72">Reverse KL (MiniLLM)<span>s72</span></a><a data-go="5-73">Data distillation<span>s73</span></a></div>
+						<div class="grp"><div class="h">Efficient training</div>
+							<a data-go="6-76">Parameter-efficient fine-tuning<span>s76</span></a><a data-go="6-78">Low-rank approximation<span>s78</span></a>
+							<a data-go="6-80">LoRA (B&middot;A, B initialised to zero)<span>s80</span></a><a data-go="6-81">Merging LoRA &amp; QLoRA<span>s81</span></a>
+							<a data-go="6-83">Adapters<span>s83</span></a><a data-go="6-85">Prefix-tuning<span>s85</span></a>
+							<a data-go="6-91">Modularity &amp; composition<span>s91</span></a><a data-go="7-96">Data parallelism &amp; all-reduce<span>s96</span></a>
+							<a data-go="7-99">Pipeline &amp; tensor parallelism<span>s99</span></a><a data-go="7-102">Pipeline bubble<span>s102</span></a>
+							<a data-go="7-107">16 bytes per parameter<span>s107</span></a><a data-go="7-110">ZeRO-1/2/3 formulas<span>s110</span></a></div>
+						<div class="grp"><div class="h">KV cache &amp; decoding</div>
+							<a data-go="8-113">Three inference bottlenecks<span>s113</span></a><a data-go="8-114">Prefill vs. decode<span>s114</span></a>
+							<a data-go="8-115">Memory fragmentation<span>s115</span></a><a data-go="8-117">KV cache<span>s117</span></a>
+							<a data-go="8-118">KV bytes per token<span>s118</span></a><a data-go="8-120">PagedAttention &amp; block table<span>s120</span></a>
+							<a data-go="9-122">Speculative decoding<span>s122</span></a><a data-go="9-130">Accept with probability q/p<span>s130</span></a>
+							<a data-go="9-134">Resample from max(0, q&minus;p)<span>s134</span></a><a data-go="9-135">Tokens per big pass<span>s135</span></a></div>
+						<div class="grp"><div class="h">Kernels &amp; serving</div>
+							<a data-go="10-139">HBM vs. SRAM<span>s139</span></a><a data-go="10-140">Tiling &amp; kernel fusion<span>s140</span></a>
+							<a data-go="10-143">Online softmax<span>s143</span></a><a data-go="10-153">IO complexity<span>s153</span></a>
+							<a data-go="11-156">vLLM scheduler &amp; block manager<span>s156</span></a><a data-go="11-157">Continuous batching<span>s157</span></a>
+							<a data-go="11-160">Ragged batching<span>s160</span></a><a data-go="11-161">Copy-on-write sharing<span>s161</span></a>
+							<a data-go="11-163">Preemption: swap or recompute<span>s163</span></a><a data-go="11-166">Hybrid efficiency (QLoRA, LongLoRA, QMoE)<span>s166</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The lecture's outlook (<a data-go="11-165">slide 165</a>) asks where the next ten-times saving will come from. Its answer: the frontier
+						is co-design &mdash; model architecture, numerics, kernels and serving systems built together. Six trends to watch:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#128269;</div><h4>Sparse attention in production</h4>
+							<p>DeepSeek-V3.2 adds a lightweight &ldquo;lightning indexer&rdquo; that scores past tokens and lets each query attend only to the
+								top-k of them (k = 2,048) &mdash; Longformer's idea (<a data-go="2-27">Chapter 2</a>), but learned.</p>
+							<div class="src">DeepSeek-V3.2 technical report, <a href="https://arxiv.org/abs/2512.02556">arXiv:2512.02556</a> (Dec 2025) · <a data-go="11-165">slide 165</a></div></div>
+						<div class="trend"><div class="ic">&#128279;</div><h4>Hybrid linear attention</h4>
+							<p>Most layers become linear-attention layers with a fixed-size state; only every fourth layer keeps a growing KV cache. Kimi Linear
+								reports up to 75% less KV cache and up to 6&times; decoding throughput at 1M tokens.</p>
+							<div class="src">Qwen3-Next (Gated DeltaNet, Sep 2025) · Kimi Linear, <a href="https://arxiv.org/abs/2510.26692">arXiv:2510.26692</a> (Oct 2025) · Nemotron-H · <a data-go="11-165">slide 165</a></div></div>
+						<div class="trend"><div class="ic">&#128290;</div><h4>Low-bit everything</h4>
+							<p>FP8 training is now standard &mdash; DeepSeek-V3 was trained largely in FP8 (<a data-go="4-55">slide 55</a>). NVFP4 on NVIDIA Blackwell stores
+								4-bit floats with one scale per block of 16 values: the group-wise quantization of Notebook 2, in hardware.</p>
+							<div class="src">NVIDIA, <a href="https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/">Introducing NVFP4</a> (2025) · <a data-go="11-165">slide 165</a> (vendor cost claims unverified)</div></div>
+						<div class="trend"><div class="ic">&#128667;</div><h4>Disaggregated serving</h4>
+							<p>Compute-bound prefill and memory-bound decode (<a data-go="8-114">slide 114</a>) now run on separate GPU pools, with the KV cache moved
+								between them over fast networks. Mooncake serves Kimi this way; llm-d brings it to Kubernetes on top of vLLM.</p>
+							<div class="src">Mooncake, <a href="https://arxiv.org/abs/2407.00079">arXiv:2407.00079</a> (FAST '25) · <a href="https://www.redhat.com/en/about/press-releases/red-hat-launches-llm-d-community-powering-distributed-gen-ai-inference-scale">llm-d</a> (Red Hat and partners, May 2025)</div></div>
+						<div class="trend"><div class="ic">&#129504;</div><h4>Efficient reasoning</h4>
+							<p>For reasoning models, thinking tokens dominate the bill. Thinking budgets, adaptive effort, multi-token prediction and speculative
+								decoding (<a data-go="9-126">Chapter 9</a>) all aim at cheaper long chains of thought.</p>
+							<div class="src">Lecture outlook, <a data-go="11-165">slide 165</a> · DeepSeek-V3 multi-token prediction as a drafter, <a data-go="9-126">slide 126</a></div></div>
+						<div class="trend"><div class="ic">&#129521;</div><h4>Stack the tricks</h4>
+							<p>The techniques are complementary. QLoRA trains LoRA adapters on a 4-bit base model, LongLoRA adds sparse attention to extend context
+								cheaply, QMoE compresses trillion-parameter MoEs to under one bit per parameter.</p>
+							<div class="src"><a data-go="11-166">Slide 166</a> · <a href="https://arxiv.org/abs/2305.14314">QLoRA</a> (2023)</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%."</p>
+							<footer>Donald Knuth, <i>Structured Programming with go to Statements</i>, ACM Computing Surveys (1974)</footer>
+							<div class="why">The lecture's method: first ask where the time and memory go, then optimize the critical part.</div></blockquote>
+						<blockquote class="quote"><p>"The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin."</p>
+							<footer>Rich Sutton, <i>The Bitter Lesson</i> (2019)</footer>
+							<div class="why">If quality is bought with compute (<a data-go="1-6">slide 6</a>), every saving buys a better model.</div></blockquote>
+						<blockquote class="quote"><p>"We argue that a missing principle is making attention algorithms IO-aware &mdash; accounting for reads and writes between levels of GPU memory."</p>
+							<footer>Tri Dao et al., <i>FlashAttention</i> (NeurIPS 2022)</footer>
+							<div class="why">Bytes moved, not FLOPs &mdash; the lesson of Chapter 10.</div></blockquote>
+						<blockquote class="quote"><p>"Many insects have a larval form that is optimized for extracting energy and nutrients from the environment and a completely different adult form that is optimized for the very different requirements of traveling and reproduction."</p>
+							<footer>Geoffrey Hinton, Oriol Vinyals and Jeff Dean, <i>Distilling the Knowledge in a Neural Network</i> (2015)</footer>
+							<div class="why">Train big, deploy small: the idea behind distillation and compression (Chapters 4&ndash;5).</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Song Han (MIT): <a href="https://hanlab.mit.edu/courses/2024-fall-65940">6.5940 TinyML and Efficient Deep Learning Computing</a> &mdash; the course this lecture draws on most (<a data-go="11-168">slide 168</a>), with slides and videos</li>
+						<li>Lilian Weng: <a href="https://lilianweng.github.io/posts/2023-01-10-inference-optimization/">Large Transformer Model Inference Optimization</a> (2023) &mdash; a single overview of quantization, pruning, distillation and sparsity</li>
+						<li>Architectures: <a href="https://arxiv.org/abs/2305.13245">GQA</a> (2023) &middot; <a href="https://arxiv.org/abs/2405.04434">DeepSeek-V2 and MLA</a> (2024) &middot; <a href="https://arxiv.org/abs/2101.03961">Switch Transformers</a> (2021) &middot; <a href="https://arxiv.org/abs/2401.06066">DeepSeekMoE</a> (2024)</li>
+						<li>Compression: <a href="https://arxiv.org/abs/2208.07339">LLM.int8()</a> &middot; <a href="https://arxiv.org/abs/2210.17323">GPTQ</a> &middot; <a href="https://arxiv.org/abs/2306.00978">AWQ</a> &middot; <a href="https://arxiv.org/abs/2310.06694">Sheared LLaMA</a> &middot; <a href="https://arxiv.org/abs/1503.02531">Distilling the Knowledge in a Neural Network</a></li>
+						<li>Training: <a href="https://arxiv.org/abs/2106.09685">LoRA</a> (2021) &middot; <a href="https://arxiv.org/abs/2305.14314">QLoRA</a> (2023) &middot; <a href="https://arxiv.org/abs/1910.02054">ZeRO</a> (2019)</li>
+						<li>Inference: <a href="https://arxiv.org/abs/2205.14135">FlashAttention</a> (2022) &middot; <a href="https://arxiv.org/abs/2309.06180">PagedAttention / vLLM</a> (2023) &middot; <a href="https://arxiv.org/abs/2211.17192">Speculative decoding</a> &middot; <a href="https://arxiv.org/abs/2302.01318">Speculative sampling</a> (2023)</li>
+						<li>Anyscale: <a href="https://www.anyscale.com/blog/continuous-batching-llm-inference">How continuous batching enables 23x throughput in LLM inference</a> (2023) &middot; code: <a href="https://github.com/vllm-project/vllm">vLLM</a>, <a href="https://github.com/Dao-AILab/flash-attention">FlashAttention</a>, <a href="https://github.com/huggingface/peft">PEFT</a>, <a href="https://github.com/deepspeedai/DeepSpeed">DeepSpeed</a></li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture11-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

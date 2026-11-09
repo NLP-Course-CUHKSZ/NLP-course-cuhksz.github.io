@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 6 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): RL for LLM Post-Training, from alignment to reasoning. The full video lecture in ten chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 6: RL for LLM Post-Training — From Alignment to Reasoning (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 6: RL for LLM Post-Training &mdash; From Alignment to Reasoning</h1>
+			<p class="lead">How did a text predictor become a helpful assistant, then a model that checks its own proofs, and now an agent?
+				One tool did most of the work: reinforcement learning, fed by rewards from people, then from verifiers, then from the world.
+				Watch the lecture in ten chapters with English and Chinese subtitles, follow the lecture map below, then try the ideas in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Oct. 30th, 2026</span>
+				<span>&#127909; <span data-auto="chapters">10</span> chapters &middot; <span data-auto="minutes">156</span> min</span>
+				<span>&#128444; <span data-auto="slides">181</span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture06_RL_for_LLM_Post-Training.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">Why does reinforcement learning, not more supervised fine-tuning, align LLMs and teach them to reason?</div>
+					<p class="map-lead">Four acts, ten chapters. Imitation gives a model the format of an assistant; <b>RL on human preferences</b> aligns
+						it. Opening the RL toolbox shows that PPO, ReMax and GRPO differ mainly in their <b>baseline</b>. With rewards that are
+						<b>checked instead of learned</b>, the same tool produces reasoning models, and next it has to teach models to <b>act</b>.
+						The algorithm barely changes; <b>the source of the reward does</b>. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Align</b></div><div class="ac-gain">From imitation to human preferences</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>How LLMs are trained</a><a data-go="2"><span class="cn">2</span>RLHF</a><a data-go="3"><span class="cn">3</span>DPO &amp; reward hacking</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>The RL toolbox</b></div><div class="ac-gain">Cheaper baselines, checkable rewards</div><div class="ac-ch"><a data-go="4"><span class="cn">4</span>PPO, REINFORCE, ReMax</a><a data-go="5"><span class="cn">5</span>GRPO, RLVR &amp; frontier</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Reason</b></div><div class="ac-gain">Long chains of thought, learned by RL</div><div class="ac-ch"><a data-go="6"><span class="cn">6</span>o1 and o3</a><a data-go="7"><span class="cn">7</span>Measuring &amp; verifying</a><a data-go="8"><span class="cn">8</span>DeepSeek-R1 &amp; SimpleRL</a><a data-go="9"><span class="cn">9</span>Self-verification</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Act</b></div><div class="ac-gain">Rewards from tools and environments</div><div class="ac-ch"><a data-go="10"><span class="cn">10</span>Beyond math &amp; agentic RL</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Align</span><span class="act-sub">From imitation to human preferences</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">How LLMs Are Trained: Pre-Training, Mid-Training and SFT</a></h4><p>Pre-training gives knowledge, mid-training sharpens what post-training will unlock, and SFT teaches the format of an assistant. But SFT sees only positive examples, copies its demonstrator, and optimizes likelihood rather than what people want.</p><div class="nextq">&rarr; Humans can compare answers more easily than write them &mdash; how do we train on comparisons?</div><div class="go"><a data-go="1-4">Three training stages</a><a data-go="1-5">Mid-training</a><a data-go="1-6">Pre-training vs. SFT</a><a data-go="1-7">Back-translation</a><a data-go="1-9">What SFT cannot do</a></div></li>
+							<li><span class="dot">2</span><h4><a data-go="2">Alignment via RLHF: From Summaries to ChatGPT</a></h4><p>Helpful, honest and harmless cannot be written as a loss. RLHF learns a reward model from pairwise comparisons with the Bradley&ndash;Terry model, then optimizes the policy with PPO and a KL leash. InstructGPT and ChatGPT scaled this recipe up.</p><div class="nextq">&rarr; Can we learn from the same preference pairs without a reward model and PPO?</div><div class="go"><a data-go="2-11">The three H's</a><a data-go="2-14">Over-refusal</a><a data-go="2-19">Policy gradient</a><a data-go="2-22">Bradley&ndash;Terry</a><a data-go="2-24">RLHF in three steps</a><a data-go="2-25">RLHF beats SFT</a><a data-go="2-26">InstructGPT</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">DPO, Biased Judges and Reward Hacking</a></h4><p>DPO turns the RLHF objective into a single classification-style loss on preference pairs. But preference labels are biased (fake references fool every judge), and RL exploits a learned reward: Goodhart's law.</p><div class="nextq">&rarr; What if the reward is checked instead of learned &mdash; and which RL algorithm should optimize it?</div><div class="go"><a data-go="3-30">DPO</a><a data-go="3-31">On- vs. off-policy</a><a data-go="3-35">Measuring judge bias</a><a data-go="3-36">Who is biased?</a><a data-go="3-37">Reward hacking</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">The RL toolbox</span><span class="act-sub">Cheaper baselines, checkable rewards</span></li>
+							<li><span class="dot">4</span><h4><a data-go="4">RL for LLMs: PPO, REINFORCE and ReMax</a></h4><p>Text generation is an RL problem with heterogeneous rewards and enormous compute. PPO's critic doubles memory; since LLM feedback is fast and deterministic, REINFORCE with a greedy-answer baseline (ReMax) suffices.</p><div class="nextq">&rarr; If sampling gets cheap, can a whole group of samples give a better baseline?</div><div class="go"><a data-go="4-41">Text as an RL problem</a><a data-go="4-42">Heterogeneous rewards</a><a data-go="4-46">PPO</a><a data-go="4-47">The price of PPO</a><a data-go="4-49">General RL vs. RL for LLMs</a><a data-go="4-52">ReMax</a><a data-go="4-55">Algorithms drive infrastructure</a></div></li>
+							<li><span class="dot">5</span><h4><a data-go="5">GRPO, RLVR and the Frontier of RL for LLMs</a></h4><p>GRPO uses the group mean as baseline, and its variants (Dr. GRPO, DAPO, GSPO, &hellip;) fix stability at scale. Verifiable rewards replace learned ones (RLVR); the frontier moves to asynchronous systems and to exploring hard prompts.</p><div class="nextq">&rarr; What happens when this tool, fed by verifiers, is applied at scale?</div><div class="go"><a data-go="5-57">ReMax &rarr; GRPO</a><a data-go="5-58">GRPO</a><a data-go="5-64">The GRPO family</a><a data-go="5-65">Map of algorithms</a><a data-go="5-67">SFT memorizes, RL generalizes</a><a data-go="5-70">RLHF vs. RLVR</a><a data-go="5-75">No gradient on hard prompts</a><a data-go="5-77">Knapsack RL</a><a data-go="5-80">Incentivize, don't teach</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Reason</span><span class="act-sub">Long chains of thought, learned by RL</span></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Large Reasoning Models: OpenAI o1 and o3</a></h4><p>Long chains of thought outline, plan, backtrack and self-evaluate. o1 improves with both train-time RL and test-time thinking; reasoning tokens make thinking cost real money; o3 thinks with images.</p><div class="nextq">&rarr; How do we measure reasoning fairly?</div><div class="go"><a data-go="6-82">Benchmarks shoot up</a><a data-go="6-85">Long CoT</a><a data-go="6-89">o1's thinking habits</a><a data-go="6-96">Train- and test-time compute</a><a data-go="6-97">Reasoning tokens</a><a data-go="6-98">Hacking reasoning tokens</a><a data-go="6-106">Thinking with images</a></div></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Measuring Reasoning and Inference-Time Verification</a></h4><p>Math, code, GPQA and Humanity's Last Exam are checkable and unsaturated. One path to reasoning: sample many solutions and verify them, guided step by step by a value model (OVM) or a process reward model.</p><div class="nextq">&rarr; Learned verifiers can be hacked &mdash; is there a simpler path?</div><div class="go"><a data-go="7-108">Why math, code, GPQA</a><a data-go="7-109">GPQA</a><a data-go="7-111">Humanity's Last Exam</a><a data-go="7-122">Repeated sampling</a><a data-go="7-125">OVM decoding</a><a data-go="7-127">Process vs. outcome</a><a data-go="7-130">Theorem proving</a></div></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Long-CoT Distillation, DeepSeek-R1 and SimpleRL</a></h4><p>Distilling long chains cannot beat the teacher. DeepSeek-R1-Zero showed that pure RL with rule-based rewards makes long reasoning and reflection emerge; SimpleRL reproduced the core result on a 7B model with 8K examples.</p><div class="nextq">&rarr; A right final answer is not a right proof &mdash; how do we reward rigorous reasoning?</div><div class="go"><a data-go="8-132">Synthesizing long CoT</a><a data-go="8-136">Length emerges in RL</a><a data-go="8-137">The aha moment</a><a data-go="8-139">R1 pipeline</a><a data-go="8-143">SimpleRL recipe</a><a data-go="8-146">RL vs. SFT on MATH</a><a data-go="8-148">Training phases</a><a data-go="8-155">Hypotheses</a></div></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Self-Verification, Olympiad Gold and ARC-AGI</a></h4><p>DeepSeekMath-V2 trains a proof verifier, checked by a meta-verifier, and rewards the generator with it, reaching open IMO gold. ARC-AGI asks a different question: can a model learn a new skill, or a new game, from a few tries?</p><div class="nextq">&rarr; What about domains with no answer key, and models that must act?</div><div class="go"><a data-go="9-159">Why self-verification</a><a data-go="9-160">Generator, verifier, meta-verifier</a><a data-go="9-161">IMO, CMO, Putnam</a><a data-go="9-162">20&times; smaller gold</a><a data-go="9-164">ARC-AGI</a><a data-go="9-166">ARC-AGI-3</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Act</span><span class="act-sub">Rewards from tools and environments</span></li>
+							<li><span class="dot">10</span><h4><a data-go="10">RL beyond Math and Toward Agentic RL</a></h4><p>Make medicine and video look like math with verifiable problems and contrastive rewards (HuatuoGPT-o1, Video-R1), or adapt to a domain with RL and a retiring teacher (OnePO). Agentic RL is hard mostly for systems reasons; the reward now comes from the world.</p><div class="go"><a data-go="10-169">HuatuoGPT-o1</a><a data-go="10-171">Video-R1 (T-GRPO)</a><a data-go="10-172">HuatuoGPT-3</a><a data-go="10-175">Agentic thinking</a><a data-go="10-177">Why agentic RL is hard</a><a data-go="10-178">The second half</a><a data-go="10-180">Why work on RL</a><a data-go="10-181">Takeaways</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. Notebooks 1 and 2 run on a CPU; notebook 3 is best on a free T4 GPU (<i>Runtime &rarr; Change runtime type</i>)
+						and falls back to a smaller setting on a CPU.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 2&ndash;3 &middot; ~5 min</div>
+							<h4>Reward models and DPO from scratch</h4>
+							<ul><li>See annotators disagree on scores but agree on comparisons; fit a Bradley&ndash;Terry reward model</li>
+								<li>Watch best-of-N hack a length-biased reward model: the proxy rises, true quality peaks and falls</li>
+								<li>Check that DPO lands exactly on the RLHF optimum &pi;<sub>ref</sub>&middot;e<sup>r/&beta;</sup></li>
+								<li>Write the DPO loss for GPT-2 and train it on eight preference pairs</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture06/lecture06_1_reward_models_and_dpo.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture06/lecture06_1_reward_models_and_dpo.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapters 4&ndash;5 &middot; ~3 min</div>
+							<h4>GRPO, baselines and pass@k on a verifiable task</h4>
+							<ul><li>Train a tiny LM on a sloppy teacher's times tables, then let RL with a verifier beat the teacher</li>
+								<li>Compute GRPO advantages and see why all-wrong groups give no gradient</li>
+								<li>Measure how much ReMax's and GRPO's baselines cut gradient noise</li>
+								<li>Compare pass@k before and after RL</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture06/lecture06_2_grpo_and_pass_at_k.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture06/lecture06_2_grpo_and_pass_at_k.ipynb">.ipynb</a> &middot; CPU, no downloads</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 6&ndash;7 &middot; ~10 min</div>
+							<h4>Test-time compute: sample, vote, verify, and &ldquo;Wait&rdquo;</h4>
+							<ul><li>Solve GSM8K problems with Qwen2.5-0.5B-Instruct and a rule-based answer checker</li>
+								<li>Plot pass@k (a perfect verifier) against majority vote as more tokens are spent</li>
+								<li>Try s1's budget forcing: append &ldquo;Wait&rdquo; and see whether answers get fixed</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture06/lecture06_3_test_time_compute.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture06/lecture06_3_test_time_compute.ipynb">.ipynb</a> &middot; T4 GPU (CPU: smaller run)</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Training pipeline</div>
+							<a data-go="1-4">Pre-, mid- and post-training<span>s4</span></a><a data-go="1-5">Mid-training<span>s5</span></a>
+							<a data-go="1-6">SFT (loss on the answer only)<span>s6</span></a><a data-go="1-7">Instruction back-translation<span>s7</span></a>
+							<a data-go="1-9">Limits of imitation<span>s9</span></a></div>
+						<div class="grp"><div class="h">RLHF</div>
+							<a data-go="2-11">Helpful, honest, harmless<span>s11</span></a><a data-go="2-14">Over-refusal<span>s14</span></a>
+							<a data-go="2-19">Policy gradient<span>s19</span></a><a data-go="2-21">Reward model<span>s21</span></a>
+							<a data-go="2-22">Bradley&ndash;Terry model<span>s22</span></a><a data-go="2-24">KL penalty to the reference<span>s24</span></a>
+							<a data-go="2-26">InstructGPT<span>s26</span></a><a data-go="2-29">ChatGPT (iterated RLHF)<span>s29</span></a></div>
+						<div class="grp"><div class="h">Preferences and their limits</div>
+							<a data-go="3-30">DPO<span>s30</span></a><a data-go="3-31">On-policy vs. off-policy<span>s31</span></a>
+							<a data-go="3-35">Attack success rate (judge bias)<span>s35</span></a><a data-go="3-36">Authority and beauty bias<span>s36</span></a>
+							<a data-go="3-37">Reward hacking, Goodhart's law<span>s37</span></a></div>
+						<div class="grp"><div class="h">RL algorithms</div>
+							<a data-go="4-41">State, action, policy for text<span>s41</span></a><a data-go="4-41">Baseline and advantage<span>s41</span></a>
+							<a data-go="4-42">Heterogeneous rewards<span>s42</span></a><a data-go="4-46">PPO clipping<span>s46</span></a>
+							<a data-go="4-46">Critic (value model)<span>s46</span></a><a data-go="4-50">REINFORCE<span>s50</span></a>
+							<a data-go="4-52">ReMax (greedy baseline)<span>s52</span></a><a data-go="4-55">verl / HybridFlow<span>s55</span></a></div>
+						<div class="grp"><div class="h">GRPO family</div>
+							<a data-go="5-57">Group baseline<span>s57</span></a><a data-go="5-58">GRPO<span>s58</span></a>
+							<a data-go="5-64">DAPO (clip-higher, dynamic sampling)<span>s64</span></a><a data-go="5-64">Dr. GRPO, GSPO, CISPO<span>s64</span></a>
+							<a data-go="5-65">Map of RL algorithms<span>s65</span></a></div>
+						<div class="grp"><div class="h">RLVR and the frontier</div>
+							<a data-go="5-67">SFT memorizes, RL generalizes<span>s67</span></a><a data-go="5-70">RL with verifiable rewards<span>s70</span></a>
+							<a data-go="5-74">Asynchronous RL<span>s74</span></a><a data-go="5-75">Zero gradient on hard prompts<span>s75</span></a>
+							<a data-go="5-77">Knapsack RL<span>s77</span></a><a data-go="5-78">Tree-structured rollouts (TreePO)<span>s78</span></a>
+							<a data-go="5-80">Incentivize, don't teach<span>s80</span></a></div>
+						<div class="grp"><div class="h">Reasoning models</div>
+							<a data-go="6-83">Chain-of-thought<span>s83</span></a><a data-go="6-85">Long CoT and self-reflection<span>s85</span></a>
+							<a data-go="6-92">Backtracking<span>s92</span></a><a data-go="6-96">Test-time compute scaling<span>s96</span></a>
+							<a data-go="6-97">Reasoning tokens<span>s97</span></a><a data-go="6-98">Budget forcing (&ldquo;Wait&rdquo;)<span>s98</span></a>
+							<a data-go="6-106">Thinking with images<span>s106</span></a></div>
+						<div class="grp"><div class="h">Evaluation and verification</div>
+							<a data-go="7-109">GPQA<span>s109</span></a><a data-go="7-111">Humanity's Last Exam<span>s111</span></a>
+							<a data-go="7-122">Repeated sampling<span>s122</span></a><a data-go="7-123">Best-of-N with a verifier<span>s123</span></a>
+							<a data-go="7-125">OVM (value-guided decoding)<span>s125</span></a><a data-go="7-127">Process vs. outcome supervision<span>s127</span></a>
+							<a data-go="7-128">OmegaPRM<span>s128</span></a><a data-go="7-130">Lean theorem proving<span>s130</span></a></div>
+						<div class="grp"><div class="h">R1 and after</div>
+							<a data-go="8-132">Stream of Search, journey learning<span>s132</span></a><a data-go="8-137">Aha moment<span>s137</span></a>
+							<a data-go="8-138">R1-Zero vs. R1<span>s138</span></a><a data-go="8-139">Cold start, rejection sampling<span>s139</span></a>
+							<a data-go="8-143">Rule-based rewards<span>s143</span></a><a data-go="8-148">Length dynamics in RL<span>s148</span></a>
+							<a data-go="9-160">Verifier and meta-verifier<span>s160</span></a><a data-go="9-164">ARC-AGI<span>s164</span></a></div>
+						<div class="grp"><div class="h">Beyond math and agents</div>
+							<a data-go="10-169">HuatuoGPT-o1<span>s169</span></a><a data-go="10-171">T-GRPO (Video-R1)<span>s171</span></a>
+							<a data-go="10-173">OnePO (retiring teacher)<span>s173</span></a><a data-go="10-175">Agentic thinking<span>s175</span></a>
+							<a data-go="10-177">Why agentic RL is hard<span>s177</span></a><a data-go="10-178">The second half of AI<span>s178</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The lecture's later chapters track what changed this year. Six trends to watch, each with the slide that covers it:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#129351;</div><h4>Olympiad gold in small open models</h4>
+							<p>DeepSeekMath-V2 was the first open model at IMO gold level. NVIDIA's Nemotron-Cascade 2, an open 30B MoE with 3B active parameters,
+								reports gold-level results at IMO 2025, IOI and the ICPC World Finals, with 20&times; fewer parameters.</p>
+							<div class="src"><a data-go="9-161">Slide 161</a> &middot; <a data-go="9-162">slide 162</a> &middot; <a href="https://arxiv.org/abs/2603.19220">arXiv:2603.19220</a> (Mar 2026)</div></div>
+						<div class="trend"><div class="ic">&#129513;</div><h4>ARC-AGI-2 fell in eight months</h4>
+							<p>From 24% (the Kaggle winner, Nov 2025) to 54% (GPT-5.2 Pro, Feb 2026) to over 90% for frontier models at maximum reasoning effort
+								(Jul 2026), past the 85% bar. Cost per task is now the open question.</p>
+							<div class="src"><a data-go="9-165">Slide 165</a> &middot; ARC Prize verified results</div></div>
+						<div class="trend"><div class="ic">&#127918;</div><h4>ARC-AGI-3: act, don't answer</h4>
+							<p>135 interactive games with no instructions, scored on action efficiency against humans. Frontier models scored under 1% at launch
+								(Mar 2026) and about 30% verified by July. The harness matters as much as the model.</p>
+							<div class="src"><a data-go="9-166">Slide 166</a> &middot; arcprize.org</div></div>
+						<div class="trend"><div class="ic">&#9203;</div><h4>Reasoning is bought with tokens, and now metered</h4>
+							<p>Some 2026 models spend most of their output on reasoning. Frontier APIs hide raw chains of thought, and leaderboards report cost
+								and tokens per task, so cheap catch-up by copying traces is getting harder.</p>
+							<div class="src"><a data-go="6-98">Slide 98</a> &middot; <a data-go="6-99">slide 99</a></div></div>
+						<div class="trend"><div class="ic">&#9881;&#65039;</div><h4>Agentic RL is a systems problem</h4>
+							<p>Rollouts with hundreds of tool calls and long tails push training to asynchronous pipelines, thousands of sandboxes, and fixes for
+								train&ndash;inference mismatch. The focus moves from reasoning thinking to agentic thinking.</p>
+							<div class="src"><a data-go="5-74">Slide 74</a> &middot; <a data-go="10-175">slide 175</a> &middot; <a data-go="10-177">slide 177</a></div></div>
+						<div class="trend"><div class="ic">&#129658;</div><h4>Domain adaptation with RL alone</h4>
+							<p>OnePO adapts a base model to medicine in one stage of RL with a &ldquo;retiring&rdquo; teacher: 67.2 on HealthBench versus 64.5 for
+								SFT + RL on the same 20K samples. The released HuatuoGPT-3-27B reaches 70.1.</p>
+							<div class="src"><a data-go="10-172">Slide 172</a> &middot; <a data-go="10-173">slide 173</a> (our group's work)</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"When a measure becomes a target, it ceases to be a good measure."</p>
+							<footer>Goodhart's law, in Marilyn Strathern's wording (1997), quoted on <a data-go="3-37">slide 37</a></footer>
+							<div class="why">Why a learned reward model gets hacked once RL optimizes against it.</div></blockquote>
+						<blockquote class="quote"><p>"Our large-scale reinforcement learning algorithm teaches the model how to think productively using its chain of thought in a highly data-efficient training process."</p>
+							<footer>OpenAI, <a href="https://openai.com/index/learning-to-reason-with-llms/">Learning to Reason with LLMs</a> (2024), on <a data-go="6-100">slide 100</a></footer>
+							<div class="why">The o1 recipe in one sentence: RL, chain of thought, data efficiency.</div></blockquote>
+						<blockquote class="quote"><p>"Rather than explicitly teaching the model on how to solve a problem, we simply provide it with the right incentives, and it autonomously develops advanced problem-solving strategies."</p>
+							<footer>DeepSeek-AI, <a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> (2025), on the &ldquo;aha moment&rdquo;</footer>
+							<div class="why">&ldquo;Incentivize, don't teach&rdquo; (<a data-go="5-80">slide 80</a>), in the authors' own words.</div></blockquote>
+						<blockquote class="quote"><p>"The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin."</p>
+							<footer>Rich Sutton, <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a> (2019)</footer>
+							<div class="why">Why RLVR, whose signal scales with compute rather than labelling, took over.</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Nathan Lambert: <a href="https://rlhfbook.com/">Reinforcement Learning from Human Feedback</a> (free online book) &mdash; the best single companion to Chapters 2&ndash;5</li>
+						<li><a href="https://arxiv.org/abs/2009.01325">Learning to Summarize from Human Feedback</a> (2020) &middot; <a href="https://arxiv.org/abs/2203.02155">InstructGPT</a> (2022) &middot; <a href="https://arxiv.org/abs/2305.18290">DPO</a> (2023)</li>
+						<li><a href="https://arxiv.org/abs/1707.06347">PPO</a> &middot; <a href="https://arxiv.org/abs/2310.10505">ReMax</a> &middot; <a href="https://arxiv.org/abs/2402.03300">DeepSeekMath (GRPO)</a> &middot; <a href="https://arxiv.org/abs/2503.14476">DAPO</a></li>
+						<li><a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a> &middot; <a href="https://arxiv.org/abs/2503.18892">SimpleRL-Zoo</a> &middot; <a href="https://arxiv.org/abs/2511.22570">DeepSeekMath-V2</a> &middot; <a href="https://arxiv.org/abs/2501.17161">SFT Memorizes, RL Generalizes</a></li>
+						<li>From our group: <a href="https://arxiv.org/abs/2402.10669">Humans or LLMs as the Judge?</a> (EMNLP 2024) &middot; <a href="https://arxiv.org/abs/2311.09724">OVM</a> (NAACL Findings 2024)</li>
+						<li>Lilian Weng: <a href="https://lilianweng.github.io/posts/2024-11-28-reward-hacking/">Reward Hacking in Reinforcement Learning</a> &middot; Sasha Rush: <a href="https://srush.github.io/awesome-o1/">awesome-o1</a> reading list</li>
+						<li>Code: <a href="https://github.com/volcengine/verl">verl</a> &middot; <a href="https://github.com/huggingface/trl">TRL</a> &middot; <a href="https://github.com/OpenRLHF/OpenRLHF">OpenRLHF</a> &middot; <a href="https://github.com/hkust-nlp/simpleRL-reason">SimpleRL</a></li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture06-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

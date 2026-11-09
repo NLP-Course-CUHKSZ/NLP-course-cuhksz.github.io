@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 1 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Introduction to NLP. The full video lecture in nine chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 1: Introduction to NLP (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 1: Introduction to NLP</h1>
+			<p class="lead">What is natural language processing, and how did one simple idea &mdash; predicting the next word &mdash; take us from
+				hand-built pipelines to large language models and agents? The first lecture also explains how this course works and why the final
+				project is its heart. Watch it in short chapters with English and Chinese subtitles, follow the lecture map below, then try the ideas in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Sep. 11th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture01_Introduction.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">What is NLP &mdash; and how did predicting the next word turn into large language models and agents?</div>
+					<p class="map-lead">Five acts, nine chapters. First <b>who</b> teaches the course and <b>how</b> it runs, then <b>your project</b>,
+						the part that carries most of the grade. Then the content: what NLP <b>is</b> and how it evolved, the one idea behind
+						<b>LLMs</b>, and finally what a university team <b>builds</b> with it and where the research is heading.
+						Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Who &amp; how</b></div><div class="ac-gain">Meet the team; learn how the course runs and is graded</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>Instructor &amp; team</a><a data-go="2"><span class="cn">2</span>Logistics &amp; grading</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>Your project</b></div><div class="ac-gain">Plan the assignments and a final project worth 55%</div><div class="ac-ch"><a data-go="3"><span class="cn">3</span>Assignments &amp; project</a><a data-go="4"><span class="cn">4</span>Ideas &amp; success</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>What NLP is</b></div><div class="ac-gain">The tasks, and how the field got here</div><div class="ac-ch"><a data-go="5"><span class="cn">5</span>What is NLP?</a><a data-go="6"><span class="cn">6</span>A brief history</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>LLMs</b></div><div class="ac-gain">Next-word prediction, scaled up, then put to work as agents</div><div class="ac-ch"><a data-go="7"><span class="cn">7</span>Language models to agents</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Build &amp; next</b></div><div class="ac-gain">What a research group builds, and where it is heading</div><div class="ac-ch"><a data-go="8"><span class="cn">8</span>Research showcase</a><a data-go="9"><span class="cn">9</span>RSI &amp; your views</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Who &amp; how</span><span class="act-sub">Meet the team; learn how the course runs and is graded</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">Welcome: Your Instructor and the Research Team</a></h4><p>Benyou Wang's path through linguistics, industry and a PhD in Padua, the group's research on LLM-based agents, and its open-source philosophy: release models, data and code on Hugging Face and GitHub.</p><div class="nextq">&rarr; How is the course itself organized?</div><div class="go"><a data-go="1-3">Research: parts of an agent</a><a data-go="1-5">Academia or industry?</a><a data-go="1-7">Hugging Face ranking</a><a data-go="1-8">Be open for AI</a><a data-go="1-10">Join as an RA</a></div></li>
+							<li><span class="dot">2</span><h4><a data-go="2">How the Course Works: Logistics, Structure and Grading</a></h4><p>Staff, time and place, the website and WeChat group, the prerequisites of an advanced graduate course, the arc from word vectors to agents, and a grade that is 40% assignments, 55% final project and 5% participation.</p><div class="nextq">&rarr; What exactly will you build?</div><div class="go"><a data-go="2-12">Logistics</a><a data-go="2-15">An advanced graduate course</a><a data-go="2-16">Course structure</a><a data-go="2-19">Final projects are all you need</a><a data-go="2-21">Grading</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">Your project</span><span class="act-sub">Plan the assignments and a final project worth 55%</span></li>
+							<li><span class="dot">3</span><h4><a data-go="3">Three Assignments and the Final Project</a></h4><p>Word vectors, SFT and RLHF, then prompting and agents through APIs. The final project: teams of 1&ndash;3, a poster and a paper of at most six pages, released on arXiv, GitHub and Hugging Face, and perhaps submitted to a conference.</p><div class="nextq">&rarr; Where does a good project idea come from?</div><div class="go"><a data-go="3-22">A1: word vectors</a><a data-go="3-23">A2: SFT and RLHF</a><a data-go="3-24">A3: prompts and agents</a><a data-go="3-31">Typical projects</a><a data-go="3-32">Make it public</a><a data-go="3-35">Assessment</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">Finding Good Ideas and Succeeding in This Course</a></h4><p>Ideas come from the literature and from you: your major, hobbies, data and users, as in the student startups 薯塔AI (FriesAI) and TennSync. Then the course design, what it does and does not cover, and how not to fail.</p><div class="nextq">&rarr; Now the content: what is NLP?</div><div class="go"><a data-go="4-38">Ideas from papers</a><a data-go="4-39">Ideas from you</a><a data-go="4-40">FriesAI</a><a data-go="4-43">Learning objectives</a><a data-go="4-51">How not to fail</a><a data-go="4-52">How to succeed</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">What NLP is</span><span class="act-sub">The tasks, and how the field got here</span></li>
+							<li><span class="dot">5</span><h4><a data-go="5">What Is NLP? Understanding, Generation and Core Tasks</a></h4><p>NLP sits between computational linguistics and machine learning; natural language is ambiguous where code is not; NLP = NLU + NLG. The classic tasks, from translation to question answering, show why keyword matching is not enough.</p><div class="nextq">&rarr; How were such systems built, and what replaced them?</div><div class="go"><a data-go="5-55">Applications and core technologies</a><a data-go="5-57">Natural vs. formal language</a><a data-go="5-58">NLP = NLU + NLG</a><a data-go="5-59">Beyond keywords</a><a data-go="5-64">The QA ladder</a><a data-go="5-67">Much broader</a></div></li>
+							<li><span class="dot">6</span><h4><a data-go="6">From Pipelines to Transformers: A Brief History of NLP</a></h4><p>Stacks of separate components whose errors add up, then bag-of-words to GPT-4, and rules &rarr; statistics &rarr; deep learning &rarr; Transformers. And how close are today's assistants to Samantha in the film <i>Her</i>?</p><div class="nextq">&rarr; What single idea got us from old NLP to LLMs?</div><div class="go"><a data-go="6-68">The classic pipeline</a><a data-go="6-69">Timeline</a><a data-go="6-70">Four eras</a><a data-go="6-71">Where are we now?</a><a data-go="6-74">Body of Her</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">LLMs</span><span class="act-sub">Next-word prediction, scaled up, then put to work as agents</span></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Language Models, LLMs and the Step to Agents</a></h4><p>A language model scores sequences or predicts the next word; neural networks compute that probability, and scalable architecture, objective and data made it large. LLMs then become agents that act on phones, in games and in robots.</p><div class="nextq">&rarr; What can a university team actually build with this?</div><div class="go"><a data-go="7-76">Seventy years of ideas</a><a data-go="7-80">The key formula</a><a data-go="7-82">Chain rule</a><a data-go="7-83">Three architectures</a><a data-go="7-85">Three scalables</a><a data-go="7-87">Training tokens</a><a data-go="7-90">Mobile agent</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Build &amp; next</span><span class="act-sub">What a research group builds, and where it is heading</span></li>
+							<li><span class="dot">8</span><h4><a data-go="8">Research Showcase: Medical, Multilingual and Math LLMs</a></h4><p>HuatuoGPT and Apollo bring medical LLMs to hospitals and to 50 languages, AceGPT aligns an LLM with Arabic culture, and small models fine-tuned for math compete with GPT-4 on GSM8K. Agents simulate a stock market in TwinMarket.</p><div class="nextq">&rarr; Where is this research heading?</div><div class="go"><a data-go="8-94">HuatuoGPT</a><a data-go="8-96">A clean exam test</a><a data-go="8-97">Apollo</a><a data-go="8-98">AceGPT</a><a data-go="8-104">GSM8K</a><a data-go="8-106">TwinMarket</a></div></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Recursive Self-Improvement, Oversight and Your Views</a></h4><p>Recursive self-improvement in messy real-world environments, and the challenge it raises: oversight that scales with capability. Four class surveys on AI and jobs, and a summary of the whole lecture.</p><div class="go"><a data-go="9-111">Our research direction</a><a data-go="9-113">RSI</a><a data-go="9-114">Scalable oversight</a><a data-go="9-118">Intelligence law</a><a data-go="9-121">Summary</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>.
+						Each ends with exercises. All three run on a free CPU runtime; a T4 GPU only makes Notebook 3 faster.</p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 5&ndash;6 &middot; ~2 min</div>
+							<h4>The classic NLP pipeline</h4>
+							<ul><li>Watch keyword search match Ginger the dog to a spice</li><li>Tag, parse and find entities with spaCy</li>
+								<li>Build a rule-based slot filler, and see <i>"there"</i> and typos break it</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture01/lecture01_1_classic_nlp_pipeline.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture01/lecture01_1_classic_nlp_pipeline.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapter 7 &middot; ~3 min</div>
+							<h4>What is a language model?</h4>
+							<ul><li>Build a bigram model from counts and see it give zero to a good sentence</li><li>Score the chimpanzee's typing vs. <i>"ChatGPT is all you need"</i> with GPT-2</li>
+								<li>Multiply out the chain rule, and write the generation loop yourself</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture01/lecture01_2_what_is_a_language_model.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture01/lecture01_2_what_is_a_language_model.ipynb">.ipynb</a> &middot; CPU</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 5 &amp; 7 &middot; ~5&ndash;10 min</div>
+							<h4>One model, many tasks</h4>
+							<ul><li>Keyword lexicon vs. a 0.5B LLM on sarcasm and negation</li><li>Translate, classify, answer and extract slots with one prompt each</li>
+								<li>See that every answer is still a next-token distribution</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture01/lecture01_3_one_model_many_tasks.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture01/lecture01_3_one_model_many_tasks.ipynb">.ipynb</a> &middot; CPU (T4 GPU optional)</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">The course</div>
+							<a data-go="2-16">Course structure<span>s16</span></a><a data-go="2-21">Components and grading<span>s21</span></a>
+							<a data-go="3-22">CBOW and skip-gram<span>s22</span></a><a data-go="3-23">SFT and RLHF (Assignment 2)<span>s23</span></a>
+							<a data-go="3-24">Multi-agent setup (Assignment 3)<span>s24</span></a><a data-go="3-25">Research poster<span>s25</span></a>
+							<a data-go="3-33">arXiv + Hugging Face + GitHub<span>s33</span></a><a data-go="3-36">Conference deadlines<span>s36</span></a></div>
+						<div class="grp"><div class="h">What NLP is</div>
+							<a data-go="5-55">Applications vs. core technologies<span>s55</span></a><a data-go="5-56">NLP (definition)<span>s56</span></a>
+							<a data-go="5-57">Natural vs. formal language<span>s57</span></a><a data-go="5-57">Ambiguity<span>s57</span></a>
+							<a data-go="5-58">NLU and NLG<span>s58</span></a><a data-go="5-59">Keyword matching<span>s59</span></a></div>
+						<div class="grp"><div class="h">Classic tasks</div>
+							<a data-go="5-60">Machine translation<span>s60</span></a><a data-go="5-61">Dialog systems<span>s61</span></a>
+							<a data-go="5-62">Sentiment analysis<span>s62</span></a><a data-go="5-63">Text classification<span>s63</span></a>
+							<a data-go="5-64">Question answering<span>s64</span></a><a data-go="5-66">Digital personal assistants<span>s66</span></a>
+							<a data-go="5-67">Language as a universal interface<span>s67</span></a></div>
+						<div class="grp"><div class="h">History</div>
+							<a data-go="6-68">NLP pipeline<span>s68</span></a><a data-go="6-68">Coreference<span>s68</span></a>
+							<a data-go="6-69">Bag-of-words and TF-IDF<span>s69</span></a><a data-go="6-70">Rules &rarr; statistics &rarr; deep learning &rarr; Transformers<span>s70</span></a>
+							<a data-go="6-71"><i>Her</i> and today's assistants<span>s71</span></a></div>
+						<div class="grp"><div class="h">Language modeling</div>
+							<a data-go="7-76">n-gram model<span>s76</span></a><a data-go="7-76">Distributional hypothesis<span>s76</span></a>
+							<a data-go="7-77">Language model (definition)<span>s77</span></a><a data-go="7-79">Conditional language model<span>s79</span></a>
+							<a data-go="7-80">Next-word probability<span>s80</span></a><a data-go="7-81">Neural language model<span>s81</span></a>
+							<a data-go="7-82">Chain rule<span>s82</span></a><a data-go="7-83">Decoder, encoder, encoder-decoder<span>s83</span></a></div>
+						<div class="grp"><div class="h">Large language models</div>
+							<a data-go="7-84">PLM vs. LLM<span>s84</span></a><a data-go="7-85">Scalable architecture, objective, data<span>s85</span></a>
+							<a data-go="7-85">Predictable scaling<span>s85</span></a><a data-go="7-86">Training compute (FLOPs)<span>s86</span></a>
+							<a data-go="7-87">Training tokens<span>s87</span></a><a data-go="7-88">In-context learning<span>s88</span></a></div>
+						<div class="grp"><div class="h">Agents</div>
+							<a data-go="7-89">From LLMs to agents<span>s89</span></a><a data-go="7-90">Mobile agent<span>s90</span></a>
+							<a data-go="7-91">Game agent<span>s91</span></a><a data-go="7-92">Embodied AI<span>s92</span></a>
+							<a data-go="8-106">Multi-agent market simulation<span>s106</span></a></div>
+						<div class="grp"><div class="h">Research examples</div>
+							<a data-go="8-94">HuatuoGPT<span>s94</span></a><a data-go="8-96">Contamination-free evaluation<span>s96</span></a>
+							<a data-go="8-97">Apollo (multilingual medical)<span>s97</span></a><a data-go="8-98">AceGPT (cultural alignment)<span>s98</span></a>
+							<a data-go="8-100">Multimodal LLMs<span>s100</span></a><a data-go="8-103">ORLM (optimization modeling)<span>s103</span></a>
+							<a data-go="9-113">Recursive self-improvement<span>s113</span></a><a data-go="9-114">Scalable oversight<span>s114</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>Even an introduction moves with the field. Six trends to watch, each tied to a slide of this year's lecture:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#128295;</div><h4>From models to harnesses</h4>
+							<p>The course now has a lecture on LLM agents and <b>harness engineering</b>: building the system of tools, checks and feedback loops around a model (<a data-go="2-16">slide 16</a>).</p>
+							<div class="src">OpenAI, <a href="https://openai.com/index/harness-engineering/">Harness engineering: leveraging Codex in an agent-first world</a> (Feb 2026)</div></div>
+						<div class="trend"><div class="ic">&#9201;</div><h4>Measuring AI by task length</h4>
+							<p>Slide 118 asks how long a task AI can finish. METR measured it: the length of tasks frontier models complete with 50% success has doubled about every seven months since 2019 (<a data-go="9-118">slide 118</a>).</p>
+							<div class="src">Kwa, West et al., <a href="https://arxiv.org/abs/2503.14499">Measuring AI Ability to Complete Long Tasks</a> (METR, Mar 2025)</div></div>
+						<div class="trend"><div class="ic">&#128218;</div><h4>Tens of trillions of tokens</h4>
+							<p>A 13-year-old has heard fewer than 100 million words; Qwen3 was pre-trained on 36 trillion tokens in 119 languages and dialects (<a data-go="7-87">slide 87</a>).</p>
+							<div class="src"><a href="https://arxiv.org/abs/2505.09388">Qwen3 Technical Report</a> (May 2025)</div></div>
+						<div class="trend"><div class="ic">&#128260;</div><h4>Recursive self-improvement, in the open</h4>
+							<p>AI that helps build better AI is the group's research direction (<a data-go="9-111">slide 111</a>), and in 2026 it got a dedicated workshop at ICLR.</p>
+							<div class="src"><a href="https://recursive-workshop.github.io/">ICLR 2026 Workshop on AI with Recursive Self-Improvement</a> (Apr 2026, Rio de Janeiro)</div></div>
+						<div class="trend"><div class="ic">&#128737;</div><h4>Oversight must scale too</h4>
+							<p>As capability grows, human supervision stays flat. The open problem is oversight where AI helps generate feedback and monitor, so supervision grows with the model (<a data-go="9-114">slide 114</a>).</p>
+							<div class="src">The lecture, Chapter 9</div></div>
+						<div class="trend"><div class="ic">&#127942;</div><h4>Projects that ship</h4>
+							<p>New this year, a final project can be a competition entry with a technical report. Strong proposals may get compute for a 10B+ model, and the goal is 100+ GitHub stars (<a data-go="3-31">slide 31</a>, <a data-go="3-32">slide 32</a>).</p>
+							<div class="src">The lecture, Chapter 3</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"You shall know a word by the company it keeps!"</p>
+							<footer>J. R. Firth, <i>A Synopsis of Linguistic Theory, 1930&ndash;1955</i> (1957)</footer>
+							<div class="why">The distributional hypothesis behind word2vec and GPT (<a data-go="7-76">slide 76</a>), and Assignment 1.</div></blockquote>
+						<blockquote class="quote"><p>"The fundamental problem of communication is that of reproducing at one point either exactly or approximately a message selected at another point."</p>
+							<footer>Claude Shannon, <i>A Mathematical Theory of Communication</i> (1948)</footer>
+							<div class="why">The 1948 paper where n-gram models of English begin, the first entry on the timeline of Chapter 7.</div></blockquote>
+						<blockquote class="quote"><p>"I propose to consider the question, 'Can machines think?'"</p>
+							<footer>Alan Turing, <i>Computing Machinery and Intelligence</i>, Mind (1950)</footer>
+							<div class="why">Turing's test is a conversation in natural language; the surveys in Chapter 9 ask what machines can do today.</div></blockquote>
+						<blockquote class="quote"><p>"The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin."</p>
+							<footer>Rich Sutton, <a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a> (2019)</footer>
+							<div class="why">Why scalable objectives and compute (Chapter 7) replaced hand-built pipelines (Chapter 6).</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Dan Jurafsky and James H. Martin: <a href="https://web.stanford.edu/~jurafsky/slp3/">Speech and Language Processing</a> (3rd ed. draft) &mdash; the standard textbook, free online; its n-gram chapter goes with Chapter 7</li>
+						<li>The course's recommended reading: <a href="https://huggingface.co/learn/nlp-course/chapter1/1">Hugging Face NLP Course</a> &middot; <a href="https://github.com/mlabonne/llm-course">LLM Course: roadmaps and Colab notebooks</a></li>
+						<li><a href="https://arxiv.org/abs/2108.07258">On the Opportunities and Risks of Foundation Models</a> (2021) &middot; <a href="https://arxiv.org/abs/2303.12712">Sparks of Artificial General Intelligence: Early experiments with GPT-4</a> (2023)</li>
+						<li>The milestones of slides 69&ndash;84: <a href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf">A Neural Probabilistic Language Model</a> (2003) &middot; <a href="https://arxiv.org/abs/1301.3781">word2vec</a> (2013) &middot; <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> (2017) &middot; <a href="https://arxiv.org/abs/2005.14165">GPT-3: Language Models are Few-Shot Learners</a> (2020)</li>
+						<li>Andrej Karpathy: <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> &mdash; one of the small GPT repos the lecture suggests you train in your first month (<a data-go="4-46">slide 46</a>)</li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture01-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>

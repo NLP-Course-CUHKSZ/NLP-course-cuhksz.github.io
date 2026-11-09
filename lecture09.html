@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Lecture 9 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Medical LLMs, Towards Generalist Medical AI. The full video lecture in eleven chapters with bilingual subtitles and a synced transcript, Colab notebooks, a lecture map, a concept index, and the 2026 trends.">
+	<title>Lecture 9: Medical LLMs — Towards Generalist Medical AI (video lecture) | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/lecture-video.css">
+</head>
+
+<body class="wide">
+
+	<!-- ================================================================== HERO + PLAYER -->
+	<div class="hero hero-v">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; Lectures</div>
+			<h1>Lecture 9: Medical LLMs &mdash; Towards Generalist Medical AI</h1>
+			<p class="lead">What happens when everything from pre-training to agents meets medicine, where the data are private, the stakes are high and
+				&ldquo;good on the benchmark&rdquo; is not good enough? Follow the story of HuatuoGPT, the road to generalist medical AI, and why the next
+				leap may come from environments. Watch the lecture in short chapters with English and Chinese subtitles, follow the lecture map below,
+				then try the ideas in Colab.</p>
+			<div class="badge-row">
+				<span>&#128197; Nov. 20th, 2026</span>
+				<span>&#127909; <span data-auto="chapters"></span> chapters &middot; <span data-auto="minutes"></span> min</span>
+				<span>&#128444; <span data-auto="slides"></span> slides</span>
+				<span>&#128172; EN + 中文 subtitles</span>
+				<a href="#map">&#129517; Lecture map</a>
+				<a href="#tutorials">&#128187; Colab notebooks</a>
+				<a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf">&#11015; Slides (PDF)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container theater" id="watch">
+		<div class="theater-grid">
+			<div class="theater-main">
+				<div class="stage" id="stage">
+					<video id="video" controls preload="metadata" playsinline></video>
+					<div class="upnext" id="upNext" aria-live="polite"></div>
+				</div>
+				<div class="now-bar">
+					<div class="where">
+						<div class="p" id="nowPart"></div>
+						<div class="s" id="nowSlide"></div>
+					</div>
+					<div class="ctrl">
+						<button class="btn btn-default btn-sm" id="prevSlide" title="Previous slide (Shift + &larr;)">&larr; Slide</button>
+						<button class="btn btn-default btn-sm" id="nextSlide" title="Next slide (Shift + &rarr;)">Slide &rarr;</button>
+						<button class="btn btn-default btn-sm on" data-rate="1">1&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.25">1.25&times;</button>
+						<button class="btn btn-default btn-sm" data-rate="1.5">1.5&times;</button>
+					</div>
+				</div>
+			</div>
+			<aside class="chapters" aria-label="Chapters">
+				<div class="ch-in">
+					<div class="ch-head"><b>Chapters</b><span>click a chapter or a slide to jump</span></div>
+					<div class="ch-list" id="chList"></div>
+				</div>
+			</aside>
+		</div>
+		<details class="fold" id="transcript-sec">
+			<summary>Transcript <span class="muted">follows the video &middot; click a sentence to jump &middot; <b>Shift + &larr;/&rarr;</b> jumps between slides</span></summary>
+			<div class="inner">
+				<p><span class="seg"><button data-lang="both" class="on">EN + 中文</button><button data-lang="en">EN</button><button data-lang="zh">中文</button></span></p>
+				<div class="transcript" id="transcript"></div>
+			</div>
+		</details>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<!-- ========================================================== TOC -->
+			<div class="col-lg-2 col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">Video chapters</div>
+					<div id="tocParts"></div>
+					<div class="toc-title" style="margin-top:14px">On this page</div>
+					<a href="#map">1&nbsp; The lecture map</a>
+					<a href="#tutorials">2&nbsp; Try it in Colab</a>
+					<a href="#index">3&nbsp; Concept index</a>
+					<a href="#trends">4&nbsp; What's new in 2026</a>
+					<a href="#quotes">5&nbsp; Quotes &amp; reading</a>
+					<a href="#about">6&nbsp; About this video</a>
+				</nav>
+			</div>
+
+			<div class="col-lg-10 col-md-9">
+				<!-- ====================================================== 1 MAP -->
+				<section id="map" class="reveal">
+					<h2 class="sec"><span class="num">1</span>The lecture map</h2>
+					<div class="question">How do we get from a chatbot that talks like a doctor to a generalist medical AI that people can actually trust?</div>
+					<p class="map-lead">Five acts, eleven chapters. First <b>why</b> medicine is worth it, then the <b>HuatuoGPT story</b> of data, evaluation
+						and knowledge, then the <b>capabilities</b> a generalist needs (perception, reasoning, generation, languages) and what blocks them,
+						then the claim that the next leap comes from <b>environments</b> &mdash; simulated patients, hospitals and cells &mdash; and finally
+						what is <b>deployed</b> today and where it goes next. The thesis (<a data-go="1-3">slide 3</a>): generalist medical AI is the goal,
+						trustworthy medical AI is the way, environments are the engine. Click a chapter to watch it.</p>
+					<div class="acts">
+						<div class="act-card"><div class="ac-h"><span class="act-n">I</span><b>Why</b></div><div class="ac-gain">Why a domain, why medicine, why now</div><div class="ac-ch"><a data-go="1"><span class="cn">1</span>Why medical AI?</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">II</span><b>A first model</b></div><div class="ac-gain">Build it, test it, then fix what the tests reveal</div><div class="ac-ch"><a data-go="2"><span class="cn">2</span>HuatuoGPT</a><a data-go="3"><span class="cn">3</span>Evaluation</a><a data-go="4"><span class="cn">4</span>HuatuoGPT-II &amp; GMAI</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">III</span><b>Capabilities</b></div><div class="ac-gain">See, reason, create, speak every language</div><div class="ac-ch"><a data-go="5"><span class="cn">5</span>Perception</a><a data-go="6"><span class="cn">6</span>Reasoning &amp; generation</a><a data-go="7"><span class="cn">7</span>Languages &amp; challenges</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">IV</span><b>Environments</b></div><div class="ac-gain">Where medical AI can act, fail safely and learn</div><div class="ac-ch"><a data-go="8"><span class="cn">8</span>Patients &amp; hospitals</a><a data-go="9"><span class="cn">9</span>Cells, evidence &amp; HuatuoGPT-III</a></div></div>
+						<div class="act-card"><div class="ac-h"><span class="act-n">V</span><b>Practice</b></div><div class="ac-gain">What is deployed today, and what comes next</div><div class="ac-ch"><a data-go="10"><span class="cn">10</span>Applications</a><a data-go="11"><span class="cn">11</span>Outlook</a></div></div>
+					</div>
+					<details class="fold">
+						<summary>Chapter by chapter <span class="muted">what each chapter covers, and the question it leaves for the next</span></summary>
+						<div class="inner">
+						<ol class="story">
+							<li class="act"><span class="act-n">I</span><span class="act-name">Why</span><span class="act-sub">Why a domain, why medicine, why now</span></li>
+							<li><span class="dot">1</span><h4><a data-go="1">Why Medical AI? Domains, Giants and Timing</a></h4><p>A focused domain is a cheaper sandbox for the big AGI questions. Medicine helps everyone, is hard enough, attracts funding and serves the public good &mdash; and with aging populations, stronger models and real adoption, the gap is no longer exam scores but trust and workflow.</p><div class="nextq">&rarr; So how do you actually build a model that behaves like a doctor?</div><div class="go"><a data-go="1-3">The thesis</a><a data-go="1-5">Competing with giants</a><a data-go="1-8">Why medicine</a><a data-go="1-9">Why now</a></div></li>
+							<li class="act"><span class="act-n">II</span><span class="act-name">A first model</span><span class="act-sub">Build it, test it, then fix what the tests reveal</span></li>
+							<li><span class="dot">2</span><h4><a data-go="2">The Story of HuatuoGPT: Data, Hybrid SFT and RLMF</a></h4><p>Start from Huatuo-26M, about 26 million medical QA pairs, most of them real online consultations. Mix doctors' answers polished by an LLM with LLM answers pushed to act like doctors, then run RL where ChatGPT judges but a real doctor's answer anchors every judgment.</p><div class="nextq">&rarr; The reward goes up &mdash; but is it a better doctor?</div><div class="go"><a data-go="2-12">Huatuo-26M</a><a data-go="2-16">Two-stage training</a><a data-go="2-17">Hybrid SFT data</a><a data-go="2-22">RLMF</a><a data-go="2-23">Order-swapping judge</a></div></li>
+							<li><span class="dot">3</span><h4><a data-go="3">How Do We Evaluate a Medical LLM?</a></h4><p>Pairwise judging by GPT-4 and by doctors, single-turn and multi-turn with a simulated patient, then the CMB exam benchmark &mdash; which showed HuatuoGPT talked like a doctor but did not know enough medicine. The most trustworthy evaluation does not scale.</p><div class="nextq">&rarr; How do you get real knowledge into the model?</div><div class="go"><a data-go="3-27">Pairwise judging</a><a data-go="3-30">Multi-turn evaluation</a><a data-go="3-33">Why BLEU fails</a><a data-go="3-35">CMB leaderboard</a><a data-go="3-38">A 91-patient study</a><a data-go="3-40">Rubrics</a></div></li>
+							<li><span class="dot">4</span><h4><a data-go="4">HuatuoGPT-II and the Idea of Generalist Medical AI</a></h4><p>Rewrite medical text into instruction format and train in one stage; a fresh pharmacist exam shows it worked &mdash; and a year later that general models catch up. That points to a bigger goal: one generalist medical AI, reached by climbing a ladder of earned trust.</p><div class="nextq">&rarr; What capabilities does a generalist doctor need?</div><div class="go"><a data-go="4-42">One-stage adaptation</a><a data-go="4-43">A fresh exam</a><a data-go="4-44">The advantage fades</a><a data-go="4-47">What is GMAI</a><a data-go="4-50">The ladder</a></div></li>
+							<li class="act"><span class="act-n">III</span><span class="act-name">Capabilities</span><span class="act-sub">See, reason, create, speak every language</span></li>
+							<li><span class="dot">5</span><h4><a data-go="5">Perception: Vision, Speech, Signals and Long Context</a></h4><p>Better data makes better multimodal models (ALLaVA, VLFeedback, PubMedVision for HuatuoGPT-Vision). Then speech, motion, EEG and the pulse in ShizhenGPT &mdash; and long context, because medical images are huge.</p><div class="nextq">&rarr; The model can perceive &mdash; can it reason in a way we can check?</div><div class="go"><a data-go="5-54">ALLaVA</a><a data-go="5-57">VLFeedback</a><a data-go="5-59">HuatuoGPT-Vision</a><a data-go="5-61">Five levels of speech</a><a data-go="5-65">ShizhenGPT</a><a data-go="5-69">LongLLaVA</a></div></li>
+							<li><span class="dot">6</span><h4><a data-go="6">Reasoning and Generation: HuatuoGPT-o1 to MedGen</a></h4><p>Math taught us verifiers and RL with checkable answers. Turning exam questions into open-ended problems with one answer brings that recipe to medicine in HuatuoGPT-o1. Then the model learns to produce speech, images, medical video and micro-worlds.</p><div class="nextq">&rarr; Can all this reach patients who do not speak English or Chinese?</div><div class="go"><a data-go="6-75">The verifier</a><a data-go="6-80">Verifiable questions</a><a data-go="6-81">Verifiable medical problems</a><a data-go="6-82">HuatuoGPT-o1</a><a data-go="6-83">Video-R1</a><a data-go="6-87">MedGen</a></div></li>
+							<li><span class="dot">7</span><h4><a data-go="7">Multilinguality and Challenges on the Way</a></h4><p>Languages complement each other: one model trained on six languages beats single-language models, and language-family experts scale Apollo-2 to 50. Then the reality check: scattered data, specialists versus generalists, interpretability, and benchmarks that saturate.</p><div class="nextq">&rarr; If static data is running out, where will the next gains come from?</div><div class="go"><a data-go="7-92">Six billion people</a><a data-go="7-93">Languages complement</a><a data-go="7-96">Apollo-2</a><a data-go="7-98">Decentralized data</a><a data-go="7-100">Specialist vs. generalist</a><a data-go="7-103">Chain of Diagnosis</a><a data-go="7-105">Med-MAT</a></div></li>
+							<li class="act"><span class="act-n">IV</span><span class="act-name">Environments</span><span class="act-sub">Where medical AI can act, fail safely and learn</span></li>
+							<li><span class="dot">8</span><h4><a data-go="8">From Models to Environments: Patients and Hospitals</a></h4><p>Trust is the intermediate step, and the model alone may have hit a wall. Build environments instead: AI standardized patients, patient trajectories and clinical world models, and an agentic hospital that speaks the language of a real hospital information system.</p><div class="nextq">&rarr; What lies below the patient, and above the hospital?</div><div class="go"><a data-go="8-108">Trustworthy medical AI</a><a data-go="8-109">Has the model hit a wall?</a><a data-go="8-110">The environment stack</a><a data-go="8-113">Standardized patients</a><a data-go="8-118">Clinical world models</a><a data-go="8-121">Agentic hospital</a></div></li>
+							<li><span class="dot">9</span><h4><a data-go="9">Virtual Cells, Evidence, Benchmarks and HuatuoGPT-III</a></h4><p>Virtual cells and digital twins below; community-maintained, evidence-based medicine above; live benchmarks as infrastructure underneath. The loop closes in HuatuoGPT-III: RL-only domain adaptation with rubric rewards.</p><div class="nextq">&rarr; Where is any of this used today?</div><div class="go"><a data-go="9-129">Virtual cells</a><a data-go="9-132">Community EBM</a><a data-go="9-134">AI-native UpToDate</a><a data-go="9-140">LiveClin</a><a data-go="9-142">Dentists' Last Exam</a><a data-go="9-146">HuatuoGPT-III</a></div></li>
+							<li class="act"><span class="act-n">V</span><span class="act-name">Practice</span><span class="act-sub">What is deployed today, and what comes next</span></li>
+							<li><span class="dot">10</span><h4><a data-go="10">Applications and Ecosystem: From Triage to Open Source</a></h4><p>Region-wide triage in Longgang, on-device and specialist products, medical skills for agents and an in-hospital record assistant, health education &mdash; all shared as open models, datasets and benchmarks.</p><div class="nextq">&rarr; What should medical AI &mdash; and the people who build it &mdash; bet on next?</div><div class="go"><a data-go="10-150">Regional triage</a><a data-go="10-154">On-device assistant</a><a data-go="10-155">Dental analysis</a><a data-go="10-156">Medical skills</a><a data-go="10-158">Record assistant</a><a data-go="10-164">Open source</a></div></li>
+							<li><span class="dot">11</span><h4><a data-go="11">Outlook: Five Bets and AI Entrepreneurship</a></h4><p>Five bets for medical AI, and how AI changes building things: smaller teams, building in public, speed, fast-fading advantages and living products. Then the five takeaways.</p><div class="go"><a data-go="11-167">Five bets</a><a data-go="11-169">Smaller, denser teams</a><a data-go="11-174">Leverage &amp; competition</a><a data-go="11-178">Takeaways</a></div></li>
+						</ol>
+						</div>
+					</details>
+				</section>
+
+				<!-- ====================================================== 2 TUTORIALS -->
+				<section id="tutorials" class="reveal">
+					<h2 class="sec"><span class="num">2</span>Try it in Colab</h2>
+					<p>Three short notebooks turn the lecture into experiments with a small open model (Qwen2.5-0.5B-Instruct) and public medical
+						datasets. Click <b>Open in Colab</b>, then <i>Runtime &rarr; Run all</i>. Each ends with exercises. All three run on a free CPU runtime;
+						a T4 GPU (<i>Runtime &rarr; Change runtime type</i>) makes them faster and lets you try bigger models.
+						<b>These notebooks are about evaluating models. Nothing a model writes in them is medical advice.</b></p>
+					<div class="grid">
+						<div class="tut"><div class="k">Notebook 1 &middot; Chapters 3 &amp; 6 &middot; ~10 min</div>
+							<h4>Evaluate a small model on medical exam questions</h4>
+							<ul><li>Score real MedQA (USMLE-style) questions from letter probabilities</li><li>Shuffle the options and watch the score move (position bias)</li><li>Check whether confidence predicts correctness</li><li>Remove the options and see why open answers need a verifier</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture09/lecture09_1_medical_qa_eval.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture09/lecture09_1_medical_qa_eval.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+						<div class="tut"><div class="k">Notebook 2 &middot; Chapters 8&ndash;9 &middot; ~10 min</div>
+							<h4>Retrieval-augmented answering with citations</h4>
+							<ul><li>Build an evidence base from 1,000 PubMed abstracts (PubMedQA)</li><li>Write a BM25 retriever and measure recall@k</li><li>Compare closed-book answers with retrieved and oracle evidence</li><li>Check citations automatically, and abstain when no evidence is found</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture09/lecture09_2_rag_with_citations.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture09/lecture09_2_rag_with_citations.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+						<div class="tut"><div class="k">Notebook 3 &middot; Chapters 2&ndash;3 &middot; ~5 min</div>
+							<h4>An LLM judge: position bias and order swapping</h4>
+							<ul><li>Judge pairs of answers with a small LLM, in both orders</li><li>Measure how often the first answer wins regardless of content</li><li>See the order-agreement check (as in HuatuoGPT's reward model) flag a biased judge, and averaging both orders recover the signal</li><li>Anchor the judge with a doctor's reference answer (RLMF)</li></ul>
+							<div class="meta"><a target="_blank" href="https://colab.research.google.com/github/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/blob/main/materials/tutorials/lecture09/lecture09_3_llm_judge_bias.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+								<a href="materials/tutorials/lecture09/lecture09_3_llm_judge_bias.ipynb">.ipynb</a> &middot; CPU or GPU</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 3 INDEX -->
+				<section id="index" class="reveal">
+					<h2 class="sec"><span class="num">3</span>Concept index</h2>
+					<p class="muted">Key terms of the lecture. Each link opens the video at the slide where the idea is explained.</p>
+					<div class="cindex">
+						<div class="grp"><div class="h">Why medical AI</div>
+							<a data-go="1-5">A domain as a sandbox for AGI<span>s5</span></a><a data-go="1-6">Professional-level tasks<span>s6</span></a>
+							<a data-go="1-7">Benefits vs. costs<span>s7</span></a><a data-go="1-9">Why now: demand, capability, adoption<span>s9</span></a></div>
+						<div class="grp"><div class="h">HuatuoGPT</div>
+							<a data-go="2-12">Huatuo-26M<span>s12</span></a><a data-go="2-17">Hybrid SFT data<span>s17</span></a>
+							<a data-go="2-18">Polishing doctors' answers<span>s18</span></a><a data-go="2-19">Role-play self-instruct<span>s19</span></a>
+							<a data-go="2-21">Loss on responses only<span>s21</span></a><a data-go="2-22">RL from mixed feedback (RLMF)<span>s22</span></a>
+							<a data-go="2-23">Position bias &amp; order swapping<span>s23</span></a><a data-go="2-25">KL coefficient<span>s25</span></a></div>
+						<div class="grp"><div class="h">Evaluation</div>
+							<a data-go="3-27">Pairwise judging<span>s27</span></a><a data-go="3-28">Ten patient intents<span>s28</span></a>
+							<a data-go="3-30">Simulated-patient evaluation<span>s30</span></a><a data-go="3-33">Why BLEU/ROUGE mislead<span>s33</span></a>
+							<a data-go="3-34">CMB-Exam &amp; CMB-Clin<span>s34</span></a><a data-go="3-36">With vs. without a reference<span>s36</span></a>
+							<a data-go="3-37">Expert consistency study<span>s37</span></a><a data-go="3-40">Rubric-based grading<span>s40</span></a></div>
+						<div class="grp"><div class="h">Knowledge &amp; GMAI</div>
+							<a data-go="4-42">One-stage domain adaptation<span>s42</span></a><a data-go="4-43">Fresh exams against leakage<span>s43</span></a>
+							<a data-go="4-44">Domain advantage fades<span>s44</span></a><a data-go="4-47">Generalist medical AI (GMAI)<span>s47</span></a>
+							<a data-go="4-48">Language-centric GMAI<span>s48</span></a><a data-go="4-49">Top-down vs. bottom-up<span>s49</span></a>
+							<a data-go="4-50">The ladder of trust<span>s50</span></a></div>
+						<div class="grp"><div class="h">Perception</div>
+							<a data-go="5-54">ALLaVA synthetic data<span>s54</span></a><a data-go="5-57">VLFeedback preferences<span>s57</span></a>
+							<a data-go="5-59">PubMedVision &amp; HuatuoGPT-Vision<span>s59</span></a><a data-go="5-61">Five levels of speech<span>s61</span></a>
+							<a data-go="5-62">Soundwave (CTC alignment)<span>s62</span></a><a data-go="5-64">EEG (WaveMind)<span>s64</span></a>
+							<a data-go="5-66">One shared signal encoder<span>s66</span></a><a data-go="5-69">LongLLaVA (hybrid Mamba)<span>s69</span></a>
+							<a data-go="5-70">AnyRes tiling<span>s70</span></a></div>
+						<div class="grp"><div class="h">Reasoning &amp; generation</div>
+							<a data-go="6-75">Outcome-supervised verifier<span>s75</span></a><a data-go="6-76">Optimization modeling (ORLM)<span>s76</span></a>
+							<a data-go="6-78">Train- and test-time compute<span>s78</span></a><a data-go="6-81">Verifiable medical problems<span>s81</span></a>
+							<a data-go="6-82">HuatuoGPT-o1<span>s82</span></a><a data-go="6-83">Temporal reward (T-GRPO)<span>s83</span></a>
+							<a data-go="6-85">Speech-to-speech (EchoX)<span>s85</span></a><a data-go="6-87">Medical video (MedGen)<span>s87</span></a>
+							<a data-go="6-88">Micro-world simulation<span>s88</span></a></div>
+						<div class="grp"><div class="h">Languages &amp; challenges</div>
+							<a data-go="7-91">Localized LLM pipeline<span>s91</span></a><a data-go="7-93">Complementarity of languages<span>s93</span></a>
+							<a data-go="7-96">Language-family experts (MoE)<span>s96</span></a><a data-go="7-98">Decentralized data<span>s98</span></a>
+							<a data-go="7-100">Routing, tools, distillation<span>s100</span></a><a data-go="7-102">Specialists into one model<span>s102</span></a>
+							<a data-go="7-103">Chain of Diagnosis<span>s103</span></a><a data-go="7-104">Compositional generalization<span>s104</span></a></div>
+						<div class="grp"><div class="h">Environments</div>
+							<a data-go="8-108">Trustworthy medical AI (4 properties)<span>s108</span></a><a data-go="8-109">Era of experience<span>s109</span></a>
+							<a data-go="8-110">Environment stack<span>s110</span></a><a data-go="8-111">Model&ndash;environment co-evolution<span>s111</span></a>
+							<a data-go="8-113">AI standardized patients<span>s113</span></a><a data-go="8-117">Patient trajectories<span>s117</span></a>
+							<a data-go="8-118">Clinical world model<span>s118</span></a><a data-go="8-121">Agentic hospital<span>s121</span></a>
+							<a data-go="8-123">Hospital information system (HIS)<span>s123</span></a><a data-go="8-127">Rubric RL for medical records<span>s127</span></a></div>
+						<div class="grp"><div class="h">Cells, evidence, benchmarks</div>
+							<a data-go="9-129">Virtual cells<span>s129</span></a><a data-go="9-130">Multi-scale digital twins<span>s130</span></a>
+							<a data-go="9-132">Evidence pyramid &amp; community EBM<span>s132</span></a><a data-go="9-134">Evidence API<span>s134</span></a>
+							<a data-go="9-139">Benchmark engineering<span>s139</span></a><a data-go="9-140">Live benchmark (LiveClin)<span>s140</span></a>
+							<a data-go="9-143">Evaluation through routing<span>s143</span></a><a data-go="9-147">RL-only domain adaptation<span>s147</span></a></div>
+						<div class="grp"><div class="h">Practice &amp; outlook</div>
+							<a data-go="10-150">Regional triage<span>s150</span></a><a data-go="10-154">On-device privacy<span>s154</span></a>
+							<a data-go="10-156">Skills for agents<span>s156</span></a><a data-go="10-158">Workflows over chatbots<span>s158</span></a>
+							<a data-go="11-167">Five bets<span>s167</span></a><a data-go="11-175">Living products<span>s175</span></a></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 4 TRENDS -->
+				<section id="trends" class="reveal">
+					<h2 class="sec"><span class="num">4</span>What's new in 2026</h2>
+					<p>The lecture's own thesis is that the next gains come from environments, rubrics and trust rather than from more text
+						(<a data-go="11-167">slide 167</a>). Six things that changed recently:</p>
+					<div class="grid">
+						<div class="trend"><div class="ic">&#128203;</div><h4>Rubrics became rewards</h4>
+							<p>Physician-written rubrics, first used to grade answers, now also train models. In the lecture, an 8B HuatuoGPT-III adapted to medicine
+								with RL only (no SFT stage) scores 67.5 on HealthBench, above the proprietary models listed &mdash; while frontier models stay ahead on hard exam questions
+								(<a data-go="9-147">slide 147</a>).</p>
+							<div class="src">HealthBench: 5,000 conversations, rubrics by 262 physicians (OpenAI, <a href="https://arxiv.org/abs/2505.08775">arXiv 2505.08775</a>) · slides 146&ndash;147</div></div>
+						<div class="trend"><div class="ic">&#128260;</div><h4>Benchmarks that stay fresh</h4>
+							<p>To beat saturation and leakage, benchmarks keep adding new cases and follow one patient over several stages and images, and
+								experts write questions until every model fails them (<a data-go="9-140">slide 140</a>, <a data-go="9-142">slide 142</a>).</p>
+							<div class="src">LiveClin (ICLR 2026) · Dentists' Last Exam · slides 140&ndash;142</div></div>
+						<div class="trend"><div class="ic">&#127973;</div><h4>From datasets to environments</h4>
+							<p>Simulated patients, clinical world models and digital hospitals let agents act, get outcome feedback and improve &mdash; in medicine,
+								the &ldquo;era of experience&rdquo; argument (<a data-go="8-109">slide 109</a>, <a data-go="8-111">slide 111</a>).</p>
+							<div class="src">Silver &amp; Sutton, <a href="https://storage.googleapis.com/deepmind-media/Era-of-Experience%20/The%20Era%20of%20Experience%20Paper.pdf">Welcome to the Era of Experience</a> (2025) · slides 109&ndash;119</div></div>
+						<div class="trend"><div class="ic">&#129520;</div><h4>Medical skills for general agents</h4>
+							<p>Expertise is packaged as skills a general agent loads on demand, and the agent runs on a desktop box inside the hospital, so patient
+								data stay in the building (<a data-go="10-156">slide 156</a>, <a data-go="10-157">slide 157</a>).</p>
+							<div class="src">OpenClaw-Medical-Skills (~869 skills at the time of the slide) · OpenClaw-Med at CUHK-Shenzhen Hospital · slides 156&ndash;158</div></div>
+						<div class="trend"><div class="ic">&#129516;</div><h4>Virtual cells go zero-shot</h4>
+							<p>Arc Institute's first Virtual Cell Challenge (2025) drew more than 5,000 participants from 114 countries; the 2026 edition asks for
+								perturbation responses in cell lines the model has never seen. Beating simple baselines is still hard (<a data-go="9-129">slide 129</a>).</p>
+							<div class="src"><a href="https://arcinstitute.org/news/virtual-cell-challenge-2025-wrap-up">2025 wrap-up</a> · <a href="https://arcinstitute.org/news/virtual-cell-challenge-2026">2026 challenge</a> (Arc Institute)</div></div>
+						<div class="trend"><div class="ic">&#128218;</div><h4>Evidence at the point of care</h4>
+							<p>Evidence-grounded assistants are part of daily practice: the lecture cites OpenEvidence's report that about 65% of US physicians use it.
+								The open question is who maintains the evidence &mdash; the lecture proposes an open, community-edited &ldquo;AI-native UpToDate&rdquo;
+								(<a data-go="9-132">slide 132</a>, <a data-go="9-134">slide 134</a>).</p>
+							<div class="src">OpenEvidence figure: company figures reported by NBC News (May 2026), as cited on slide 132</div></div>
+					</div>
+				</section>
+
+				<!-- ====================================================== 5 QUOTES -->
+				<section id="quotes" class="reveal">
+					<h2 class="sec"><span class="num">5</span>Quotes &amp; reading</h2>
+					<div class="grid two">
+						<blockquote class="quote"><p>"We propose a new paradigm for medical AI, which we refer to as generalist medical AI (GMAI)."</p>
+							<footer>Moor et al., <a href="https://www.nature.com/articles/s41586-023-05881-4"><i>Foundation models for generalist medical artificial intelligence</i></a>, Nature (2023)</footer>
+							<div class="why">The goal named in the lecture's title (<a data-go="4-47">slide 47</a>).</div></blockquote>
+						<blockquote class="quote"><p>"Evidence based medicine is the conscientious, explicit, and judicious use of current best evidence in making decisions about the care of individual patients."</p>
+							<footer>David Sackett et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2349778/"><i>Evidence based medicine: what it is and what it isn't</i></a>, BMJ (1996)</footer>
+							<div class="why">What &ldquo;evidence-grounded&rdquo; medical AI has to live up to (Chapter 9).</div></blockquote>
+						<blockquote class="quote"><p>"Pre-training as we know it will unquestionably end."</p>
+							<footer>Ilya Sutskever, NeurIPS 2024 Test of Time talk, as reported by The Verge and Reuters; shown on <a data-go="6-79">slide 79</a></footer>
+							<div class="why">Why adding more medical text stopped being enough, and reasoning came next.</div></blockquote>
+						<blockquote class="quote"><p>"A new generation of agents will acquire superhuman capabilities by learning predominantly from experience."</p>
+							<footer>David Silver &amp; Richard Sutton, <i>Welcome to the Era of Experience</i> (2025)</footer>
+							<div class="why">The case for environments over datasets (Chapter 8).</div></blockquote>
+					</div>
+					<h3>Further reading</h3>
+					<ul>
+						<li>Moor et al.: <a href="https://www.nature.com/articles/s41586-023-05881-4">Foundation models for generalist medical AI</a> (Nature, 2023) &mdash; the GMAI vision of Chapter 4</li>
+						<li><a href="https://arxiv.org/abs/2305.15075">HuatuoGPT</a> &middot; <a href="https://arxiv.org/abs/2311.09774">HuatuoGPT-II</a> &middot; <a href="https://arxiv.org/abs/2406.19280">HuatuoGPT-Vision</a> &middot; <a href="https://arxiv.org/abs/2412.18925">HuatuoGPT-o1</a> &mdash; the HuatuoGPT line, Chapters 2&ndash;6</li>
+						<li><a href="https://arxiv.org/abs/2308.08833">CMB: a comprehensive medical benchmark in Chinese</a> &middot; <a href="https://arxiv.org/abs/2505.08775">HealthBench</a> &mdash; exams and rubrics (Chapter 3)</li>
+						<li><a href="https://arxiv.org/abs/2212.13138">Med-PaLM: LLMs encode clinical knowledge</a> &middot; <a href="https://arxiv.org/abs/2401.05654">AMIE: towards conversational diagnostic AI</a></li>
+						<li><a href="https://arxiv.org/abs/2403.03640">Apollo: multilingual medical LLMs</a> &middot; <a href="https://arxiv.org/abs/2508.14706">ShizhenGPT</a> &middot; <a href="https://arxiv.org/abs/2405.02957">Agent Hospital</a></li>
+						<li>Code, models and data: <a href="https://github.com/FreedomIntelligence">FreedomIntelligence on GitHub</a> and <a href="https://huggingface.co/FreedomIntelligence">on Hugging Face</a></li>
+					</ul>
+				</section>
+
+				<!-- ====================================================== 6 ABOUT -->
+				<section id="about" class="reveal">
+					<h2 class="sec"><span class="num">6</span>About this video</h2>
+					<div class="callout info">
+						<b class="t">This is an AI-narrated version of the lecture.</b>
+						The slides are the ones used in class. The spoken script was written from the slides with AI assistance and is read in
+						an <b>AI clone of Prof. Benyou Wang's voice</b> (MiniMax speech synthesis); the picture in the corner is a still photo.
+						The red dot points at what is being discussed. When the narration and the slides disagree, trust the slides and the
+						in-class lecture &mdash; and please tell us, so we can fix it.
+					</div>
+				</section>
+
+				<div class="footer2">CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; CUHK-Shenzhen &middot; Fall 2026 &middot; <a href="index.html">Back to the course page</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./js/lecture09-data.js"></script>
+	<script src="./js/lecture-video.js"></script>
+</body>
+
+</html>
