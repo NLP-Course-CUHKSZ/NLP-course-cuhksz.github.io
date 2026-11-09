@@ -1,0 +1,940 @@
+% Generated from .fp-guide/parts3 by gen_latex.py; do not edit by hand.
+
+\section{Agents \& harness: tools, skills \& iterative repair}
+\label{sec:trackA}
+Lecture 7 framed an agent as \emph{model + harness}. This track is about the harness: the loop that runs the model's output, observes what happened (compiler errors, failing tests, a rendered frame, a simulator measurement, a sealed grader), and feeds that evidence back. The question is almost always the same: \textbf{at a matched budget, does a loop that sees executable feedback beat one-shot generation or independent sampling, and what does each success cost?} Because the model is usually an API call, this track is the most accessible on the page; the engineering effort goes into isolation, replay and scoring. Three 2026 additions: \textbf{skills}, reusable instruction folders that any agent can load (brief A9); \textbf{agents that do research}, from writing a survey to running a sealed self-improvement loop (A10, A5); and an \textbf{ML-engineering agent} that enters a Kaggle competition on its own and is scored by the leaderboard (A11).
+
+\paragraph{What "matched budget" means here.} Fix the number of model calls, tokens, simulator evaluations or wall-clock time, and give the same budget to every condition. Report runtime separately. Run every artifact in a clean, isolated environment (a fresh container or browser context), and store the full generation trace so the comparison can be replayed.
+
+\subsection{Research questions this track asks}
+\begin{itemize}
+\item Which kind of feedback matters: error text, test results, rendered evidence, or a profiler trace? Which one gives the largest gain per extra call?
+\item Does staged planning (plan, then build, then replay and repair) beat a direct build agent on executable realization, not just on code volume?
+\item Can an agent revise a mechanism more successfully when it sees measured constraint violations than when it only sees "failed"?
+\item Under a sealed evaluation, does iterative revision that keeps successful changes transfer to hidden data, or does it overfit the visible split?
+\item How much of the quality–latency–cost frontier is reachable with test-time scaling alone (self-consistency, verifiers, search) before training anything?
+\item When a tool call fails, what recovery policy (plain retry, typed error feedback, bounded repair) gives the best recovery rate per unit cost?
+\item Does a packaged skill change what an agent produces on held-out tasks, and does the gain survive a change of agent or model?
+\item When an agent writes a literature survey, which pipeline stage removes the most fabricated citations per unit of cost: retrieval, outlining, or a post-hoc checker?
+\item On a Kaggle task, does tree search over solution drafts beat a greedy debug-and-improve loop at the same GPU budget, and does the agent's local validation score predict the private leaderboard?
+\end{itemize}
+
+\subsection{Featured briefs}
+\paragraph{A1. From one sentence to an interactive 3D world: a procedural pelican on a bicycle and a hand-built harness}
+Adapt Simon Willison's "pelican riding a bicycle" drawing benchmark to a browser 3D coding task. The model must return a single runnable HTML file. Freeze the prompt:
+
+\begin{quote}Create a polished, interactive three.js scene of a pelican riding a bicycle. Construct the pelican, bicycle, and environment with procedural 3D geometry. Animate the pedaling so the legs follow the pedals, the wheels rotate consistently with movement, and the body moves in coordination. Set up the scene, lights, camera, and interactive controls in code. Return one runnable HTML file. Use no SVG, 2D canvas drawing, external models, or prerendered animation.\end{quote}
+Then build the harness: run each artifact in an isolated browser, record console errors, capture fixed viewpoints and pedal phases, and replay a camera interaction. The harness is the research contribution; the pelican is the test case.
+
+\textbf{Compare.} one-shot generation $\cdot$ a repair loop that receives browser errors and rendered evidence, at a matched call budget; a few held-out prompt variants (another animal, another vehicle).\\
+\textbf{Measure.} launch success, visual recognizability, pedal–leg–wheel coordination, working controls: automated checks where possible, a short blinded rubric for visual criteria.\\
+\textit{Week 1: freeze prompt and rubric; Week 2: harness: browser isolation, capture, replay; Week 3: matched-budget trials, held-out variants.}
+\textit{Start from: \href{https://github.com/simonw/pelican-bicycle}{the original SVG prompt and results} $\cdot$ \href{https://simonwillison.net/2025/Jun/6/six-months-in-llms/}{Willison's 2025 talk} and \href{https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/}{2026 update} $\cdot$ \href{https://threejs.org/docs/}{three.js docs} $\cdot$ \href{https://playwright.dev/python/}{Playwright} for isolated rendering and screenshots.}
+
+\paragraph{A2. Building playable games with an AI workflow on GameCraft-Bench  [our lab]}
+GameCraft-Bench (FreedomIntelligence) asks whether a coding agent can turn a natural-language game spec into a complete, playable 2D Godot game: 140 tasks across 15 families (platformer, strategy, tycoon, roguelike, ...). A game counts only if scripts, scenes, assets and input all work together; a verifier launches the project, replays submitted input traces, and a rubric plus multimodal judge scores core mechanics, content depth, functional visuals and presentation. Wrapper scripts exist for Claude Code, Codex and Kimi Code.
+
+\textbf{Compare.} a direct build agent $\cdot$ plan-then-build $\cdot$ plan-build-replay-repair, on a fixed subset spanning two or three families, at a matched token or time budget.\\
+\textbf{Measure.} project launch rate, implemented mechanics, held-out replay completion, cost per playable project.\\
+\textit{Week 1: install, reproduce one task; Week 2: implement the three agent variants; Week 3: run the fixed subset.}
+\textit{Start from: \href{https://github.com/FreedomIntelligence/gamecraft-bench}{GameCraft-Bench repository} $\cdot$ \href{https://tongxuluo.github.io/gamecraft-bench-website/}{website with demos and leaderboard} $\cdot$ \href{https://arxiv.org/abs/2606.17861}{paper}~\citep{luo2026gamecraft} $\cdot$ \href{https://godotengine.org/}{Godot 4}.}
+
+\paragraph{A3. AI designs a machine and iterates against a simulator}
+Give an agent a parameterized gear pair or linkage and a brief: a motion ratio, a clearance, a size limit. Let it propose dimensions, run a simulator or an independent kinematic checker, and revise from the measurements. Keep the whole project to one mechanism family, one checker, and one replay that shows the initial failure and the revised design.
+
+\textbf{Compare.} one-shot design $\cdot$ independent designs at the same generation budget $\cdot$ a parameter sweep $\cdot$ the revise-from-measurements loop; match simulator evaluations, report runtime separately.\\
+\textbf{Measure.} feasible-design rate, objective error, calls or time to first feasible design on unseen briefs.\\
+\textit{Start from: \href{https://x.com/cfenghub/status/2117404388041835005}{demo inspiration} $\cdot$ \href{https://www.airsup.ai/lab/skill}{Airsup Machine Skill} (one-line machine description $\rightarrow$ interactive three.js simulation) $\cdot$ \href{https://ijcai.org/proceedings/2026/714}{Physics-in-the-Loop} (IJCAI 2026) $\cdot$ \href{https://github.com/CadQuery/cadquery}{CadQuery} / \href{https://github.com/gumyr/build123d}{build123d} for parametric geometry $\cdot$ \href{https://github.com/google-deepmind/mujoco}{MuJoCo} or \href{https://github.com/Genesis-Embodied-AI/Genesis}{Genesis} for simulation $\cdot$ \href{https://www.kaggle.com/competitions/build-arena-human-ai-engineering-challenge/overview/hackathon-tracks-and-prizes}{BuildArena S02} if your prototype is ready by Nov. 14.}
+
+\paragraph{A4. A minimal agent with a recovery mechanism  (adapted from Stanford CS329Z)}
+CS329Z's first homework builds a company assistant with no agent framework: a chat-completion call and code you write yourself. Do the same with one or two tools, then evaluate on tasks with controlled transient failures (timeouts, rate limits) and invalid arguments.
+
+\textbf{Compare.} plain retry $\cdot$ typed error feedback $\cdot$ a bounded repair policy, at the same tool-call and model budget.\\
+\textbf{Measure.} recovery rate, cost per successful task, side effects (unwanted writes, duplicate actions).\\
+\textit{Start from: \href{https://cs329z.stanford.edu/}{CS329Z: Engineering AI Agents} (lecture 6, design patterns and scaffolds) $\cdot$ \href{https://www.anthropic.com/engineering/building-effective-agents}{Building effective agents} $\cdot$ \href{https://modelcontextprotocol.io/}{MCP} for tool definitions $\cdot$ \href{https://github.com/stanfordnlp/dspy}{DSPy} once the plain version works.}
+
+\paragraph{A5. Improve a working method under a sealed evaluation (RSI-Exam)}
+RSI-Exam gives an agent a task, a visible development split, and an "autoresearch protocol": loop through experiments, record every version, aim for what transfers. The artifact (a method, or a harness driving a frozen model) is scored once on hidden data in a sealed verifier container. Use one public task with a grader, or define a small task of your own.
+
+\textbf{Compare.} independent attempts $\cdot$ iterative revision that retains successful changes, under a resource cap; run each frozen artifact in a clean environment.\\
+\textbf{Measure.} development vs. held-out gain (the overfitting gap), cost, and at least one failure trace.\\
+\textit{Start from: \href{https://rsi-exam.ai/}{rsi-exam.ai} (88 tasks, six domains, leaderboard) $\cdot$ \href{https://github.com/aiming-lab/RSI-Exam}{GitHub} $\cdot$ \href{https://rsi-exam.ai/guidelines}{task guidelines} and \href{https://rsi-exam.ai/contribute.html}{contribution process} (the organizers list Dec. 15, 2026 for RSI-Exam 2.0 task contributions and review proposals before implementation).}
+
+\paragraph{A6. Test-time scaling: the quality–latency–cost frontier}
+Improve solution quality by spending more compute at inference, at a stated latency and cost budget. Methods: self-consistency over diverse samples, reflection loops, solution + verifier dual tracks, beam or tree search, evidence sampling with self-checking. Tasks: grade-school to olympiad math, code generation or repair, knowledge QA with citations.
+
+\textbf{Compare.} a sweep over "thinking steps" and "verifier strength" for two or three methods on the same problems.\\
+\textbf{Measure.} accuracy or Pass@k against latency and token cost; robustness across seeds.\\
+\textit{Start from: \href{https://arxiv.org/abs/2305.20050}{Let's Verify Step by Step}~\citep{lightman2023lets} $\cdot$ \href{https://arxiv.org/abs/2311.09724}{outcome-supervised value models}~\citep{yu2023ovm} $\cdot$ the public \href{https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-3}{AIMO 3} problems as a hard math set $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture06\_RL\_for\_LLM\_Post-Training.pdf}{Lecture 6 slides}.}
+
+\paragraph{A7. A repository-repair agent on real issues}
+Agents repair real repository issues and held-out tests score the patches. The Gemma 4 Developer Agent competition on Kaggle (entry Nov. 25, final Dec. 2) uses an offline scoring harness with an approved Gemma 4 variant (31B, 12B, E4B or E2B). Even without entering, SWE-bench-style tasks make a clean course project.
+
+\textbf{Compare.} repository search alone $\cdot$ search plus a test-and-repair loop, on the same issues and budget.\\
+\textbf{Measure.} pass rate on held-out tests, tool calls, runtime, cost per solved issue.\\
+\textit{Start from: \href{https://www.kaggle.com/competitions/gemma-4-developer-agent/overview}{Gemma 4 Developer Agent} $\cdot$ \href{https://github.com/SWE-agent/SWE-agent}{SWE-agent} $\cdot$ \href{https://github.com/SWE-bench/SWE-bench}{SWE-bench} $\cdot$ \href{https://github.com/laude-institute/terminal-bench}{Terminal-Bench}.}
+
+\paragraph{A8. Program search vs. direct prediction on ARC, and memory in interactive ARC-AGI-3}
+The 2026 ARC Prize prediction tracks closed on Nov. 2, but the public tasks remain. Compare direct grid prediction with executable program search on ARC-AGI-2, or test how an agent's memory design affects progress in the public ARC-AGI-3 interactive environments. Allocate the search budget across tasks and report it.
+
+\textbf{Compare.} direct prediction $\cdot$ program search $\cdot$ search with a verifier, at a matched call budget; or flat vs. summarised vs. retrieval memory in ARC-AGI-3.\\
+\textbf{Measure.} tasks solved, calls per solved task, failure categories.\\
+\textit{Start from: \href{https://arcprize.org/guide}{ARC Prize guide} $\cdot$ \href{https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2/}{ARC-AGI-2} $\cdot$ \href{https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/overview}{ARC-AGI-3}.}
+
+\paragraph{A9. Build a skill that people actually install, and prove it helps}
+Since Anthropic published \href{https://agentskills.io/}{Agent Skills} as an open standard (Dec. 2025), a "skill" is a folder with a short description, instructions and optional scripts that an agent loads only when a task matches. The same file works in Claude Code, Codex, Cursor and others, and directories such as \href{https://skills.sh/}{skills.sh} rank installs. Lecture 8 showed \href{https://github.com/zarazhangrui/frontend-slides}{frontend-slides} as an example; \href{https://github.com/Donchitos/Claude-Code-Game-Studios}{Claude-Code-Game-Studios} (49 agents, 74 skills, 30k+ stars) shows how far the idea can go. Pick one recurring task your classmates do badly by hand (slides from a paper, a poster from a report, a literature table, data cards, a Godot scene, a Manim lesson), write the skill, and treat it as a research object: does the skill change what the agent produces, and for whom?
+
+\textbf{Compare.} the bare agent $\cdot$ skill v1 $\cdot$ skill v2 after eval-driven revision, on 20–40 held-out task prompts; same model, same budget. Bonus condition: the skill in a second agent (Codex or Cursor).\\
+\textbf{Measure.} task success on a blinded rubric, tokens and wall-clock per task, failures by type; the skill's own token cost at load; installs, stars or classmates' repeat use as a secondary signal.\\
+\textit{Week 1: task, 30 prompts, rubric, bare-agent baseline; Week 2: skill v1; run evals; Week 3: revise to v2; second agent; blinded rating.}
+\textit{Start from: \href{https://agentskills.io/}{Agent Skills specification} $\cdot$ \href{https://github.com/anthropics/skills}{anthropics/skills} (document, design and MCP-builder skills) $\cdot$ \href{https://github.com/obra/superpowers}{superpowers} $\cdot$ \href{https://github.com/vercel-labs/agent-skills}{vercel-labs/agent-skills} $\cdot$ \href{https://github.com/huggingface/skills}{huggingface/skills} $\cdot$ \texttt{claude plugin eval} for measuring whether a skill changes outputs $\cdot$ inspiration posts on X: \href{https://x.com/PrajwalTomar\_/status/2074095215422705805}{10 skills that turn Claude Code into a team}, \href{https://x.com/neil\_xbt/article/2099125204349796544}{the skill-eval playbook}, \href{https://x.com/charliejhills/status/2116936969251164475}{video-studio skills}, \href{https://x.com/ai\_tosea/status/2117444964770849105}{slide-creation skills}.}
+
+\paragraph{A10. An agent that writes the related-work survey, audited against a human one}
+Lecture 8 listed "a survey of a specific LLM topic" as a project; in 2026 the interesting version is to let an agent write it and to measure what it gets wrong. AutoSurvey (NeurIPS 2024) and the AI Scientist (Sakana, whose paper passed workshop peer review in 2025) are the references. Choose a narrow topic with an existing human-written survey of 100–300 references, hide that survey, and compare a one-shot prompt with a pipeline: retrieval from arXiv and Semantic Scholar, an outline step, section writers, and a citation checker that verifies every reference exists and says what the text claims.
+
+\textbf{Compare.} one-shot survey prompt $\cdot$ pipeline without the checker $\cdot$ pipeline with the checker, same topic, same model, same token budget.\\
+\textbf{Measure.} fabricated or mis-attributed references, coverage of the hidden survey's reference list, taxonomy agreement with the human survey (blinded rubric), cost.\\
+\textit{Start from: \href{https://proceedings.neurips.cc/paper\_files/paper/2024/file/d07a9fc7da2e2ec0574c38d5f504d105-Paper-Conference.pdf}{AutoSurvey}~\citep{wang2024autosurvey} (NeurIPS 2024) $\cdot$ \href{https://sakana.ai/ai-scientist-first-publication/}{The AI Scientist's first peer-reviewed publication} $\cdot$ \href{https://api.semanticscholar.org/}{Semantic Scholar API} $\cdot$ \href{https://github.com/camel-ai/owl}{OWL} and \href{https://github.com/mannaandpoem/OpenManus}{OpenManus} for autonomous agent scaffolds $\cdot$ pairs with D4 (faithfulness of AI-written scientific statements).}
+
+\paragraph{A11. An MLE agent that enters a Kaggle competition on its own}
+Machine-learning engineering is the agent task with the cleanest outside score: a Kaggle leaderboard. MLE-bench (OpenAI) packages 75 past Kaggle competitions with their medal thresholds and a local grader, and by 2026 the best open agents (MLEvolve, ML-Master 2.0, AIDE-style tree search) earn a medal on about three quarters of its 22-task Lite split. Build an agent that reads a competition page and its data, plans, writes and debugs training code, validates locally and submits through the Kaggle API. Develop it on MLE-bench, then point it at a \emph{live} competition (a monthly Playground Series episode or a Getting Started competition) whose private leaderboard nobody has seen.
+
+\textbf{Compare.} a one-shot pipeline (one plan, one script) $\cdot$ a greedy debug-and-improve loop $\cdot$ tree search over solution drafts (AIDE style), with the same GPU hours and model calls; then the best variant with and without a memory of earlier competitions.\\
+\textbf{Measure.} valid-submission rate, medal or percentile on 5–10 MLE-bench Lite tasks, the gap between local cross-validation and the leaderboard (does the agent overfit?), GPU hours and API cost per medal, and the dated rank on the live competition.\\
+\textit{Week 1: MLE-bench installed; two Lite tasks solved by hand and graded; Week 2: one-shot and greedy agents; Week 3: tree search, memory, matched-budget runs.}
+\textit{Start from: \href{https://arxiv.org/abs/2410.07095}{MLE-bench paper}~\citep{chan2024mle} and \href{https://github.com/openai/mle-bench}{repository with leaderboard} $\cdot$ \href{https://arxiv.org/abs/2502.13138}{AIDE}~\citep{jiang2025aide} (\href{https://github.com/WecoAI/aideml}{aideml}) $\cdot$ \href{https://arxiv.org/abs/2506.16499}{ML-Master}~\citep{liu2025ml} $\cdot$ \href{https://github.com/InternScience/MLEvolve}{MLEvolve} $\cdot$ \href{https://github.com/microsoft/RD-Agent}{R\&D-Agent} (Microsoft) $\cdot$ \href{https://arxiv.org/abs/2410.20424}{AutoKaggle}~\citep{li2024autokaggle} $\cdot$ \href{https://github.com/Kaggle/kaggle-api}{Kaggle API} (\texttt{kaggle competitions submit -c  -f submission.csv -m "..."}) $\cdot$ \href{https://www.kaggle.com/competitions}{Kaggle competitions}. Read the rules first: daily submission limits, team and external-data rules, and any policy on automated submissions apply to the agent exactly as they apply to you.}
+
+\subsection{More research questions in this area}
+\begin{itemize}
+\item \textbf{Full replanning vs. local plan repair} after a failed step: which keeps task success higher at the same call budget?
+\item \textbf{Robustness to DOM or UI changes and prompt injection} for web agents: fix a task set, perturb the pages, measure success and side-effect rate (overlaps with D3).
+\item \textbf{Memory compression} for long-running agents: at what context size does summarisation start costing task success?
+\item \textbf{Multi-agent vs. single-agent} on the same tasks and total budget: does the division of labour pay for its coordination cost?
+\item \textbf{Hospital-as-environment agents.} Our lab's \href{https://github.com/FreedomIntelligence/Agentic-Hospital}{Agentic Hospital} models a hospital as an actionable environment (mocked HIS, role simulation, governance); a bounded clinical or operational task with its rubric makes a Track A or D project.
+\end{itemize}
+
+\paragraph{Pitfalls we see every year.} The repair loop sees the held-out tests. The judge model wrote the code it judges. Budgets differ between conditions ("the loop just ran longer"). No isolation, so flaky runs are counted as failures. Reporting success rate without cost per success. Store traces; a reviewer should be able to replay any number in your table.
+
+\clearpage
+
+\section{Train your own model: vertical models, new modalities, nanoGPT experiments \& internals}
+\label{sec:trackB}
+This is the track for teams who want to touch weights. The philosophy is borrowed from Stanford CS336 and from Tang Jie's Advanced Machine Learning course at Tsinghua: \textbf{to understand it, build it}. A 0.1B–0.5B language model trained from random weights is now a one-GPU, one-week exercise, and post-training with SFT, DPO or GRPO fits in a Kaggle session (see \href{https://nlp-course-cuhksz.github.io/tutorial2.html}{Tutorial 2}). Two newer directions make the track more interesting than "train a small GPT": \emph{weight-space programming} (a frontier model reading and editing a checkpoint directly) and \emph{mechanistic interpretability at scale} (do sparse-autoencoder features have consistent causal effects?). Whatever you choose, change one thing at a fixed budget and plot the learning curve. Three briefs added this term follow Lecture 8 directly: a \textbf{nanoGPT speedrun} experiment in architecture engineering (B10), a \textbf{vertical model} built with the Tutorial 2 recipe (B11), and a \textbf{new modality} such as speech, bio-signals or time series (B12). For post-training, B6 asks for a \textbf{variant of your own} (which tokens learn, which data, a cheaper PPO), not a reproduction.
+
+\paragraph{Compute reality check.} A 0.1B model on 1–2B tokens trains in hours on one 24 GB GPU; 0.5B on a Chinchilla-style token budget needs several GPU-days. Establish throughput (tokens per second, peak memory) on the small model first, then decide whether the 0.5B run is affordable. Free tiers: Kaggle (about 30 GPU hours per week, T4/P100), Colab; paid by the hour: AutoDL and cloud providers. A report with a complete small-scale result beats an unfinished large one.
+
+\subsection{Research questions this track asks}
+\begin{itemize}
+\item At a fixed token budget, what does one data intervention (deduplication, quality filtering, a code-to-text mixture change) do to held-out loss and a downstream task?
+\item Two model sizes at a matched approximate compute budget: which wins, and does the answer change with the data mixture?
+\item Can a frontier model repair a specified failure by editing a checkpoint directly, with a bounded edit budget and no gradients? How does the patch compare with a random edit of the same size and norm?
+\item Do SAE features that look interpretable on examples have a consistent causal effect across prompt templates, compared with random features and a neuron baseline?
+\item Which small change to SFT or RL (which tokens receive gradient, which problems are sampled, how the loss is normalised, how much of PPO can be dropped) buys the most accuracy per GPU hour, and does the gain survive at large Pass@k?
+\item How much does a domain-adapted model forget, and does a small replay mixture fix it?
+\item How should a fixed LoRA parameter budget be allocated across layers?
+\item At matched wall-clock on your GPU, does one architecture or optimizer change from the nanoGPT speedrun changelog still help, and does the gain survive a change of scale?
+\item For a vertical domain, which post-training stage (continued pre-training, SFT, preference optimization, retrieval) buys the most at a fixed GPU budget, and are retrieval and training substitutes or complements?
+\item How should time-series or bio-signal data enter a frozen LLM: serialised text, a soft-prompt adapter or cross-attention, and which is most data-efficient on held-out subjects?
+\end{itemize}
+
+\subsection{Featured briefs}
+\paragraph{B1. From scratch to a 0.5B training experiment}
+Under a fixed token budget, compare random sampling with a single data intervention (deduplication, an educational-quality filter, a different code fraction), keeping architecture, tokenizer and optimizer fixed. Start with a small randomly initialized model to establish the learning curves, then run both conditions at 0.5B only if measured throughput and available compute permit.
+
+\textbf{Compare.} baseline data vs. one intervention at the same token count, two seeds at the small scale.\\
+\textbf{Measure.} held-out loss curves, one downstream task, measured tokens per second and peak memory.\\
+\textit{Week 1: tokenizer, model, data loader; throughput; Week 2: baseline run + intervention run (small); Week 3: seeds, downstream eval, optional larger run.}
+\textit{Start from: \href{https://arxiv.org/abs/2203.15556}{Chinchilla}~\citep{hoffmann2022training} $\cdot$ \href{https://github.com/karpathy/nanochat}{nanochat} (full pipeline, small budget) $\cdot$ \href{https://github.com/stanford-cs336}{CS336 assignment repos} $\cdot$ \href{https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu}{FineWeb-Edu} $\cdot$ \href{https://github.com/huggingface/datatrove}{datatrove} for dedup and filtering.}
+
+\paragraph{B2. Train and profile a small language model from scratch  (adapted from Stanford CS336)}
+Follow the CS336 sequence: tokenizer, decoder, optimizer, training loop, all written by you. Then run a clean experiment: two model sizes at a matched approximate compute budget, or one throughput setting (sequence length, batch size, attention kernel, mixed precision) varied with the model held fixed.
+
+\textbf{Compare.} two sizes at matched compute, or one throughput knob.\\
+\textbf{Measure.} held-out loss, actual tokens per second, peak memory, and the measured budget for any optional 0.5B run.\\
+\textit{Start from: \href{https://cs336.stanford.edu/}{CS336: Language Modeling from Scratch} (Spring 2026 lectures on YouTube; Chinese subtitles on Bilibili, see below) $\cdot$ \href{https://pytorch.org/docs/stable/profiler.html}{torch.profiler}.}
+
+\paragraph{B3. Reproduce a model result and test one data change  (adapted from Tsinghua AML (Tang Jie))}
+The Tsinghua course pairs implementation exercises (reproducing GLM-4-9B basics, fine-tuning plus RAG, visual LLMs, advanced reasoning) with a team research project. Reproduce a small published result with its configuration, then compare the original data with one deduplicated or quality-filtered variant. Keep tokenizer, architecture and token budget fixed.
+
+\textbf{Compare.} original data vs. one filtered variant at the same budget.\\
+\textbf{Measure.} matched learning curves and a held-out comparison.\\
+\textit{Start from: \href{https://dujh22.github.io/Dujinhua\_wiki/aml2024/}{AML 2024 course archive} (homework and project directions) $\cdot$ \href{https://github.com/zai-org/GLM-5}{GLM-5 repo} $\cdot$ \href{https://huggingface.co/docs/trl/index}{TRL}.}
+
+\paragraph{B4. Weight-space programming: a language model reads and edits a checkpoint}
+Takehi, Teoh, Zhang and Khattab (MIT CSAIL, Nov. 2026) report that a frontier model can infer behaviour from raw weights and edit them to change it: identifying which game a PPO policy plays from its weights, fixing a Kinetix car policy by changing 3.5\% of weights, and lifting Qwen3.5-0.8B from 7.9\% to 48.1\% on MATH-500 by editing 0.016\% of its weights with 50 forward passes. The same method gave no gain on Gemma 3 270M. Replicate the idea at a scale you control.
+
+\textbf{Compare.} the proposed patch vs. the original checkpoint vs. a random edit matched for parameter count and norm; add a simple task-specific repair baseline when one exists.\\
+\textbf{Measure.} held-out task success, retention on unaffected cases, edit size, across seeds; log every forward pass used during editing.\\
+\textit{Week 1: tiny model with a reproducible failure; edit interface; Week 2: editing protocol with budget and dev set; Week 3: baselines, seeds, retention.}
+\textit{Start from: \href{https://rikiyat.github.io/blog/weight-space-programming/}{Sparks of Weight-Space Programming} $\cdot$ \href{https://github.com/RikiyaT/lm\_understand-logs}{full logs, code and datasets} $\cdot$ \href{https://huggingface.co/spaces/akhaliq/weight-space-programming-demo}{live demo} $\cdot$ \href{https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming}{edited Qwen3.5-0.8B}.}
+
+\paragraph{B5. Mechanistic interpretability at scale: do SAE features have consistent causal effects?}
+Use released Gemma Scope sparse autoencoders to study one behaviour, such as copying a repeated sequence. Select features from activation examples on development prompts, then intervene on held-out prompts. The question is whether an explanation that looks right on examples survives a causal test across templates.
+
+\textbf{Compare.} feature intervention vs. no-op vs. random features at matched magnitude vs. a simple neuron baseline.\\
+\textbf{Measure.} change in target-token log odds, effects on unrelated prompts, results by template; two SAE widths at comparable sparsity only after the pipeline works.\\
+\textit{Start from: \href{https://deepmind.google/models/gemma/gemma-scope/}{Gemma Scope} $\cdot$ \href{https://openreview.net/forum?id=tcsZt9ZNKD}{Scaling and evaluating sparse autoencoders} $\cdot$ \href{https://github.com/jbloomAus/SAELens}{SAELens} $\cdot$ \href{https://github.com/TransformerLensOrg/TransformerLens}{TransformerLens} $\cdot$ the \href{https://aimo-interp.github.io}{AIMO Interpretability Challenge} (NeurIPS 2026) for a reasoning-model variant.}
+
+\paragraph{B6. A twist on SFT or RL: train on the right tokens, the right data, or with a cheaper PPO}
+This is not a reproduction. Pick one ingredient of SFT or RL, propose a variant of your own, and show at matched compute whether it helps and why. Several of the most cited post-training results of 2024–2026 are changes of a few lines (which tokens receive gradient, which problems are sampled, how the loss is normalised), so the format fits four weeks and one GPU. Choose one family, read its starting points, and make your own twist the research question.
+
+\begin{itemize}
+\item Which tokens learn. \href{https://arxiv.org/abs/2404.07965}{Rho-1}~\citep{lin2024rho} (selective language modelling: train only on the tokens a reference model marks as useful); \href{https://arxiv.org/abs/2506.01939}{high-entropy minority tokens}~\citep{wang20258020} (RL gradients on the 20\% "forking" tokens match or beat full updates); \href{https://arxiv.org/abs/2508.05629}{DFT}~\citep{wu2025generalization} (rescale each SFT token loss by its probability, one line); select tokens by disagreement between two checkpoints; apply the high-entropy mask to SFT instead of RL; stop gradient on tokens copied from the prompt; select by the verifier's credit for each step
+\item Which data. \href{https://arxiv.org/abs/2502.03387}{LIMO}~\citep{ye2025limo} and \href{https://arxiv.org/abs/2501.19393}{s1}~\citep{muennighoff2025s1} (about 1k curated examples); \href{https://arxiv.org/abs/2504.20571}{1-shot RLVR}~\citep{wang2025reinforcement} (RL on a single training problem); dynamic sampling in \href{https://arxiv.org/abs/2503.14476}{DAPO}~\citep{yu2025dapo} (drop groups whose rewards are all equal); a curriculum by the current policy's pass rate; deduplication by solution strategy rather than by text; replay of already-solved problems to limit forgetting; rewriting hard problems into easier stepping stones
+\item How the loss is computed. \href{https://arxiv.org/abs/2503.20783}{Dr. GRPO}~\citep{liu2025understanding} (remove the length and standard-deviation normalisation); DAPO (clip-higher, token-level loss, overlong shaping); \href{https://arxiv.org/abs/2507.18071}{GSPO}~\citep{zheng2025group} (sequence-level ratios); \href{https://arxiv.org/abs/2505.22617}{Clip-Cov / KL-Cov}~\citep{cui2025entropy} against entropy collapse; a coefficient that holds policy entropy at a target; clipping that depends on token entropy; a length penalty scaled by problem difficulty; mixing SFT and RL losses on the same batch
+\item Making PPO cheaper. \href{https://arxiv.org/abs/2310.10505}{ReMax}~\citep{li2023remax} and \href{https://arxiv.org/abs/2402.14740}{RLOO}~\citep{ahmadian2024back} (no value model); GRPO's group baseline (\href{https://arxiv.org/abs/2402.03300}{DeepSeekMath}~\citep{shao2024deepseekmath}); asynchronous rollouts (\href{https://arxiv.org/abs/2505.24298}{AReaL}~\citep{fu2025areal}); LoRA for the policy; reuse each rollout batch for two updates with importance correction; stop rollouts early once the verifier can already decide; skip prompts the policy always solves; report accuracy per GPU hour and peak memory, not accuracy alone
+\end{itemize}
+
+\textbf{Compare.} the unmodified baseline recipe $\cdot$ the published variant $\cdot$ your twist, with the same base model (for example Qwen3-0.6B or 1.7B), the same data, GPU hours and seeds; plus one ablation that removes the part of your twist you believe matters.\\
+\textbf{Measure.} accuracy and Pass@k on MATH-500, GSM8K or a code set (does the gain survive at large k?), an out-of-distribution set, entropy and response length during training, GPU hours and peak memory per point gained.\\
+\textit{Week 1: baseline recipe running end to end; Week 2: published variant reproduced at small scale; Week 3: your twist and its ablation, two seeds.}
+\textit{Start from: \href{https://nlp-course-cuhksz.github.io/tutorial2.html}{Tutorial 2 notebooks} (SFT, reward model + PPO, GRPO, DPO) $\cdot$ \href{https://github.com/huggingface/trl}{TRL} $\cdot$ \href{https://github.com/volcengine/verl}{verl} $\cdot$ \href{https://github.com/OpenRLHF/OpenRLHF}{OpenRLHF} $\cdot$ \href{https://github.com/THUDM/slime}{slime} $\cdot$ \href{https://github.com/hkust-nlp/simpleRL-reason}{SimpleRL} $\cdot$ for the Pass@k question: \href{https://arxiv.org/abs/2504.13837}{does RL expand reasoning beyond the base model?}~\citep{yue2025reinforcement} $\cdot$ \href{https://arxiv.org/abs/2501.17161}{SFT memorizes, RL generalizes}~\citep{chu2025sft} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture06\_RL\_for\_LLM\_Post-Training.pdf}{Lecture 6 slides}.}
+
+\paragraph{B7. Domain or low-resource language adaptation, with forgetting measured}
+Adapt a small model to a domain (medicine, law, a dialect) with a small curated corpus. The point is not the domain score alone but what is lost, and whether a replay mixture recovers it.
+
+\textbf{Compare.} base $\cdot$ domain-adapted $\cdot$ domain-adapted with 10–20\% replay of general data.\\
+\textbf{Measure.} domain task gain, general-task regression, calibration.\\
+\textit{Domain examples from our lab: \href{https://arxiv.org/abs/2305.15075}{HuatuoGPT}~\citep{zhang2023huatuogpt}, \href{https://arxiv.org/abs/2311.09774}{HuatuoGPT-II}~\citep{chen2023huatuogpt} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture09\_Medical\_LLMs\_Towards\_Generalist\_Medical\_AI.pdf}{Lecture 9: Medical LLMs} $\cdot$ \href{https://github.com/huggingface/peft}{PEFT}.}
+
+\paragraph{B8. Process rewards for stepwise reasoning}
+Train or prompt a step-level verifier and use it to re-rank or guide a small reasoning model. Compare outcome-only reward with process reward at the same number of labelled or generated examples.
+
+\textbf{Compare.} outcome reward $\cdot$ process reward $\cdot$ both, same budget.\\
+\textbf{Measure.} accuracy, verifier precision on held-out steps, cost per correct answer.\\
+\textit{Start from: \href{https://arxiv.org/abs/2305.20050}{Let's Verify Step by Step}~\citep{lightman2023lets} $\cdot$ \href{https://arxiv.org/abs/2402.03300}{DeepSeekMath (GRPO)}~\citep{shao2024deepseekmath}.}
+
+\paragraph{B9. Where should a fixed LoRA budget go?}
+Given a fixed number of trainable parameters, compare uniform LoRA ranks with allocations that favour attention, MLP, or late layers; include LoRA vs. QLoRA vs. adapters under one evaluation protocol, as in the Tsinghua AML week-14 assignment.
+
+\textbf{Compare.} allocation schemes at equal parameter count.\\
+\textbf{Measure.} task accuracy, memory, training time, variance across seeds.\\
+\textit{Start from: \href{https://github.com/huggingface/peft}{PEFT} $\cdot$ \href{https://arxiv.org/abs/2101.00190}{Prefix-Tuning}~\citep{li2021prefix} $\cdot$ \href{https://nlp-course-cuhksz.github.io/tutorial2.html}{Tutorial 2 (LoRA/QLoRA)}.}
+
+\paragraph{B10. A nanoGPT speedrun experiment: one architecture or optimizer change at a fixed budget}
+Keller Jordan's \href{https://github.com/KellerJordan/modded-nanogpt}{modded-nanogpt} turned "train GPT-2 124M to 3.28 validation loss on FineWeb" into a public speedrun: 45 minutes in 2024, under two minutes by the end of 2025, about 40 seconds by August 2026, and a disputed 6.7-second entry in late October 2026 that uses n-gram hints built on idle CPUs. Every record is a documented change: the Muon optimizer, QK-norm, ReLU$^2$ MLPs, U-net skip connections, value embeddings, sliding-window FlexAttention, logit soft-capping, paired-head attention, fused Triton kernels. That changelog is a syllabus for architecture engineering. Pick \textbf{one} idea (or a new one from Lecture 4: MLA, gated linear attention, a hybrid Mamba block, nGPT normalisation, $\mu$P scaling), implement it in a single-GPU scaled-down version of the run, and measure it properly.
+
+\textbf{Compare.} the current record script (scaled to your GPU and token budget) $\cdot$ the same script with your one change, at matched tokens and matched wall-clock, two seeds each.\\
+\textbf{Measure.} validation loss against tokens and against seconds, tokens per second, peak memory, and one downstream probe (HellaSwag or a small QA set); report whether the change helps at equal time, not only at equal steps.\\
+\textit{Week 1: reproduce the record at small scale; throughput; Week 2: implement the change; Week 3: matched-time runs, seeds, probe.}
+\textit{Start from: \href{https://github.com/KellerJordan/modded-nanogpt}{modded-nanogpt} (records and changelog) $\cdot$ \href{https://github.com/karpathy/nanoGPT}{nanoGPT} and \href{https://github.com/karpathy/nanochat}{nanochat} $\cdot$ \href{https://kellerjordan.github.io/posts/muon/}{Muon} $\cdot$ \href{https://epoch.ai/data/nanogpt-speedrun-record-time}{Epoch AI record timeline} $\cdot$ \href{https://brunborg.com/n-gram-hinted-lm}{the n-gram-hint record and the rules debate} $\cdot$ \href{https://www.primeintellect.ai/auto-nanogpt}{agents running the speedrun autonomously} $\cdot$ records on X: \href{https://x.com/AGTPinsights/status/2115588565988175872}{39.9 s $\rightarrow$ 6.7 s explained}, \href{https://x.com/classiclarryd/status/2008963501688324228}{paired-head attention}, \href{https://x.com/classiclarryd/status/2010545452832407943}{a fused ReLU$^2$ Triton kernel}, \href{https://x.com/leloykun/status/1892793848163946799}{the medium track} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture04\_Transformer\_and\_Beyond.pdf}{Lecture 4: Transformer and beyond}.}
+
+\paragraph{B11. A vertical model with the Tutorial 2 recipe: continued pre-training, SFT, preference optimization, RAG}
+Lecture 8's first topic is the vertical LLM: medicine, law, finance, a trade, a university's own regulations. The four tools are continued pre-training on domain text, supervised fine-tuning on domain tasks, preference optimization (DPO or GRPO with a verifier), and retrieval. \href{https://nlp-course-cuhksz.github.io/tutorial2.html}{Tutorial 2} gives you the SFT, reward-model, PPO, GRPO and DPO notebooks on a 4-bit base with LoRA adapters; HuatuoGPT and HuatuoGPT-II are the lab's worked examples. The question is not "can we build one" but \textbf{which stage buys what} for your domain at a fixed budget.
+
+\textbf{Compare.} base + RAG $\cdot$ SFT $\cdot$ CPT + SFT $\cdot$ SFT + DPO/GRPO, same base model, same held-out domain test, same GPU hours; add RAG on top of the best to see whether retrieval and training are substitutes or complements.\\
+\textbf{Measure.} domain accuracy or rubric score, general-task regression (forgetting), hallucination rate on unanswerable questions, cost per stage.\\
+\textit{Week 1: domain data, test set, base + RAG baseline; Week 2: SFT, CPT runs; Week 3: DPO/GRPO, forgetting checks.}
+\textit{Start from: \href{https://nlp-course-cuhksz.github.io/tutorial2.html}{Tutorial 2 notebooks} $\cdot$ \href{https://arxiv.org/abs/2305.15075}{HuatuoGPT}~\citep{zhang2023huatuogpt}, \href{https://arxiv.org/abs/2311.09774}{HuatuoGPT-II}~\citep{chen2023huatuogpt} (one-stage domain adaptation) $\cdot$ \href{https://arxiv.org/abs/2405.17743}{ORLM}~\citep{huang2024orlm} (optimization modelling), \href{https://arxiv.org/abs/2307.13923}{GrammarGPT}~\citep{fan2023grammargpt}, \href{https://arxiv.org/abs/2501.00353}{RAG-Instruct}~\citep{liu2024rag} (other lab examples from Lecture 8) $\cdot$ \href{https://github.com/huggingface/trl}{TRL} $\cdot$ \href{https://github.com/hiyouga/LLaMA-Factory}{LLaMA-Factory} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture09\_Medical\_LLMs\_Towards\_Generalist\_Medical\_AI.pdf}{Lecture 9}.}
+
+\paragraph{B12. Teach an LLM a new modality: speech, bio-signals or time series through a small adapter}
+Lecture 8 (Topic 8) and Lecture 10 describe the recipe: a modality encoder, a small projector or cross-attention adapter, and an LLM that stays mostly frozen. The lab's Soundwave reached Qwen2-Audio quality on speech tasks with one-fiftieth of the data by adding a CTC alignment loss and better data engineering; OpenTSLM (Stanford, 2025) made 1B models reason over ECG, sleep and activity time series, beating GPT-4o on those tasks. The project: pick one signal type and one task family (speech commands, ECG rhythm QA, EEG sleep staging, accelerometer activity, sensor logs, stock or weather series) and ask \textbf{how time should enter the model}.
+
+\textbf{Compare.} text-only baseline (numbers serialised as text) $\cdot$ soft-prompt adapter $\cdot$ cross-attention adapter, same frozen LLM and same training examples; ablate the alignment loss or the patch size.\\
+\textbf{Measure.} task accuracy or F1 on held-out subjects (not held-out windows), data efficiency (curve over training-set size), and whether the model still answers text questions (retention).\\
+\textit{Week 1: signal, task, subject split, text baseline; Week 2: encoder + adapter v1; Week 3: second adapter, data-efficiency curve.}
+\textit{Start from: \href{https://arxiv.org/abs/2502.12900}{Soundwave}~\citep{zhang2025soundwave} (\href{https://github.com/FreedomIntelligence/Soundwave}{code}, our lab) $\cdot$ \href{https://arxiv.org/abs/2510.02410}{OpenTSLM}~\citep{langer2025opentslm} (\href{https://huggingface.co/OpenTSLM}{checkpoints}) $\cdot$ \href{https://github.com/KimMeen/Time-LLM}{Time-LLM} (ICLR 2024) $\cdot$ \href{https://github.com/amazon-science/chronos-forecasting}{Chronos} $\cdot$ \href{https://github.com/bowang-lab/ECG-FM}{ECG-FM} $\cdot$ \href{https://physionet.org/}{PhysioNet} and \href{https://github.com/MIT-LCP/mimic-code}{MIMIC} data $\cdot$ posts on X: \href{https://x.com/kanair/status/2104214658592952795}{an EEG foundation model on a \$50 device}, \href{https://x.com/BoWang87/status/1998911444163899812}{ECG-FM in JAMA Network Open} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture10\_Multimodal\_LLMs.pdf}{Lecture 10: Multimodal LLMs}.}
+
+\paragraph{Pitfalls we see every year.} Two things changed at once. Conditions compared at different token counts. A benchmark that overlaps the training data. One seed. "We trained a 0.5B model" with no throughput or cost numbers. A learning curve that stops before the comparison is meaningful. Fix the budget, change one thing, show the curve.
+
+\clearpage
+
+\section{HCI: interactive 3D/VR worlds, digital humans, education \& human–AI interaction}
+\label{sec:trackC}
+This track is about \textbf{interaction}: what changes when a language model is placed where people can see, touch, walk through or learn from it. Part 1 puts the model inside a 3D scene, a game, a headset, a robot simulator or an animated character and asks what it contributes (spatial language, memory, grounded action, real-time decisions). Part 2 takes a concrete piece of teaching material and builds something a learner can watch, rotate or experiment with, and asks when an assistant should ask, remember or stay quiet. Both parts end in a demo, and both are graded on the controlled comparison behind it: fix the scene or the lesson, hold out tasks, score with an independent checker, and measure interaction as task success, fidelity and transfer rather than "engagement".
+
+\subsection*{Part 1 $\cdot$ Interactive 3D worlds, AR/VR, embodied AI \& digital humans  (briefs C1–C10)}
+Language models are leaving the chat box. This track puts an LLM inside a 3D scene, a game, a robot simulator or an animated character, and asks what the language model actually contributes: \textbf{spatial language, memory, grounded action, or interaction}. Every project here ends in something you can play in a browser or watch as a replay, but the report is graded on the controlled comparison behind the demo. The 2026 toolchain makes the demo part cheap: image-to-3D models export glTF assets that three.js loads directly, open world models produce editable scenes, and a frontier coding agent can scaffold a three.js project in an afternoon. Spend the saved time on the evaluation. Three 2026 additions: a \textbf{visual personal assistant} that sees what you see (brief C4), \textbf{AR/VR as the interface} (C9) and \textbf{world models that decide in real time} (C10), the direction that DeepMind's Genie 4 and Meta's V-JEPA 2 point to.
+
+\paragraph{Ground rules for 3D studies.} Start with one small environment and reuse assets. Hold out layouts, tasks or requests. Keep scene access identical between methods unless access itself is the variable. Score with a separate checker that reads simulator state, not with the model that acted. Record replays so a reader can see the failure, not just the number.
+
+\subsection{Research questions: 3D worlds \& digital humans}
+\begin{itemize}
+\item Does state-aware retrieval of approved scene facts beat a static briefing for an NPC on held-out routes and dialogues, and at what latency?
+\item Can a camera assistant answer "where did I leave my keys?" better from a timestamped memory than from frames sampled into a long context, and when should it ask which object you mean instead of guessing?
+\item Does a typed action schema with a geometry checker reduce invalid placements and unintended edits compared with free-form scene edits?
+\item When the evidence is out of view, how many actions does question-guided exploration save over random or frontier exploration, and which failure remains: not finding, misreading, or stopping too early?
+\item Does conditioning on audio plus a short style instruction improve beat alignment and blinded style preference over beat-matched retrieval?
+\item Can a frozen manipulation policy be made robust to perturbations with a small adaptation or a recovery rule, without hurting the unperturbed case?
+\item How should a speech assistant handle interruptions (barge-in) and memory so that task success rises without end-to-end latency exploding?
+\item In AR/VR, does giving the assistant the scene graph plus the user's gaze and hand targets reduce wrong placements and clarification questions compared with language alone?
+\item For a real-time decision task, where does a small latent world model with model-predictive control beat an LLM planner, and does combining them (LLM sub-goals, latent execution) keep the best of both?
+\end{itemize}
+
+\subsection{Featured briefs: 3D worlds \& digital humans}
+\paragraph{C1. A GTA-style CUHK-Shenzhen campus with LLM characters}
+Build a playable slice of the campus with a few recognizable landmarks, two NPCs, and three tasks such as finding a room, asking about an event, and following directions. The map can be extruded from OpenStreetMap building footprints or modelled by hand; the point is the characters, not the architecture. NPCs need a memory of what they saw and said, an action interface (walk to, point at, give directions), and a source of campus facts. For a sense of what one person with coding agents can now build, watch Taipei Rush (台北狂飙, Oct. 2026): a browser GTA-style clone of Taipei built with about 400 parallel agents and more than US\$10,000 of tokens, later extended to Hong Kong, Tokyo and other cities. Your campus slice is far smaller; spend the time saved on the characters and the evaluation, and use your own name and assets (Rockstar has had AI clips that reuse GTA material taken down).
+
+\textbf{Compare.} a scripted NPC $\cdot$ an LLM with a static campus briefing $\cdot$ the same LLM with state-aware retrieval of approved campus facts. Both LLM variants get the same landmark queries and game commands.\\
+\textbf{Measure.} factual accuracy, valid actions, quest completion and response latency on held-out routes and dialogue scenarios.\\
+\textit{Week 1: map, landmarks, scripted baseline; Week 2: dialogue + action interface, retrieval; Week 3: held-out tests, latency logs.}
+\textit{Start from: \href{https://arxiv.org/abs/2304.03442}{Generative Agents}~\citep{park2023generative} (memory, reflection, planning) $\cdot$ \href{https://github.com/joonspk-research/generative\_agents}{Smallville code} $\cdot$ \href{https://github.com/a16z-infra/ai-town}{AI Town starter kit} $\cdot$ \href{https://github.com/ugonfor/ai-npc-world}{ai-npc-world} (three.js village with LLM NPCs) $\cdot$ \href{https://www.openstreetmap.org/}{OpenStreetMap} + \href{https://threejs.org/docs/\#api/en/geometries/ExtrudeGeometry}{ExtrudeGeometry} for the campus footprint $\cdot$ \href{https://github.com/THUDM/AgentBench}{AgentBench} for action-format ideas $\cdot$ video examples: \href{https://www.youtube.com/watch?v=q\_bCdVTtLmI}{Taipei Rush gameplay} (\href{https://taipei-gta.vercel.app/}{play it in a browser}, \href{https://startupfortune.com/a-solo-coder-spent-10000-in-ai-tokens-to-build-a-gta-clone-of-taipei/}{how it was built}) and \href{https://www.bilibili.com/video/BV1dLnt6tExU/}{a GTA6-style China map made with AI} (Jack-Cui, Forbidden City; \href{https://github.com/Jack-Cherish/GTA-demo}{open-source code}).}
+
+\paragraph{C2. A three.js world with AI-generated assets that adapts to its user}
+Build one browser scene and generate a small library of assets for it with an image-to-3D model, then import the meshes as glTF. The research question is how the scene should adapt to what a user asks for: free-text preferences interpreted by the model, or structured preferences the model fills in.
+
+\textbf{Compare.} a fixed layout $\cdot$ adaptation from free-text preferences $\cdot$ adaptation from structured preferences, all over the same asset library and with the same preview and undo controls.\\
+\textbf{Measure.} fraction of requests satisfied, unintended scene changes, user corrections, asset load failures, frame time.\\
+\textit{Week 1: asset + preference schema, 10–20 assets; Week 2: two adaptation variants; Week 3: same requests through all variants.}
+\textit{Start from: \href{https://x.com/konstantinsaifo/status/2117317677316497483}{inspiration post} $\cdot$ \href{https://huggingface.co/microsoft/TRELLIS.2-4B}{TRELLIS.2} (MIT, GLB with PBR) $\cdot$ \href{https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1}{Hunyuan3D 2.1} $\cdot$ \href{https://threejs.org/manual/\#en/load-gltf}{three.js glTF loading} $\cdot$ \href{https://github.com/Tencent-Hunyuan/HY-World-2.0}{HY-World 2.0} for whole scenes (meshes / 3DGS).}
+
+\paragraph{C3. A digital human that dances to audio}
+Retarget a small library of motion clips to a single rigged avatar and make it move to any input track. The language angle: a short style instruction ("sharper on the beat", "lazy hip-hop") should change which clips are chosen and how transitions are made.
+
+\textbf{Compare.} fixed playback $\cdot$ beat-matched retrieval $\cdot$ retrieval conditioned on both audio and a style instruction, on held-out tracks.\\
+\textbf{Measure.} beat alignment between movement accents and audio beats, transition jerk or foot sliding, blinded style preference.\\
+\textit{Week 1: rig, clip library, fixed playback; Week 2: audio + language conditioning; Week 3: score 8–12 clips.}
+\textit{Start from: \href{https://x.com/KOF97AI/status/2117112311244575024}{inspiration post} $\cdot$ \href{https://google.github.io/aichoreographer/}{AIST++ and AI Choreographer} $\cdot$ \href{https://github.com/Stanford-TML/EDGE}{EDGE} (diffusion dance generation, the standard open baseline) $\cdot$ \href{https://github.com/oceanflowlab/AtomicDance}{AtomicDance} (ECCV 2026, built on EDGE) $\cdot$ \href{https://github.com/pixiv/three-vrm}{three-vrm} and \href{https://www.mixamo.com/}{Mixamo} for rigs and clips $\cdot$ \href{https://librosa.org/doc/latest/generated/librosa.beat.beat\_track.html}{librosa beat tracking}.}
+
+\paragraph{C4. A visual personal assistant: it sees what you see, remembers it, and asks which one you mean}
+Smart glasses and phone cameras (Meta's Ray-Ban glasses, Gemini Live with camera sharing, DeepMind's Project Astra) turn the assistant into something that watches your day with you. Build a small one and study a single design choice. Input: a first-person video stream (your own recordings with consent, or clips from EgoLife or Ego4D). State: a memory of timestamped observations. Three kinds of request: about \emph{now} ("what does this label say?"), about \emph{the past} ("where did I leave my keys?", "how many coffees today?"), and \emph{ambiguous} ones ("is that one cheaper?") where the right move may be to ask which object the user means.
+
+\textbf{Compare.} for memory questions: the current frame only $\cdot$ uniformly sampled frames in a long-context model $\cdot$ retrieval over a timestamped memory of captions and objects. For ambiguous requests: best guess $\cdot$ always ask $\cdot$ ask only when more than one candidate remains plausible after grounding. Same model throughout.\\
+\textbf{Measure.} accuracy on 100–200 held-out questions whose gold answers come from annotated timestamps, latency per answer, memory size and tokens per hour of video; for ambiguous requests, correct selections and questions asked.\\
+\textit{Week 1: video source, 150 questions, frame-only baseline; Week 2: long-context and memory variants; Week 3: ambiguous set, ask-when-ambiguous trigger.}
+\textit{Start from: \href{https://arxiv.org/abs/2503.03803}{EgoLife}~\citep{yang2025egolife} (CVPR 2025; a week of egocentric life video and the EgoLifeQA questions) $\cdot$ \href{https://ego4d-data.org/}{Ego4D} (episodic-memory queries) $\cdot$ \href{https://arxiv.org/abs/2406.11816}{VideoLLM-online}~\citep{chen2024videollm} (streaming video assistant) $\cdot$ \href{https://deepmind.google/models/project-astra/}{Project Astra} $\cdot$ \href{https://github.com/QwenLM/Qwen3-VL}{Qwen3-VL} $\cdot$ \href{https://github.com/FreedomIntelligence/LongLLaVA}{LongLLaVA} (our lab, many frames in one pass) $\cdot$ pairs with C16 (when should an assistant ask?) and D1 (long-context failures).}
+
+\paragraph{C5. Multi-turn language editing for 3D scenes}
+"Move the chair beside the desk without blocking the door." Compare direct generation of scene edits with a typed action schema whose outputs pass through a geometry checker (collisions, reachability, relation satisfaction). Include follow-up references ("no, the other one") and corrections.
+
+\textbf{Compare.} free-form edit generation $\cdot$ typed schema + geometry checker, same model and same scenes.\\
+\textbf{Measure.} relation satisfaction, unintended edits, invalid placements, turns to success.\\
+\textit{Start from: \href{https://ucsb-ai.github.io/edit-room.github.io/}{EditRoom} $\cdot$ \href{https://threejs.org/docs/\#examples/en/controls/TransformControls}{three.js TransformControls}.}
+
+\paragraph{C6. Look before you answer: active embodied question answering in a simulated home}
+"Is the stove on?" or "how many mugs are in the sink?" cannot be answered from where the agent starts: it has to decide where to go, what to look at, and when it has seen enough. The task is fixed and small. Use the active split of OpenEQA (HM3D homes in Habitat), or write 60 questions in AI2-THOR whose answers you read from simulator state. The agent is a vision-language model with a short action list (move forward, turn left or right, look up or down, open) and a budget of 20 actions; it ends an episode by answering. The research question is how much a question-guided search strategy saves, and which failure remains.
+
+\textbf{Compare.} answering from the start view (lower bound) $\cdot$ random or frontier exploration, then answer $\cdot$ question-guided exploration, where the model names where the evidence should be and stops when confident $\cdot$ the same plus a semantic map of what it has seen. Same model, same 20-action budget.\\
+\textbf{Measure.} accuracy against simulator state (and OpenEQA's LLM-Match score, checked by hand on a sample), actions used, an efficiency-weighted score, and a split of failures: never saw the evidence, saw it but misread it, or stopped too early.\\
+\textit{Week 1: simulator, 60 questions, start-view baseline; Week 2: random and frontier exploration, the checker; Week 3: question-guided agent and map, matched budget.}
+\textit{Start from: \href{https://open-eqa.github.io/}{OpenEQA}~\citep{majumdar2024openeqa} (CVPR 2024; episodic-memory and active splits, LLM-Match metric; \href{https://github.com/facebookresearch/open-eqa}{code}) $\cdot$ \href{https://arxiv.org/abs/2403.15941}{Explore until Confident}~\citep{ren2024explore} (RSS 2024; a stopping rule for active EQA) $\cdot$ \href{https://ai2thor.allenai.org/}{AI2-THOR} $\cdot$ \href{https://aihabitat.org/habitat3/}{Habitat 3.0} $\cdot$ \href{https://github.com/QwenLM/Qwen3-VL}{Qwen3-VL} as the vision model.}
+
+\paragraph{C7. Make a frozen manipulation policy robust (OpenLET / LIBERO)}
+Take an existing vision-language-action policy on a single pick-and-place task in simulation. Do not train a new policy; instead test one small adaptation (a few LoRA steps on perturbed episodes) or one recovery rule (re-grasp on detected failure) against the frozen policy.
+
+\textbf{Compare.} frozen policy $\cdot$ frozen + recovery rule $\cdot$ small adaptation, on seen and perturbed object placements.\\
+\textbf{Measure.} success by placement and perturbation, extra steps used, regressions on the unperturbed case.\\
+\textit{Start from: \href{https://tianchi.aliyun.com/competition/entrance/532515/introduction}{OpenLET Embodied Intelligence Challenge} (simulation round to Dec. 31) $\cdot$ \href{https://github.com/huggingface/lerobot}{LeRobot} and \href{https://huggingface.co/lerobot/smolvla\_libero}{SmolVLA-LIBERO} $\cdot$ \href{https://github.com/Lifelong-Robot-Learning/LIBERO}{LIBERO} $\cdot$ \href{https://github.com/haosulab/ManiSkill}{ManiSkill} $\cdot$ \href{https://github.com/OpenHelix-Team/LLaVA-VLA}{LLaVA-VLA} (a plain VLA baseline meant for students).}
+
+\paragraph{C8. A talking digital human: speech-to-speech with barge-in and memory}
+Build a voice assistant for a narrow task (campus directions, a vocabulary drill) with streaming ASR, an LLM, and streaming TTS. The variable is the interaction design: how interruptions are handled and what the assistant remembers across turns.
+
+\textbf{Compare.} turn-taking without barge-in $\cdot$ barge-in with immediate stop $\cdot$ barge-in plus a short memory of the interrupted intent.\\
+\textbf{Measure.} task success, end-to-end latency breakdown (ASR / LLM / TTS), interruptions handled correctly.\\
+\textit{Start from: \href{https://github.com/FunAudioLLM/CosyVoice}{CosyVoice 3} (Apache-2.0, streaming) $\cdot$ \href{https://github.com/openai/whisper}{Whisper} $\cdot$ \href{https://github.com/snakers4/silero-vad}{Silero VAD} for barge-in detection.}
+
+\paragraph{C9. An LLM assistant inside a WebXR scene: AR/VR editing by voice}
+Lecture 8 asked for an "open world experience using AI + VR". The research version: a user wearing a headset (or using a phone's AR view, or the browser's WebXR emulator) says "put a lamp on the desk, facing the window" and the assistant edits the scene. Microsoft's LLMR (CHI 2024) showed that scene understanding, task planning and self-debugging cut GPT-4's error rate four-fold in Unity; DecartXR (open source, Quest) restyles the room in real time from speech. Your variable is how much of the scene the model gets to see: nothing, a text scene graph, or the scene graph plus the user's gaze and hand targets.
+
+\textbf{Compare.} prompt-only $\cdot$ scene graph in context $\cdot$ scene graph + gaze/hand target, on the same spoken commands and rooms; same model and action schema.\\
+\textbf{Measure.} command success judged by a geometry checker (placement, relation, no collisions), unintended edits, clarification questions, end-to-end latency from end of speech to visible change.\\
+\textit{Week 1: scene, action schema, geometry checker; Week 2: three context conditions, voice input; Week 3: held-out commands, latency logs.}
+\textit{Start from: \href{https://arxiv.org/abs/2309.12276}{LLMR}~\citep{torre2023llmr} (CHI 2024) and \href{https://arxiv.org/abs/2502.02441}{LLMER}~\citep{chen2025llmer} (JSON instead of code) $\cdot$ \href{https://x.com/DecartAI/status/1974534910623859128}{DecartXR} (open-source real-time restyling on Quest) $\cdot$ \href{https://immersiveweb.dev/}{WebXR} with \href{https://threejs.org/docs/\#manual/en/introduction/How-to-create-VR-content}{three.js VR} or \href{https://aframe.io/}{A-Frame} $\cdot$ \href{https://github.com/meta-quest/immersive-web-emulator}{Immersive Web Emulator} if you have no headset $\cdot$ \href{https://x.com/EugenioFierro3/status/2093345842925060172}{Meta XR Operator} (an agent that launches and tests Quest scenes, Aug. 2026) $\cdot$ reuse the checker from C5.}
+
+\paragraph{C10. A small JEPA-style world model that decides fast: latent planning vs. an LLM planner}
+Language models plan slowly; a game NPC, a drone or a robot gripper needs a decision every few milliseconds. Meta's V-JEPA 2 (June 2025) learns a video world model by predicting in latent space and plans by rolling out candidate actions with a 300M-parameter action-conditioned head; DreamerV3 and TD-MPC2 are the model-based RL references. The project: in one small environment (PushT, a MetaWorld task, or a 2D game you write), train or fine-tune a compact predictive model and compare a latent planner against an LLM that is asked to choose the next action from a text description.
+
+\textbf{Compare.} a frozen LLM planner (text observations, one call per step) $\cdot$ a small learned world model with model-predictive control $\cdot$ the two combined (LLM sets sub-goals, latent planner executes), at matched wall-clock per episode.\\
+\textbf{Measure.} task success on held-out starts, decisions per second, latency distribution, and how success degrades when the decision budget is cut.\\
+\textit{Week 1: environment, scripted baseline, LLM planner; Week 2: train the predictive model, CEM/MPC planner; Week 3: matched-latency comparison, ablate horizon.}
+\textit{Start from: \href{https://github.com/facebookresearch/vjepa2}{V-JEPA 2} (paper \href{https://arxiv.org/abs/2506.09985}{2506.09985}~\citep{assran2025v}) $\cdot$ \href{https://github.com/facebookresearch/jepa-wms}{jepa-wms} (what drives success in planning with JEPA world models; PushT, MetaWorld, DROID checkpoints) $\cdot$ \href{https://github.com/aselimc/jepa.cpp}{jepa.cpp} (V-JEPA 2-AC on a CPU) $\cdot$ \href{https://github.com/danijar/dreamerv3}{DreamerV3} $\cdot$ \href{https://github.com/nicklashansen/tdmpc2}{TD-MPC2} $\cdot$ \href{https://x.com/DrJimFan/status/2024895359236051274}{DreamDojo} (NVIDIA, open-source robot world model at 10 FPS, Feb. 2026) $\cdot$ the \href{https://www.youtube.com/watch?v=GBd7iuJkW08}{CS25 world-modeling talk} below.}
+
+\subsection{More research questions: 3D worlds \& digital humans}
+\begin{itemize}
+\item \textbf{Viewpoint-dependent references.} "The cup on my left" changes meaning with the camera. Measure how often a VLM resolves such references correctly from a fixed vs. a user-aligned view.
+\item \textbf{Answer with geometric evidence.} Make a 3D QA system cite the object and the measurement it used; score citation correctness separately from answer correctness.
+\item \textbf{Adaptive screenshot cropping} for GUI or 3D agents: does a model-chosen crop beat a fixed grid at the same token budget?
+\item \textbf{Per-character event memory} for NPCs: compare a flat log, a summarised memory, and a retrieval memory on dialogue consistency over long play sessions.
+\item \textbf{Video captioning or editing with quality controls}, from the multimodal research area: fix the clips and the rubric, vary the control mechanism.
+\end{itemize}
+
+\paragraph{Pitfalls we see every year.} A beautiful scene with no held-out test. A single long play session reported as "it works". The acting model also grades the answers. Latency reported without the hardware. Comparing an LLM NPC to a scripted one on tasks the script was never written for. Keep the environment small, the test set fixed, and the checker independent.
+
+\subsection*{Part 2 $\cdot$ Generative AI for education, special audiences \& human–AI interaction  (briefs C11–C20)}
+Generation is cheap; \textbf{faithful, useful generation is not}. This track takes a concrete piece of teaching material (a textbook passage, one math concept, one molecule, one physics law) and builds a workflow that turns it into something a learner can watch, rotate, or experiment with: an English skit, an explanation video whose narration follows the diagram, an interactive 3D biology or physics scene. The research question is about \emph{source fidelity} (does the output stay true to the material?), \emph{interaction} (does the system know when to ask?) and \emph{transfer} (can the learner apply the idea to a new case?). Human studies are welcome but optional; a scripted evaluation with a transfer quiz is enough for a strong report. Lecture 8 adds audiences beyond the classroom: young children, special groups, specific professions and majors, served by a content pipeline that is \textbf{reusable by design and curated by hand} (brief C19). New this term: a whole \textbf{lecture series} generated from one source, with narration and a recurring host (C20).
+
+\paragraph{How to evaluate education projects without a classroom.} Pair every generated artifact with (1) a fidelity check against the source (claims and target words mapped to passages), (2) a small blinded rubric for quality, and (3) a \textbf{transfer task} on new material (a new sentence, a new graph, a different protein chain). Measure learning as transfer, not as "engagement". If you do recruit classmates, keep it small, anonymous and free of sensitive data, and report the protocol.
+
+\subsection{Research questions: education \& interaction}
+\begin{itemize}
+\item Does a plan that first maps each target word and factual claim to the source produce more faithful and more usable dialogues than a direct script prompt?
+\item Does a structured storyboard that ties each narrated step to an equation and a visual event reduce narration–diagram mismatches in a math video?
+\item Does giving the model the learner's selected 3D component and structure annotations improve the correctness and evidence of its answers?
+\item Do typed simulator commands with trace-grounded explanations beat prompt-only interpretation for "change only the launch angle" requests?
+\item When should a tutoring assistant ask a clarifying question? Does an ask-when-triggered policy beat always-ask and never-ask on task success and questions asked?
+\item Do memory and reflection in an educational assistant change satisfaction or learning gain, or only the feeling of continuity?
+\item What moderation design keeps an LLM-simulated class forum civil without flattening disagreement?
+\item In a content pipeline for a specific audience, what does ten minutes of human curation per item add that automated checks do not, and which edits recur?
+\item Does a recurring host and a story that runs across lessons keep learners watching a generated lecture series to the end, without adding factual errors?
+\end{itemize}
+
+\subsection{Featured briefs: education \& interaction}
+\paragraph{C11. Textbook passages as short English skits}
+Adapt one textbook passage into a 60–90 second dialogue that teaches four to six target words through context, then voice it with an open TTS model and, optionally, animate it. The Gaoyou duck-egg and WordsFunny posts are format references: a tiny story, a few characters, the words appearing naturally.
+
+\textbf{Compare.} a direct script prompt $\cdot$ a plan that maps each word and claim to the source before writing; same model, target words and running time.\\
+\textbf{Measure.} factual fidelity to the passage, natural use of the words (blinded rubric), and whether learners can use the words in new sentences (transfer quiz).\\
+\textit{Week 1: passage, word list, fidelity rubric; Week 2: direct vs. planned pipeline, TTS; Week 3: blind rating, transfer quiz.}
+\textit{Format references: \href{https://x.com/yonex\_liu/status/2117267472860750096}{Gaoyou duck egg} $\cdot$ \href{https://x.com/PixelAigc/status/2117245963651973564}{WordsFunny}. Tools: \href{https://github.com/FunAudioLLM/CosyVoice}{CosyVoice 3} (Apache-2.0, cross-lingual cloning) $\cdot$ \href{https://github.com/index-tts/index-tts}{IndexTTS 2} (emotion control) $\cdot$ \href{https://github.com/Wan-Video/Wan2.2}{Wan 2.2} or \href{https://github.com/Lightricks/LTX-2}{LTX-2} for clips $\cdot$ \href{https://www.remotion.dev/}{Remotion} to assemble subtitles and scenes programmatically.}
+
+\paragraph{C12. A math explanation video whose narration follows the diagram}
+Teach one concept, for example why a secant slope approaches the tangent slope. A single curve, two movable points and a line are enough. The variable is the storyboard: unconstrained, or structured so that each narrated step links to an equation and a visual event.
+
+\textbf{Compare.} unconstrained storyboard $\cdot$ structured storyboard, rendered with the same graphics and comparable running time.\\
+\textbf{Measure.} mathematical errors, narration–diagram mismatches (timestamped), and a transfer question on a new graph.\\
+\textit{Start from: \href{https://docs.manim.community/en/stable/}{Manim Community} $\cdot$ \href{https://motioncanvas.io/}{Motion Canvas} $\cdot$ \href{https://github.com/FunAudioLLM/CosyVoice}{CosyVoice 3} for narration.}
+
+\paragraph{C13. An interactive 3D biology lesson grounded in a molecular structure}
+Teach students to distinguish protein chains from bound ligands and to locate heme in hemoglobin (PDB 4HHB). Learners rotate the structure and ask "which heme is associated with this chain?". The model sees the lesson text in both conditions; only one condition also receives the viewer's selected component and structure annotations.
+
+\textbf{Compare.} lesson text only $\cdot$ lesson text + selected component and annotations, same model and queries.\\
+\textbf{Measure.} correct object identified, relevant structural evidence cited, and whether learners can locate the feature on a different chain.\\
+\textit{Start from: \href{https://www.rcsb.org/structure/4HHB}{PDB 4HHB} $\cdot$ \href{https://pdb101.rcsb.org/motm/41}{PDB-101 hemoglobin} $\cdot$ \href{https://www.rcsb.org/docs/exploring-a-3d-structure/structure-3d-visualization}{RCSB Mol* viewer} (embeddable).}
+
+\paragraph{C14. A language-controlled 3D physics experiment}
+Teach how launch speed and angle affect projectile range. One scene: a sphere, a ground plane, a trajectory trace. Learners request controlled changes, predict the outcome, run, and compare. Compare a prompt-only interpretation of requests with a model that issues typed commands and explains results from the simulator trace.
+
+\textbf{Compare.} prompt-only $\cdot$ typed commands + trace-grounded explanation, on paraphrased requests.\\
+\textbf{Measure.} valid commands, experiments that change only the intended variable, explanation accuracy on unseen settings, a transfer question.\\
+\textit{Start from: \href{https://www.glowscript.org/}{Web VPython (GlowScript)} $\cdot$ or three.js with a hand-written integrator. Starter assets for other lessons: a pendulum (pivot, rod, bob), or one model from \href{https://science.nasa.gov/3d-resources/}{NASA 3D resources} with one measurable interaction. Keep asset sources and lesson assumptions in the README.}
+
+\paragraph{C15. An AIGC-for-education workflow for one textbook unit, with reusable 3D assets}
+Pick one unit of a real textbook (one chapter of a middle-school science book, one lesson of an English coursebook) and build the pipeline from source to artifacts: a glossary, a short skit, a diagram animation, and one interactive 3D object generated once and reused across lessons. The research question is about the workflow: where does a source-mapping step pay for itself, and where does it not?
+
+\textbf{Compare.} pipeline with and without the source-mapping step, per artifact type.\\
+\textbf{Measure.} fidelity errors per artifact, generation cost, and a short transfer quiz per lesson.\\
+\textit{Combine C11–C14; generate assets with \href{https://huggingface.co/microsoft/TRELLIS.2-4B}{TRELLIS.2}; present with \href{https://streamlit.io/}{Streamlit} or \href{https://www.gradio.app/}{Gradio}.}
+
+\paragraph{C16. When should an assistant ask for clarification?  (adapted from Stanford CS329X)}
+Pick one setting: object selection in a visual assistant (see C4), GUI actions, or document editing. Compare immediate execution, asking on every ambiguous case, and asking only when a defined trigger fires. Freeze the model, the task instances, and the information available before the decision.
+
+\textbf{Compare.} execute $\cdot$ always ask $\cdot$ ask on trigger.\\
+\textbf{Measure.} task success, questions asked, corrections; optionally a small human study on perceived helpfulness.\\
+\textit{Start from: \href{https://web.stanford.edu/class/cs329x/}{CS329X: Human-Centered LLMs} (Diyi Yang) $\cdot$ \href{https://arxiv.org/abs/2605.06901}{Reflections and new directions for human-centered LLMs}~\citep{ziems2026reflections} (the CS329X class paper) $\cdot$ \href{https://cogym.saltlab.stanford.edu/}{Collaborative Gym}.}
+
+\paragraph{C17. Memory and reflection in an educational assistant}
+Build a tutoring assistant for one topic and vary only its memory: none, a running summary, or retrieval over past sessions plus a reflection step that updates a learner model. Script learners with known misconceptions so the evaluation is repeatable, then optionally run a small study.
+
+\textbf{Compare.} no memory $\cdot$ summary memory $\cdot$ retrieval + reflection.\\
+\textbf{Measure.} misconceptions addressed, repeated explanations avoided, satisfaction (SUS/UMUX) and a learning-gain quiz if humans take part.\\
+\textit{Related: \href{https://arxiv.org/abs/2304.03442}{Generative Agents}~\citep{park2023generative} (reflection) $\cdot$ the \href{https://www.kaggle.com/competitions}{Kaggle} "root misconceptions in K–12 math solutions" task listed on \href{https://mlcontests.com/}{ML Contests} for data ideas.}
+
+\paragraph{C18. An AI town or class forum: simulating group dynamics and moderation}
+Simulate a class forum with LLM personas and test moderation designs: none, rule-based, or an LLM moderator with a stated policy. The simulation is the test bed; the contribution is a replayable protocol and clear metrics for civility and diversity of opinion.
+
+\textbf{Compare.} moderation designs on the same seeded discussions.\\
+\textbf{Measure.} toxicity, participation balance, opinion diversity, moderator interventions, cost.\\
+\textit{Start from: \href{https://github.com/a16z-infra/ai-town}{AI Town} $\cdot$ \href{https://arxiv.org/abs/2411.10109}{Generative agent simulations of 1,000 people}~\citep{park2024llm}.}
+
+\paragraph{C19. A reusable AIGC content pipeline for K-12, special groups, or a profession, with a human in the loop}
+Most AIGC demos make one nice artifact. The useful research object is a \textbf{pipeline} that makes a hundred, plus the small manual step that turns the good ones into great ones. Choose one audience and one format: a picture book that explains AI to five-year-olds (a Lecture 8 "special topic"), audio-described science stories for blind pupils, simplified-Chinese safety cards for migrant workers, nursing-handover drills for nursing students, Cantonese-opera synopses for primary schools, or case vignettes for a specific major. Build the pipeline as a template (brief $\rightarrow$ outline $\rightarrow$ text $\rightarrow$ image/audio $\rightarrow$ checks) so a new topic takes minutes, then ask what the human curation step adds.
+
+\textbf{Compare.} fully automatic pipeline $\cdot$ pipeline + automated checks (reading level, source fidelity, safety) $\cdot$ pipeline + checks + 10 minutes of human editing per item, on the same 30 briefs.\\
+\textbf{Measure.} a blinded rubric scored by two people from the audience's world (a teacher, a parent, a nurse); reading-level and fidelity checks; cost and time per item; which edits humans make most (a taxonomy).\\
+\textit{Week 1: audience, format, 30 briefs, rubric; Week 2: pipeline + automated checks; Week 3: human-edit condition, blinded rating.}
+\textit{Start from: \href{https://github.com/datawhalechina/happy-llm}{happy-llm} and \href{https://github.com/FreedomIntelligence/HappyMedicalAI}{Happy-Medical-AI} (teaching content as open repos) $\cdot$ \href{https://www.pnas.org/doi/10.1073/pnas.2422633122}{Bastani et al., PNAS 2025}~\citep{bastani2025guardrails} (unguarded AI help can harm learning: design the checks accordingly) $\cdot$ image models: \href{https://huggingface.co/Qwen/Qwen-Image}{Qwen-Image}, \href{https://github.com/black-forest-labs/flux}{FLUX}; TTS: \href{https://github.com/FunAudioLLM/CosyVoice}{CosyVoice 3} $\cdot$ accessibility references in Track E (E5) $\cdot$ posts on X: \href{https://x.com/howfxr/status/2113321053011546250}{Gemini Live "Guided Vision" for blind users}, \href{https://x.com/DisabledWorld/status/2023502540663394411}{Visionauta, a free app by a blind engineer}.}
+
+\paragraph{C20. An AI lecture series: generated courseware, TTS narration and a recurring host for one topic}
+Our \href{https://nlp-course-cuhksz.github.io/lecture10.html}{Lecture 10 page} is the worked example: the slides are narrated by a cloned voice and a photo avatar, a laser pointer follows the narration, and a chapter panel and lecture map sit beside the video. Turn that into a pipeline and make a \textbf{series}. Choose one topic (probability through card games, the history of Chinese characters, how vaccines work, LLMs for high-school students) and one source (a textbook chapter, a set of notes), and generate four to six connected lessons: outline, slides, script, narration, pointer cues and a short quiz per lesson. A recurring host makes a series feel like one: an original mascot, a figure from public-domain literature drawn in your own style (孙悟空, 诸葛亮), or a character whose rights you hold. Do not use commercial characters, voices or faces without permission.
+
+\textbf{Compare.} slides with TTS narration $\cdot$ plus synchronised pointer and highlight cues $\cdot$ plus the host character and a story that runs across lessons; same source, same lesson length. Optional fourth condition: ten minutes of teacher editing per lesson.\\
+\textbf{Measure.} factual errors against the source, narration–slide mismatches (timestamped), a quiz and one transfer question per lesson for 10–20 learners, completion across the series (who reaches lesson 4?), and cost and minutes per finished lesson.\\
+\textit{Week 1: topic, source, series outline, one lesson made by hand as the reference; Week 2: pipeline: slides, script, TTS, pointer cues; Week 3: host character, all lessons, learner quiz.}
+\textit{Start from: \href{https://nlp-course-cuhksz.github.io/lecture10.html}{Lecture 10 AI-video page} (cloned voice, avatar, laser pointer, chapters) $\cdot$ \href{https://arxiv.org/abs/2510.05096}{Paper2Video}~\citep{zhu2025paper2video} (slides $\rightarrow$ subtitles $\rightarrow$ speech $\rightarrow$ cursor $\rightarrow$ talking head; \href{https://github.com/showlab/Paper2Video}{code}) $\cdot$ \href{https://arxiv.org/abs/2501.03936}{PPTAgent}~\citep{zheng2025pptagent} $\cdot$ \href{https://arxiv.org/abs/2409.03512}{From MOOC to MAIC}~\citep{yu2024mooc} (Tsinghua's AI-run courses) $\cdot$ TTS: \href{https://github.com/FunAudioLLM/CosyVoice}{CosyVoice 3}, \href{https://github.com/index-tts/index-tts}{IndexTTS 2} $\cdot$ talking heads: \href{https://github.com/KwaiVGI/LivePortrait}{LivePortrait}, \href{https://github.com/fudan-generative-vision/hallo}{Hallo} $\cdot$ slides as code: \href{https://sli.dev/}{Slidev}, \href{https://revealjs.com/}{reveal.js}, \href{https://docs.manim.community/en/stable/}{Manim} (see C12). Clone only your own voice and face or those of people who agreed in writing, and label the videos as AI-generated, as China's 2025 rules on labelling AI-generated content require for public posts.}
+
+\subsection{More research questions: education \& interaction}
+\begin{itemize}
+\item \textbf{Task-oriented UX for grounded report writing} with inline citations: does showing the retrieved span next to the claim change how often users accept wrong claims? (overlaps with D9)
+\item \textbf{How users interrupt a task}: log interruption points in a long-running assistant and test two resumption designs.
+\item \textbf{Pointing to resolve ambiguity} in a 3D editor: compare language-only with language + pointer on the same ambiguous commands.
+\item \textbf{Persona simulation for pilot studies}: can simulated learners predict which of two explanations real learners prefer? Measure agreement on a small held-out set.
+\end{itemize}
+
+\paragraph{Pitfalls we see every year.} Measuring "engagement" or "likes" instead of learning. Reporting a beautiful video with no fidelity check against the source. No transfer task, so there is no evidence of learning. Human studies that are too small to say anything and too large to finish. Keep the artifact small and the comparison sharp.
+
+\clearpage
+
+\section{Evaluation, datasets \& evidence}
+\label{sec:trackD}
+Measurement and data are two halves of the same craft: a benchmark is a dataset with a scoring rule, and a dataset is only as good as the evaluation that shows what it changes. Part 1 builds evaluations that can show a specific failure of today's strongest models (culture, humour, logic, long context, injection, machine-written text) and scores them with rubrics written by people who know the domain. Part 2 builds the artifacts that training and retrieval depend on: datasets in the format each stage expects, corpora with provenance, evidence chains a reader can audit, and corpora that AI helped construct and a verifier checked. Every brief here runs on an API model or a CPU, and every one ends with a released artifact and a matched comparison.
+
+\subsection*{Part 1 $\cdot$ Evaluation: where frontier models still fail, rubrics \& safety  (briefs D1–D8)}
+Lecture 8's third topic is evaluation, and its list is still a good map of where the strongest models stumble: Chinese culture and idioms, regional stereotypes, sense-making, formal logic, humour, vision and speech, long context, emotional intelligence, multi-turn dialogue, ethics. In 2026 the twist is that the classic benchmarks are saturated and contaminated, so the valuable contribution is \textbf{a small, fresh test where you can show a specific failure}, scored in a way a reader can trust: executable checks, ground truth, or \textbf{rubrics} written by people who know the domain (HealthBench's 262 physicians are the template). The track also covers the safety side of evaluation: prompt injection in agents, detecting machine-written text, verifiers that accept unearned success. Pick one failure and one domain, and build the smallest evaluation that measures it.
+
+\paragraph{Evaluation discipline.} Include unanswerable and ambiguous cases, so abstention can be measured. Collect a human baseline from five to ten classmates; a benchmark without one cannot say "easy for humans". Audit a random sample by hand and report agreement with the automatic metric. Never let the generator judge itself; if an LLM judge is unavoidable, use a different model and validate it against the audited sample. Check for contamination by asking each model to continue a truncated item. Keep intermediate logs replayable.
+
+\subsection{Research questions: evaluation}
+\begin{itemize}
+\item On a fresh suite in one of the Lecture 8 areas (culture, humour, logic, EQ, dialect, multi-turn), where do three frontier models and one open model fail, and does the failure survive paraphrase and translation?
+\item Does a rubric judge agree with domain experts more than a holistic 1–10 judge, and do automatically generated rubrics close the gap with hand-written ones?
+\item Does a long-context evaluation that mixes "needle" retrieval with multi-step reasoning expose failures that needle tests alone miss, and do the same failures appear when the context is hundreds of images instead of text?
+\item Do combined defenses (input sanitization + sandbox + policy model) reduce prompt-injection success in a web agent without blocking legitimate tasks?
+\item How separable are human-written, LLM-generated and LLM-refined texts, and which features survive a change of generator?
+\item With a few hundred queries, can you tell which model (or which mixture of models) a relay API is really serving behind the name it advertises?
+\item Can a system tell whether an AI-written scientific statement faithfully reflects the evidence it cites?
+\item How often does an LLM verifier accept an unsupported success claim, and does the bias depend on who wrote the claim?
+\end{itemize}
+
+\subsection{Featured briefs: evaluation}
+\paragraph{D1. A long-context evaluation that detects a specific failure}
+Design a small long-context suite where retrieval and reasoning are separable (find the facts; then combine them), run it across context lengths and models, and show which failure appears first. Text is the default. The multimodal version puts the facts in images: one relevant image among 100–1,000, or two images that must be compared. Our lab's LongLLaVA, a hybrid Mamba–Transformer model that reads about 1,000 images on one 80 GB GPU, is a baseline to beat or to analyse, and MileBench supplies multi-image tasks to start from.
+
+\textbf{Compare.} models or context lengths on the same suite; needle-only vs. needle + reasoning items; for the multimodal version, the same items as text vs. as images, and a hybrid model (LongLLaVA) vs. a Transformer model at matched memory.\\
+\textbf{Measure.} accuracy by position and length, failure type, cost; for images, also throughput and peak GPU memory as the image count grows.\\
+\textit{Start from: \href{https://github.com/THUDM/LongBench}{LongBench} $\cdot$ \href{https://github.com/EleutherAI/lm-evaluation-harness}{lm-evaluation-harness} $\cdot$ \href{https://arxiv.org/abs/2409.02889}{LongLLaVA}~\citep{wang2024longllava} (our lab; \href{https://github.com/FreedomIntelligence/LongLLaVA}{code and weights}) $\cdot$ \href{https://arxiv.org/abs/2404.18532}{MileBench}~\citep{song2024milebench} (our lab; long-context multi-image tasks).}
+
+\paragraph{D2. Combined defenses against prompt injection in a web agent}
+Take an agent benchmark with injected instructions in tool outputs and test defenses alone and combined: input sanitization, a sandboxed tool layer, a policy model that screens actions.
+
+\textbf{Compare.} no defense $\cdot$ each defense $\cdot$ combined, on the same tasks and attacks.\\
+\textbf{Measure.} attack success rate, benign task success (utility), false positives, cost.\\
+\textit{Start from: \href{https://github.com/ethz-spylab/agentdojo}{AgentDojo} $\cdot$ \href{https://arxiv.org/abs/2401.17256}{Weak-to-Strong Jailbreaking}~\citep{zhao2024weak}.}
+
+\paragraph{D3. Who wrote this? Detecting and attributing LLM-generated text}
+Two live or archived tasks fit: Kaggle's \emph{Name That LLM} (identify which of 18 models wrote a passage; offline notebooks, nine-hour limit; entry Jan. 6, final Jan. 13, 2027) and NLPCC 2026 Shared Task 6 (three-way: human-written, LLM-generated, LLM-refined; Chinese news and academic text). Compare character n-grams with a small encoder on held-out prompts, and test transfer across generator families.
+
+\textbf{Bonus question: which model is really behind the API?} Attribution has a practical twin. Relay services (中转站, "shadow APIs") resell access to frontier models, and a 2026 audit found that 11 of 24 such endpoints failed fingerprint verification; one sold as GPT-5 matched GLM-4-9B. Given an endpoint that claims to serve model X, can you tell whether it does, or estimate the mixture behind it (say 70\% X and 30\% a cheaper model)? Collect reference outputs from the official APIs, then compare a two-sample test on output distributions (model equality testing), fingerprint prompts plus a per-response classifier with a mixture estimate, and metadata cues (token counts, latency, refusal style, knowledge cutoff). Validate everything first on a relay you build yourself that mixes known models in known proportions. Test only endpoints you pay for, within their terms, and report a mismatch as evidence, not as proof of intent.
+
+\textbf{Compare.} n-gram features $\cdot$ a fine-tuned small encoder $\cdot$ an ensemble, with a held-out generator family.\\
+\textbf{Measure.} balanced accuracy or macro-F1, confusion across families, robustness to paraphrase.\\
+\textit{Start from: \href{https://www.kaggle.com/competitions/name-that-llm/overview}{Name That LLM} $\cdot$ \href{https://nlp2ct.github.io/NLPCC-2026-Task6-Detection/}{NLPCC 2026 Task 6} $\cdot$ \href{https://arxiv.org/abs/2502.12150}{Idiosyncrasies in large language models}~\citep{sun2025idiosyncrasies} (which model wrote it, from text alone) $\cdot$ for the bonus: \href{https://arxiv.org/abs/2603.01919}{Real Money, Fake Models}~\citep{zhang2026real} (shadow-API audit) $\cdot$ \href{https://arxiv.org/abs/2504.04715}{Are you getting what you pay for?}~\citep{cai2025getting} (model substitution) $\cdot$ \href{https://arxiv.org/abs/2410.20247}{Model equality testing}~\citep{gao2024model} $\cdot$ \href{https://arxiv.org/abs/2407.15847}{LLMmap}~\citep{pasquini2024llmmap} (fingerprinting) $\cdot$ \href{https://arxiv.org/abs/2506.06975}{rank-based uniformity test}~\citep{zhu2025auditing} $\cdot$ \href{https://arxiv.org/abs/2610.36801}{API-TAIL}~\citep{mei2026api} (partial substitution).}
+
+\paragraph{D4. Reliability of AI-assisted scientific reporting}
+NLPCC 2026 Shared Task 10 asks: given scientific evidence and an AI-generated statement, does the statement faithfully reflect the evidence it summarizes or cites? Track 1 is claim-level faithfulness to experimental results; track 2 is citation-level faithfulness. The data and metrics are public; run it locally with your own comparison.
+
+\textbf{Compare.} a zero-shot judge $\cdot$ a judge with retrieved evidence spans $\cdot$ a fine-tuned classifier.\\
+\textbf{Measure.} sentence macro-F1 and paragraph exact match (track 1), label macro-F1 and Joint@3 (track 2).\\
+\textit{Start from: \href{https://github.com/NLP2CT/NLPCC-2026-Task10-Science}{NLPCC 2026 Task 10}.}
+
+\paragraph{D5. Auditing verifier bias and unsupported success claims}
+Many agent results depend on an LLM verifier. Collect trajectories from one benchmark, have humans label success, and measure how often the verifier accepts unsupported claims ("I have fixed the bug") and whether its bias depends on the generator model or on the phrasing of the final message.
+
+\textbf{Compare.} verifiers (model, prompt, with/without execution evidence) against human labels.\\
+\textbf{Measure.} false-positive and false-negative rates, agreement, bias by generator.\\
+\textit{Related: \href{https://github.com/UKGovernmentBEIS/inspect\_ai}{Inspect AI} $\cdot$ \href{https://aimslab.stanford.edu/competition}{Predictive AI Evaluation Competition} (NeurIPS 2026).}
+
+\paragraph{D6. Steerability: does the model do what the instruction asked, and only that?}
+The NeurIPS 2026 Steerability Challenge measures whether a model can be moved to a requested target in a multi-dimensional output space without side effects. Build a small steerability suite for one domain (tone, length, reading level, citation style) and compare prompting strategies or a lightweight fine-tune.
+
+\textbf{Compare.} direct instruction $\cdot$ decomposed instructions $\cdot$ a steering fine-tune.\\
+\textbf{Measure.} target attainment, side effects on untouched dimensions, consistency across seeds.\\
+\textit{Start from: \href{https://steerability.github.io/competition/}{The Steerability Challenge} $\cdot$ \href{https://github.com/THUDM/AlignBench}{AlignBench} (Chinese alignment evaluation).}
+
+\paragraph{D7. Where do frontier models still fail? Build a small benchmark they cannot pass yet}
+Take one area from the Lecture 8 list (Chinese idioms and 歇后语, regional stereotypes, humour, formal logic, sense-making, EQ, speech or vision, long multi-turn dialogue, ethics) or one the 2026 leaderboards point to: tasks that are easy for people and hard for models (SimpleBench, ARC-AGI-3 interactive environments), predicting how specific cohorts behave (Kaggle's Human Behavior Bench), dialect speakers (Hofmann et al., Nature 2024), cross-cultural everyday knowledge (Naous et al., ACL 2024), long-horizon business tasks (Vending-Bench, TheAgentCompany). Write 100–300 fresh items with gold answers or rubrics, collect a human baseline, and run four models. The result is the failure taxonomy, not the leaderboard.
+
+\textbf{Compare.} three frontier API models and one strong open model, with and without chain-of-thought, on the same items; the human baseline from 5–10 classmates; a paraphrased or translated copy of the suite to test robustness.\\
+\textbf{Measure.} accuracy and calibration, agreement with humans, failure categories (knowledge, reasoning, instruction, refusal, format), contamination signal (can the model continue a truncated item?), cost per item.\\
+\textit{Week 1: area, item template, 50 pilot items, human pilot; Week 2: full suite, gold answers or rubrics; Week 3: run models, human baseline, robustness copy.}
+\textit{Start from: the Lecture 8 slide lists Fresh bench, a speech-to-speech bench, AV-Odyssey, a user-centric benchmark, MedQA-pro, Patient-O1, Omni-MATH, MileBench, MAMO, ACVA and MLLM-Bench as examples (search Google Scholar) $\cdot$ \href{https://arxiv.org/abs/2501.14249}{Humanity's Last Exam}~\citep{phan2025humanitys} $\cdot$ \href{https://arcprize.org/guide}{ARC-AGI-3} $\cdot$ \href{https://www.nature.com/articles/s41586-024-07856-5}{dialect prejudice (Nature 2024)}~\citep{hofmann2024dialect} $\cdot$ \href{https://aclanthology.org/2024.acl-long.862/}{Having Beer after Prayer?}~\citep{naous2024beer} (cultural bias, ACL 2024) $\cdot$ \href{https://github.com/THUDM/AlignBench}{AlignBench} (Chinese) $\cdot$ posts on X: \href{https://x.com/emollick/status/2082847594519130480}{Mollick on human baselines}, \href{https://x.com/kaggle/status/2112560433257181325}{Human Behavior Bench}, \href{https://x.com/getjonwithit/status/2084300170682863986}{frontier models failing at nonlinear PDE solvers}, \href{https://x.com/ZeyiAndyLiu/status/2099559337299443956}{expert re-grading: often the benchmark is broken, not the model}, \href{https://x.com/Contrary\_Res/status/2112247206690562314}{contamination and "benchmaxxing"}.}
+
+\paragraph{D8. Rubric-based evaluation: write rubrics, measure judge agreement, then use them as rewards}
+A rubric decomposes "is this answer good?" into criteria with points: HealthBench pairs 5,000 health conversations with 48,562 physician-written criteria and finds model–physician agreement close to physician–physician agreement. Rubrics then became rewards: \emph{Rubrics as Rewards} (Scale AI, 2025) trains with checklist feedback beyond verifiable domains, \emph{Reinforcement Learning with Rubric Anchors} scales rubric construction, \emph{OpenRubrics} generates rubrics by contrasting preferred and rejected answers, and \emph{Checklists are better than reward models} makes the case against scalar rewards. The 2026 follow-ups (ImpossibleRubrics, reward hacking in rubric RL) show what goes wrong. Pick one open-ended domain you can get two experts for (a medical sub-specialty, legal drafting, Chinese essay grading, code review comments, teaching feedback) and run the full chain.
+
+\textbf{Compare.} a holistic 1–10 judge $\cdot$ a judge with hand-written rubrics $\cdot$ a judge with automatically generated rubrics (contrastive generation), all on the same 100 responses from four models, against two expert raters; optionally use the best rubric as a reward for a short GRPO run (Tutorial 2) and check the policy on a held-out set.\\
+\textbf{Measure.} agreement with experts (Cohen's $\kappa$ per criterion, Spearman overall), expert–expert agreement as the ceiling, discrimination between models, judge cost; for the RL step, held-out rubric score, a generic quality check, and any criterion the policy learned to game.\\
+\textit{Week 1: domain, 100 responses, expert recruitment; Week 2: hand-written and generated rubrics; judges; Week 3: expert ratings, agreement analysis.}
+\textit{Rubric references: \href{https://arxiv.org/abs/2505.08775}{HealthBench}~\citep{arora2025healthbench} (OpenAI, 2025; \href{https://openai.com/index/healthbench/}{post}) $\cdot$ \href{https://arxiv.org/abs/2507.17746}{Rubrics as Rewards}~\citep{gunjal2025rubrics} $\cdot$ \href{https://arxiv.org/abs/2508.12790}{RL with Rubric Anchors}~\citep{huang2025reinforcement} $\cdot$ \href{https://arxiv.org/abs/2510.07743}{OpenRubrics}~\citep{liu2025openrubrics} (\href{https://huggingface.co/datasets/OpenRubrics/OpenRubrics}{data}) $\cdot$ \href{https://arxiv.org/abs/2507.18624}{Checklists are better than reward models}~\citep{viswanathan2025checklists} $\cdot$ \href{https://arxiv.org/abs/2601.08430}{RubricHub}~\citep{li2026rubrichub} $\cdot$ \href{https://arxiv.org/abs/2609.16816}{ImpossibleRubrics}~\citep{qin2026impossiblerubrics} $\cdot$ \href{https://arxiv.org/abs/2605.12474}{Reward hacking in rubric-based RL}~\citep{mahmoud2026reward} $\cdot$ \href{https://openai.com/index/paperbench/}{PaperBench} (rubric trees) $\cdot$ \href{https://arxiv.org/abs/2310.08491}{Prometheus}~\citep{kim2023prometheus} (ICLR 2024) and \href{https://arxiv.org/abs/2405.01535}{Prometheus 2}~\citep{kim2024prometheus} $\cdot$ \href{https://arxiv.org/abs/2306.05685}{MT-Bench / LLM-as-a-judge}~\citep{zheng2023judging} (NeurIPS 2023) $\cdot$ \href{https://arxiv.org/abs/2306.01693}{Fine-grained human feedback}~\citep{wu2023fine} (NeurIPS 2023) $\cdot$ \href{https://arxiv.org/abs/2303.16634}{G-Eval}~\citep{liu2023g} $\cdot$ \href{https://arxiv.org/abs/2307.10928}{FLASK}~\citep{ye2023flask} (ICLR 2024) $\cdot$ \href{https://cameronrwolfe.substack.com/p/rubric-rl}{Rubric-based rewards for RL (overview)}.}
+
+\subsection{More research questions: evaluation}
+\begin{itemize}
+\item \textbf{Speech and vision versions} of a text failure: does the same model fail the same item when it is spoken or shown in a photo?
+\item \textbf{EQ and multi-turn}: a scripted user with a hidden emotional state; does the model notice, and does noticing change its answers?
+\item \textbf{Memory compression} in long conversations: what is lost first, facts or commitments?
+\item \textbf{Risk, benefit and disclosure design} in a regulated application: what must the interface say, and does saying it change user behaviour?
+\item \textbf{Robustness under controlled input perturbations} (typos, paraphrase, language mixing) for any system on this page.
+\end{itemize}
+
+\paragraph{Pitfalls we see every year.} The same model generates and judges. No human baseline, so "hard" means nothing. No unanswerable questions, so abstention is never tested. Items copied from an existing benchmark, so contamination explains the result. A rubric with twenty criteria and no inter-rater agreement. Audit a sample by hand and say how big it was.
+
+\subsection*{Part 2 $\cdot$ Datasets, corpora \& evidence  (briefs D9–D14)}
+Models come and go; a good dataset is cited for years. Lecture 8's fourth topic is dataset building, and each training stage wants a different artifact: documents for pre-training, instruction–response pairs for SFT, chosen/rejected pairs for preference optimization, prompts with verifiers for RL, trajectories for agents, rubrics for judges. This track also covers \textbf{evidence}: corpora whose every passage has provenance (source, date, version, span), retrieval pipelines that can show their work, and corpora that AI helped construct and that a verifier checked. The output is a released dataset or corpus with a data card, a loader, a validation script, and one experiment that shows what it changes.
+
+\paragraph{Data discipline.} Record the license of every source and respect it. Strip personal data and say how. Deduplicate against the evaluation sets you will use, and report the overlap you removed. Keep provenance per item (where it came from, which prompt or person produced it, which checks it passed). Write the data card before the experiment, not after. A dataset nobody can load is not a deliverable; a validator that rejects malformed rows is.
+
+\subsection{Research questions: datasets \& evidence}
+\begin{itemize}
+\item At matched size, does a dataset built by your pipeline beat an existing public one for the same stage on a small model, and which step of the pipeline accounts for the difference?
+\item Does verifying each answer claim against a cited source span reduce unsupported answers at an acceptable cost in coverage?
+\item Which component of an agentic RAG pipeline (query planning, retriever ensemble, draft-and-critic, citation repair) moves groundedness most, per unit of latency?
+\item When should a system retrieve at all, and what happens with conflicting or stale sources?
+\item How much of an AI-synthesised corpus is wrong before verification, how much after, and does training or retrieving over it still help at matched tokens?
+\item Two deduplication or quality-filtering policies at the same output size: which yields the better downstream model, and what did each throw away?
+\end{itemize}
+
+\subsection{Featured briefs: datasets \& evidence}
+\paragraph{D9. Auditable evidence chains for medical or legal QA}
+Choose one dated public medical guideline collection or one legal corpus. Build a replayable pipeline that records, for each claim, the retrieved passage, the document version, the exact supporting span, and the verifier's decision. Compare ordinary retrieval-augmented generation with the same retriever and model plus span verification and abstention.
+
+\textbf{Compare.} RAG $\cdot$ RAG + span verification + abstention, same retriever and model.\\
+\textbf{Measure.} span recall, claim support, citation completeness, error rate among answered questions, coverage; on 50–100 held-out questions including ambiguous and unanswerable ones; manual audit of a sample.\\
+\textit{Week 1: corpus, 50–100 questions, baseline RAG; Week 2: span verifier + abstention; Week 3: matched runs, manual audit.}
+\textit{Start from: \href{https://aclanthology.org/2023.emnlp-main.398/}{ALCE} $\cdot$ \href{https://arxiv.org/abs/2408.10343}{LegalBench-RAG}~\citep{pipitone2024legalbench} $\cdot$ \href{https://doi.org/10.1136/bmjhci-2026-102207}{clinical guideline QA benchmark} $\cdot$ our lab's \href{https://arxiv.org/abs/2311.09774}{HuatuoGPT-II}~\citep{chen2023huatuogpt} and \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture09\_Medical\_LLMs\_Towards\_Generalist\_Medical\_AI.pdf}{Lecture 9}.}
+
+\paragraph{D10. An agentic RAG pipeline with a regression suite}
+Implement the workflow pieces one at a time: query planner (decomposition), retriever ensemble, draft and critic, citation repair; then a regression suite of gold questions over a versioned corpus so that every change is measured. The research result is an ablation across components.
+
+\textbf{Compare.} classical RAG vs. each added component, at matched latency where possible.\\
+\textbf{Measure.} groundedness, citation correctness, regression pass rate, end-to-end latency.\\
+\textit{Start from: \href{https://github.com/microsoft/graphrag}{GraphRAG} (as one retriever) $\cdot$ \href{https://github.com/stanfordnlp/dspy}{DSPy} $\cdot$ \href{https://github.com/langchain-ai/langgraph}{LangGraph} $\cdot$ Tutorial 4 (RAG and agent development, Nov. 13).}
+
+\paragraph{D11. Retrieval triggers, conflicting sources, stale documents}
+Construct a corpus with deliberate version conflicts (an old and a new guideline) and questions whose answers changed. Test when the system retrieves, how it resolves conflicts, and whether it reports the version it used.
+
+\textbf{Compare.} always retrieve $\cdot$ retrieve on uncertainty $\cdot$ retrieve with version-aware ranking.\\
+\textbf{Measure.} correct-version rate, conflict detection, unnecessary retrievals, latency.\\
+
+\paragraph{D12. A reproducible data pipeline with deduplication and quality scoring}
+Build a web or text cleaning pipeline (extraction, language ID, deduplication, quality scoring, PII and toxicity checks) and evaluate the choices downstream on a small training run or an existing model's fine-tune. Alternatives from the research area: construct a small preference dataset and study its effect on instruction following; compare synthetic vs. curated human data for one task; select the hardest SFT examples; audit train–test overlap.
+
+\textbf{Compare.} two deduplication or filtering policies at the same output size.\\
+\textbf{Measure.} coverage and quality scores, downstream gain, PII and toxicity leakage.\\
+\textit{Start from: \href{https://github.com/huggingface/datatrove}{datatrove} $\cdot$ \href{https://github.com/allenai/dolma}{Dolma toolkit} $\cdot$ \href{https://arxiv.org/abs/2402.13064}{synthetic data for instruction tuning}~\citep{li2024synthetic}.}
+
+\paragraph{D13. Build and release a training dataset for one stage, in the format that stage expects}
+Choose the stage first, because the format and the quality checks follow from it. Then choose a domain or audience nobody has covered well (a Chinese dialect, a vocational trade, a university's regulations, a hospital department's FAQs, a game engine's API, your own course's lecture notes) and build 2k–50k items with provenance. The Lecture 8 examples from the lab are Huatuo-26M, MedPajama and VLFeedback; the 2026 open releases to imitate are Tulu 3, HelpSteer, DAPO-Math and the K2 Horizon data drop. Validate the dataset by training: a small model on your data against the same model on an existing dataset of the same size.
+
+\begin{itemize}
+\item Pre-training / continued pre-training. One document per row: \texttt{\{text, source, url, date, license\}}; Language ID, exact + near deduplication, quality classifier, PII removal, contamination against eval sets, mixing ratios; \href{https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu}{FineWeb-Edu}, \href{https://huggingface.co/datasets/allenai/dolma}{Dolma}, \href{https://huggingface.co/datasets/nvidia/Nemotron-CC-v2}{Nemotron-CC}
+\item SFT. \texttt{\{messages: [\{role, content\}, ...]\}} with a chat template; or prompt/response pairs; Response correctness, instruction diversity (taxonomy), length balance, decontamination, licence of the teacher model's outputs; \href{https://huggingface.co/datasets/allenai/tulu-3-sft-mixture}{Tulu 3 SFT}, \href{https://huggingface.co/Magpie-Align}{Magpie}, \href{https://huggingface.co/datasets/FreedomIntelligence/Huatuo26M-Lite}{Huatuo-26M}
+\item Preference (DPO, reward model). \texttt{\{prompt, chosen, rejected\}} or ranked lists with rater IDs and rationale; Inter-rater agreement, position and length bias, rubric used, where the pairs came from; \href{https://huggingface.co/datasets/nvidia/HelpSteer2}{HelpSteer2}, \href{https://huggingface.co/datasets/openbmb/UltraFeedback}{UltraFeedback}, \href{https://huggingface.co/datasets/MMInstruction/VLFeedback}{VLFeedback}
+\item RL with verifiable rewards. \texttt{\{prompt, answer, verifier\}} where the verifier is code or an exact-match rule; Verifier precision on a hand-checked sample, difficulty spread, no leakage from eval, unambiguous answers; \href{https://huggingface.co/datasets/BytedTsinghua-SIA/DAPO-Math-17k}{DAPO-Math-17k}, \href{https://github.com/SWE-Gym/SWE-Gym}{SWE-Gym}
+\item Agent trajectories. Prompt + tool schemas + turns of \texttt{\{action, observation\}} + outcome label; Executable replay, outcome verified by tests, failure cases kept, environment version pinned; \href{https://github.com/OpenBMB/ToolBench}{ToolBench}, \href{https://github.com/SWE-bench/SWE-smith}{SWE-smith}
+\item Rubric / judge data. \texttt{\{prompt, response, rubric: [\{criterion, points, met\}]\}}; Who wrote the criteria, agreement between judges, criteria that never fire; \href{https://arxiv.org/abs/2505.08775}{HealthBench}~\citep{arora2025healthbench}, \href{https://huggingface.co/datasets/OpenRubrics/OpenRubrics}{OpenRubrics}
+\end{itemize}
+
+\textbf{Compare.} your dataset vs. an existing dataset of the same stage and size, same base model and training recipe; plus an ablation that removes your main quality check.\\
+\textbf{Measure.} downstream task score, contamination rate, validator rejection rate, cost per item, and a data-card checklist score (sources, licenses, risks, intended use).\\
+\textit{Week 1: stage, domain, format validator, 500-item pilot; Week 2: scale to the full set; checks; Week 3: matched-size training comparison.}
+\textit{Start from: \href{https://github.com/huggingface/datatrove}{datatrove} $\cdot$ \href{https://github.com/allenai/dolma}{Dolma toolkit} $\cdot$ \href{https://huggingface.co/docs/hub/datasets-cards}{dataset cards} $\cdot$ \href{https://arxiv.org/abs/2402.13064}{synthetic data for instruction tuning}~\citep{li2024synthetic} $\cdot$ \href{https://x.com/ChengleiSi/status/2113683384908345503}{K2 Horizon's open pre- and post-training data pipelines (Oct. 2026)} $\cdot$ \href{https://nlp-course-cuhksz.github.io/tutorial2.html}{Tutorial 2} for the training check.}
+
+\paragraph{D14. An evidence-based corpus for RAG, and an AI-built corpus with a verifier}
+Lecture 8 asks you to "replicate OpenEvidence": a medical answer engine whose every sentence points at a guideline or trial. Part one builds the corpus such a system needs, in a domain you can access: one society's guidelines, a university's regulations, a city's public-health notices, a game's wiki. Every chunk carries source, date, version and section, and a question set with gold evidence spans measures retrieval. Part two asks whether AI can \textbf{construct} corpus text: rephrase documents into textbook style (Nemotron-CC, Cosmopedia), synthesise documents from a knowledge graph (EntiGraph), or let an agent build data (Meta's Autodata, the Hugging Face synthetic-data playbook), with a verifier that checks every generated claim against the source corpus.
+
+\textbf{Compare.} raw corpus $\cdot$ raw + AI-rephrased $\cdot$ raw + AI-synthesised without verification $\cdot$ the same with the verifier, at matched tokens; evaluated as a RAG knowledge base (and optionally as continued pre-training data).\\
+\textbf{Measure.} retrieval recall of gold spans, grounded answer accuracy, unsupported-claim rate, synthetic-claim error rate before and after verification, cost per thousand tokens produced.\\
+\textit{Week 1: sources, chunking with metadata, 100 questions with spans; Week 2: rephrasing and synthesis pipelines; Week 3: verifier; four-condition RAG runs.}
+\textit{Start from: \href{https://www.openevidence.com/}{OpenEvidence} (the target) $\cdot$ \href{https://huggingface.co/datasets/HuggingFaceTB/cosmopedia}{Cosmopedia} $\cdot$ \href{https://huggingface.co/datasets/nvidia/Nemotron-CC-v2}{Nemotron-CC synthetic rephrasing} $\cdot$ \href{https://arxiv.org/abs/2409.07431}{EntiGraph: synthetic continued pre-training}~\citep{yang2024synthetic} $\cdot$ posts on X: \href{https://x.com/novasarc01/status/2030591625697837321}{the Hugging Face synthetic-data playbook (90 experiments, 1T tokens)}, \href{https://x.com/omarsar0/status/2070235085732000228}{Meta's Autodata: an agent as data scientist}, \href{https://x.com/zafstojano/status/2097689256961466486}{the lineage of synthetic data} $\cdot$ \href{https://aclanthology.org/2023.emnlp-main.398/}{ALCE} for citation evaluation $\cdot$ pairs with D9.}
+
+\subsection{More research questions: datasets \& evidence}
+\begin{itemize}
+\item \textbf{Better retrievers for one domain} (AI for math, a legal code): do synthesised hard negatives improve a small embedding model more than more positives?
+\item \textbf{Hallucination detection and warning} at the sentence level: which signal (retrieval disagreement, self-consistency, entropy) warns earliest at a fixed false-alarm rate?
+\item \textbf{Scene constraints and collisions} as an evaluation corpus for 3D editors (pairs with C5).
+\item \textbf{Selecting the hardest SFT examples}: does training on the 20\% the model gets wrong beat training on all of them at matched steps?
+\item \textbf{Auditing train–test overlap} in a popular public dataset and publishing the cleaned split.
+\end{itemize}
+
+\paragraph{Pitfalls we see every year.} A dataset with no license and no provenance. Teacher-model outputs released under a licence the teacher forbids. Synthetic text that nobody checked, so the "improvement" is contamination. A citation metric that checks format, not support. Keep the validator, the card and the overlap report in the repository.
+
+\clearpage
+
+\section{AI for society: position papers, audits \& interventions}
+\label{sec:trackE}
+AI is reshaping work, language, education and public services faster than the evidence can keep up. This track asks you to take a clear position on one question about that future and to back it with a measurement you ran yourself. The questions Lecture 8 raised are the ones below: does AI \textbf{widen gender inequality}; does it \textbf{reduce the voice of minority languages and dialects}; does it \textbf{cut or extend the welfare of people with disabilities}; does it \textbf{leave the Global South behind}; does it \textbf{concentrate wealth} or spread productivity? The deliverable can be a position or perspective paper in the style of the ICML and NeurIPS position tracks (a claim, the evidence for and against, the alternative views, and what should change), an audit study with a controlled design, or an intervention that measurably helps a group. All three are graded on the same thing: a falsifiable claim and an honest test of it.
+
+\paragraph{What a position paper needs.} A one-sentence claim that someone could disagree with. The strongest version of the opposing view, stated fairly. Evidence from the literature, organised by theme rather than listed (the "related work is not a shopping list" rule from the \href{https://nlp-course-cuhksz.github.io/writing-tips.html}{writing tips}). One piece of evidence you produced: an audit, a replication, a survey, a cost calculation. A concrete recommendation with who should act. ICML's position track asks reviewers to judge "is the argument well-supported and does it advance the discussion?", not "is the method novel?".
+
+\subsection{Reading by question  (top-venue starting points)}
+\begin{itemize}
+\item \textbf{Gender inequality}. \href{https://aclanthology.org/2023.findings-emnlp.243/}{Wan et al., EMNLP Findings 2023} (gender bias in LLM-written reference letters) $\cdot$ \href{https://aclanthology.org/2020.acl-main.485/}{Blodgett et al., ACL 2020} (what "bias" in NLP means) $\cdot$ \href{https://unesdoc.unesco.org/ark:/48223/pf0000388971}{UNESCO 2024} (bias against women and girls in LLMs) $\cdot$ \href{https://proceedings.neurips.cc/paper/2016/hash/a486cd07e4ac3d270571622f4f316ec5-Abstract.html}{Bolukbasi et al., NeurIPS 2016} $\cdot$ \href{https://www.science.org/doi/10.1126/science.aal4230}{Caliskan et al., Science 2017}; Recommendation letters, hiring summaries, salary advice or career suggestions generated for matched male/female personas in Chinese and English; who gets "warm" and who gets "competent".
+\item \textbf{Minority languages and dialects}. \href{https://www.nature.com/articles/s41586-024-07856-5}{Hofmann et al., Nature 2024}~\citep{hofmann2024dialect} (dialect prejudice in decisions) $\cdot$ \href{https://aclanthology.org/2023.emnlp-main.614/}{Ahia et al., EMNLP 2023} (do all languages cost the same?) $\cdot$ \href{https://aclanthology.org/2020.acl-main.560/}{Joshi et al., ACL 2020} (the state and fate of linguistic diversity) $\cdot$ \href{https://aclanthology.org/2022.acl-long.376/}{Blasi et al., ACL 2022} (systematic inequalities across languages) $\cdot$ \href{https://aclanthology.org/2024.acl-long.862/}{Naous et al., ACL 2024}~\citep{naous2024beer} (cultural bias) $\cdot$ \href{https://aclanthology.org/2020.findings-emnlp.195/}{Nekoto et al., Findings 2020} (Masakhane participatory research) $\cdot$ \href{https://www.nature.com/articles/s41586-024-07335-x}{NLLB Team, Nature 2024}; Token cost, latency and accuracy for 粤语, 闽南语, 藏语, 维吾尔语, 壮语 or your hometown dialect against Mandarin and English; whether a model's advice changes when the same question is asked in dialect.
+\item \textbf{People with disabilities}. \href{https://dl.acm.org/doi/10.1145/3593013.3593989}{Gadiraju et al., FAccT 2023} (disability-centred perspectives on LLMs) $\cdot$ \href{https://aclanthology.org/2020.acl-main.487/}{Hutchinson et al., ACL 2020} (social biases as barriers) $\cdot$ \href{https://dl.acm.org/doi/10.1145/3630106.3658933}{Glazko et al., FAccT 2024} (disability bias in GPT-based resume screening) $\cdot$ \href{https://dl.acm.org/doi/10.1145/3663548.3688549}{ASSETS 2024} (how users with disabilities use chatbots) $\cdot$ \href{https://www.bemyeyes.com/}{Be My AI} and \href{https://x.com/howfxr/status/2113321053011546250}{Gemini Live Guided Vision} as the benefit side; Resume screening with and without a disability-related award; image descriptions rated by blind users; sign-language or dysarthric-speech recognition accuracy against typical speech.
+\item \textbf{The Global South}. \href{https://dl.acm.org/doi/10.1145/3442188.3445896}{Sambasivan et al., FAccT 2021} (re-imagining algorithmic fairness in India) $\cdot$ \href{https://link.springer.com/article/10.1007/s13347-020-00405-8}{Mohamed, Png \& Isaac, 2020} (decolonial AI) $\cdot$ \href{https://aclanthology.org/2021.findings-emnlp.282/}{Ahia et al., Findings 2021} (the low-resource double bind) $\cdot$ \href{https://arxiv.org/abs/2306.16388}{Durmus et al., 2023}~\citep{durmus2023measuring} (GlobalOpinionQA) $\cdot$ \href{https://proceedings.mlr.press/v202/santurkar23a.html}{Santurkar et al., ICML 2023} (whose opinions do LMs reflect?) $\cdot$ \href{https://proceedings.mlr.press/v235/kapoor24a.html}{Kapoor et al., ICML 2024 position} (open foundation models); Health, agriculture or legal advice for a Kenyan, Bangladeshi or Peruvian user versus a Californian one, scored by people from each place; which countries' sources a model cites.
+\item \textbf{Wealth, work and inequality}. \href{https://www.science.org/doi/10.1126/science.adj0998}{Eloundou et al., Science 2024} (GPTs are GPTs) $\cdot$ \href{https://www.science.org/doi/10.1126/science.adh2586}{Noy \& Zhang, Science 2023} (productivity effects) $\cdot$ \href{https://academic.oup.com/qje/article/140/2/889/7990658}{Brynjolfsson, Li \& Raymond, QJE 2025} (generative AI at work: novices gain most) $\cdot$ \href{https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/}{Brynjolfsson, Chandar \& Chen, 2025/26} (early-career employment in exposed jobs) $\cdot$ \href{https://www.nber.org/papers/w33777}{Humlum \& Vestergaard, NBER 2025} (small labour-market effects so far) $\cdot$ \href{https://www.anthropic.com/economic-index}{Anthropic Economic Index} $\cdot$ \href{https://www.pnas.org/doi/10.1073/pnas.2422633122}{Bastani et al., PNAS 2025}~\citep{bastani2025guardrails} (AI without guardrails harms learning) $\cdot$ \href{https://www.science.org/doi/10.1126/sciadv.adn5290}{Doshi \& Hauser, Science Advances 2024} (creativity up, diversity down); Who gains from an AI assistant on a real task: novices or experts, in your own class; whether AI-written outputs converge on the same ideas; task exposure of the jobs your classmates want.
+\item \textbf{Pluralism and whose values}. \href{https://proceedings.mlr.press/v235/sorensen24a.html}{Sorensen et al., ICML 2024 position} (a roadmap to pluralistic alignment) $\cdot$ \href{https://dl.acm.org/doi/10.1145/3442188.3445922}{Bender et al., FAccT 2021} (stochastic parrots) $\cdot$ \href{https://dl.acm.org/doi/10.1145/3531146.3533088}{Weidinger et al., FAccT 2022} (taxonomy of risks) $\cdot$ \href{https://www.nature.com/articles/s42256-024-00820-y}{Kirk et al., Nature MI 2024} (personalised alignment) $\cdot$ \href{https://www.pnas.org/doi/10.1073/pnas.2018340118}{Kleinberg \& Raghavan, PNAS 2021} (algorithmic monoculture) $\cdot$ \href{https://www.science.org/doi/10.1126/science.adq1814}{Costello et al., Science 2024} (AI dialogues reduce conspiracy beliefs); Whether alignment reduced the diversity of opinions a model will voice; whether a model persuades students in your class on a contested campus issue, and how durably.
+\end{itemize}
+
+\subsection{Research questions this track asks}
+\begin{itemize}
+\item Does the same request, asked by matched personas that differ only in gender, dialect, disability or country, get systematically different answers, and does the difference survive a change of model and language?
+\item How much more do speakers of a Chinese dialect or a minority language pay in tokens, latency and errors for the same service, and does a tokenizer or prompt intervention close the gap?
+\item Who gains more from an AI assistant on a real task, novices or experts, and does the gain persist when the assistant is removed?
+\item Does an accessibility feature built on a multimodal model (image description, speech for dysarthric users, sign-language glossing) help the intended users on tasks they chose?
+\item Which of a model's answers would change if it were trained or retrieved on sources from the Global South, and can you show it with a small retrieval intervention?
+\item When a position paper argues from the literature, which claims are supported by replicated evidence and which rest on a single study?
+\end{itemize}
+
+\subsection{Featured briefs}
+\paragraph{E1. A position paper with an audit behind it: "AI will widen (or narrow) X unless Y"}
+Choose one of the six questions above and write a six-page position paper in the ICML position-track format: claim, context, evidence organised by theme, the best counter-argument, and a recommendation. The course adds one requirement: at least one section reports a measurement you ran (a small audit from E2–E6, a replication of a published finding on a current model, or a survey of 30 classmates). Models change every quarter, so a replication of a 2023–2024 finding on 2026 models is itself a contribution.
+
+\textbf{Compare.} your claim against its strongest alternative, using the literature plus your own measurement; for the replication option, the original paper's effect against the same probe on two 2026 models.\\
+\textbf{Measure.} effect size and confidence interval of your probe; coverage of the literature (how many of the key papers you engage with); whether the recommendation is actionable (who, what, by when).\\
+\textit{Week 1: claim, counter-claim, reading plan; Week 2: probe design and data collection; Week 3: analysis; draft argument.}
+\textit{Start from: \href{https://icml.cc/Conferences/2025/CallForPositionPapers}{ICML call for position papers} $\cdot$ \href{https://proceedings.mlr.press/v235/sorensen24a.html}{Sorensen et al.} and \href{https://proceedings.mlr.press/v235/kapoor24a.html}{Kapoor et al.} as model position papers $\cdot$ \href{https://arxiv.org/abs/2602.21012}{International AI Safety Report 2026}~\citep{bengio2026international} for the state of the evidence $\cdot$ the \href{https://nlp-course-cuhksz.github.io/writing-tips.html}{writing tips}.}
+
+\paragraph{E2. Do all languages cost the same? A dialect and minority-language audit of 2026 models}
+Ahia et al. (EMNLP 2023) showed that speakers of many languages pay more tokens for worse results; Hofmann et al. (Nature 2024) showed that models judge people more harshly when they write in African American English. Replicate both designs for languages close to you: 粤语, 闽南语, 客家话, 藏语, 维吾尔语, 壮语, or a Southeast Asian language, against Mandarin and English. Use matched-guise probing: the same content, two language varieties, and decisions (job, credit, medical urgency) that should not change.
+
+\textbf{Compare.} four models (two API, two open) on matched content across varieties; a tokenizer-level intervention (byte-fallback, vocabulary extension) or a prompt-level one (translate-then-answer) as the fix condition.\\
+\textbf{Measure.} tokens per sentence, latency and price per task, task accuracy, and the decision gap between varieties with confidence intervals; agreement of two native-speaker raters on answer quality.\\
+\textit{Start from: \href{https://aclanthology.org/2023.emnlp-main.614/}{Ahia et al.} $\cdot$ \href{https://github.com/valentinhofmann/dialect-prejudice}{matched-guise probing code} $\cdot$ \href{https://arxiv.org/abs/2305.15425}{Petrov et al., NeurIPS 2023}~\citep{petrov2023language} (tokenizers introduce unfairness) $\cdot$ \href{https://github.com/FreedomIntelligence/AceGPT}{AceGPT} (our lab: vocabulary expansion and native alignment for Arabic) $\cdot$ \href{https://arxiv.org/abs/2406.03368}{IrokoBench}~\citep{adelani2024irokobench} as a format reference $\cdot$ pairs with B7.}
+
+\paragraph{E3. Matched-persona audits: gender and disability in generated decisions and recommendations}
+Generate the texts that shape people's lives (reference letters, resume screens, performance reviews, loan explanations, career advice, triage notes) for personas that differ only in gender or in a disability cue, in Chinese and English. Wan et al. found "warm" language for women and "competent" language for men in LLM-written letters; Glazko et al. found resumes with a disability-related award ranked lower. Check whether 2026 models still do this, whether the pattern differs by language, and whether a mitigation (a rubric in the prompt, a critique pass) removes it without flattening everything.
+
+\textbf{Compare.} matched personas across three models and two languages; baseline prompt vs. a rubric-guided prompt vs. a critique-and-revise pass.\\
+\textbf{Measure.} lexical measures (warmth/competence, agentic/communal), ranking gaps, length and hedging differences, with bootstrap confidence intervals; a blinded human rating of a sample.\\
+\textit{Start from: \href{https://aclanthology.org/2023.findings-emnlp.243/}{Wan et al.} $\cdot$ \href{https://dl.acm.org/doi/10.1145/3630106.3658933}{Glazko et al.} $\cdot$ \href{https://dl.acm.org/doi/10.1145/3593013.3593989}{Gadiraju et al.} $\cdot$ \href{https://aclanthology.org/2020.acl-main.485/}{Blodgett et al.} (define the harm before you measure it) $\cdot$ pairs with D8 for the rubric.}
+
+\paragraph{E4. Who gains? Novices vs. experts with an AI assistant on a real task, and what remains when it is removed}
+Brynjolfsson, Li and Raymond (QJE 2025) found that customer-support novices gained most from an assistant; Bastani et al. (PNAS 2025) found that high-school students who practised with unrestricted GPT-4 scored lower when it was taken away, while a tutor-style version with guardrails did not hurt. Run a small version in your own cohort: one task (debugging, data analysis, a translation, a proof), two assistant designs, and a follow-up without the assistant.
+
+\textbf{Compare.} no assistant $\cdot$ unrestricted assistant $\cdot$ a guardrailed assistant that explains but does not solve, between participants matched on a pre-test; a delayed post-test without any assistant.\\
+\textbf{Measure.} task score and time with the assistant, post-test score without it, the novice–expert gap in both, self-reported reliance; keep n small (20–40) and report confidence intervals honestly.\\
+\textit{Start from: \href{https://academic.oup.com/qje/article/140/2/889/7990658}{Generative AI at Work} $\cdot$ \href{https://www.pnas.org/doi/10.1073/pnas.2422633122}{Bastani et al.}~\citep{bastani2025guardrails} (\href{https://github.com/obastani/GenAICanHarmLearning}{data}) $\cdot$ \href{https://www.science.org/doi/10.1126/science.adh2586}{Noy \& Zhang} $\cdot$ \href{https://arxiv.org/abs/2609.28470}{StudentBench}~\citep{northcutt2026studentbench} $\cdot$ follow the ethics guidance in the FAQ.}
+
+\paragraph{E5. An accessibility intervention, evaluated with the people it is for}
+The benefit side of the disability question: multimodal models now describe images, read documents aloud, transcribe atypical speech and gloss sign language. Build one narrow tool with an accessibility organisation or a classmate who needs it, and evaluate it on tasks the users choose, not on a generic benchmark. Candidates: image descriptions for campus notices and lecture slides; a reading assistant for dyslexic students; speech recognition tuned to one dysarthric speaker; a Chinese Sign Language glossing aid; a plain-language rewriter for government forms.
+
+\textbf{Compare.} the off-the-shelf model $\cdot$ your adapted or prompted version $\cdot$ the user's current workaround, on 20–30 user-chosen tasks.\\
+\textbf{Measure.} task completion and time, error types that matter to the user (a missed warning is not the same as a missed adjective), satisfaction, and cost; with consent and anonymity throughout.\\
+\textit{Start from: \href{https://dl.acm.org/doi/10.1145/3663548.3688549}{how users with disabilities use chatbots (ASSETS 2024)} $\cdot$ \href{https://github.com/openai/whisper}{Whisper} and \href{https://github.com/QwenLM/Qwen3-VL}{Qwen3-VL} $\cdot$ posts on X: \href{https://x.com/howfxr/status/2113321053011546250}{Guided Vision in Gemini Live}, \href{https://x.com/VaibhavSisinty/status/2090200932546216387}{ESP32 smart glasses from Kano, Nigeria}, \href{https://x.com/DisabledWorld/status/2023502540663394411}{Visionauta} $\cdot$ pairs with C19.}
+
+\paragraph{E6. Whose knowledge? A Global South audit with a retrieval intervention}
+Ask practical questions (a fever in a child, a crop disease, a tenancy dispute, a scholarship deadline) as a user in Nairobi, Dhaka, Lima, Lagos and Lanzhou, and compare the answers with those for a user in San Francisco: which sources are cited, which institutions are assumed, how often the advice is wrong or unusable locally. Then test the smallest fix: retrieval over local sources (ministry guidelines, local-language news, regional NGO documents) in front of the same model.
+
+\textbf{Compare.} the bare model $\cdot$ model + retrieval over local sources $\cdot$ model + retrieval over global sources, for each location, same questions and model.\\
+\textbf{Measure.} local correctness and usability rated by people from each place, source provenance (country of origin of cited sources), refusal and hedging rates, cost.\\
+\textit{Start from: \href{https://dl.acm.org/doi/10.1145/3442188.3445896}{Sambasivan et al.} $\cdot$ \href{https://arxiv.org/abs/2306.16388}{GlobalOpinionQA}~\citep{durmus2023measuring} $\cdot$ \href{https://proceedings.mlr.press/v202/santurkar23a.html}{Santurkar et al.} $\cdot$ \href{https://aclanthology.org/2021.findings-emnlp.282/}{the low-resource double bind} $\cdot$ pairs with D14 for the evidence corpus.}
+
+\paragraph{Pitfalls we see every year.} A position paper with no position. An audit with ten prompts and no confidence intervals. "Bias" measured without saying what harm it causes to whom (read Blodgett et al. first). A human study with sensitive data and no consent. Claims about "the Global South" tested only in English. State the claim, measure it, report the interval, and say who should act.
+
+\clearpage
+
+\section{Efficiency, serving, on-device \& GPU kernels}
+\label{sec:trackF}
+Inference is where most of the compute in the world now goes, and it is a track where \textbf{a single GPU and a careful measurement protocol produce publishable numbers}. Projects here study a systems trade-off: kernel generation with feedback, scheduling short and long requests together, quantization, speculative decoding, or edge deployment. Fix the workload and the measurement protocol before comparing methods; report latency distributions, not averages; and check correctness on fresh inputs, because a fast wrong kernel is the most common result in this area (the KernelBench-Verified paper is required reading on why reported speedups often evaporate). Two additions this term: an \textbf{on-device protocol} for phones and laptops (brief F8), and an \textbf{evolutionary, RSI-style loop} that optimises your own kernel or configuration under a sealed test (F9). F6 now includes the extreme case of a memory budget: a 2.78-trillion-parameter mixture-of-experts model streamed from disk on a single CPU.
+
+\paragraph{Measurement protocol.} Warm up, synchronize, repeat; report median and 95th percentile; pin the GPU clock or report its state; log the driver, CUDA and library versions; compare against both eager PyTorch and a compiled baseline where supported. Record power with \texttt{nvidia-smi} if you report energy. Keep the replay script in the repository.
+
+\subsection{Research questions this track asks}
+\begin{itemize}
+\item On a fixed KernelBench subset, does iterative repair with compiler, correctness or profiler feedback beat independent candidates at a shared generation budget, and how many results are both correct and faster than each baseline?
+\item Which batched-token budget meets a stated time-to-first-token target at each request rate for a mixed short/long workload?
+\item Under identical prompts, how do serving engines differ in throughput, p50/p95 latency and energy per token?
+\item What accuracy does quantization or distillation cost on the tasks you care about, and where does it break first?
+\item How does speculative decoding's acceptance rate, and therefore its speedup, vary across domains and draft models?
+\item Can a real-time pipeline run on a laptop or phone with a bounded memory budget, and what is dropped to get there?
+\item When a mixture-of-experts model is far larger than memory, which split between resident layers and an expert cache, and which prefetch policy, buys the most tokens per second per gigabyte of RAM?
+\item On a phone, which runtime, quantization and drafting setting meets a stated latency target, and what does each cost in accuracy and energy?
+\item When an evolutionary agent optimises a kernel or a serving configuration, how much of the measured gain survives a sealed held-out test, and what did it try to game?
+\end{itemize}
+
+\subsection{Featured briefs}
+\paragraph{F1. Feedback for GPU kernel generation on KernelBench}
+KernelBench asks a model to replace a PyTorch reference module with a faster kernel: level 1 single operators, level 2 fused operators, level 3 full architectures. Pick a fixed subset and compare independent candidates with iterative repair that receives compiler errors, correctness failures on fresh inputs, or profiler traces, under a shared generation budget.
+
+\textbf{Compare.} independent sampling $\cdot$ repair with error feedback $\cdot$ repair with profiler feedback, same budget.\\
+\textbf{Measure.} correctness on fresh inputs, compilation time (separately), speedup against eager and compiled PyTorch, fraction of tasks both correct and faster than each baseline.\\
+\textit{Week 1: install, reproduce one level-1 task end to end; Week 2: feedback loop variants; Week 3: run the subset, fresh-input checks.}
+\textit{Start from: \href{https://github.com/ScalingIntelligence/KernelBench}{KernelBench} $\cdot$ \href{https://scalingintelligence.stanford.edu/blogs/kernelbenchv01/}{KernelBench v0.1} $\cdot$ \href{https://arxiv.org/abs/2607.16241}{KernelBench-Verified}~\citep{zhang2026kernelbench} $\cdot$ \href{https://github.com/thunlp/TritonBench}{TritonBench} $\cdot$ \href{https://github.com/gpu-mode/lectures}{GPU MODE lectures} $\cdot$ for Ascend NPUs: \href{https://arxiv.org/abs/2607.20518}{CANN Bench}~\citep{gao2026cann}.}
+
+\paragraph{F2. Serving short and long requests together}
+Replay a mixed workload (short interactive requests, long prompts) on one model and one GPU. Vary the serving engine's batched-token budget and other scheduler knobs, and measure what each setting does to the two populations.
+
+\textbf{Compare.} scheduler settings on the same arrival trace.\\
+\textbf{Measure.} median and p95 time to first token, inter-token latency, throughput, by request class.\\
+\textit{Start from: \href{https://docs.vllm.ai/en/stable/configuration/optimization/}{vLLM optimization guide} $\cdot$ \href{https://github.com/sgl-project/sglang}{SGLang} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture11\_Efficiency\_in\_LLMs.pdf}{Lecture 11: Efficiency in LLMs}.}
+
+\paragraph{F3. Engine comparison under identical prompts, with energy}
+vLLM, SGLang, llama.cpp (and TensorRT-LLM if available) on the same model, prompts and hardware. The contribution is a careful protocol and an honest table, including joules per token.
+
+\textbf{Compare.} engines and their default vs. tuned settings.\\
+\textbf{Measure.} tokens per second, latency distribution, power and energy per token, output equivalence.\\
+\textit{Start from: \href{https://github.com/vllm-project/vllm}{vLLM} $\cdot$ \href{https://github.com/sgl-project/sglang}{SGLang} $\cdot$ \href{https://github.com/ggml-org/llama.cpp}{llama.cpp}.}
+
+\paragraph{F4. What quantization and distillation cost}
+Quantize one model with two or three backends (AWQ, GPTQ, FP8) and optionally distil a smaller student; measure accuracy deltas on tasks that matter (long-context, math, code) rather than only perplexity. Pruning variants: LLM-Pruner, ShortGPT.
+
+\textbf{Compare.} precision levels and backends at matched memory.\\
+\textbf{Measure.} accuracy deltas per task, memory, throughput, where it breaks first.\\
+\textit{Start from: \href{https://github.com/vllm-project/llm-compressor}{llm-compressor} $\cdot$ \href{https://github.com/horseee/LLM-Pruner}{LLM-Pruner} $\cdot$ \href{https://arxiv.org/abs/2403.03853}{ShortGPT}~\citep{men2024shortgpt}.}
+
+\paragraph{F5. Speculative decoding across domains}
+Measure acceptance rate and wall-clock speedup of speculative decoding (EAGLE-style or n-gram drafts) on code, chat, and long-form writing, with the same target model.
+
+\textbf{Bonus question: does the draft model have to be trained for each target ("teacher") model?} EAGLE-style heads are trained on one target's hidden states, and a small draft is usually just a smaller sibling of the target. Take one draft and three targets (the original, a fine-tuned or RL-tuned version of it, and a different family with a compatible tokenizer) and measure how much acceptance falls. Then re-align the draft to each target, by distillation on the target's outputs (DistillSpec) or by online updates on live traffic (online speculative decoding), and report how many target-generated tokens of training buy back how much acceptance. Methods for heterogeneous vocabularies remove the shared-tokenizer constraint.
+
+\textbf{Compare.} draft strategies and draft sizes; for the bonus, an off-the-shelf draft vs. a draft re-aligned to each target.\\
+\textbf{Measure.} acceptance rate, speedup, output equivalence, memory.\\
+\textit{Start from: \href{https://github.com/SafeAILab/EAGLE}{EAGLE} (and \href{https://arxiv.org/abs/2503.01840}{EAGLE-3}~\citep{li2025eagle}) $\cdot$ \href{https://docs.vllm.ai/en/stable/features/spec\_decode/}{vLLM speculative decoding} $\cdot$ for the bonus: \href{https://arxiv.org/abs/2310.08461}{DistillSpec}~\citep{zhou2023distillspec} $\cdot$ \href{https://arxiv.org/abs/2310.07177}{online speculative decoding}~\citep{liu2023online} $\cdot$ \href{https://arxiv.org/abs/2502.05202}{speculative decoding with heterogeneous vocabularies}~\citep{timor2025accelerating}.}
+
+\paragraph{F6. An edge real-time pipeline with limited memory}
+Run a small model (ASR + LLM, or a VLM) on a laptop or phone under a stated memory budget and latency target. The research question is what to drop (precision, context, model size) and what it costs.
+
+\textbf{Bonus: how far can a memory budget stretch?} kimi-k3-in-c runs the 2.78-trillion-parameter Kimi K3 on one CPU in portable C99, with no GPU and no BLAS. Only 16 of 896 experts fire per layer (about 104B active parameters), so the dense trunk stays in RAM while the 1.45 TB of routed 4-bit experts stream from an NVMe drive through an LRU cache with prefetching. The output is byte-identical from 8 GB of RAM (about 26 s per token) to 128 GB (about 6 s); only the clock changes, and its own measurements show that allocation beats capacity (at 128 GB, giving the trunk memory before the expert cache was worth 1.69$\times$). Reproduce the idea on a mixture-of-experts model that fits your disk (OLMoE-1B-7B, Qwen3-30B-A3B), then test one policy of your own: frequency-based caching, prefetching the next layer's experts from the router, a different trunk/cache split, or lower-precision experts, and plot tokens per second against gigabytes of RAM.
+
+\textbf{Compare.} configurations under the same budget; for the bonus, LRU caching vs. your cache or prefetch policy at three or four memory budgets, on the same prompts, checking that the output stays identical.\\
+\textbf{Measure.} end-to-end latency, memory, accuracy on a fixed task set, battery or power if possible; for the bonus, resident cache hit rate, the share of wall-clock spent on disk reads, and tokens per second per GB of RAM.\\
+\textit{Start from: \href{https://github.com/ggml-org/llama.cpp}{llama.cpp} $\cdot$ \href{https://github.com/ml-explore/mlx}{MLX} $\cdot$ \href{https://github.com/QwenLM/Qwen3-VL}{Qwen3-VL-2B/4B} $\cdot$ for the bonus: \href{https://github.com/FareedKhan-dev/kimi-k3-in-c}{kimi-k3-in-c}~\citep{khan2026kimik3c} (Kimi K3 inference in C99 on one CPU, 8.24 GB peak RAM; Apache-2.0; its README documents every measurement) $\cdot$ \href{https://huggingface.co/moonshotai/Kimi-K3}{Kimi K3 weights} (1.56 TB: check your disk first) $\cdot$ smaller mixture-of-experts models: \href{https://github.com/allenai/OLMoE}{OLMoE}, \href{https://huggingface.co/Qwen/Qwen3-30B-A3B}{Qwen3-30B-A3B}.}
+
+\paragraph{F7. Prefix-cache reuse for agent workloads}
+Agent loops resend long, mostly identical contexts. Measure how much prefix caching and context layout (stable system prompt first, tool results last) save in an agent trace replay, and what it does to latency under concurrency.
+
+\textbf{Compare.} caching on/off and two context layouts on the same replayed traces.\\
+\textbf{Measure.} cache hit rate, prefill tokens, time to first token, throughput.\\
+\textit{Start from: \href{https://docs.vllm.ai/en/stable/features/automatic\_prefix\_caching/}{vLLM automatic prefix caching} $\cdot$ \href{https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents}{context engineering for agents}.}
+
+\paragraph{F8. An on-device benchmark: measure, then improve, a small model on a phone or laptop}
+Gemma 4 E2B (2.3B effective, audio and vision input, Apache-2.0) runs on an iPhone 17 Pro at roughly 40 tokens per second with MLX; Qwen3-0.6B/1.7B, SmolLM3 and Liquid's LFM2.5 are the other usual suspects. The research question is a protocol, not a demo: on \textbf{your} device, which runtime, quantization, context length and speculative-decoding setting meets a stated latency target, and what does each setting cost in accuracy and battery? A fixed task set (50 prompts: QA, summarisation, a tool call, one image) and a fixed measurement script make the numbers comparable across teams.
+
+\textbf{Compare.} runtimes (llama.cpp, MLC-LLM, ExecuTorch, MNN-LLM, MLX, Android AICore) $\cdot$ quantization levels (Q8, Q4, 2-bit) $\cdot$ with and without speculative or n-gram drafting, on the same model and prompts.\\
+\textbf{Measure.} time to first token, decode tokens per second, peak memory, energy per 100 tokens (battery API or a USB power meter), accuracy on the task set, thermal throttling over a 10-minute run.\\
+\textit{Week 1: task set, measurement script, one runtime; Week 2: other runtimes and quantizations; Week 3: speculative decoding, energy, throttling.}
+\textit{Start from: \href{https://github.com/ggml-org/llama.cpp}{llama.cpp} $\cdot$ \href{https://github.com/mlc-ai/mlc-llm}{MLC-LLM} $\cdot$ \href{https://github.com/pytorch/executorch}{ExecuTorch} $\cdot$ \href{https://github.com/alibaba/MNN}{MNN-LLM} $\cdot$ \href{https://github.com/ml-explore/mlx}{MLX} $\cdot$ \href{https://android-developers.googleblog.com/2026/04/AI-Core-Developer-Preview.html}{Gemma 4 in Android AICore} $\cdot$ \href{https://huggingface.co/blog/gemma4}{Gemma 4 E2B/E4B} $\cdot$ posts on X: \href{https://x.com/saen\_dev/status/2040531220488990980}{Gemma 4 on an iPhone at 40 tok/s}, \href{https://x.com/RobbiewOnline/status/2033044546645307843}{M5 Max community benchmarks vs. the "4$\times$" claim}, \href{https://x.com/onusoz/status/2084668050415272218}{LFM2.5-2.6B, an agentic on-device model}, \href{https://x.com/leopardracer/article/2063911046994084066}{the local LLM playbook (Raspberry Pi to RTX 5090)} $\cdot$ \href{https://x.com/SciFi/status/1810823305701540289}{mllm-NPU} for NPU prefill.}
+
+\paragraph{F9. Let an evolutionary agent (RSI-style) optimise your kernel or serving config, under a sealed test}
+DeepMind's AlphaEvolve (May 2025) and its open-source counterpart OpenEvolve run a loop: an LLM proposes code edits, an evaluator scores them, a database keeps the best diverse programs, and the loop continues for hours. OpenEvolve's Metal-kernel experiment reported a 12.5\% attention speedup on Apple silicon; Sakana's "AI CUDA Engineer" is the cautionary tale, where the loop found a way to cheat the benchmark. Apply the loop to one efficiency target you own, such as a Triton kernel from F1, a llama.cpp or vLLM configuration from F2/F3, or the on-device settings from F8, and measure whether the gains are real on inputs the loop never saw.
+
+\textbf{Compare.} expert-tuned baseline $\cdot$ independent LLM proposals (same number of evaluations) $\cdot$ the evolutionary loop, with the evaluator seeing only the development inputs; a sealed held-out set and fresh random inputs for the final score.\\
+\textbf{Measure.} speedup on development vs. sealed inputs (the overfitting gap), correctness failures, evaluations to the first real improvement, GPU hours spent by the loop itself, and at least one reward-hacking attempt found in the traces.\\
+\textit{Week 1: target, evaluator, sealed set, expert baseline; Week 2: run the loop; inspect traces; Week 3: independent-proposal control; fresh-input checks.}
+\textit{Start from: \href{https://github.com/algorithmicsuperintelligence/openevolve}{OpenEvolve} $\cdot$ \href{https://huggingface.co/blog/codelion/openevolve-gpu-kernel-discovery}{OpenEvolve GPU-kernel discovery post} $\cdot$ \href{https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/}{AlphaEvolve} $\cdot$ \href{https://sakana.ai/ai-cuda-engineer/}{AI CUDA Engineer and its reward-hacking postscript} $\cdot$ \href{https://github.com/SakanaAI/ShinkaEvolve}{ShinkaEvolve} $\cdot$ \href{https://rsi-exam.ai/}{RSI-Exam} (brief A5) $\cdot$ \href{https://www.primeintellect.ai/auto-nanogpt}{autonomous nanoGPT speedrun agents} $\cdot$ TA Ke Ji's research direction is recursive self-improvement; ask in office hours.}
+
+\paragraph{Pitfalls we see every year.} Timing without warm-up or synchronization. Correctness checked on the inputs the model saw. A speedup against an unoptimized baseline only. Averages instead of distributions. A thermal-throttled GPU in one condition. Keep the protocol in the repo and run both conditions back to back, interleaved.
+
+\clearpage
+
+\section{Competitions: a formal final-project option}
+\label{sec:trackG}
+A competition project uses a contest task, dataset or simulator to answer a course research question. You may enter an open competition or run an archived task locally; \textbf{both count as final projects} and use the course poster and report requirements. The leaderboard is a bonus result, not the grade: what we assess is the controlled comparison you ran on a local held-out split. A contest whose final deadline falls after Dec. 25 is fine, as long as the course deliverables are on time.
+
+\begin{enumerate}
+\item \textbf{Register a course plan.} Identify the contest, track, task, official metric, and the change you will test. Note the model, data, runtime and submission rules (offline notebooks, allowed models, API bans).
+\item \textbf{Run a controlled comparison.} Reproduce one baseline, keep a local held-out split or fixed simulator scenarios, and compare your method at a matched budget. Use the public leaderboard for an additional result when available.
+\item \textbf{Submit course deliverables.} Report local results, resource use and error analysis; include code and instructions to reproduce the baseline and the proposed method; add a dated competition score or submission link if you entered.
+\end{enumerate}
+
+\begin{itemize}
+\item \textbf{知乎知学堂 复杂表格识别与理解} \href{https://tianchi.aliyun.com/competition/entrance/532510}{Tianchi} $\cdot$ \href{https://s.tianchi.aliyun.com/competition/activeList}{listing}. open through Dec. 31, 2026; Recover complex tables from images and PDFs; automatically scored Excel answers. Compare a vision-language model with an OCR-plus-structure pipeline; report merged cells, value extraction and arithmetic separately.; F, multimodal
+\item \textbf{Qoder 高校创意大赛} \href{https://tianchi.aliyun.com/competition/entrance/532536}{rules}. open register and post by Nov. 30, 2026, 18:00 Beijing; University teams of 1–3 build an application with Qoder, deploy it on Qoder Sites, and post a write-up. For a StudyHack-style entry, compare a document assistant with and without evidence citations on a fixed set of research tasks.; F, C
+\item \textbf{OpenLET 具身智能挑战赛} \href{https://tianchi.aliyun.com/competition/entrance/532515/introduction}{competition and schedule}. open winter simulation round Sep. 29 – Dec. 31, 2026; Simulation-based manipulation with a provided policy. Compare the frozen policy with a small adaptation or a recovery rule; report success by placement and perturbation (brief C7). Hardware rounds come later.; B
+\item \textbf{CCKS 2026 评测任务} (知识图谱与语义计算大会) \href{https://sigkg.cn/ccks2026/}{CCKS 2026} $\cdot$ hosted on Tianchi. verify per task; Tasks include a cultural-tourism knowledge graph (entity extraction and disambiguation, cross-modal knowledge expansion) and an LLM behaviour-control evaluation. Even after deadlines, the task definitions and data are useful local benchmarks.; F
+\item \textbf{NLPCC 2026 shared tasks} \href{http://tcci.ccf.org.cn/conference/2026/shared-tasks/}{official list}. archived evaluation closed June–Sep. 2026; conference Nov. 2026, Macau; Public data and metrics: \href{https://nlp2ct.github.io/NLPCC-2026-Task6-Detection/}{Task 6} three-way LLM-text detection (brief D3); \href{https://github.com/NLP2CT/NLPCC-2026-Task10-Science}{Task 10} reliability of AI-assisted scientific reporting (D4); \href{https://arxiv.org/abs/2607.06618}{Task 1}~\citep{liu2026overview} medical instructional video QA; \href{https://github.com/ResearAI/NLPCC-2026-Task9-AISB}{Task 9} AI Scientist Benchmark.; F
+\item \textbf{多模态客服 Agent 设计} (DataFountain) \href{https://www.datafountain.cn/competitions/1165}{archived specification}. archived ran Mar. 16 – Aug. 31, 2026; A text-and-image chat endpoint backed by a knowledge base. Recreate the task with documents and images you may use; compare text-only and image-aware retrieval; measure grounded accuracy and appropriate abstention.; F
+\item \textbf{蚂蚁灵波具身大模型挑战赛} \href{https://tianchi.aliyun.com/competition/entrance/532514}{Tianchi}. archived online round closed Oct. 26, 2026; Embodied VLA tasks; the released task format is a ready-made local benchmark for Track C manipulation studies.; B
+\item \textbf{CCF BDCI 2026} (大数据与计算智能大赛) \href{https://xir.cn/competition/races/BDCI2026}{息壤 platform}. archived registration closed Sep. 10, 2026; Three Agent tasks (for example, quantitative investment report generation and automatic research-paper generation on the JiuwenSwarm framework). Task specifications define evaluation you can reuse.; A
+\item \textbf{讯飞 AI开发者大赛 智能体赛道 / 星火杯} \href{https://challenge.xfyun.cn/topic/agent}{agent track} $\cdot$ \href{https://challenge.xfyun.cn/xinghuo}{星火杯}. verify last agent cycle Dec. 26, 2025 – Apr. 9, 2026; Campus agent-building contests on the 星辰 Agent platform; the previous cycle opened in late December, so a new cycle may open during the project window.; A, C
+\item \textbf{中国高校计算机大赛 C14-AI 2026} (鸿蒙 / 昇腾 tracks) \href{https://developer.huawei.com/home/C14-AI}{official site}. archived 2026 finals announced; next edition spring 2027; Teams of up to three; AI application projects on HarmonyOS or Ascend. A Track C or C prototype built this term can be carried into the 2027 edition.; any
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Google DeepMind: Gemma 4 Developer Agent} \href{https://www.kaggle.com/competitions/gemma-4-developer-agent/overview}{competition} $\cdot$ \href{https://www.kaggle.com/competitions/gemma-4-developer-agent/discussion/748287}{model update} $\cdot$ \href{https://www.kaggle.com/competitions/gemma-4-developer-agent-paper}{paper track}. open paper track Nov. 12; entry Nov. 25; final Dec. 2, 2026; Post-train an open model into a coding agent that repairs real repository issues; held-out tests score patches offline with an approved Gemma 4 variant (31B, 12B, E4B, E2B). Compare repository search alone with search plus a test-and-repair loop (brief A7).; A
+\item \textbf{BuildArena S02: Human–AI Engineering Challenge} \href{https://www.kaggle.com/competitions/build-arena-human-ai-engineering-challenge/overview/hackathon-tracks-and-prizes}{tracks and rules}. closing soon Nov. 14, 2026 AOE (see Kaggle countdown); Agent-only design vs. natural-language copilot guidance in a physics simulator. Only for teams with a working prototype; deliver a controller, telemetry and an interaction transcript (brief A3).; A
+\item \textbf{ARC Prize 2026 Paper Track} \href{https://www.kaggle.com/competitions/arc-prize-2026-paper-track}{Kaggle} $\cdot$ \href{https://arcprize.org/competitions/2026}{arcprize.org}. closing soon papers due Nov. 8 (arcprize.org) / Nov. 9 (Kaggle), 2026; A write-up documenting a real ARC-AGI-2 or ARC-AGI-3 submission; the prediction tracks closed Nov. 2. The public tasks remain available for program-search and memory studies (brief A8).; A
+\item \textbf{Name That LLM} \href{https://www.kaggle.com/competitions/name-that-llm/overview}{competition and rules}. open entry Jan. 6; final Jan. 13, 2027; Identify which of 18 models generated a passage; offline notebooks, nine-hour limit; public data and pretrained models allowed. Compare character n-grams with a small encoder; report confusion across model families (brief D3).; F
+\item \textbf{Pokémon TCG AI Battle Challenge Playground} \href{https://www.kaggle.com/competitions/the-pokemon-company-ptcg-ai-battle-challenge-playground/overview/description}{competition}. open entry Jan. 1; final Jan. 8, 2027; Use the simulator SDK to compare a heuristic policy with one that searches over legal actions; report win rate against fixed opponents and time per move. Verify execution restrictions before designing around a hosted model.; A
+\item \textbf{NeurIPS 2026 Smart Buildings Challenge} \href{https://www.kaggle.com/competitions/neurips-2026-smart-buildings/overview}{Kaggle} $\cdot$ \href{https://smart-buildings-2026.github.io/competition/index.html}{site}. open entry Jan. 3; final Jan. 15, 2027; Compare a fixed HVAC controller with a learned or model-assisted policy in simulation; measure comfort, energy cost and emissions on held-out scenarios. Offline notebooks, nine-hour limit.; A
+\item \textbf{FlagOS / IEEE: optimise LLM operators and inference across AI chips} \href{https://mlcontests.com/}{ML Contests listing}. verify listed as closing Nov. 15, 2026; Operator and inference optimization across hardware; pairs with brief F1. Confirm the date and rules on the organizer page.; H
+\item \textbf{AMD + GPU MODE: LLM inference on MI355X} \href{https://mlcontests.com/}{ML Contests listing}. verify; Inference performance optimization on AMD GPUs with a large prize pool; requires access to the hardware through the organizer. Protocol lessons apply to brief F3.; H
+\item \textbf{Google Quantum AI: optimise quantum circuits} (Kaggle) \href{https://www.kaggle.com/competitions}{Kaggle competitions}. verify about three months to go; Tagged agents / code / optimisation on ML Contests; an agentic program-optimization problem for teams comfortable with the domain.; A
+\item \textbf{NeurIPS 2026 competition track} \href{https://blog.neurips.cc/2026/07/28/neurips-2026-competitions-announced/}{all 16 competitions}. verify most close in November; track meets Dec. 11–12; Relevant entries: \href{https://steerability.github.io/competition/}{Steerability Challenge}, \href{https://aimslab.stanford.edu/competition}{Predictive AI Evaluation}, \href{https://quantiphy.stanford.edu/competition/index.html}{QuantiPhy} (VLM physical reasoning), \href{https://simulacrabench.org/}{SimulacraBench}, \href{https://aimo-interp.github.io}{AIMO Interpretability}, \href{https://robosyn-bench.net/}{RoboSynChallenge}, \href{https://www.alphathon.org}{Agenthon} (verifiable AI for finance), \href{https://xiuwenz2.github.io/SAPC2-website/}{Speech Accessibility Project Challenge 2}.; F, D, B
+\end{itemize}
+
+\begin{itemize}
+\item \href{https://arcprize.org/guide}{ARC-AGI-2 and ARC-AGI-3}. Public grid tasks and interactive environments; the 2026 prediction tracks closed Nov. 2, winners announced Dec. 4.; A
+\item \href{https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-3}{AIMO Progress Prize 3}. 50 public olympiad-style problems selected to be "AI-hard"; closed Apr. 15, 2026. A hard set for test-time scaling studies.; A, D
+\item \href{https://github.com/ScalingIntelligence/KernelBench}{KernelBench} $\cdot$ \href{https://github.com/thunlp/TritonBench}{TritonBench}. 250 kernel tasks in three levels; public leaderboards for CUDA and megakernel variants.; H
+\item \href{https://github.com/FreedomIntelligence/gamecraft-bench}{GameCraft-Bench}  [our lab]. 140 Godot game tasks with a replay-based verifier and rubric judge.; A
+\item \href{https://rsi-exam.ai/}{RSI-Exam}. 88 sealed self-improvement tasks across six domains; contributions for 2.0 listed for Dec. 15, 2026.; A
+\item \href{https://github.com/SWE-bench/SWE-bench}{SWE-bench} $\cdot$ \href{https://github.com/laude-institute/terminal-bench}{Terminal-Bench} $\cdot$ \href{https://github.com/xlang-ai/OSWorld}{OSWorld}. Repository repair, terminal tasks and computer-use tasks with executable checks.; A
+\item \href{https://github.com/THUDM/AgentBench}{AgentBench} $\cdot$ VisualAgentBench. Multi-environment agent evaluation from Tsinghua; function-calling variant based on AgentRL.; A
+\item \href{https://github.com/Lifelong-Robot-Learning/LIBERO}{LIBERO} $\cdot$ \href{https://github.com/haosulab/ManiSkill}{ManiSkill}. Manipulation benchmarks with released VLA checkpoints (SmolVLA-LIBERO on LeRobot).; B
+\item \href{https://github.com/THUDM/LongBench}{LongBench} $\cdot$ \href{https://github.com/THUDM/AlignBench}{AlignBench}. Long-context and Chinese alignment evaluation suites.; F
+\item \href{https://github.com/ethz-spylab/agentdojo}{AgentDojo}. Prompt-injection attacks and defenses for tool-using agents.; F
+\item \href{https://mlcontests.com/}{ML Contests} $\cdot$ \href{https://www.kaggle.com/competitions}{Kaggle} $\cdot$ \href{https://tianchi.aliyun.com/competition/activeList}{Tianchi} $\cdot$ \href{https://www.datafountain.cn/competitions}{DataFountain} $\cdot$ \href{https://challenge.xfyun.cn/}{讯飞} $\cdot$ \href{https://www.codabench.org/}{Codabench}. Where to look for contests that open after this page was written.; any
+\end{itemize}
+
+\paragraph{Rules that bite.} Many Kaggle tasks score notebooks offline with no internet and a nine-hour limit: an API-model pipeline cannot be submitted, though it can still be your local baseline. Read the allowed-models clause before choosing a brief. Chinese contests often require real-name registration and platform accounts (Tianchi, 息壤, 星辰); start that in week 1.
+
+\clearpage
+
+\section{AI entrepreneurship: run a startup prototype}
+\label{sec:trackH}
+Lecture 8's last topic invites you to run a prototype for a startup: an \textbf{AI CEO}, an \textbf{AI seller}, an \textbf{AI tutor}, \textbf{AI for expertise training} (simulated patients for medical students, interview coaching), an \textbf{AI game designer} (text-to-game, text-to-app), an \textbf{open-world experience} with AI and VR, or \textbf{speech-based 3D printing}. Two student companies from this lab show the scale that is possible: 薯塔AI, an AI study platform for Sino-foreign universities, had covered 60\% of CUHK-Shenzhen undergraduates by April 2025 (3,579 registered on campus, 4,680 in total, 1,239 daily active users and about 2,900 AI answers a day) and is expanding to seven other universities; 网事, a tennis app by 朱宇轩, has served over a thousand players and saved them more than 5,000 hours. A startup project is still a course project: it needs real users, a controlled comparison, and a report. What changes is the evidence you collect: activation, retention, willingness to pay, and a business memo that survives a sceptical reader.
+
+\paragraph{What counts as a research result here.} Two versions of your product on the same user tasks (onboarding A vs. B, retrieval over course materials vs. a generic model, free vs. paid tier), with the metric decided in advance. Ten user interviews written up with the Mom Test rules (ask about their life, not your idea). A unit-economics table: cost per active user per month (API tokens, hosting, support) against what they pay or would pay. A one-page business memo. The poster shows the comparison and the retention curve, not the logo.
+
+\subsection{AI startup basics  (what every founder in this track should be able to explain)}
+\paragraph{Problem before product.} Write the customer's problem in their words before touching a model. Interview ten people with the \href{https://www.momtestbook.com/}{Mom Test} rules: past behaviour, not opinions about your idea. The lab's successful teams started from a course they were failing and a sport they played.
+
+\paragraph{Business model canvas.} Customer segments, value proposition, channels, revenue, cost structure, key activities and partners. The \href{https://www.strategyzer.com/library/the-business-model-canvas}{canvas} or the \href{https://leanstack.com/lean-canvas}{Lean Canvas} fits on one page; fill it in week 1 and again in week 4 and show what changed.
+
+\paragraph{AI unit economics.} Cost per active user per month = tokens $\times$ price + hosting + human review. Compare with ARPU (average revenue per user) and CAC (acquisition cost). Gross margins of AI apps are lower than classic software because inference is a cost of goods; caching, small models and routing are product decisions.
+
+\paragraph{The "wrapper" question.} If the model vendor ships your feature tomorrow, what remains? Proprietary data, a workflow embedded in a customer's day, distribution (a campus, a hospital, a WeChat group), trust and brand, switching costs. Name your moat in one sentence or admit you have none yet.
+
+\paragraph{Product-market fit signals.} Retention curves that flatten rather than decay to zero; organic referrals; users complaining when it breaks; the \href{https://pmfsurvey.com/}{Sean Ellis test} ("very disappointed" if it disappeared $\geq$ 40\%). Vanity metrics: sign-ups, demo views, likes.
+
+\paragraph{Pricing.} Per seat, per usage, per outcome, freemium. AI products are moving toward outcome and usage pricing because costs scale with use. Test one price with a real "buy" button even if you refund everyone; stated willingness to pay is not a measurement.
+
+\paragraph{Compliance in China and abroad.} Generative AI services facing the public in China fall under the 生成式人工智能服务管理暂行办法 (2023) and algorithm filing rules; personal data under PIPL; the EU AI Act for European users. Education and health products have extra rules. Write the one paragraph that says what applies to you.
+
+\paragraph{Build fast, measure faster.} Vibe-coding tools make a prototype a weekend's work; the scarce resource is users and the discipline to measure. Ship to 20 users in week 2, not 2,000 in week 4. Read Paul Graham's \href{https://paulgraham.com/ds.html}{"Do things that don't scale"} and the \href{https://www.ycombinator.com/library}{YC library}.
+
+\subsection{Research questions this track asks}
+\begin{itemize}
+\item Does retrieval over a course's own materials beat a general model for a student tutor on correctness and on the student's willingness to return next week?
+\item Can an AI seller raise conversion in a real small shop without raising refund or complaint rates, and which messages it sends make the difference?
+\item When an agent runs a business end to end, which decisions does it get wrong first (pricing, inventory, promises to customers), and does a rule layer fix them without killing revenue?
+\item Do simulated patients or interviewers improve a trainee's performance with real humans, or only their comfort with the simulator?
+\item From a sentence to a playable game or a printable object: what fraction of prompts yields something usable, and what does a repair loop add per attempt?
+\item Which onboarding, pricing or guardrail variant keeps more users after two weeks, at what cost per retained user?
+\end{itemize}
+
+\subsection{Featured briefs}
+\paragraph{H1. AI tutor for one course, with retention as the metric}
+Build a tutor for one real course (ask the instructor), grounded in its slides, notes and past assignments, and give it to classmates. 薯塔AI grew from exactly this. The product variable is grounding; the business variable is whether students come back. Design the tutor so it explains rather than solves (Bastani et al., PNAS 2025) and measure whether that costs you users. Do not start from zero: HKU's open-source DeepTutor already combines citation-grounded answers, difficulty-calibrated practice questions and a learner memory, and ships TutorBench for evaluation; use it as your codebase or as the baseline to beat.
+
+\textbf{Compare.} a generic chat model $\cdot$ the same model with retrieval over the course corpus $\cdot$ the grounded tutor with a "no final answers on graded work" guardrail, assigned to matched groups of students.\\
+\textbf{Measure.} answer correctness on 50 course questions (graded by the TA), week-2 retention, questions per active user, cost per active user, a learning check on a quiz without the tutor.\\
+\textit{Week 1: course corpus, interviews, baseline deployed to 20 users; Week 2: grounded and guardrailed variants; Week 3: retention and learning measures.}
+\textit{Start from: \href{https://github.com/HKUDS/DeepTutor}{DeepTutor} (HKU Data Intelligence Lab; \href{https://arxiv.org/abs/2604.26962}{paper}~\citep{zhao2026deeptutor}) $\cdot$ C17 for memory design $\cdot$ \href{https://arxiv.org/abs/2609.28470}{StudentBench}~\citep{northcutt2026studentbench} $\cdot$ \href{https://www.pnas.org/doi/10.1073/pnas.2422633122}{Bastani et al.}~\citep{bastani2025guardrails} $\cdot$ posts on X: \href{https://x.com/Kawsar\_Ai/status/2060388016934527027}{Brilliant's Koji}, \href{https://x.com/aakashgupta/status/2100448276717928849}{Aristotle refuses to give answers}, \href{https://x.com/geekwire/status/2085368488588444147}{a \$6M seed round for a tutor that makes kids figure it out}.}
+
+\paragraph{H2. AI seller: a sales and support agent for a real small shop}
+Find one small business (a campus café, a family's online store, a tutoring centre) and build the agent that answers product questions, recommends, and closes orders in its chat channel, with a human approving anything irreversible. The research question is what the agent may say: a free conversational policy against one constrained by an approved product sheet and a refund policy.
+
+\textbf{Compare.} human-only (baseline week) $\cdot$ agent with free policy $\cdot$ agent with a constrained policy and escalation rules, on the same channel in alternating weeks or A/B by customer.\\
+\textbf{Measure.} conversion, average order, response time, complaints and refunds, hallucinated promises caught by the human reviewer, cost per conversation.\\
+\textit{Start from: A4 for the harness $\cdot$ \href{https://github.com/langgenius/dify}{Dify} or \href{https://github.com/langchain-ai/langgraph}{LangGraph} $\cdot$ \href{https://github.com/sierra-research/tau2-bench}{$\tau$$^2$-bench} for retail-style agent evaluation before going live.}
+
+\paragraph{H3. AI CEO: an agent runs a tiny business, and you measure where it fails}
+Anthropic's Project Vend let Claude run a small office shop for a month: it found suppliers and answered customers, but it also sold at a loss, gave discounts to anyone who asked, invented a supplier contact and had an identity crisis. Andon Labs' Vending-Bench turns the same setting into a simulator. Run an agent as the manager of a tiny real or simulated business (a vending box in your dorm, a print-on-demand shop, a weekly snack pre-order) and study its decisions.
+
+\textbf{Compare.} the bare agent $\cdot$ agent + a rule layer (price floors, inventory limits, a human sign-off on promises) $\cdot$ agent + a daily self-review memo, over the same simulated weeks or alternating real weeks.\\
+\textbf{Measure.} profit, stock-outs, pricing errors, promises it could not keep, customer satisfaction, and a timeline of the first serious mistake under each condition.\\
+\textit{Start from: \href{https://www.anthropic.com/research/project-vend-1}{Project Vend} (\href{https://x.com/AnthropicAI/status/1938630294807957804}{thread}) $\cdot$ \href{https://andonlabs.com/evals/vending-bench}{Vending-Bench} $\cdot$ \href{https://github.com/TheAgentCompany/TheAgentCompany}{TheAgentCompany} $\cdot$ the "startup simulator" idea from Lecture 8.}
+
+\paragraph{H4. AI for expertise training: simulated patients, interview coaches, exam examiners}
+Medical students practise on simulated patients; job seekers practise interviews; law students practise moots. The lab's AI Hospital and Agentic Hospital papers simulate patients and examiners with LLMs. Build the trainer for one skill with a partner who teaches it (a clinical teacher, a career centre, a debate coach), and measure transfer to a human assessor, not just scores inside the simulator.
+
+\textbf{Compare.} no practice $\cdot$ practice with a scripted simulator $\cdot$ practice with the LLM simulator plus rubric feedback, followed by an assessment with a real person using the same rubric.\\
+\textbf{Measure.} rubric score with the human assessor, number of practice sessions, trainee confidence, simulator realism rated by the teacher, cost per session.\\
+\textit{Start from: \href{https://arxiv.org/abs/2402.09742}{AI Hospital}~\citep{fan2024ai} and \href{https://github.com/FreedomIntelligence/Agentic-Hospital}{Agentic Hospital} (our lab) $\cdot$ \href{https://arxiv.org/abs/2305.15075}{HuatuoGPT}~\citep{zhang2023huatuogpt} $\cdot$ D8 for rubric design $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture09\_Medical\_LLMs\_Towards\_Generalist\_Medical\_AI.pdf}{Lecture 9}.}
+
+\paragraph{H5. AI game designer: text-to-game and text-to-app as a product}
+The lab's GameCraft-Bench measures whether agents can turn a spec into a playable Godot game; vibe-coding jams show solo builders shipping multiplayer games in a weekend. The product question is the user, not the model: a teacher who wants a quiz game, a parent who wants a story game for a child, a small brand that wants a promotional mini-game in WeChat. Build the generator with a repair loop and test it with ten such users.
+
+\textbf{Compare.} one-shot generation $\cdot$ generation + automatic replay-and-repair $\cdot$ generation + repair + one round of user edits in plain language, on the same 30 user prompts.\\
+\textbf{Measure.} launchable rate, playable rate judged by the user, time to an accepted game, cost per accepted game, and what users asked to change.\\
+\textit{Start from: A2 and \href{https://github.com/FreedomIntelligence/gamecraft-bench}{GameCraft-Bench} $\cdot$ \href{https://github.com/Donchitos/Claude-Code-Game-Studios}{Claude-Code-Game-Studios} $\cdot$ posts on X: \href{https://x.com/realBigBrainAI/status/2060360634882220138}{a capybara delivery game, solo in 14 days}, \href{https://x.com/tencentcloud/status/2070406394894078130}{a Hong Kong jump game from text prompts}, \href{https://x.com/NicolasZu/status/1899931187398979890}{20 hours, 500 prompts, 20 euros}.}
+
+\paragraph{H6. Open-world experience: an AI + VR product people pay for}
+A VR experience generated or narrated by AI: a guided tour of a historical site with a character who answers questions, a language-immersion café, a calming space that adapts to the visitor. Build on C9 (WebXR assistant) and C2 (generated assets), then run sessions with real visitors and ask what they would pay for.
+
+\textbf{Compare.} scripted experience $\cdot$ AI character with a static briefing $\cdot$ AI character with memory and retrieval, with visitors assigned to one condition.\\
+\textbf{Measure.} session length, questions asked, a recall quiz afterwards, motion sickness and comfort, willingness to pay (a real price test), cost per session.\\
+\textit{Start from: \href{https://x.com/DecartAI/status/1974534910623859128}{DecartXR} $\cdot$ \href{https://arxiv.org/abs/2309.12276}{LLMR}~\citep{torre2023llmr} $\cdot$ \href{https://github.com/Tencent-Hunyuan/HY-World-2.0}{HY-World 2.0} for scenes.}
+
+\paragraph{H7. Speech-based 3D printing: from a spoken wish to a printed object}
+"A phone stand that also holds my earbuds." The pipeline is speech recognition, a CAD-code generator (parametric CadQuery or build123d, or Blender Python as in the lab's BlenderLLM), a printability check (manifold, overhangs, dimensions), and a slicer. Open-source text-to-CAD agents appeared in 2026 for Claude Code and Codex; Adam CAD sells speech-to-3D. Your product variable is the repair loop and the questions the system asks before it prints.
+
+\textbf{Compare.} one-shot generation $\cdot$ generation + printability repair loop $\cdot$ the loop plus one clarifying question about dimensions or use, on 30 spoken requests from 10 users.\\
+\textbf{Measure.} printable rate (manifold, fits the bed), dimension error against the user's stated numbers, user acceptance of the printed object, filament and time per accepted object.\\
+\textit{Start from: \href{https://arxiv.org/abs/2412.14203}{BlenderLLM}~\citep{du2024blenderllm} (our lab; \href{https://huggingface.co/FreedomIntelligence/BlenderLLM}{model}) $\cdot$ \href{https://github.com/SadilKhan/Text2CAD}{Text2CAD} (NeurIPS 2024) $\cdot$ \href{https://github.com/CadQuery/cadquery}{CadQuery} / \href{https://github.com/gumyr/build123d}{build123d} $\cdot$ \href{https://github.com/prusa3d/PrusaSlicer}{PrusaSlicer CLI} $\cdot$ posts on X: \href{https://x.com/earthtojake/status/2107235748860895259}{text-to-cad in the Codex plugin directory}, \href{https://x.com/DanKornas/status/2089858619747553557}{a /render skill with build123d}, \href{https://x.com/\_vmlops/status/2081617027404611914}{an open-source CAD engineer for Claude Code and Codex}, \href{https://x.com/Tabraiz/status/1883298456179294352}{Adam CAD speech-to-3D} $\cdot$ pairs with A3.}
+
+\paragraph{Pitfalls we see every year.} A pitch deck instead of a measurement. "Users" who are the team's friends and never return. A chatbot wrapper with no moat and no cost table. Promises to customers that an agent made and nobody caught. Collecting personal data without consent. Ship to twenty real users, measure retention and cost, and write the memo a sceptical investor would want.
+
+\clearpage
