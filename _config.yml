@@ -1,0 +1,10 @@
+# GitHub Pages (Jekyll) build settings for the course site.
+# The site is plain HTML; Jekyll only copies files. Large folders that no current page links to are
+# excluded from the deployed artifact so that the Pages deployment stays well under GitHub's sync timeout.
+# The files remain in the repository (and on GitHub) and can be re-included by removing them from this list.
+exclude:
+  - materials/2025_spring_slides      # Spring 2025 decks (146 MB, incl. a 47 MB weights.csv); not linked from any page
+  - Assignments/Assignment2           # 2024 assignment code with a 37 MB FAISS index; the 2026 assignment links the GitHub tree instead
+  - materials/videos                  # Lecture 10 chapters now served from https://wabyking.github.io/nlp2026-videos-2/lecture10/
+  - README.md
+  - .gitignore
