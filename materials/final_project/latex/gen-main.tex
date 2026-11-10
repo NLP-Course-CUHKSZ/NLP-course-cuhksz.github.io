@@ -1,0 +1,188 @@
+%% Generated from .fp-guide/parts3 by gen_latex.py; do not edit by hand.
+\section{The question, and eight tracks that answer it}
+\label{sec:question}
+The final project is a small research study in natural language processing. You choose one question, build a working baseline, and test \textbf{one targeted change} under a fixed budget. The deliverables are a poster presentation, a research report, and reproducibility materials. What is graded is not the size of the system but the clarity of the question, the fairness of the comparison, and the honesty of the write-up: a project that shows one clean success and one well-explained failure is a good project.
+
+AI coding tools have changed what a four-week project can be. A team can now stand up a 3D scene, a game, a training run, a dataset pipeline or an agent harness in days instead of weeks. We therefore ask every team the same thing: \emph{what can you learn in a month that you could not learn without doing the experiment?} The PDF guide's appendices and the Lecture 8 topics are merged into the \textbf{eight tracks} below, ordered from the most popular and easiest to understand to the more specialised, with competitions and entrepreneurship last. Tracks are entry points, not fences: a campus NPC project is Track C but borrows memory designs from Track A and evaluation discipline from Track D. Every brief carries tags for the compute it needs; the filter hides briefs you cannot run.
+
+\begin{center}\small\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}l p{0.30\linewidth} X@{}}
+\toprule
+\textbf{Track} & \textbf{Title} & \textbf{What you can build; briefs and compute}\\
+\midrule
+A & Agents \& harness: tools, skills \& iterative repair (App.~\ref{sec:trackA}) & Harness engineering: pelican-on-a-bicycle in three.js, playable games, machine design with simulators, a reusable skill people actually install, an agent that writes and audits a survey, an MLE agent that enters Kaggle on its own. \emph{11 briefs $\cdot$ API model often enough}\\
+B & Train your own model: vertical models, new modalities \& nanoGPT (App.~\ref{sec:trackB}) & A nanoGPT speedrun experiment, your own twist on SFT or RL, the Tutorial 2 recipe applied to a vertical domain, adapters for speech, bio-signals and time series, weight-space programming, SAE interventions. \emph{12 briefs $\cdot$ GPU needed}\\
+C & HCI: interactive 3D/VR worlds, digital humans, education \& interaction (App.~\ref{sec:trackC}) & Campus with LLM NPCs, adaptive three.js scenes, dancing avatars, a visual personal assistant, a WebXR assistant, a JEPA-style world model; textbook skits, math videos, 3D lessons, an AI lecture series, content pipelines for special audiences, when to ask. \emph{20 briefs in two parts $\cdot$ demo-heavy}\\
+D & Evaluation, datasets \& evidence (App.~\ref{sec:trackD}) & Benchmarks the top models cannot pass yet, physician-style rubrics, judge audits, LLM-text detection, injection defenses; datasets per training stage, evidence-based RAG corpora, AI-built corpora with verifiers. \emph{14 briefs in two parts $\cdot$ API or CPU}\\
+E & AI for society: position papers, audits \& interventions (App.~\ref{sec:trackE}) & Does AI widen gender inequality, silence minority languages, exclude people with disabilities, or leave the Global South behind? Argue it like an ICML position paper and measure it. \emph{6 briefs $\cdot$ no GPU}\\
+F & Efficiency, on-device \& GPU kernels (App.~\ref{sec:trackF}) & Kernel generation with feedback, serving mixed workloads, quantization, speculative decoding, a phone benchmark, and an evolutionary (RSI-style) loop that optimises your own code. \emph{9 briefs $\cdot$ one GPU or a phone}\\
+G & Competitions (Chinese \& international) (App.~\ref{sec:trackG}) & Tianchi, Kaggle, NeurIPS 2026 and archived NLPCC/CCKS tasks, with the course protocol for turning a contest into a research project. \emph{20+ contests $\cdot$ dates checked Nov. 3}\\
+H & AI entrepreneurship: run a startup prototype (App.~\ref{sec:trackH}) & AI tutor, AI seller, AI CEO, expertise training, text-to-game, AI + VR experiences, speech-based 3D printing, plus the business-model basics every AI founder should know. \emph{7 briefs $\cdot$ users required}\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\paragraph{New on November 9.} An ML-engineering agent that enters a Kaggle competition on its own (A11); post-training variants of your own instead of a reproduction (B6); a visual personal assistant (C4); a clearer active embodied QA brief (C6); an AI lecture series with generated courseware, TTS narration and a recurring host (C20); multimodal long context with LongLLaVA (D1); bonus questions on identifying the model behind a relay API (D3), on aligning a draft model with different targets (F5) and on running a 2.78-trillion-parameter mixture of experts in 8 GB of RAM (F6); DeepTutor as a starting point for the AI tutor (H1).
+
+Tags: \textbf{API} a hosted or small local model is enough $\cdot$ \textbf{1 GPU} a single 16–24 GB GPU for hours $\cdot$ \textbf{multi-GPU} several GPUs for days $\cdot$ \textbf{competition} has a matching live or archived contest. Posts from X cited as inspiration were located through search on Nov. 4, 2026 and could not all be opened directly; treat them as design prompts, not as verified results.
+
+\paragraph{Use strong models, and say so.} We encourage you to use the strongest model you can access as a planner, coder, judge or research assistant: an API model such as \href{https://www.anthropic.com/claude-opus-5-5}{Claude Opus 5.5}, or a strong open-weight model such as \href{https://github.com/zai-org/GLM-5}{GLM-5.x} or \href{https://github.com/QwenLM/Qwen3-VL}{Qwen3-VL} served locally. Log the model version and its role in every experiment. Where a model writes code or judges outputs, verify with executable tests, ground truth, or a human audit of a sample. For hosted competitions, use only the models and tools the organizer allows. The report must describe material uses of generative AI in coding, data, evaluation and writing.
+
+\subsection{The shape of a good four-week project}
+\begin{itemize}
+\item \textbf{Week 1 $\cdot$ Freeze:} task, held-out split, working baseline, primary metric
+\item \textbf{Week 2 $\cdot$ Build:} the one change you are testing; smoke-test end to end
+\item \textbf{Week 3 $\cdot$ Compare:} matched-budget runs, seeds, ablation, error analysis
+\item \textbf{Week 4 $\cdot$ Reproduce:} re-run the key result from a clean clone; demo or result figure
+\item \textbf{Poster \& report:} Dec. 17 / Dec. 25 question $\cdot$ result one limitation
+\end{itemize}
+Suggested research window: Nov. 13 $\rightarrow$ Dec. 11. Keep a smaller fallback experiment ready from week 1, so a failed main change still yields a result. Rule of thumb: if the baseline is not running by the end of week 1, shrink the task, not the comparison.
+
+\textit{The four-week plan used by every brief on this page. Each track section fills in what "the one change" and "matched budget" mean there.}
+
+\subsection{How to choose a topic (from Lecture 8)}
+\paragraph{Combine your expertise with AI.} A previous major in mathematics, science, engineering, medicine, law or finance is an advantage, not a detour: AI for math, AI for materials, AI for the clinic you know.
+
+\paragraph{Combine your background.} If your native language or dialect is under-represented, train or audit a model for it. Local culture and heritage count: 黄梅戏, 甲骨文, 京剧, 中医, 相声.
+
+\paragraph{A real need near you.} A relative with diabetes who needs out-of-hospital management, a friend with a visual impairment, a family shop that needs a seller agent. Real needs make honest evaluations.
+
+\paragraph{Your interest matters most.} Four weeks is long enough to notice whether you care. Pick the question you would read about on a Sunday.
+
+\subsection{Where the briefs come from}
+Each track starts from published work that a team can extend in four weeks; every brief links to its papers, code and data, and the PDF guide lists them as references. Track A builds on executable agent benchmarks such as \href{https://arxiv.org/abs/2310.06770}{SWE-bench}~\citep{jimenez2023swe} and \href{https://arxiv.org/abs/2410.07095}{MLE-bench}~\citep{chan2024mle}, and on agents that write surveys (\href{https://proceedings.neurips.cc/paper\_files/paper/2024/file/d07a9fc7da2e2ec0574c38d5f504d105-Paper-Conference.pdf}{AutoSurvey}~\citep{wang2024autosurvey}). Track B asks for small, testable changes to post-training in the spirit of selective token training (\href{https://arxiv.org/abs/2404.07965}{Rho-1}~\citep{lin2024rho}), \href{https://arxiv.org/abs/2506.01939}{reinforcement learning on high-entropy tokens}~\citep{wang20258020} and simplified policy optimisation (\href{https://arxiv.org/abs/2503.14476}{DAPO}~\citep{yu2025dapo}, \href{https://arxiv.org/abs/2503.20783}{Dr. GRPO}~\citep{liu2025understanding}). Track C draws on \href{https://arxiv.org/abs/2304.03442}{generative agents}~\citep{park2023generative}, egocentric assistants (\href{https://arxiv.org/abs/2503.03803}{EgoLife}~\citep{yang2025egolife}), embodied question answering (\href{https://open-eqa.github.io/}{OpenEQA}~\citep{majumdar2024openeqa}), and courses and lecture videos generated by AI (\href{https://arxiv.org/abs/2409.03512}{MAIC}~\citep{yu2024mooc}, \href{https://arxiv.org/abs/2510.05096}{Paper2Video}~\citep{zhu2025paper2video}). Track D builds on rubric-based evaluation (\href{https://arxiv.org/abs/2505.08775}{HealthBench}~\citep{arora2025healthbench}), long multimodal context (\href{https://arxiv.org/abs/2409.02889}{LongLLaVA}~\citep{wang2024longllava}, \href{https://arxiv.org/abs/2404.18532}{MileBench}~\citep{song2024milebench}) and audits of which model an API really serves (\href{https://arxiv.org/abs/2410.20247}{model equality testing}~\citep{gao2024model}, \href{https://arxiv.org/abs/2603.01919}{Real Money, Fake Models}~\citep{zhang2026real}). Track E follows audits such as the \href{https://www.nature.com/articles/s41586-024-07856-5}{dialect-prejudice study in Nature}~\citep{hofmann2024dialect}; Track F starts from speculative decoding and the alignment of a draft model with its target (\href{https://arxiv.org/abs/2503.01840}{EAGLE-3}~\citep{li2025eagle}, \href{https://arxiv.org/abs/2310.08461}{DistillSpec}~\citep{zhou2023distillspec}), and from engines that stream a trillion-parameter mixture of experts from disk on a single CPU (\href{https://github.com/FareedKhan-dev/kimi-k3-in-c}{kimi-k3-in-c}~\citep{khan2026kimik3c}); Track H from open tutoring systems (\href{https://arxiv.org/abs/2604.26962}{DeepTutor}~\citep{zhao2026deeptutor}) and the evidence that \href{https://www.pnas.org/doi/10.1073/pnas.2422633122}{unguarded AI help can harm learning}~\citep{bastani2025guardrails}.
+
+
+\section{Schedule, deliverables and grading}
+\label{sec:schedule}
+Dates follow the \href{https://nlp-course-cuhksz.github.io/index.html\#schedule}{course schedule} (Shenzhen time, UTC+8). Submission links and presentation logistics are announced in class.
+
+\begin{center}\small\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}p{0.27\linewidth} X@{}}
+\toprule
+\textbf{Date} & \textbf{Milestone}\\
+\midrule
+October 30 & Final project released (with Lecture 6)\\
+November 6 & Lecture 7: LLM Agents and Harness Engineering (background for Track A)\\
+\textbf{November 13} & Lecture 8: Final Projects and Research Sharing. \textbf{Team formation and optional one-page proposal due.}\\
+\textbf{December 17, 17:00} & Poster submission due (the teaching team prints posters submitted on time; late posters are printed by the team)\\
+\textbf{December 18} & Final project poster presentations: a 4-minute pitch per team, rated by other groups and TAs\\
+\textbf{December 25, 23:59} & Final report due\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The final project contributes 55 points to the course grade (poster 10, report 45). Bonuses: TA favourites (+2), instructor favourites (+1), early-bird submission (+2), code reproducibility (+1); a serious ethics concern costs 1 point; the project credit is capped at 55. Details are in the \href{https://nlp-course-cuhksz.github.io/index.html\#grading}{course grading policy}.
+
+\subsection{Deliverables}
+\paragraph{Poster and presentation (10).} State the question, baseline, main result and one limitation. A live demo or a recorded replay can illustrate the result. Use the \href{https://docs.google.com/presentation/d/1pBJuB-wazGyGHTiDNQ6msihS2cyyZDYL71VgE6o3FrE/edit}{sample poster template} and look at the \href{https://nlp-course-cuhksz.github.io/writing-tips.html\#posters}{poster samples}. Poster quality 1 $\cdot$ oral presentation 4 $\cdot$ overall assessment 5. Rated by other groups and TAs.
+
+\paragraph{Final report (45).} At most six pages of main text in the \href{https://www.overleaf.com/read/nkgjmyqghssh\#3c4f20}{course report template}: motivation, related work, method, evaluation, results, failures and limitations, plus a contribution statement and a generative-AI use statement. Read the \href{https://nlp-course-cuhksz.github.io/writing-tips.html}{writing tips} first. Technical excitement 10 $\cdot$ technical soundness 15 $\cdot$ writing clarity 15 $\cdot$ individual contribution 5.
+
+\paragraph{Reproducibility.} Code on GitHub with a README, environment and model versions, evaluation inputs (or instructions for obtaining them), and the commands that reproduce the main result. Competition entries add the dated score or submission link. Reports are made public after the poster session unless you tell the teaching team. If you release the work later, please acknowledge the course.
+
+\subsection{Teams and topic selection}
+You may work alone or in a team; the suggested size is two or three. A larger team must explain how the workload and individual responsibilities justify it. Each student is assessed individually, and the report carries a contribution statement. If you collaborate with people outside the course, identify your own work.
+
+The optional one-page proposal is worth writing whenever the research question, evaluation method or compute budget needs early feedback. State the question and motivation, the closest prior work, the data or environment, the baseline, the proposed change, the primary metric, the resource budget, and a smaller fallback experiment. A copyable template is in the research playbook.
+
+\paragraph{Example contribution statement.} Alice designed the evaluation and annotated the held-out cases. Bob implemented the baseline and the proposed method. Both ran experiments and wrote the report.
+
+
+\section{Research playbook}
+\label{sec:playbook}
+\subsection{Experiment design}
+Before writing anything, read the \href{https://nlp-course-cuhksz.github.io/writing-tips.html}{writing tips} page (from Lecture 8): a report should read like a film with no dull stretch. Begin with one working baseline and one measurable outcome. Compare your method on the same held-out tasks and report the variables that affect interpretation: model version, prompts, training tokens, time limits, hardware, API spend. Include at least one comparison that isolates the main change, and show both a success and a failure with your explanation. A table of three numbers with seeds and a replay script is worth more than a page of screenshots.
+
+\begin{itemize}
+\item \textbf{One change.} Everything else fixed: model, prompts, data, budget, seeds, evaluation code.
+\item \textbf{Matched budget.} Same number of calls, tokens, simulator evaluations or training tokens per condition; wall-clock reported separately.
+\item \textbf{Held-out.} A split (or scenarios, rooms, prompts, briefs) that nobody tuned on; frozen in week 1.
+\item \textbf{Independent checker.} Executable tests, simulator state, ground truth, or a different model validated against a human-audited sample.
+\item \textbf{Seeds and variance.} At least two seeds for anything stochastic; report the spread.
+\item \textbf{Negative result kept.} If the change does not help, the error analysis is the contribution.
+\item \textbf{Replayable.} Traces, logs and configs in the repository; one command reproduces the headline number.
+\end{itemize}
+
+\subsection{Proposal template}
+Optional, one page, due with team formation on Nov. 13. Submit through the channel announced by the teaching team.
+
+\begin{quote}\small
+Title:\\
+Team (names, student IDs, course codes):\\
+Track and brief (e.g., Track A, brief A2) or custom:\\
+\mbox{}\\
+1. Question and motivation (2–3 sentences). What will we know at the end that we do not know now?\\
+2. Closest prior work (2–4 references) and what we do differently.\\
+3. Data / environment / benchmark, and the held-out split we will freeze in week 1.\\
+4. Baseline (what, from where, expected number).\\
+5. The one change we test.\\
+6. Primary metric (+ one cost metric: calls, tokens, GPU hours, latency).\\
+7. Resource budget: compute (GPU type $\times$ hours), API spend, data access, accounts needed.\\
+8. Four-week plan (W1 freeze, W2 build, W3 compare, W4 reproduce + demo).\\
+9. Fallback experiment if the main change fails or the budget runs out.\\
+10. Risks and what we need from the teaching team.
+\end{quote}
+
+\subsection{Report structure (six pages of main text)}
+\begin{center}\small\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}p{0.27\linewidth} X@{}}
+\toprule
+\textbf{Section} & \textbf{What reviewers look for}\\
+\midrule
+Abstract and introduction & The question in one sentence; the main result in one sentence; one limitation.\\
+Related work & The three to six papers or systems you build on, and the gap you fill. Cite benchmarks and tools you used.\\
+Method & Enough detail to reimplement: prompts, schemas, architectures, budgets, hyperparameters (appendix for the long version).\\
+Evaluation & Data or environment, held-out split, metrics, checker, seeds, hardware, cost.\\
+Results & The matched comparison, the ablation, the frontier or curve; variance; one figure a reader remembers.\\
+Failures and limitations & A concrete failure case with your explanation; what the result does not show.\\
+Contribution and AI-use statements & Who did what; where generative AI materially helped in coding, data, evaluation and writing.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Reproducibility checklist}
+\begin{itemize}
+\item Public GitHub repository with a README that states the question and the headline number.
+\item Environment file and exact model versions (checkpoint hashes or API model IDs and dates).
+\item Evaluation inputs, or a script that downloads them, plus the frozen held-out split.
+\item The commands that reproduce the main table, and the replay script for any trace-based metric.
+\item For competitions: the dated score or submission link and the notebook or bundle that produced it.
+\end{itemize}
+
+\subsection{How to present at the poster session}
+\begin{itemize}
+\item Lead with the question and the comparison figure; the architecture diagram comes second.
+\item Bring a live demo or a recorded replay on a laptop; have the failure case ready to show, not only the success.
+\item Prepare a 90-second version and a 5-minute version of the story; posters are rated by other groups and TAs.
+\end{itemize}
+
+
+\section{FAQ}
+\label{sec:faq}
+\paragraph{Can I work alone?} Yes. The suggested team size is two or three; a solo project should be scoped like one brief, not two.
+
+\paragraph{Can we propose something that is not on this page?} Yes. Use the proposal template, name the closest track, and make sure there is a baseline, a held-out split and one change to test. The optional proposal exists for exactly this case.
+
+\paragraph{Do we need a GPU?} Not for most briefs in Tracks A, C, D, E, G and H, which run on an API model plus a laptop (or a phone, for F8). Tracks B and F assume at least one GPU; Kaggle and Colab are enough for the small-scale version of every brief there.
+
+\paragraph{Is a position paper (Track E) really a final project?} Yes, if it contains a falsifiable claim and at least one measurement you ran: an audit, a replication on current models, or a small survey. A literature review alone is not enough; a survey written by an agent and audited by you (brief A10) is.
+
+\paragraph{Can a startup prototype (Track H) be our project?} Yes. Treat it as a product experiment: two variants on the same user tasks, a metric fixed in advance, real users, a cost table and a business memo. Keep user data minimal and consented.
+
+\paragraph{Can we read the page in Chinese?} Yes: the 中文 button at the top right switches the text (links and citations stay in English). Deliverables are written in English.
+
+\paragraph{How much API spend is reasonable?} Plan it in the proposal and report it in the paper. A matched-budget design keeps spend predictable; most projects fit in a modest budget because the held-out set is small and fixed.
+
+\paragraph{Can we use AI coding agents to write the code?} Yes, and we expect you to. Describe material uses in the report, keep humans responsible for the experimental design and the claims, and verify generated code with tests.
+
+\paragraph{Can we continue our own thesis or lab research?} Yes, if the four-week study is a clearly delimited piece with its own baseline and comparison, and you identify your own contribution versus prior work by you or collaborators outside the course.
+
+\paragraph{Is a human user study required for Track C or E?} No. Scripted evaluations with a fidelity check and a transfer task are enough. If you do run a study, keep it small, anonymous and free of sensitive data, get consent, and describe the protocol in the report.
+
+\paragraph{The competition ends after Dec. 25. Can we still use it?} Yes. Course deliverables follow the course schedule; report your local held-out results and add the public score when it exists.
+
+\paragraph{What if our main change does not work?} Report it. A clean negative result with an error analysis and a working fallback experiment is a complete project. What fails a project is an unfinished baseline or a comparison that was never matched.
+
+\paragraph{Will our report be public?} Reports are made public after the poster session unless you notify the teaching team. If you release the work later, please acknowledge the course.
+

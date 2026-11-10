@@ -1,0 +1,140 @@
+%% Generated from .fp-guide/parts3 by gen_latex.py; do not edit by hand.
+\section{Learn from other courses and labs}
+\label{sec:courses}
+Several courses run projects very much like ours. Their public project archives, assignment chains and final-project lectures are worth an evening each: they show what a four- to ten-week team can finish, and what reviewers reward. Links were checked on Nov. 3, 2026.
+
+\paragraph{Stanford CS224N: NLP with Deep Learning (Diyi Yang, Winter 2026).} 
+\begin{itemize}
+\item \href{https://web.stanford.edu/class/cs224n/project.html}{Project page} with award-winning projects and links to every past report archive (2015–2024).
+\item \href{https://web.stanford.edu/class/cs224n/slides\_w26/cs224n-2026-lecture06-final-project.pdf}{2026 lecture on choosing a final project} and the \href{https://web.stanford.edu/class/cs224n/project/Project\_Report\_Instructions.pdf}{report instructions}.
+\item Recent outstanding projects to study: FlashAttention / Longformer / cosFormer for GPT-2; KV caching and speculative decoding at GPT-2 scale; TRACE (tool-augmented reasoning via atomic cheatsheet editing); dynamic token merging for encoder–decoders.
+\item Their default project ("efficient adaptation of GPT-2 via LoRA") is a template for a bounded Track B study.
+\end{itemize}
+
+\paragraph{Stanford CS336: Language Modeling from Scratch (Liang, Hashimoto; Spring 2026).} 
+\begin{itemize}
+\item \href{https://cs336.stanford.edu/}{Course site}; \href{https://www.youtube.com/watch?v=JuoVZkPBiKk}{Spring 2026 lectures on YouTube}; \href{https://www.bilibili.com/video/BV1msTD6CE6j/}{中英字幕 on Bilibili}; \href{https://github.com/stanford-cs336}{assignment repos}.
+\item Five assignments: tokenizer + Transformer + optimizer from scratch; Triton FlashAttention and hand-rolled DDP; scaling laws from small runs; data curation from Common Crawl; SFT, DPO and reasoning RL.
+\item Maps to briefs B1, B2, B10, D12 and F1. Their advice applies here: disable AI autocomplete while learning the core pieces, then use agents for the scaffolding.
+\end{itemize}
+
+\paragraph{Stanford CS329X: Human-Centered LLMs (Diyi Yang, Fall 2026).} 
+\begin{itemize}
+\item \href{https://web.stanford.edu/class/cs329x/}{Course site} with public slides (human preferences, RLHF/DPO crash course, design thinking).
+\item Project categories: apply or extend an LLM to a real problem; new ways to learn from human feedback; fairness and bias; interactive systems; persona simulation. Top projects have become conference papers.
+\item Class-wide paper: \href{https://arxiv.org/abs/2605.06901}{Reflections and New Directions for Human-Centered LLMs}~\citep{ziems2026reflections} (60+ student authors). Maps to Track C and brief C16.
+\end{itemize}
+
+\paragraph{Stanford CS329Z: Engineering AI Agents (Diyi Yang, Michael Ryan, John Yang; Fall 2026).} 
+\begin{itemize}
+\item \href{https://cs329z.stanford.edu/}{Syllabus, slides and homework}: RAG, tool use, agent loops, DSPy and LangGraph, data curation, evaluation; final demos Dec. 7–11.
+\item Structured around three challenges: decomposition, data, evaluation. Lecture 6 (design patterns and scaffolds) and lecture 8 (multi-agent systems) are the Track A readings.
+\item HW1 builds a company assistant with no framework, "just a chat-completion call and code you write yourself" (brief A4). \href{https://github.com/Eva813/cs329z-lecture}{Chinese study site}.
+\end{itemize}
+
+\paragraph{Stanford CS25: Transformers United V6 (Spring 2026).} 
+\begin{itemize}
+\item \href{https://web.stanford.edu/class/cs25/}{Course site} $\cdot$ \href{https://www.youtube.com/playlist?list=PLoROMvodv4rNiJRchCzutFw5ItR\_Z27CM}{YouTube playlist (V1–V6)} $\cdot$ \href{https://www.bilibili.com/video/BV1do4meWE2R/}{Bilibili (V1–V4)}.
+\item V6 talks used on this page: world modeling (Track C), the ultra-scale training talk (B), serving transformers (F), native multimodal intelligence, collaborative science agents.
+\end{itemize}
+
+\paragraph{Tsinghua 高级机器学习 (Advanced Machine Learning) (唐杰 Tang Jie).} 
+\begin{itemize}
+\item \href{https://dujh22.github.io/Dujinhua\_wiki/aml2024/}{2024 archive} (original pages on \href{https://old.aminer.cn/aml2024}{aminer.cn}): HW1 reproduce GLM-4-9B basics; HW2 fine-tuning and RAG; HW3 visual LLM understanding and generation; HW4 advanced reasoning. Team projects in reasoning, multimodal models, recommendation, education, science, healthcare and business.
+\item \href{https://finance.sina.com.cn/tech/roll/2026-09-18/doc-inisfyex3525712.shtml}{Fall 2026 edition} (as reported): 16 weeks from base models through scaling, synthetic data, preference and RL, agents, continual learning; assignments from a hand-written tokenizer and Transformer to a 0.1B model, a Triton attention kernel, scaling-law fitting, a LoRA/QLoRA/adapter comparison, and a long-horizon self-evaluating agent; teams of 2–3, NeurIPS-format English report, live demo in week 16.
+\item Open-source projects from the group and Z.ai to build on: \href{https://github.com/zai-org/GLM-5}{GLM-5.x}, \href{https://github.com/THUDM/slime}{slime} (asynchronous RL), \href{https://github.com/zai-org/Open-AutoGLM}{Open-AutoGLM} (phone agent), \href{https://github.com/THUDM/AgentBench}{AgentBench}, \href{https://github.com/zai-org/CogVideo}{CogVideoX}, \href{https://github.com/THUDM/CogAgent}{CogAgent} (GUI agent VLM), \href{https://github.com/THUDM/LongBench}{LongBench}, \href{https://github.com/THUDM/AlignBench}{AlignBench}, \href{https://github.com/zai-org/GLM-V}{GLM-V}.
+\end{itemize}
+
+\paragraph{Our lab: FreedomIntelligence [CUHK-Shenzhen].} 
+\begin{itemize}
+\item \href{https://github.com/FreedomIntelligence/gamecraft-bench}{GameCraft-Bench} (playable-game generation benchmark, brief A2) $\cdot$ \href{https://github.com/FreedomIntelligence/Agentic-Hospital}{Agentic Hospital} and \href{https://arxiv.org/abs/2402.09742}{AI Hospital}~\citep{fan2024ai} (hospital as an agent environment, brief H4).
+\item Other lab work used by briefs on this page: \href{https://github.com/FreedomIntelligence/Soundwave}{Soundwave} (speech, B12), \href{https://github.com/FreedomIntelligence/AceGPT}{AceGPT} (Arabic localisation, B7/E2), \href{https://huggingface.co/FreedomIntelligence/BlenderLLM}{BlenderLLM} (CAD, H7), \href{https://arxiv.org/abs/2405.17743}{ORLM}~\citep{huang2024orlm}, \href{https://arxiv.org/abs/2501.00353}{RAG-Instruct}~\citep{liu2024rag}, \href{https://github.com/FreedomIntelligence/HappyMedicalAI}{Happy-Medical-AI} (C19), \href{https://huggingface.co/datasets/FreedomIntelligence/Huatuo26M-Lite}{Huatuo-26M} (D13), MileBench and MLLM-Bench (D7).
+\item Medical LLMs: \href{https://arxiv.org/abs/2305.15075}{HuatuoGPT}~\citep{zhang2023huatuogpt}, \href{https://arxiv.org/abs/2311.09774}{HuatuoGPT-II}~\citep{chen2023huatuogpt}; see \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture09\_Medical\_LLMs\_Towards\_Generalist\_Medical\_AI.pdf}{Lecture 9}.
+\item Teams who want to extend a lab benchmark or environment can ask the TAs for a scoped sub-task during office hours.
+\end{itemize}
+
+
+\section{Toolbox \& media}
+\label{sec:toolbox}
+A curated set of models, libraries, simulators and compute options that the briefs above assume. Prefer tools with permissive licenses and active maintenance; record the exact version you used.
+
+\paragraph{Frontier and open models.} 
+\begin{itemize}
+\item API: \href{https://www.anthropic.com/claude-opus-5-5}{Claude Opus 5.5} and other frontier models as planner, coder, judge; log model and role.
+\item Open weights: \href{https://github.com/zai-org/GLM-5}{GLM-5.x} (MIT for most releases), \href{https://huggingface.co/Qwen}{Qwen3.x}, \href{https://huggingface.co/deepseek-ai}{DeepSeek}, \href{https://huggingface.co/google}{Gemma 4}.
+\item Small models for one GPU: Qwen3-0.6B/1.7B/4B, Gemma 4 E2B/E4B, SmolLM, the Tutorial 2 bases.
+\end{itemize}
+
+\paragraph{Vision, speech, video, 3D.} 
+\begin{itemize}
+\item VLMs: \href{https://github.com/QwenLM/Qwen3-VL}{Qwen3-VL} (2B–235B, Apache-2.0), \href{https://github.com/zai-org/GLM-V}{GLM-4.6V}, \href{https://github.com/OpenGVLab/InternVL}{InternVL3.5}, \href{https://github.com/deepseek-ai/DeepSeek-OCR}{DeepSeek-OCR} for documents.
+\item Speech: \href{https://github.com/openai/whisper}{Whisper}, \href{https://github.com/FunAudioLLM/CosyVoice}{CosyVoice 3}, \href{https://github.com/QwenLM/Qwen3-TTS}{Qwen3-TTS}, \href{https://github.com/index-tts/index-tts}{IndexTTS}.
+\item Video: \href{https://github.com/Wan-Video/Wan2.2}{Wan 2.2}, \href{https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5}{HunyuanVideo 1.5}, \href{https://github.com/Lightricks/LTX-2}{LTX-2}, \href{https://github.com/zai-org/CogVideo}{CogVideoX}.
+\item 3D and worlds: \href{https://huggingface.co/microsoft/TRELLIS.2-4B}{TRELLIS.2}, \href{https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1}{Hunyuan3D 2.1}, \href{https://github.com/Tencent-Hunyuan/HY-World-2.0}{HY-World 2.0}, \href{https://github.com/EasonTuT/Awesome-Interactive-World-Model}{interactive world models list}.
+\item Dance and motion: \href{https://github.com/Stanford-TML/EDGE}{EDGE}, \href{https://github.com/oceanflowlab/AtomicDance}{AtomicDance}, \href{https://google.github.io/aichoreographer/}{AIST++}.
+\end{itemize}
+
+\paragraph{Web 3D, games, lessons.} 
+\begin{itemize}
+\item \href{https://threejs.org/}{three.js} (glTF loading, TransformControls), \href{https://github.com/pixiv/three-vrm}{three-vrm}, \href{https://www.mixamo.com/}{Mixamo}.
+\item \href{https://godotengine.org/}{Godot 4} for GameCraft-Bench; \href{https://playwright.dev/python/}{Playwright} for isolated browser runs and screenshots.
+\item \href{https://molstar.org/}{Mol*}, \href{https://www.glowscript.org/}{GlowScript}, \href{https://docs.manim.community/en/stable/}{Manim}, \href{https://www.remotion.dev/}{Remotion}, \href{https://motioncanvas.io/}{Motion Canvas}.
+\item Prototyping UIs: \href{https://www.gradio.app/}{Gradio}, \href{https://streamlit.io/}{Streamlit}.
+\end{itemize}
+
+\paragraph{Agents and harnesses.} 
+\begin{itemize}
+\item \href{https://github.com/anthropics/claude-code}{Claude Code}, \href{https://github.com/openai/codex}{Codex CLI}, \href{https://github.com/openclaw/openclaw}{OpenClaw}, \href{https://github.com/cline/cline}{Cline}, \href{https://github.com/RooCodeInc/Roo-Code}{Roo Code}.
+\item \href{https://github.com/stanfordnlp/dspy}{DSPy}, \href{https://github.com/langchain-ai/langgraph}{LangGraph}, \href{https://modelcontextprotocol.io/}{MCP}, \href{https://a2a-protocol.org/latest/}{A2A}.
+\item Benchmarks: \href{https://github.com/SWE-agent/SWE-agent}{SWE-agent}, \href{https://github.com/laude-institute/terminal-bench}{Terminal-Bench}, \href{https://github.com/xlang-ai/OSWorld}{OSWorld}, \href{https://github.com/THUDM/AgentBench}{AgentBench}, \href{https://github.com/OpenBMB/ToolBench}{ToolBench}.
+\end{itemize}
+
+\paragraph{Training and data.} 
+\begin{itemize}
+\item \href{https://github.com/karpathy/nanochat}{nanochat}, \href{https://github.com/stanford-cs336}{CS336 assignments}, \href{https://github.com/huggingface/trl}{TRL}, \href{https://github.com/huggingface/peft}{PEFT}.
+\item RL: \href{https://github.com/volcengine/verl}{verl}, \href{https://github.com/THUDM/slime}{slime}, \href{https://github.com/OpenRLHF/OpenRLHF}{OpenRLHF}, \href{https://github.com/hkust-nlp/simpleRL-reason}{SimpleRL}.
+\item Data: \href{https://github.com/huggingface/datatrove}{datatrove}, \href{https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu}{FineWeb-Edu}, \href{https://github.com/allenai/dolma}{Dolma}.
+\item Interpretability: \href{https://deepmind.google/models/gemma/gemma-scope/}{Gemma Scope}, \href{https://github.com/jbloomAus/SAELens}{SAELens}, \href{https://github.com/TransformerLensOrg/TransformerLens}{TransformerLens}.
+\end{itemize}
+
+\paragraph{Serving and kernels.} 
+\begin{itemize}
+\item \href{https://github.com/vllm-project/vllm}{vLLM}, \href{https://github.com/sgl-project/sglang}{SGLang}, \href{https://github.com/ggml-org/llama.cpp}{llama.cpp}, \href{https://github.com/ml-explore/mlx}{MLX}.
+\item \href{https://github.com/vllm-project/llm-compressor}{llm-compressor}, \href{https://github.com/SafeAILab/EAGLE}{EAGLE}.
+\item \href{https://github.com/ScalingIntelligence/KernelBench}{KernelBench}, \href{https://github.com/thunlp/TritonBench}{TritonBench}, \href{https://github.com/gpu-mode/lectures}{GPU MODE lectures}, \href{https://triton-lang.org/}{Triton}.
+\end{itemize}
+
+\paragraph{Evaluation and safety.} 
+\begin{itemize}
+\item \href{https://github.com/EleutherAI/lm-evaluation-harness}{lm-evaluation-harness}, \href{https://github.com/UKGovernmentBEIS/inspect\_ai}{Inspect AI}.
+\item \href{https://github.com/THUDM/LongBench}{LongBench}, \href{https://github.com/THUDM/AlignBench}{AlignBench}, \href{https://github.com/ethz-spylab/agentdojo}{AgentDojo}, \href{https://aclanthology.org/2023.emnlp-main.398/}{ALCE}.
+\end{itemize}
+
+\paragraph{Simulators and robots.} 
+\begin{itemize}
+\item \href{https://ai2thor.allenai.org/}{AI2-THOR}, \href{https://aihabitat.org/habitat3/}{Habitat 3.0}, \href{https://github.com/haosulab/ManiSkill}{ManiSkill}, \href{https://github.com/Lifelong-Robot-Learning/LIBERO}{LIBERO}.
+\item \href{https://github.com/google-deepmind/mujoco}{MuJoCo}, \href{https://github.com/Genesis-Embodied-AI/Genesis}{Genesis}, \href{https://github.com/huggingface/lerobot}{LeRobot}, \href{https://github.com/OpenHelix-Team/LLaVA-VLA}{LLaVA-VLA}.
+\end{itemize}
+
+\paragraph{On-device and XR.} 
+\begin{itemize}
+\item \href{https://github.com/mlc-ai/mlc-llm}{MLC-LLM}, \href{https://github.com/pytorch/executorch}{ExecuTorch}, \href{https://github.com/alibaba/MNN}{MNN-LLM}, \href{https://android-developers.googleblog.com/2026/04/AI-Core-Developer-Preview.html}{Android AICore (Gemma 4)}, \href{https://huggingface.co/blog/gemma4}{Gemma 4 E2B/E4B}.
+\item \href{https://immersiveweb.dev/}{WebXR}, \href{https://aframe.io/}{A-Frame}, \href{https://github.com/meta-quest/immersive-web-emulator}{Immersive Web Emulator}, \href{https://arxiv.org/abs/2309.12276}{LLMR}~\citep{torre2023llmr}.
+\item World models: \href{https://github.com/facebookresearch/vjepa2}{V-JEPA 2}, \href{https://github.com/facebookresearch/jepa-wms}{jepa-wms}, \href{https://github.com/NVIDIA/DreamDojo}{DreamDojo}, \href{https://github.com/danijar/dreamerv3}{DreamerV3}.
+\end{itemize}
+
+\paragraph{Compute.} 
+\begin{itemize}
+\item \href{https://www.kaggle.com/}{Kaggle}: free T4/P100 sessions (about 30 GPU hours per week); the Tutorial 2 notebooks run there.
+\item \href{https://colab.research.google.com/}{Colab}; \href{https://www.autodl.com/}{AutoDL} (hourly GPUs in China); \href{https://huggingface.co/spaces}{Hugging Face Spaces} for demos; \href{https://modal.com/}{Modal} for burst jobs.
+\item Ask the teaching team early if a brief needs more than one GPU for days; plan the small-scale version first.
+\item \textbf{Huawei Ascend}: Lecture 8 announced possible access to Ascend NPUs for training and inference adaptation; teams interested in porting a brief to CANN should say so in the proposal.
+\end{itemize}
+
+\paragraph{Course material to revisit.} 
+\begin{itemize}
+\item \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture07\_LLM\_Agents\_and\_Harness\_Engineering.pdf}{Lecture 7: Agents and harness engineering} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture08\_Final\_Projects\_and\_Research\_Sharing.pdf}{Lecture 8: Final projects (Fall 2026 deck)} $\cdot$ \href{https://nlp-course-cuhksz.github.io/writing-tips.html}{Writing tips, poster and paper samples}.
+\item \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture09\_Medical\_LLMs\_Towards\_Generalist\_Medical\_AI.pdf}{Lecture 9: Medical LLMs} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture10\_Multimodal\_LLMs.pdf}{Lecture 10: Multimodal LLMs} $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/2026\_fall\_slides/Lecture11\_Efficiency\_in\_LLMs.pdf}{Lecture 11: Efficiency}.
+\item \href{https://nlp-course-cuhksz.github.io/tutorial1.html}{Tutorial 1} (PyTorch, embeddings) $\cdot$ \href{https://nlp-course-cuhksz.github.io/tutorial2.html}{Tutorial 2} (SFT, LoRA/QLoRA, PPO, GRPO, DPO) $\cdot$ \href{https://nlp-course-cuhksz.github.io/materials/tutorials/tutorial2/tutorial2\_ai\_tools\_for\_research.pdf}{AI tools for research}.
+\end{itemize}
+
