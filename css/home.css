@@ -1,4 +1,4 @@
-/* Homepage additions (Nov. 2026): coursework hub and in-schedule video cards.
+/* Homepage additions (Nov. 2026): coursework hub and the schedule table (Slides and Video columns).
    Palette follows the homepage itself: Bootstrap link blue #428bca / #357ebd, beige band #f7f6f1, text #333, muted #777. */
 .hub { padding: 26px 0 8px; }
 .hub h2 { margin: 0 0 4px; }
@@ -27,26 +27,27 @@
 .deadlines span.past { color: #999; border-style: dashed; }
 .deadlines span.past b { color: #999; }
 
-/* schedule: column widths and in-row video cards */
+/* schedule: column widths; Slides and Video are separate columns, the video cell is the thumbnail alone */
 #schedule-table { table-layout: fixed; }
-#schedule-table col.c-date { width: 8%; }
-#schedule-table col.c-topic { width: 19%; }
-#schedule-table col.c-read { width: 36%; }
-#schedule-table col.c-note { width: 15%; }
+.sched-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 991px) { #schedule-table { min-width: 940px; } }
+#schedule-table col.c-date { width: 7.5%; }
+#schedule-table col.c-topic { width: 17%; }
+#schedule-table col.c-read { width: 31.5%; }
+#schedule-table col.c-note { width: 9.5%; }
+#schedule-table col.c-video { width: 13.5%; }
 #schedule-table col.c-code { width: 11%; }
-#schedule-table col.c-ev { width: 11%; }
+#schedule-table col.c-ev { width: 10%; }
 #schedule-table td, #schedule-table th { word-wrap: break-word; overflow-wrap: anywhere; font-size: 13.5px; line-height: 1.45; vertical-align: top; }
 #schedule-table td:nth-child(3) { line-height: 1.6; }
 #schedule-table td:nth-child(3) a { display: inline-block; margin: 1px 0; }
-td.vcell { padding-top: 6px !important; }
-td.vcell .vlinks { display: block; margin-top: 6px; font-size: 13px; }
-.vrow { display: block; color: #333; text-decoration: none; border: 1px solid #ddd9cf; border-radius: 4px; overflow: hidden; background: #fff; transition: box-shadow .15s; }
-.vrow:hover, .vrow:focus { text-decoration: none; color: #333; box-shadow: 0 3px 12px rgba(0,0,0,.14); }
-.vrow .th { position: relative; display: block; aspect-ratio: 16 / 9; background: #3B3B3B; overflow: hidden; }
+#schedule-table td.vid { padding-top: 7px; padding-bottom: 7px; }
+.vrow { display: block; border: 1px solid #ddd9cf; border-radius: 4px; overflow: hidden; background: #3B3B3B; transition: box-shadow .15s; }
+.vrow:hover, .vrow:focus { box-shadow: 0 3px 12px rgba(0,0,0,.18); }
+.vrow .th { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; }
 .vrow .th img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .94; }
+.vrow:hover .th img { opacity: 1; }
 .vrow .th .play { position: absolute; left: 50%; top: 50%; width: 34px; height: 24px; margin: -12px 0 0 -17px; background: rgba(0,0,0,.62); border-radius: 5px; }
 .vrow:hover .th .play { background: rgba(66,139,202,.92); }
 .vrow .th .play:after { content: ""; position: absolute; left: 13px; top: 6px; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent #fff; }
-.vrow .th .dur { position: absolute; right: 4px; bottom: 4px; font-size: 10.5px; color: #fff; background: rgba(0,0,0,.65); border-radius: 3px; padding: 0 5px; }
-.vrow .vt { display: block; padding: 5px 7px 6px; font-size: 12.5px; font-weight: 500; color: #428bca; line-height: 1.25; }
-.vrow .vt small { display: block; font-weight: 400; color: #888; font-size: 11px; margin-top: 2px; }
+.vrow .th .dur { position: absolute; right: 4px; bottom: 4px; font-size: 10.5px; color: #fff; background: rgba(0,0,0,.65); border-radius: 3px; padding: 0 5px; line-height: 1.5; }

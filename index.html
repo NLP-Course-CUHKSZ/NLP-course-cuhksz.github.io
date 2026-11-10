@@ -356,13 +356,14 @@
 	<div class="container sec">
 		<h2 id="schedule"><b>Schedule</b></h2>
 		<hr />
-		<table class="table" id="schedule-table"><colgroup><col class="c-date"><col class="c-topic"><col class="c-read"><col class="c-note"><col class="c-code"><col class="c-ev"></colgroup>
+		<div class="sched-wrap"><table class="table" id="schedule-table"><colgroup><col class="c-date"><col class="c-topic"><col class="c-read"><col class="c-note"><col class="c-video"><col class="c-code"><col class="c-ev"></colgroup>
 			<tbody>
 				<tr class="active">
 					<th>Date</th>
 					<th>Topics</th>
 					<th>Recommended Reading</th>
-					<th>Lecture Note</th>
+					<th>Slides</th>
+					<th>Video</th>
 					<th>Coding</th>
 					<th>Events Deadlines</th>
 				</tr>
@@ -377,6 +378,7 @@
 						<a href="https://docs.github.com/en/get-started/quickstart/hello-world/">GitHub</a>
 					</td>
 					<td>[<a href="materials/tutorials/Tut0-GitHub-LaTeX-Colab.pdf">Slides</a>]</td>
+					<td class="vid"></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -390,7 +392,8 @@
 						<a href="https://arxiv.org/abs/2108.07258">On the Opportunities and Risks of Foundation Models</a><br>
 						<a href="https://arxiv.org/abs/2303.12712">Sparks of Artificial General Intelligence: Early experiments with GPT-4</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture01.html" title="Lecture 1 video lecture: 9 chapters, 90 min"><span class="th"><img src="imgs/lecture01/lecture01_part1.jpg" alt="Lecture 1 video" loading="lazy"><span class="play"></span><span class="dur">90 min</span></span><span class="vt">&#9654; Video lecture<small>9 chapters &middot; 116 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture01_Introduction.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture01_Introduction.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture01.html" title="Lecture 1 video lecture: 9 chapters, 90 min"><span class="th"><img src="imgs/lecture01/lecture01_part1.jpg" alt="Lecture 1 video lecture" loading="lazy"><span class="play"></span><span class="dur">90 min</span></span></a></td>
 					<td>[<a href="https://phoenix.llmzoo.com/#/">Phoenix</a>]</td>
 					<td></td>
 				</tr>
@@ -405,7 +408,8 @@
 						<a href="https://nlp.stanford.edu/pubs/glove.pdf">GloVe: Global Vectors for Word Representation</a><br>
 						<a href="https://aclanthology.org/D15-1036/">Evaluation methods for unsupervised word embeddings</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture02.html" title="Lecture 2 video lecture: 10 chapters, 91 min"><span class="th"><img src="imgs/lecture02/lecture02_part1.jpg" alt="Lecture 2 video" loading="lazy"><span class="play"></span><span class="dur">91 min</span></span><span class="vt">&#9654; Video lecture<small>10 chapters &middot; 189 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture02_Linguistics_and_Word_Representations.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture02_Linguistics_and_Word_Representations.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture02.html" title="Lecture 2 video lecture: 10 chapters, 91 min"><span class="th"><img src="imgs/lecture02/lecture02_part1.jpg" alt="Lecture 2 video lecture" loading="lazy"><span class="play"></span><span class="dur">91 min</span></span></a></td>
 					<td>[<a href="https://github.com/theimpossibleastronaut/awesome-linguistics">Linguistics repo</a>], [<a href="https://github.com/piskvorky/gensim">gensim</a>]</td>
 					<td><b>Assignment 1 <font color="green">out</font></b><br>[<a href="assignment1.html">Assignment page</a>], [<a href="materials/assignments/Assignment1_Word_Embeddings.pdf">PDF</a>], [<a href="https://colab.research.google.com/drive/1jT5SaVFaHCjjzxRvG9nxlaMZ-x5JRm5U?usp=sharing">Colab</a>]</td>
 				</tr>
@@ -418,6 +422,7 @@
 						<a href="https://arxiv.org/abs/1607.04606">Enriching Word Vectors with Subword Information (FastText)</a>
 					</td>
 					<td>[<a href="tutorial1.html">Tutorial page</a>]</td>
+					<td class="vid"></td>
 					<td>[<a href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial1/tutorial1_pytorch.ipynb">Notebook 1: PyTorch</a>], [<a href="https://colab.research.google.com/github/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial1/tutorial1_word_embeddings.ipynb">Notebook 2: Word embeddings</a>]</td>
 					<td></td>
 				</tr>
@@ -425,13 +430,13 @@
 				<tr class="holiday-row">
 					<td><del>Sep. 25th</del></td>
 					<td>Mid-Autumn Festival Holiday — No Class</td>
-					<td colspan="4">Mid-Autumn Festival holiday: Sep. 25 (Fri) – Sep. 27 (Sun)</td>
+					<td colspan="5">Mid-Autumn Festival holiday: Sep. 25 (Fri) – Sep. 27 (Sun)</td>
 				</tr>
 
 				<tr class="holiday-row holiday-separator">
 					<td><del>Oct. 2nd</del></td>
 					<td>National Day Holiday — No Class</td>
-					<td colspan="4">National Day holiday: Oct. 1 (Thu) – Oct. 7 (Wed)</td>
+					<td colspan="5">National Day holiday: Oct. 1 (Thu) – Oct. 7 (Wed)</td>
 				</tr>
 
 				<tr>
@@ -442,7 +447,8 @@
 						<a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a><br>
 						<a href="https://arxiv.org/abs/2005.14165">Language Models are Few-Shot Learners (GPT-3)</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture03.html" title="Lecture 3 video lecture: 9 chapters, 87 min"><span class="th"><img src="imgs/lecture03/lecture03_part1.jpg" alt="Lecture 3 video" loading="lazy"><span class="play"></span><span class="dur">87 min</span></span><span class="vt">&#9654; Video lecture<small>9 chapters &middot; 149 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture03_Language_Models.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture03_Language_Models.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture03.html" title="Lecture 3 video lecture: 9 chapters, 87 min"><span class="th"><img src="imgs/lecture03/lecture03_part1.jpg" alt="Lecture 3 video lecture" loading="lazy"><span class="play"></span><span class="dur">87 min</span></span></a></td>
 					<td>[<a href="https://github.com/google-research/bert">BERT</a>], [<a href="https://github.com/karpathy/nanoGPT">nanoGPT</a>]</td>
 					<td></td>
 				</tr>
@@ -457,7 +463,8 @@
 						<a href="https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/">The Transformer Family Version 2.0</a><br>
 						<a href="https://openreview.net/forum?id=onxoVA9FxMw">On Position Embeddings in BERT</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture04.html" title="Lecture 4 video lecture: 11 chapters, 137 min"><span class="th"><img src="imgs/lecture04/lecture04_part1.jpg" alt="Lecture 4 video" loading="lazy"><span class="play"></span><span class="dur">137 min</span></span><span class="vt">&#9654; Video lecture<small>11 chapters &middot; 158 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture04_Transformer_and_Beyond.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture04_Transformer_and_Beyond.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture04.html" title="Lecture 4 video lecture: 11 chapters, 137 min"><span class="th"><img src="imgs/lecture04/lecture04_part1.jpg" alt="Lecture 4 video lecture" loading="lazy"><span class="play"></span><span class="dur">137 min</span></span></a></td>
 					<td>[<a href="https://nn.labml.ai/transformers/index.html">Annotated Transformer</a>]</td>
 					<td></td>
 				</tr>
@@ -471,7 +478,8 @@
 						<a href="https://arxiv.org/abs/2505.09388">Qwen3 Technical Report</a><br>
 						<a href="https://arxiv.org/abs/2412.19437">DeepSeek-V3 Technical Report</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture05.html" title="Lecture 5 video lecture: 11 chapters, 154 min"><span class="th"><img src="imgs/lecture05/lecture05_part1.jpg" alt="Lecture 5 video" loading="lazy"><span class="play"></span><span class="dur">154 min</span></span><span class="vt">&#9654; Video lecture<small>11 chapters &middot; 169 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture05_Large_Language_Models.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture05_Large_Language_Models.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture05.html" title="Lecture 5 video lecture: 11 chapters, 154 min"><span class="th"><img src="imgs/lecture05/lecture05_part1.jpg" alt="Lecture 5 video lecture" loading="lazy"><span class="play"></span><span class="dur">154 min</span></span></a></td>
 					<td>[<a href="https://colab.research.google.com/drive/1PEQyJO1-f6j0S_XJ8DV50NkpzasXkrzd?usp=sharing">Fine-tune Llama 2</a>]</td>
 					<td><b>Assignment 1 <font color="red">due (11:59pm)</font></b><br>
 						<b>Assignment 2 <font color="green">out</font></b><br>[<a href="assignment2.html">Assignment page</a>], [<a href="materials/assignments/Assignment2_Prompt_Engineering_and_Agents.pdf">PDF</a>], [<a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">Colab</a>]</td>
@@ -487,6 +495,7 @@
 						<a href="https://huggingface.co/learn/cookbook/fine_tuning_llm_grpo_trl">HF Cookbook: Post-training an LLM for reasoning with GRPO in TRL</a>
 					</td>
 					<td>[<a href="tutorial2.html">Tutorial page</a>], [<a href="materials/tutorials/tutorial2/tutorial2_slides.pdf">Slides</a>], [<a href="materials/tutorials/tutorial2/tutorial2_ai_tools_for_research.pdf">AI tools for research</a>]</td>
+					<td class="vid"></td>
 					<td>[<a href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_sft_rm_ppo.ipynb">Notebook A: SFT + RM + PPO</a>], [<a href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_grpo.ipynb">Notebook B: GRPO</a>], [<a href="https://kaggle.com/kernels/welcome?src=https://github.com/nlp-course-cuhksz/nlp-course-cuhksz.github.io/blob/main/materials/tutorials/tutorial2/tutorial2_dpo.ipynb">Notebook C: DPO</a>], [<a href="https://github.com/FreedomIntelligence/LLMZoo">LLMZoo</a>], [<a href="https://github.com/karpathy/nanoGPT">nanoGPT</a>], [<a href="https://github.com/FreedomIntelligence/LLMFactory">LLMFactory</a>]</td>
 					<td></td>
 				</tr>
@@ -504,7 +513,8 @@
 						<a href="https://arxiv.org/abs/2503.14476">DAPO: An Open-Source LLM RL System at Scale</a><br>
 						<a href="https://arxiv.org/abs/2503.18892">SimpleRL-Zoo: Zero RL for Open Base Models</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture06.html" title="Lecture 6 video lecture: 10 chapters, 152 min"><span class="th"><img src="imgs/lecture06/lecture06_part1.jpg" alt="Lecture 6 video" loading="lazy"><span class="play"></span><span class="dur">152 min</span></span><span class="vt">&#9654; Video lecture<small>10 chapters &middot; 181 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture06_RL_for_LLM_Post-Training.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture06_RL_for_LLM_Post-Training.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture06.html" title="Lecture 6 video lecture: 10 chapters, 152 min"><span class="th"><img src="imgs/lecture06/lecture06_part1.jpg" alt="Lecture 6 video lecture" loading="lazy"><span class="play"></span><span class="dur">152 min</span></span></a></td>
 					<td>[<a href="https://github.com/volcengine/verl">verl</a>], [<a href="https://github.com/huggingface/trl">TRL</a>], [<a href="https://github.com/OpenRLHF/OpenRLHF">OpenRLHF</a>], [<a href="https://github.com/liziniu/ReMax">ReMax</a>], [<a href="https://github.com/hkust-nlp/simpleRL-reason">SimpleRL</a>]</td>
 					<td><b>Final Project <font color="green">out</font></b><br>[<a href="final-project.html">Project guide &amp; tracks</a>], [<a href="materials/final_project/NLP-Final-Project-Guide-2026.pdf">PDF</a>], [<a href="materials/final_project/NLP-Final-Project-Guide-2026-LaTeX.zip">LaTeX source</a>]</td>
 				</tr>
@@ -516,6 +526,7 @@
 						
 					</td>
 					<td></td>
+					<td class="vid"></td>
 					<td>[<a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">Colab</a>]</td>
 					<td></td>
 				</tr>
@@ -535,7 +546,8 @@
 						<a href="https://a2a-protocol.org/latest/">Agent2Agent (A2A) Protocol</a><br>
 						<a href="https://cs329z.stanford.edu/">Stanford CS329Z</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture07.html" title="Lecture 7 video lecture: 10 chapters, 131 min"><span class="th"><img src="imgs/lecture07/lecture07_part1.jpg" alt="Lecture 7 video" loading="lazy"><span class="play"></span><span class="dur">131 min</span></span><span class="vt">&#9654; Video lecture<small>10 chapters &middot; 162 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture07_LLM_Agents_and_Harness_Engineering.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture07_LLM_Agents_and_Harness_Engineering.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture07.html" title="Lecture 7 video lecture: 10 chapters, 131 min"><span class="th"><img src="imgs/lecture07/lecture07_part1.jpg" alt="Lecture 7 video lecture" loading="lazy"><span class="play"></span><span class="dur">131 min</span></span></a></td>
 					<td>[<a href="https://github.com/openai/codex">Codex CLI</a>], [<a href="https://github.com/openclaw/openclaw">OpenClaw</a>], [<a href="https://github.com/modelcontextprotocol/servers">MCP servers</a>], [<a href="https://github.com/langchain-ai/langgraph">LangGraph</a>]</td>
 					<td><b><a href="assignment2.html">Assignment 2</a> <font color="red">due (11:59pm)</font></b><br>
 						<b>Assignment 3 <font color="green">out</font></b></td>
@@ -549,7 +561,8 @@
 						<a href="https://github.com/cline/cline">Cline</a><br>
 						<a href="https://github.com/RooCodeInc/Roo-Code">Roo Code</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture08.html" title="Lecture 8 video lecture: 7 chapters, 77 min"><span class="th"><img src="imgs/lecture08/lecture08_part1.jpg" alt="Lecture 8 video" loading="lazy"><span class="play"></span><span class="dur">77 min</span></span><span class="vt">&#9654; Video lecture<small>7 chapters &middot; 98 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture08_Final_Projects_and_Research_Sharing.pdf">Slides</a>], [<a href="final-project.html">Project guide page (EN/中文)</a>], [<a href="writing-tips.html">Writing tips &amp; samples</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture08_Final_Projects_and_Research_Sharing.pdf">Slides</a>], [<a href="final-project.html">Project guide page (EN/中文)</a>], [<a href="writing-tips.html">Writing tips &amp; samples</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture08.html" title="Lecture 8 video lecture: 7 chapters, 77 min"><span class="th"><img src="imgs/lecture08/lecture08_part1.jpg" alt="Lecture 8 video lecture" loading="lazy"><span class="play"></span><span class="dur">77 min</span></span></a></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -561,6 +574,7 @@
 						
 					</td>
 					<td></td>
+					<td class="vid"></td>
 					<td>[<a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">Colab</a>]</td>
 					<td><b>Optional: Project Proposal <font color="red">due</font></b><br>
 						<b>Team Formation <font color="red">due</font></b></td>
@@ -579,7 +593,8 @@
 						<a href="https://arxiv.org/abs/2403.03640">Apollo: Multilingual Medical LLMs</a><br>
 						<a href="https://arxiv.org/abs/2508.14706">ShizhenGPT: Multimodal LLMs for Traditional Chinese Medicine</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture09.html" title="Lecture 9 video lecture: 11 chapters, 161 min"><span class="th"><img src="imgs/lecture09/lecture09_part1.jpg" alt="Lecture 9 video" loading="lazy"><span class="play"></span><span class="dur">161 min</span></span><span class="vt">&#9654; Video lecture<small>11 chapters &middot; 179 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture09.html" title="Lecture 9 video lecture: 11 chapters, 161 min"><span class="th"><img src="imgs/lecture09/lecture09_part1.jpg" alt="Lecture 9 video lecture" loading="lazy"><span class="play"></span><span class="dur">161 min</span></span></a></td>
 					<td>[<a href="https://github.com/FreedomIntelligence/HuatuoGPT">HuatuoGPT</a>], [<a href="https://github.com/FreedomIntelligence/HuatuoGPT-o1">HuatuoGPT-o1</a>], [<a href="https://github.com/FreedomIntelligence/Apollo">Apollo</a>]</td>
 					<td></td>
 				</tr>
@@ -597,7 +612,8 @@
 						<a href="https://arxiv.org/abs/2410.24164">π0: A Vision-Language-Action Flow Model for General Robot Control</a><br>
 						<a href="https://arxiv.org/abs/2503.11651">VGGT: Visual Geometry Grounded Transformer</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture10.html" title="Lecture 10 video lecture: 9 chapters, 107 min"><span class="th"><img src="imgs/lecture10/lecture10_part1.jpg" alt="Lecture 10 video" loading="lazy"><span class="play"></span><span class="dur">107 min</span></span><span class="vt">&#9654; Video lecture<small>9 chapters &middot; 134 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture10_Multimodal_LLMs.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture10_Multimodal_LLMs.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture10.html" title="Lecture 10 video lecture: 9 chapters, 107 min"><span class="th"><img src="imgs/lecture10/lecture10_part1.jpg" alt="Lecture 10 video lecture" loading="lazy"><span class="play"></span><span class="dur">107 min</span></span></a></td>
 					<td>[<a href="https://github.com/haotian-liu/LLaVA">LLaVA</a>], [<a href="https://github.com/kyutai-labs/moshi">Moshi</a>], [<a href="https://github.com/openvla/openvla">OpenVLA</a>], [<a href="https://github.com/NExT-GPT/NExT-GPT">NExT-GPT</a>]</td>
 					<td><b>Assignment 3 <font color="red">due (11:59pm)</font></b></td>
 				</tr>
@@ -614,7 +630,8 @@
 						<a href="https://arxiv.org/abs/2305.14314">QLoRA: Efficient Finetuning of Quantized LLMs</a><br>
 						<a href="https://arxiv.org/abs/1910.02054">ZeRO: Memory Optimizations Toward Training Trillion Parameter Models</a>
 					</td>
-					<td class="vcell"><a class="vrow" href="lecture11.html" title="Lecture 11 video lecture: 11 chapters, 147 min"><span class="th"><img src="imgs/lecture11/lecture11_part1.jpg" alt="Lecture 11 video" loading="lazy"><span class="play"></span><span class="dur">147 min</span></span><span class="vt">&#9654; Video lecture<small>11 chapters &middot; 168 slides &middot; EN + 中文</small></span></a><span class="vlinks">[<a href="materials/2026_fall_slides/Lecture11_Efficiency_in_LLMs.pdf">Slides</a>]</span></td>
+					<td>[<a href="materials/2026_fall_slides/Lecture11_Efficiency_in_LLMs.pdf">Slides</a>]</td>
+					<td class="vid"><a class="vrow" href="lecture11.html" title="Lecture 11 video lecture: 11 chapters, 147 min"><span class="th"><img src="imgs/lecture11/lecture11_part1.jpg" alt="Lecture 11 video lecture" loading="lazy"><span class="play"></span><span class="dur">147 min</span></span></a></td>
 					<td>[<a href="https://github.com/vllm-project/vllm">vLLM</a>], [<a href="https://github.com/Dao-AILab/flash-attention">FlashAttention</a>], [<a href="https://github.com/huggingface/peft">PEFT</a>], [<a href="https://github.com/deepspeedai/DeepSpeed">DeepSpeed</a>]</td>
 					<td></td>
 				</tr>
@@ -628,6 +645,7 @@
 						<a href="https://arxiv.org/abs/2303.10130">GPTs are GPTs: Labor Market Impact Potential of LLMs</a>
 					</td>
 					<td></td>
+					<td class="vid"></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -638,6 +656,7 @@
 				<td>
 				</td>
 				<td> </td>
+				<td class="vid"></td>
 				<td> </td>
 				<td> <b>Final Project Poster <font color="red">due (17:00pm Dec. 17th)</font></b> </td>
 			</tr>
@@ -647,12 +666,13 @@
 				<td>
 				</td>
 				<td> </td>
+				<td class="vid"></td>
 				<td> </td>
 				<td> <b>Final Report Submission <font color="red">due (11:59 pm Dec. 25th)</font></b> </td>
 			</tr>
 
 			</tbody>
-		</table>
+		</table></div>
 	</div>
 
 	<div class="">
