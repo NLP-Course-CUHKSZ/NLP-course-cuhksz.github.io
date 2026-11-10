@@ -1,6 +1,6 @@
 /* Homepage additions (Nov. 2026): coursework hub and the schedule table (Slides and Video columns).
    Palette follows the homepage itself: Bootstrap link blue #428bca / #357ebd, beige band #f7f6f1, text #333, muted #777. */
-.hub { padding: 26px 0 8px; }
+.hub { padding: 26px 15px 8px; }
 .hub h2 { margin: 0 0 4px; }
 .hub .sub { color: #777; font-size: 14px; margin: 0 0 16px; }
 .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
