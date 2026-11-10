@@ -1,57 +1,31 @@
-/* Homepage additions (Nov. 2026): coursework hub and video-lecture grid. Quiet, in the page's own palette. */
+/* Homepage additions (Nov. 2026): coursework hub and in-schedule video cards.
+   Palette follows the homepage itself: Bootstrap link blue #428bca / #357ebd, beige band #f7f6f1, text #333, muted #777. */
 .hub { padding: 26px 0 8px; }
 .hub h2 { margin: 0 0 4px; }
 .hub .sub { color: #777; font-size: 14px; margin: 0 0 16px; }
 .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 @media (max-width: 991px) { .hub-grid { grid-template-columns: 1fr; } }
-.hub-card { background: #fff; border: 1px solid #e4e1d8; border-top: 4px solid #8C1515; border-radius: 8px; padding: 16px 18px 14px; position: relative; }
-.hub-card.proj { border-top-color: #8C1515; }
-.hub-card.tut { border-top-color: #3C6EA8; }
-.hub-card.asg { border-top-color: #2E7D32; }
-.hub-card h3 { margin: 0 0 2px; font-size: 19px; font-weight: 500; }
-.hub-card .pct { float: right; font-size: 12.5px; color: #fff; background: #8C1515; border-radius: 10px; padding: 1px 9px; margin-top: 3px; }
-.hub-card.tut .pct { background: #3C6EA8; }
-.hub-card.asg .pct { background: #2E7D32; }
-.hub-card .lead { color: #555; font-size: 13.5px; margin: 0 0 10px; line-height: 1.45; }
+.hub-card { background: #fff; border: 1px solid #ddd9cf; border-radius: 6px; padding: 16px 18px 14px; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.hub-card h3 { margin: 0 0 2px; font-size: 19px; font-weight: 500; color: #333; }
+.hub-card .pct { float: right; font-size: 12.5px; color: #357ebd; background: #eaf2fa; border: 1px solid #d3e3f3; border-radius: 10px; padding: 1px 9px; margin-top: 3px; }
+.hub-card .lead { color: #666; font-size: 13.5px; margin: 0 0 10px; line-height: 1.45; }
 .hub-card ul { list-style: none; padding: 0; margin: 0; }
-.hub-card li { padding: 7px 0; border-top: 1px dashed #e8e5dc; font-size: 14px; line-height: 1.45; }
-.hub-card li b { font-weight: 500; color: #222; }
-.hub-card li .when { color: #8a8a8a; font-size: 12.5px; margin-left: 6px; white-space: nowrap; }
-.hub-card li .when.due { color: #a32020; }
+.hub-card li { padding: 7px 0; border-top: 1px dashed #e6e3da; font-size: 14px; line-height: 1.45; }
+.hub-card li b { font-weight: 500; color: #333; }
+.hub-card li .when { color: #888; font-size: 12.5px; margin-left: 6px; white-space: nowrap; }
+.hub-card li .when.due { color: #c7302b; }
 .hub-card li .links { display: block; font-size: 13px; color: #777; margin-top: 2px; }
 .hub-card li .links a { white-space: nowrap; }
 .hub-card .btns { margin-top: 10px; }
-.hub-card .btns a { display: inline-block; font-size: 13px; padding: 5px 12px; border-radius: 16px; border: 1px solid #d8d4c8; background: #faf9f5; color: #333; margin: 2px 4px 2px 0; text-decoration: none; }
-.hub-card .btns a.main { background: #8C1515; border-color: #8C1515; color: #fff; }
-.hub-card.tut .btns a.main { background: #3C6EA8; border-color: #3C6EA8; }
-.hub-card.asg .btns a.main { background: #2E7D32; border-color: #2E7D32; }
-.hub-card .btns a:hover { filter: brightness(0.93); }
+.hub-card .btns a { display: inline-block; font-size: 13px; padding: 5px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333; margin: 2px 4px 2px 0; text-decoration: none; }
+.hub-card .btns a.main { background: #428bca; border-color: #357ebd; color: #fff; }
+.hub-card .btns a:hover { background: #f1f1f1; text-decoration: none; }
+.hub-card .btns a.main:hover { background: #3276b1; border-color: #285e8e; }
 .deadlines { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
-.deadlines span { font-size: 13px; background: #fff; border: 1px solid #e4e1d8; border-radius: 16px; padding: 4px 12px; color: #444; }
-.deadlines span b { color: #8C1515; font-weight: 600; margin-right: 4px; }
+.deadlines span { font-size: 13px; background: #fff; border: 1px solid #ddd9cf; border-radius: 4px; padding: 4px 12px; color: #444; }
+.deadlines span b { color: #357ebd; font-weight: 600; margin-right: 4px; }
 .deadlines span.past { color: #999; border-style: dashed; }
 .deadlines span.past b { color: #999; }
-
-/* video lectures */
-.vids { padding: 22px 0 14px; }
-.vids h2 { margin: 0 0 4px; }
-.vids .sub { color: #777; font-size: 14px; margin: 0 0 14px; }
-.vid-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-@media (max-width: 1199px) { .vid-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 767px) { .vid-grid { grid-template-columns: repeat(2, 1fr); } }
-.vid { display: block; color: #222; text-decoration: none; border: 1px solid #e4e1d8; border-radius: 8px; overflow: hidden; background: #fff; transition: box-shadow .15s, transform .15s; }
-.vid:hover, .vid:focus { text-decoration: none; color: #222; box-shadow: 0 4px 16px rgba(0,0,0,.12); transform: translateY(-1px); }
-.vid .thumb { position: relative; aspect-ratio: 16 / 9; background: #1f2b3b; overflow: hidden; }
-.vid .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .94; }
-.vid .thumb .play { position: absolute; left: 50%; top: 50%; width: 44px; height: 32px; margin: -16px 0 0 -22px; background: rgba(140,21,21,.9); border-radius: 8px; opacity: 0; transition: opacity .15s; }
-.vid .thumb .play:after { content: ""; position: absolute; left: 17px; top: 8px; border-style: solid; border-width: 8px 0 8px 13px; border-color: transparent transparent transparent #fff; }
-.vid:hover .thumb .play { opacity: 1; }
-.vid .thumb .dur { position: absolute; right: 6px; bottom: 6px; font-size: 11.5px; color: #fff; background: rgba(0,0,0,.65); border-radius: 3px; padding: 1px 6px; }
-.vid .cap { padding: 8px 10px 9px; }
-.vid .cap .n { font-size: 11.5px; color: #8C1515; font-weight: 600; letter-spacing: .03em; }
-.vid .cap .t { font-size: 13.5px; line-height: 1.3; margin: 1px 0 3px; font-weight: 500; }
-.vid .cap .m { font-size: 12px; color: #888; }
-.vids .more { margin-top: 10px; font-size: 13px; color: #777; }
 
 /* schedule: column widths and in-row video cards */
 #schedule-table { table-layout: fixed; }
@@ -66,12 +40,13 @@
 #schedule-table td:nth-child(3) a { display: inline-block; margin: 1px 0; }
 td.vcell { padding-top: 6px !important; }
 td.vcell .vlinks { display: block; margin-top: 6px; font-size: 13px; }
-.vrow { display: block; color: #222; text-decoration: none; border: 1px solid #e4e1d8; border-radius: 6px; overflow: hidden; background: #fff; transition: box-shadow .15s; }
-.vrow:hover, .vrow:focus { text-decoration: none; color: #222; box-shadow: 0 3px 12px rgba(0,0,0,.14); }
-.vrow .th { position: relative; display: block; aspect-ratio: 16 / 9; background: #1f2b3b; overflow: hidden; }
+.vrow { display: block; color: #333; text-decoration: none; border: 1px solid #ddd9cf; border-radius: 4px; overflow: hidden; background: #fff; transition: box-shadow .15s; }
+.vrow:hover, .vrow:focus { text-decoration: none; color: #333; box-shadow: 0 3px 12px rgba(0,0,0,.14); }
+.vrow .th { position: relative; display: block; aspect-ratio: 16 / 9; background: #3B3B3B; overflow: hidden; }
 .vrow .th img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .94; }
-.vrow .th .play { position: absolute; left: 50%; top: 50%; width: 34px; height: 24px; margin: -12px 0 0 -17px; background: rgba(140,21,21,.9); border-radius: 6px; }
+.vrow .th .play { position: absolute; left: 50%; top: 50%; width: 34px; height: 24px; margin: -12px 0 0 -17px; background: rgba(0,0,0,.62); border-radius: 5px; }
+.vrow:hover .th .play { background: rgba(66,139,202,.92); }
 .vrow .th .play:after { content: ""; position: absolute; left: 13px; top: 6px; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent #fff; }
 .vrow .th .dur { position: absolute; right: 4px; bottom: 4px; font-size: 10.5px; color: #fff; background: rgba(0,0,0,.65); border-radius: 3px; padding: 0 5px; }
-.vrow .vt { display: block; padding: 5px 7px 6px; font-size: 12.5px; font-weight: 500; color: #8C1515; line-height: 1.25; }
+.vrow .vt { display: block; padding: 5px 7px 6px; font-size: 12.5px; font-weight: 500; color: #428bca; line-height: 1.25; }
 .vrow .vt small { display: block; font-weight: 400; color: #888; font-size: 11px; margin-top: 2px; }
