@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Assignment 1 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Exploring word embeddings. Train Word2Vec, explore and use word embeddings in a Colab notebook.">
+	<title>Assignment 1: Exploring Word Embeddings | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/project.css">
+</head>
+
+<body>
+	<div class="hero">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; <a href="index.html#coursework">Assignments</a></div>
+			<h1>Assignment 1: Exploring Word Embeddings</h1>
+			<p class="lead">Train your own Word2Vec embeddings, look inside them, and put them to work. Everything happens in one Colab notebook; you fill in the parts marked
+				<code style="background:none;color:#ffd9d2">[task]</code> and submit the notebook.</p>
+			<div class="badge-row">
+				<span>&#128197; out Sep. 18 &middot; <b>due Oct. 23, 2026, 11:59 pm</b></span>
+				<span>&#9878; 10% of the course grade</span>
+				<span>&#128218; Companion to Lecture 2 and Tutorial 1</span>
+				<span>&#128187; Colab, free T4 GPU</span>
+				<span>&#128100; individual</span>
+			</div>
+			<a class="btn btn-colab" target="_blank" href="https://colab.research.google.com/drive/1jT5SaVFaHCjjzxRvG9nxlaMZ-x5JRm5U?usp=sharing">&#9654; Open the Colab notebook</a>
+			<a class="btn btn-ghost" href="materials/assignments/Assignment1_Word_Embeddings.pdf" target="_blank">&#128196; Assignment PDF</a>
+			<a class="btn btn-ghost" href="tutorial1.html">Tutorial 1: PyTorch &amp; word embeddings</a>
+			<a class="btn btn-ghost" href="lecture02.html">Lecture 2 video</a>
+		</div>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<div class="col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">On this page</div>
+					<a href="#intro">1&nbsp; Introduction</a>
+					<a href="#tasks">2&nbsp; The three tasks</a>
+					<a href="#req">3&nbsp; Requirements</a>
+					<a href="#submit">4&nbsp; Submission</a>
+					<a href="#deadline">5&nbsp; Deadline and policy</a>
+					<a href="#tips">6&nbsp; Tips</a>
+				</nav>
+			</div>
+
+			<div class="col-md-9">
+				<section id="intro">
+					<h2 class="sec"><span class="num">1</span>Introduction</h2>
+					<p>Assignment 1 is structured into three main tasks, aimed at deepening your practical understanding of word embeddings. In Task 1 you implement and train Word2Vec models to generate
+						word embeddings; Tasks 2 and 3 guide you on how to use word embeddings effectively.</p>
+					<p class="note">Teaching team: Juhao Liang, Minghao Wu, Shunian Chen, Ke Ji, Benyou Wang (instructor). Questions: office hours (see the <a href="index.html">course homepage</a>), the WeChat group, or Blackboard.</p>
+				</section>
+
+				<section id="tasks">
+					<h2 class="sec"><span class="num">2</span>The three tasks</h2>
+					<div class="tblwrap"><table class="tbl">
+						<tr><th style="width:30%">Task</th><th style="width:12%">Points</th><th>What you do</th></tr>
+						<tr><td><b>Task 1: Train word embeddings with Word2Vec</b></td><td>50</td><td>Hands-on implementation and training of a Word2Vec model (the Skip-gram model from Tutorial 1) to generate word embeddings. The notebook leaves the key pieces for you to complete.</td></tr>
+						<tr><td><b>Task 2: Explore word embeddings</b></td><td>30</td><td>Inspect what the vectors learned: nearest neighbours, similarity, analogies and visualisation, and compare with the pre-trained vectors introduced in Tutorial 1.</td></tr>
+						<tr><td><b>Task 3: Utilize word embeddings</b></td><td>20</td><td>Use the embeddings in a downstream task so that the quality of the vectors becomes a measurable number.</td></tr>
+					</table></div>
+					<p class="note">The exact sub-questions, data and scoring cells are inside the notebook; the table summarises the PDF. Pay special attention to every cell marked <code>[task]</code>: these sections are critical for scoring.</p>
+				</section>
+
+				<section id="req">
+					<h2 class="sec"><span class="num">3</span>Requirements</h2>
+					<p>This assignment requires the Google Colab notebook at <a href="https://colab.research.google.com/drive/1jT5SaVFaHCjjzxRvG9nxlaMZ-x5JRm5U?usp=sharing" target="_blank">this link</a>. You are required to:</p>
+					<ol class="steps">
+						<li><b>Make a copy of the provided Colab file.</b> Open the link, then <i>File &rarr; Save a copy in Drive</i>, so the notebook lives in your own Google Drive.</li>
+						<li><b>Execute the notebook to generate results.</b> Click <i>Connect to GPU</i> to request a free T4 GPU, then run the cells with the play button.</li>
+						<li><b>Complete the necessary parts.</b> Some sections of the code are incomplete and require your input, especially the parts marked <code>[task]</code>.</li>
+					</ol>
+					<p class="note">For more detailed instructions, refer to <a href="https://colab.research.google.com/notebooks/basic_features_overview.ipynb" target="_blank">Working with Google Colab</a>.</p>
+				</section>
+
+				<section id="submit">
+					<h2 class="sec"><span class="num">4</span>Submission</h2>
+					<ol class="steps">
+						<li><b>Export the notebook:</b> <i>File &rarr; Download .ipynb</i>.</li>
+						<li><b>Upload your file:</b> log in to the Blackboard system and upload the <code>.ipynb</code> file under Assignment 1.</li>
+					</ol>
+					<div class="callout info"><b class="t">Before you upload</b>
+						Run the whole notebook once more from the top (<i>Runtime &rarr; Restart and run all</i>) so that every output cell is present, and check that the file you download is the copy you edited, not the original shared notebook.</div>
+				</section>
+
+				<section id="deadline">
+					<h2 class="sec"><span class="num">5</span>Deadline and policy</h2>
+					<p><b>The assignment must be submitted by 11:59 pm, October 23, 2026</b> (Shenzhen time). Late submissions may be subject to penalties; see the <a href="index.html#grading">late policy</a> on the course homepage.
+						Assignment 1 counts for 10% of the course grade. Work individually; you may discuss ideas with classmates, but the code and results you submit must be your own, and any use of generative AI should be stated in the notebook.</p>
+				</section>
+
+				<section id="tips">
+					<h2 class="sec"><span class="num">6</span>Tips</h2>
+					<ul class="rq">
+						<li>Do <a href="tutorial1.html">Tutorial 1</a> first: notebook 2 builds Skip-gram Word2Vec from scratch and compares it with GloVe and FastText, which is exactly the toolkit Tasks 1&ndash;3 need.</li>
+						<li>Keep the training small enough to finish on a T4 in minutes; a correct small model beats an unfinished large one.</li>
+						<li>When you explore the vectors, write down what you expected before you look: analogies and nearest neighbours are more informative when the expectation is explicit.</li>
+						<li>Save a copy of the notebook to Drive early; Colab sessions time out.</li>
+					</ul>
+					<p style="margin-top:14px">Back to: <a href="index.html#coursework">coursework overview</a> &middot; <a href="index.html#schedule">schedule</a> &middot; <a href="assignment2.html">Assignment 2</a></p>
+				</section>
+
+				<div class="footer2">Assignment 1 &middot; CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; School of Data Science, CUHK-Shenzhen &middot; Fall 2026. <a href="index.html">&larr; Back to the course homepage</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+		var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+		function onScroll() {
+			var y = window.scrollY + 120, idx = 0;
+			targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top + window.scrollY <= y) idx = i; });
+			links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+		}
+		window.addEventListener('scroll', onScroll, {passive: true}); onScroll();
+	});
+	</script>
+</body>
+
+</html>

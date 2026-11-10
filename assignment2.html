@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Assignment 2 of CSC5051/CSC6052/MDS5110 NLP (CUHK-Shenzhen, Fall 2026): Prompt engineering and agents. Compare prompting techniques and an agent on one of four tasks with the DeepSeek API, and write a short report.">
+	<title>Assignment 2: Prompt Engineering &amp; Agents | CSC5051/CSC6052/MDS5110 NLP</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link href="./css/font.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" href="./css/tutorial.css">
+	<link rel="stylesheet" href="./css/project.css">
+	<style>
+		.ex { background: #fafafa; border: 1px solid #e6e6e6; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 14px; }
+		.ex b.t { display: block; color: #8C1515; margin-bottom: 4px; }
+		.ex .pr { white-space: pre-wrap; font-family: Consolas, "Courier New", monospace; font-size: 13px; background: #fff; border: 1px solid #eee; border-radius: 6px; padding: 8px 10px; margin: 6px 0; }
+		.io b { color: #333; }
+	</style>
+</head>
+
+<body>
+	<div class="hero">
+		<div class="container">
+			<div class="crumb"><a href="index.html">CSC5051/CSC6052/MDS5110 Natural Language Processing</a> &rsaquo; Fall 2026 &rsaquo; <a href="index.html#coursework">Assignments</a></div>
+			<h1>Assignment 2: Prompt Engineering &amp; Agents</h1>
+			<p class="lead">Pick one task, make a language model solve it well with carefully designed prompts, then compare at least three prompting techniques and an agent-based approach.
+				The deliverable is a short, honest report.</p>
+			<div class="badge-row">
+				<span>&#128197; out Oct. 16 &middot; <b>due Nov. 6, 2026, 11:59 pm</b></span>
+				<span>&#9878; 15% of the course grade</span>
+				<span>&#128218; Companion to Lecture 7 and Tutorial 3</span>
+				<span>&#128187; DeepSeek API, Colab</span>
+				<span>&#128196; report via Blackboard</span>
+			</div>
+			<a class="btn btn-colab" target="_blank" href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing">&#9654; Open the starter Colab notebook</a>
+			<a class="btn btn-ghost" href="materials/assignments/Assignment2_Prompt_Engineering_and_Agents.pdf" target="_blank">&#128196; Assignment PDF</a>
+			<a class="btn btn-ghost" href="https://www.overleaf.com/read/jpcrtgzjjdry#36db1a" target="_blank">Report template (Overleaf)</a>
+			<a class="btn btn-ghost" href="https://github.com/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/tree/main/Assignments/Assignment2" target="_blank">Code &amp; data (GitHub)</a>
+			<a class="btn btn-ghost" href="lecture07.html">Lecture 7 video</a>
+		</div>
+	</div>
+
+	<div class="container page">
+		<div class="row">
+			<div class="col-md-3 hidden-sm hidden-xs">
+				<nav class="toc" id="toc">
+					<div class="toc-title">On this page</div>
+					<a href="#intro">1&nbsp; Introduction</a>
+					<a href="#prelim">2&nbsp; Preliminary: the notebook</a>
+					<a href="#tasks">3&nbsp; Tasks (choose one)</a>
+					<a class="sub" href="#t1">Task 1: knowledgeable doctor</a>
+					<a class="sub" href="#t2">Task 2: AI feedback</a>
+					<a class="sub" href="#t3">Task 3: data quality evaluator</a>
+					<a class="sub" href="#t4">Task 4: your own topic</a>
+					<a href="#submit">4&nbsp; Submission format</a>
+					<a href="#eval">5&nbsp; Evaluation criteria</a>
+					<a href="#refs">6&nbsp; References</a>
+				</nav>
+			</div>
+
+			<div class="col-md-9">
+				<section id="intro">
+					<h2 class="sec"><span class="num">1</span>Introduction</h2>
+					<p>Prompt engineering involves developing and optimizing prompts to use language models effectively across a wide variety of applications and research topics. These skills help us understand the capabilities
+						and limitations of large language models. Researchers use prompt engineering to improve LLM performance on tasks such as question answering and arithmetic reasoning; developers use it to design prompting
+						techniques that connect LLMs with users and other tools.</p>
+					<p>Prompt engineering also supports the development of <b>AI agents</b>: systems that use an LLM to make decisions and take actions toward a goal. Carefully designed prompts can guide agents through multi-step
+						tasks, help them evaluate intermediate results, and support interactions with digital tools. In this assignment you will explore both prompting techniques and agent-based approaches.</p>
+					<p class="note">Teaching team: Minghao Wu, Shunian Chen, Benyou Wang (instructor). Fall 2026 (AY 2026&ndash;27, Term 1).</p>
+				</section>
+
+				<section id="prelim">
+					<h2 class="sec"><span class="num">2</span>Preliminary: the notebook</h2>
+					<p>We have prepared a <a href="https://colab.research.google.com/drive/1n_2uDVFr_sYMAlhw0mjHMWCiC1NT8l8L?usp=sharing" target="_blank">Google Colab notebook</a> to help you get started. It covers:</p>
+					<ul class="rq">
+						<li>how to call the DeepSeek API;</li>
+						<li>useful prompt engineering techniques (see also the <a href="https://www.promptingguide.ai/techniques" target="_blank">Prompt Engineering Guide</a>);</li>
+						<li>how to get started with Task 1 and Task 2.</li>
+					</ul>
+					<p>We strongly recommend reviewing the notebook before starting your experiments. Code and data for Tasks 1 and 2 are in the <a href="https://github.com/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/tree/main/Assignments/Assignment2" target="_blank">course repository</a>.</p>
+				</section>
+
+				<section id="tasks">
+					<h2 class="sec"><span class="num">3</span>Tasks: complete one and only one</h2>
+					<div class="callout info"><b class="t">What every task requires</b>
+						Carefully refine your prompts to improve task performance. You must implement and compare <b>at least three prompting techniques</b> introduced in the tutorial or in the
+						<a href="https://www.promptingguide.ai/techniques" target="_blank">Prompt Engineering Guide</a>, and include <b>a comparison between a non-agent and an agent-based approach</b>. Define the task, data and evaluation criteria clearly.</div>
+
+					<h3 id="t1">Task 1: LLMs as a knowledgeable doctor</h3>
+					<p>The pharmacist licensure exam assesses the knowledge and skills needed for professional pharmacy practice. LLMs such as DeepSeek can assist with exam preparation by explaining concepts and answering
+						questions, but poorly designed prompts may lead to inaccurate or incomplete answers. Investigate how prompting and agent-based approaches affect performance on pharmacist examination questions.</p>
+					<p class="io"><b>Input:</b> multiple-choice questions. <b>Output:</b> the selected answer for each question. <b>Criterion:</b> answer accuracy.
+						<b>Code and data:</b> 100 questions sampled from the 2021 National Pharmacist Professional Qualification Examination, in <a href="https://github.com/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/tree/main/Assignments/Assignment2/task1" target="_blank">task1</a> of the course repository.</p>
+					<div class="ex"><b class="t">Figure 1: an example prompt and answer for Task 1</b>
+						<div class="pr">你是一个药剂师考试能手，每次都考100分，这道题对你来说不在话下，深呼吸，并一步一步思考，并给出正确的答案。回答格式为答案是A、B、C或者D。
+【最佳选择题】根据健康中国战略，推进健康中国建设主要遵循的原则不包括哪个选项？
+A: "健康优先"
+B: "改革创新"
+C: "科学发展"
+D: "公开透明"</div>
+						<b>Expected output:</b> 答案是D。根据健康中国战略，推进健康中国建设主要遵循的原则不包括"公开透明"。</div>
+
+					<h3 id="t2">Task 2: LLMs for AI feedback</h3>
+					<p>Language models can be trained using preference feedback from human annotators (Ouyang et al., 2022) or AI systems (Bai et al., 2022). Such feedback can be represented as a triplet of a question, a
+						<i>chosen</i> answer and a <i>rejected</i> answer, and used to train a reward model. Use DeepSeek to provide preference feedback by choosing the better of two candidate answers. Preferences can be biased
+						by answer order, so <b>shuffle the order of the answers</b> and map the resulting choices back to the original answer identities when evaluating performance.</p>
+					<p class="io"><b>Input:</b> a question Q and two answers A<sub>1</sub> and A<sub>2</sub>. <b>Output:</b> the chosen answer and the rejected answer. <b>Criterion:</b> agreement with the ground-truth preference labels.
+						<b>Code and data:</b> 100 answer pairs sampled from the <a href="https://huggingface.co/datasets/Anthropic/hh-rlhf" target="_blank">Anthropic HH-RLHF</a> dataset, in <a href="https://github.com/NLP-Course-CUHKSZ/NLP-course-cuhksz.github.io/tree/main/Assignments/Assignment2/task2" target="_blank">task2</a> of the course repository.</p>
+					<div class="ex"><b class="t">Figure 2: an example preference comparison for Task 2</b>
+						<div class="pr">Given a question and two answers, select the answer that better addresses the question and briefly explain your choice.
+Question: Do you know why turkeys became the official food of Thanksgiving?
+Answer 1: To be honest, I don't know anything about that. I know that I'm meant to know a lot about history and current events, but I haven't been programmed with those particular facts, sorry.
+Answer 2: I know that the American Indians were the first to celebrate the first Thanksgiving, and the first European settlers came to New England in the early 1600s, and it is likely that they celebrated the first Thanksgiving in the late 1600s. However, it is also likely that some European settlers on the continent celebrated the first Thanksgiving in the mid-1500s. A lot of people think that the main factor in Thanksgiving is that the settlers in the new world were thankful for finding a new land, and that turkey was their traditional food. Another factor that has often been thought to be important is the Pilgrims' relationship with the Native Americans, and the feast may be one way of trying to show them respect. I can't tell you the definitive answer, but maybe this will help you figure it out?</div>
+						<b>Illustrative preference output:</b> Chosen: Answer 2. Rejected: Answer 1. Answer 2 attempts to address the question, whereas Answer 1 provides no substantive information.<br>
+						<span class="note">This example illustrates a preference decision, not verified historical facts. A longer answer can still contain factual errors; discuss such limitations when analysing AI feedback.</span></div>
+
+					<h3 id="t3">Task 3: LLMs as a data quality evaluator</h3>
+					<p>Data quality is central to language model development: "garbage in, garbage out." Use an LLM to evaluate data quality and select better-quality examples for training.</p>
+					<p class="io"><b>Input:</b> a dataset D. <b>Output:</b> a cleaner or higher-quality dataset D&prime;. <b>Criteria:</b> define and justify your own quality criteria.
+						<b>Data examples:</b> filter one of the GPT-4-generated instruction datasets from Peng et al. (2023): <a href="https://github.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM/blob/main/data/alpaca_gpt4_data.json" target="_blank">English Alpaca</a> or <a href="https://github.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM/blob/main/data/alpaca_gpt4_data_zh.json" target="_blank">Chinese Alpaca</a>.</p>
+
+					<h3 id="t4">Task 4: any other topic</h3>
+					<p>You may choose another topic that allows you to investigate prompt engineering. The same requirements apply: compare at least three prompting techniques and include a comparison between non-agent and
+						agent-based approaches. Clearly define the task, data and evaluation criteria. A well-motivated original task can earn bonus marks (see below).</p>
+				</section>
+
+				<section id="submit">
+					<h2 class="sec"><span class="num">4</span>Submission format</h2>
+					<p>Submit a short report using the <a href="https://www.overleaf.com/read/jpcrtgzjjdry#36db1a" target="_blank">Overleaf report template</a>. You may adjust the format as needed; keep the report concise and informative. It should cover:</p>
+					<ul class="rq">
+						<li>the code used to call the DeepSeek API, if applicable;</li>
+						<li>your prompts and the rationale behind their design;</li>
+						<li>how the agent is used to solve the selected task;</li>
+						<li>representative cases (for example, two examples);</li>
+						<li>experimental results and comparisons, including the required prompting and agent comparisons;</li>
+						<li>insights learned (optional).</li>
+					</ul>
+					<p>Submit the report as a <b>PDF via Blackboard</b>. Code may be included as supplementary material. <b>Deadline: 11:59 pm, November 6, 2026</b> (China Standard Time, UTC+8); the <a href="index.html#grading">late policy</a> applies.</p>
+				</section>
+
+				<section id="eval">
+					<h2 class="sec"><span class="num">5</span>Evaluation criteria</h2>
+					<div class="tblwrap"><table class="tbl">
+						<tr><th style="width:26%">Component</th><th style="width:12%">Marks</th><th>What is assessed</th></tr>
+						<tr><td><b>Quality of prompt engineering</b></td><td>25</td><td>The quality of your prompt designs, their task-specific rationale, and the refinements supported by your experiments.</td></tr>
+						<tr><td><b>Quality of the report</b></td><td>75</td><td>25 for clarity and organization; 25 for experimental results (completeness, experimental rigour, technical insight); 25 for experimental analysis (case studies, sensitivity to individual components, ablation studies and other relevant discussion).</td></tr>
+						<tr><td><b>Bonus: significance of an original task</b></td><td>up to 5</td><td>A well-motivated research or engineering task beyond Tasks 1&ndash;3 may receive a bonus. Choosing a new topic alone does not guarantee bonus marks.</td></tr>
+						<tr><td><b>Bonus: code quality</b></td><td>up to 5</td><td>Clean, clear and well-documented code may receive a bonus. Attaching code alone does not guarantee bonus marks.</td></tr>
+					</table></div>
+					<p class="note">The final score, including any bonus marks, is capped at 100. Assignment 2 counts for 15% of the course grade. Read the <a href="writing-tips.html">writing tips</a> before drafting: a two-page report with one clear comparison table beats a long one.</p>
+				</section>
+
+				<section id="refs">
+					<h2 class="sec"><span class="num">6</span>References</h2>
+					<ul class="rq">
+						<li>Yuntao Bai et al. <a href="https://arxiv.org/abs/2212.08073" target="_blank">Constitutional AI: Harmlessness from AI feedback</a>. arXiv:2212.08073, 2022.</li>
+						<li>Long Ouyang et al. <a href="https://arxiv.org/abs/2203.02155" target="_blank">Training language models to follow instructions with human feedback</a>. NeurIPS 35, 2022.</li>
+						<li>Baolin Peng, Chunyuan Li, Pengcheng He, Michel Galley, Jianfeng Gao. <a href="https://arxiv.org/abs/2304.03277" target="_blank">Instruction tuning with GPT-4</a>. arXiv:2304.03277, 2023.</li>
+					</ul>
+					<p style="margin-top:14px">Back to: <a href="index.html#coursework">coursework overview</a> &middot; <a href="index.html#schedule">schedule</a> &middot; <a href="assignment1.html">Assignment 1</a> &middot; <a href="final-project.html">final project guide</a></p>
+				</section>
+
+				<div class="footer2">Assignment 2 &middot; CSC5051/CSC6052/MDS5110 Natural Language Processing &middot; School of Data Science, CUHK-Shenzhen &middot; Fall 2026. <a href="index.html">&larr; Back to the course homepage</a></div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+		var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+		function onScroll() {
+			var y = window.scrollY + 120, idx = 0;
+			targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top + window.scrollY <= y) idx = i; });
+			links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+		}
+		window.addEventListener('scroll', onScroll, {passive: true}); onScroll();
+	});
+	</script>
+</body>
+
+</html>
