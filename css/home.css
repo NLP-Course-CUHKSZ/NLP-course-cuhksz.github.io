@@ -33,11 +33,11 @@
 @media (max-width: 991px) { #schedule-table { min-width: 940px; } }
 #schedule-table col.c-date { width: 7.5%; }
 #schedule-table col.c-topic { width: 17%; }
-#schedule-table col.c-read { width: 31.5%; }
-#schedule-table col.c-note { width: 9.5%; }
+#schedule-table col.c-read { width: 27.5%; }
+#schedule-table col.c-note { width: 10%; }
 #schedule-table col.c-video { width: 13.5%; }
-#schedule-table col.c-code { width: 11%; }
-#schedule-table col.c-ev { width: 10%; }
+#schedule-table col.c-code { width: 12.5%; }
+#schedule-table col.c-ev { width: 12%; }
 #schedule-table td, #schedule-table th { word-wrap: break-word; overflow-wrap: anywhere; font-size: 13.5px; line-height: 1.45; vertical-align: top; }
 #schedule-table td:nth-child(3) { line-height: 1.6; }
 #schedule-table td:nth-child(3) a { display: inline-block; margin: 1px 0; }
