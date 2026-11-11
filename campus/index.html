@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>港中大（深圳）· 数字校园</title>
+<meta name="description" content="同一座真实校园，两种打开方式：交互式 3D 校园模型，以及开放世界校园游戏“神仙岭下”。">
+<meta property="og:title" content="港中大（深圳）· 数字校园">
+<meta property="og:description" content="同一座真实校园，两种打开方式：交互式 3D 校园模型，以及开放世界校园游戏“神仙岭下”。">
+<meta property="og:image" content="img/3d.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 rx=%2211%22 fill=%22%234a2a82%22/><rect x=%2210%22 y=%2220%22 width=%225%22 height=%2211%22 rx=%221.5%22 fill=%22%23f0c66a%22/><rect x=%2217.5%22 y=%229%22 width=%225%22 height=%2222%22 rx=%221.5%22 fill=%22%23fff%22/><rect x=%2225%22 y=%2216%22 width=%225%22 height=%2215%22 rx=%221.5%22 fill=%22%23f0c66a%22/></svg>">
+<style>
+  :root { --purple: #4a2a82; --purple-2: #6a44ad; --gold: #c9962f; --ink: #1f2330; --ink-2: #4c5265; --ink-3: #8087a0;
+    --serif: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "STZhongsong", "SimSun", serif;
+    --sans: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; min-height: 100vh; font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased;
+    background: radial-gradient(1200px 620px at 50% -120px, #efe9fa 0%, rgba(239, 233, 250, 0) 70%), linear-gradient(#f8f6f1, #f1eee6); }
+  main { max-width: 1080px; margin: 0 auto; padding: 72px 28px 48px; }
+  header { text-align: center; margin-bottom: 44px; }
+  .mark { width: 54px; height: 54px; margin: 0 auto 22px; border-radius: 15px; background: linear-gradient(145deg, #5b35a0, #3a1f6b); display: flex; align-items: flex-end; justify-content: center; gap: 4px; padding: 11px 11px 13px; box-shadow: 0 8px 22px rgba(58, 31, 107, .32), inset 0 1px 0 rgba(255, 255, 255, .25); }
+  .mark span { width: 7px; border-radius: 2px; background: #f0c66a; }
+  .mark span:nth-child(1) { height: 15px; } .mark span:nth-child(2) { height: 30px; background: #fff; } .mark span:nth-child(3) { height: 21px; }
+  h1 { margin: 0; font: 600 34px/1.25 var(--serif); letter-spacing: 3px; }
+  header p { margin: 14px 0 0; font-size: 16px; color: var(--ink-2); letter-spacing: 1px; }
+  header p small { display: block; margin-top: 5px; font-size: 12.5px; letter-spacing: 2.5px; color: var(--ink-3); text-transform: uppercase; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .card { display: flex; flex-direction: column; background: #fff; border-radius: 20px; overflow: hidden; text-decoration: none; color: inherit;
+    box-shadow: 0 1px 2px rgba(31, 35, 48, .06), 0 12px 32px rgba(31, 35, 48, .10); transition: transform .28s cubic-bezier(.2, .8, .2, 1), box-shadow .28s; }
+  .card:hover, .card:focus-visible { transform: translateY(-6px); box-shadow: 0 2px 4px rgba(31, 35, 48, .08), 0 22px 48px rgba(74, 42, 130, .22); outline: none; }
+  .shot { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #d9d4e6; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+  .card:hover .shot img { transform: scale(1.045); }
+  .kicker { position: absolute; left: 16px; top: 16px; padding: 5px 11px; border-radius: 10px; font-size: 12px; font-weight: 600; letter-spacing: 1px; color: #fff; background: rgba(31, 35, 48, .62); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .body { padding: 22px 24px 22px; display: flex; flex-direction: column; flex: 1; }
+  h2 { margin: 0; font: 600 25px/1.25 var(--serif); letter-spacing: 1.5px; }
+  h2 small { display: block; margin-top: 5px; font: 500 12.5px/1.3 var(--sans); letter-spacing: 2px; color: var(--ink-3); text-transform: uppercase; }
+  .body p { margin: 14px 0 0; font-size: 15px; line-height: 1.8; color: var(--ink-2); }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 16px 0 20px; }
+  .tags span { font-size: 12px; padding: 4px 10px; border-radius: 9px; background: #f2eff7; color: #5a4a80; }
+  .go { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 13px; background: var(--purple); color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 1px; transition: background .2s, gap .2s; }
+  .card:hover .go { background: var(--purple-2); gap: 13px; }
+  .go svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  footer { margin-top: 40px; text-align: center; font-size: 12.5px; line-height: 1.9; color: var(--ink-3); }
+  @media (max-width: 760px) {
+    main { padding: 44px 18px 36px; } h1 { font-size: 26px; letter-spacing: 2px; } header { margin-bottom: 30px; }
+    .cards { grid-template-columns: 1fr; gap: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card, .shot img, .go { transition: none; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="mark" aria-hidden="true"><span></span><span></span><span></span></div>
+    <h1>港中大（深圳）· 数字校园</h1>
+    <p>同一座真实校园，两种打开方式。<small>One real campus, two ways in</small></p>
+  </header>
+
+  <section class="cards">
+    <a class="card" href="3d/">
+      <div class="shot"><img src="img/3d.jpg" alt="3D 校园模型：下园鸟瞰" width="960" height="540"><span class="kicker">交互模型</span></div>
+      <div class="body">
+        <h2>3D 校园<small>Interactive 3D Campus</small></h2>
+        <p>上园、中园、下园与神仙湖的三维模型。点选楼宇看介绍，拖动时间轴看日照与夜景，或者跟着导览走一圈。</p>
+        <div class="tags"><span>53 处地点</span><span>昼夜变化</span><span>校园导览</span><span>中 / EN</span></div>
+        <span class="go">打开模型<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card" href="odyssey/">
+      <div class="shot"><img src="img/odyssey.jpg" alt="神仙岭下 · Campus Odyssey 标题画面" width="960" height="540"><span class="kicker">开放世界游戏</span></div>
+      <div class="body">
+        <h2>神仙岭下<small>Campus Odyssey</small></h2>
+        <p>在真实的校园地图上自由漫游，以新生的身份度过第一周：赶早八、泡图书馆、逛社团招新、赴高桌晚宴。</p>
+        <div class="tags"><span>12 个任务</span><span>键鼠 / 触屏</span><span>校园开放日模式</span><span>中 / EN</span></div>
+        <span class="go">开始游戏<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+  </section>
+
+  <footer>
+    建议使用电脑上的 Chrome 或 Edge 打开；手机上请横屏。<br>
+    地图数据 © OpenStreetMap 贡献者 · 非学校官方发布，信息以学校官方为准。
+  </footer>
+</main>
+</body>
+</html>

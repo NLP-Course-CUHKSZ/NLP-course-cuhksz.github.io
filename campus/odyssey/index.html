@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>神仙岭下 · Campus Odyssey — 港中大（深圳）开放世界</title>
+<meta name="description" content="An open-world campus life game set on the real CUHK-Shenzhen campus.">
+<meta property="og:title" content="神仙岭下 · Campus Odyssey">
+<meta property="og:description" content="在真实的港中大（深圳）校园里自由漫游的开放世界校园游戏。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="labels"></div>
+
+<div id="hud" class="hidden">
+  <div id="mmwrap"><canvas id="mmc" width="220" height="220"></canvas><div id="mmN">N</div><div id="mmHint"></div></div>
+  <div id="clock"><span id="ckDay"></span><span id="ckTime"></span><span id="ckWx"></span></div>
+  <div id="zone"><div id="zoneA"></div><div id="zoneB"></div></div>
+  <div id="obj" class="hidden"><div id="objT"></div><div id="objS"></div></div>
+  <div id="timer" class="hidden"></div>
+  <div id="bars"><div class="bar" id="barSt"><i></i></div><div id="lvl"></div></div>
+  <div id="speed" class="hidden"></div>
+  <div id="prompt" class="hidden"><b id="promptK">E</b><span id="promptT"></span></div>
+  <div id="toasts"></div>
+  <div id="keys"></div>
+  <div id="touch" class="hidden">
+    <div id="joy"><div id="joyK"></div></div>
+    <div id="tbtns"><button data-b="phone">☰</button><button data-b="map">🗺</button></div>
+    <div id="abtns"><button data-b="interact" class="big">E</button><button data-b="jump">⤒</button><button data-b="sprint">»</button><button data-b="vehicle">F</button><button data-b="down">⤓</button></div>
+  </div>
+</div>
+
+<div id="banner" class="hidden"><div id="bannerK"></div><div id="bannerT"></div><div id="bannerS"></div></div>
+<div id="dialog" class="hidden">
+  <div id="dlgBox"><canvas id="dlgP" width="120" height="120"></canvas><img id="dlgImg" alt="">
+    <div id="dlgBody"><div id="dlgWho"></div><div id="dlgText"></div><div id="dlgChoices"></div></div><div id="dlgNext">▼</div></div>
+</div>
+<div id="overlay"></div>
+<div id="fade"></div>
+
+<div id="title" class="hidden">
+  <div id="titleBox">
+    <div id="tSeal">港中深</div>
+    <h1 id="tZh">神仙岭下</h1>
+    <h2 id="tEn">CAMPUS ODYSSEY</h2>
+    <p id="tSub"></p>
+    <div id="tBtns"></div>
+    <div id="tFoot"></div>
+  </div>
+</div>
+
+<div id="rotate"><b>📱</b><span>请把手机横过来游玩<br>Please rotate your phone to landscape</span></div>
+
+<div id="loading">
+  <div id="ldBox"><div id="ldSeal">港中深</div><div id="ldT">神仙岭下</div><div id="ldS">Campus Odyssey</div><div id="ldBar"><i id="ldFill"></i></div><div id="ldMsg">Loading…</div></div>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script src="data/campus.js"></script>
+<script src="data/president.js"></script>
+<script src="js/core.js"></script>
+<script src="js/world.js"></script>
+<script src="js/scene.js"></script>
+<script src="js/sky.js"></script>
+<script src="js/entities.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/content.js"></script>
+<script src="js/minigames.js"></script>
+<script src="js/minigames2.js"></script>
+<script src="js/missions.js"></script>
+<script src="js/story.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
