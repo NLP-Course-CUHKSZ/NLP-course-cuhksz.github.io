@@ -11,13 +11,14 @@
 	<link href="./css/font.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<link rel="stylesheet" href="./css/tutorial.css">
-	<link rel="stylesheet" href="./css/project.css">
+	<link rel="stylesheet" href="./css/project.css?v=20261113">
 </head>
 
 <body>
 
-	<!-- language toggle + expand/collapse, fixed at the top right -->
+	<!-- search + language toggle + expand/collapse, fixed at the top right -->
 	<div class="topbar" id="topbar">
+		<button class="searchbtn" id="searchbtn" type="button" title="Search briefs, tags and the whole page ( / )" data-i18n-skip>&#128269; Search</button>
 		<button class="langbtn" id="langbtn" type="button" title="切换到中文 / Switch language" data-i18n-skip>中文</button>
 		<button class="foldbtn" id="foldall" type="button" data-i18n-skip>expand all</button>
 	</div>
@@ -53,6 +54,7 @@
 			<a class="btn btn-ghost" href="https://www.overleaf.com/read/nkgjmyqghssh#3c4f20" target="_blank" data-i18n="19ec88635a">Report template (Overleaf)</a>
 			<a class="btn btn-ghost" href="https://docs.google.com/presentation/d/1pBJuB-wazGyGHTiDNQ6msihS2cyyZDYL71VgE6o3FrE/edit" target="_blank" data-i18n="78051c34d5">Poster template</a>
 			<a class="btn btn-ghost" href="#tracks" data-i18n="5d5491097d">&#8595; Pick a track</a>
+			<a class="btn btn-ghost" href="#explore" id="hero-search" data-i18n="b3edaa86cd">&#128269; Search briefs &amp; tags</a>
 		</div>
 	</div>
 
@@ -113,11 +115,18 @@
 						<a class="track" href="#trackH" data-track="H"><span class="letter">H</span><div class="ico">&#128640;</div><h4 data-i18n="2c1204ba57">AI entrepreneurship: run a startup prototype</h4><p data-i18n="204d1f9c6c">AI tutor, AI seller, AI CEO, expertise training, text-to-game, AI + VR experiences, speech-based 3D printing, plus the business-model basics every AI founder should know.</p><span class="n">7 briefs &middot; users required</span></a>
 					</div>
 
-					<div class="callout info" data-i18n="3c90372122"><b class="t">New on November 9</b>
-						An ML-engineering agent that enters a Kaggle competition on its own (<a href="#trackA">A11</a>); post-training variants of your own instead of a reproduction (<a href="#trackB">B6</a>);
-						a visual personal assistant (<a href="#trackC">C4</a>); a clearer active embodied QA brief (<a href="#trackC">C6</a>); an AI lecture series with generated courseware, TTS narration and a recurring host (<a href="#trackC">C20</a>);
-						multimodal long context with LongLLaVA (<a href="#trackD">D1</a>); bonus questions on identifying the model behind a relay API (<a href="#trackD">D3</a>), on aligning a draft model with different targets (<a href="#trackF">F5</a>)
-						and on running a 2.78-trillion-parameter mixture of experts in 8 GB of RAM (<a href="#trackF">F6</a>); DeepTutor as a starting point for the AI tutor (<a href="#trackH">H1</a>).
+					<!-- search bar and tag row (web only; the panel itself is built by js/fp-search.js) -->
+					<div class="fs-bar" id="explore">
+						<button class="fs-open" type="button" data-fs-open="1" data-i18n-skip><span class="fs-ic" aria-hidden="true">&#128269;</span><span data-fs="ph">Search 79 briefs, competitions, tools and the FAQ</span><kbd>/</kbd></button>
+						<div class="fs-pop" id="fs-pop"></div>
+						<div class="fs-hint" data-fs="hint">Every brief carries tags. Click one, here or on any brief, to list the briefs that share it.</div>
+					</div>
+
+					<div class="callout info" data-i18n="14cee193a3"><b class="t">New on November 9</b>
+						An ML-engineering agent that enters a Kaggle competition on its own (<a href="#A11">A11</a>); post-training variants of your own instead of a reproduction (<a href="#B6">B6</a>);
+						a visual personal assistant (<a href="#C4">C4</a>); a clearer active embodied QA brief (<a href="#C6">C6</a>); an AI lecture series with generated courseware, TTS narration and a recurring host (<a href="#C20">C20</a>);
+						multimodal long context with LongLLaVA (<a href="#D1">D1</a>); bonus questions on identifying the model behind a relay API (<a href="#D3">D3</a>), on aligning a draft model with different targets (<a href="#F5">F5</a>)
+						and on running a 2.78-trillion-parameter mixture of experts in 8 GB of RAM (<a href="#F6">F6</a>); DeepTutor as a starting point for the AI tutor (<a href="#H1">H1</a>).
 					</div>
 
 					<h3 data-pdf-skip data-i18n="96b65f0393">Track finder <span class="sub">three questions, two suggestions</span></h3>
@@ -283,9 +292,9 @@
 
 					<h3 data-i18n="89582f4c95">Featured briefs</h3>
 
-					<div class="brief" data-c="api" data-tags="agent 3d">
+					<div class="brief" id="A1" data-c="api" data-tags="bench code 3d loop easy demo agents">
 						<h4 data-i18n="08c0d71adb"><span class="id">A1</span>From one sentence to an interactive 3D world: a procedural pelican on a bicycle and a hand-built harness</h4>
-						<div class="meta"><span class="tag">code generation</span><span class="tag">three.js</span><span class="tag">evaluation harness</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="bench">&#128207; build a benchmark</span><span class="tag f f-topic" data-t="code">&#128187; code generation</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw">three.js</span><span class="tag c-api">API</span></div>
 						<p data-i18n="6a9ca41afc">Adapt Simon Willison's "pelican riding a bicycle" drawing benchmark to a browser 3D coding task. The model must return a single runnable HTML file. Freeze the prompt:</p>
 						<blockquote class="prompt" data-i18n="26010402cc">Create a polished, interactive three.js scene of a pelican riding a bicycle. Construct the pelican, bicycle, and environment with procedural 3D geometry.
 							Animate the pedaling so the legs follow the pedals, the wheels rotate consistently with movement, and the body moves in coordination. Set up the scene, lights, camera,
@@ -303,9 +312,9 @@
 							<a href="https://threejs.org/docs/" target="_blank">three.js docs</a> &middot; <a href="https://playwright.dev/python/" target="_blank">Playwright</a> for isolated rendering and screenshots.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent game">
+					<div class="brief" id="A2" data-c="api" data-tags="code game loop demo lab agents rank">
 						<h4 data-i18n="b261c108ef"><span class="id">A2</span>Building playable games with an AI workflow on GameCraft-Bench <span class="lab">our lab</span></h4>
-						<div class="meta"><span class="tag">coding agents</span><span class="tag">Godot 2D</span><span class="tag">benchmark</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="code">&#128187; code generation</span><span class="tag f f-topic" data-t="game">&#128126; games</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag kw">Godot 2D</span><span class="tag c-api">API</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 排行榜">&#127942; leaderboard</span></div>
 						<p data-i18n="9c8f4833ac">GameCraft-Bench (FreedomIntelligence) asks whether a coding agent can turn a natural-language game spec into a complete, playable 2D Godot game: 140 tasks across 15 families
 							(platformer, strategy, tycoon, roguelike, ...). A game counts only if scripts, scenes, assets and input all work together; a verifier launches the project, replays submitted
 							input traces, and a rubric plus multimodal judge scores core mechanics, content depth, functional visuals and presentation. Wrapper scripts exist for Claude Code, Codex and Kimi Code.</p>
@@ -320,9 +329,9 @@
 							<a href="https://arxiv.org/abs/2606.17861" target="_blank">paper</a> &middot; <a href="https://godotengine.org/" target="_blank">Godot 4</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent sim">
+					<div class="brief" id="A3" data-c="api" data-tags="3d loop stem demo agents">
 						<h4 data-i18n="d90acf7745"><span class="id">A3</span>AI designs a machine and iterates against a simulator</h4>
-						<div class="meta"><span class="tag">design agents</span><span class="tag">physics feedback</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-field" data-t="stem">&#129514; science &amp; engineering</span><span class="tag kw" data-zh="设计智能体">design agents</span><span class="tag kw" data-zh="物理反馈">physics feedback</span><span class="tag c-api">API</span></div>
 						<p data-i18n="def5a03e48">Give an agent a parameterized gear pair or linkage and a brief: a motion ratio, a clearance, a size limit. Let it propose dimensions, run a simulator or an independent kinematic
 							checker, and revise from the measurements. Keep the whole project to one mechanism family, one checker, and one replay that shows the initial failure and the revised design.</p>
 						<div class="row2">
@@ -338,9 +347,9 @@
 							<a href="https://www.kaggle.com/competitions/build-arena-human-ai-engineering-challenge/overview/hackathon-tracks-and-prizes" target="_blank">BuildArena S02</a> if your prototype is ready by Nov. 14.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent">
+					<div class="brief" id="A4" data-c="api" data-tags="loop course easy agents">
 						<h4 data-i18n="914f8c4e8b"><span class="id">A4</span>A minimal agent with a recovery mechanism <span class="sub">adapted from Stanford CS329Z</span></h4>
-						<div class="meta"><span class="tag">tool use</span><span class="tag">no frameworks</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-why" data-t="course">&#127979; top-course classic</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="工具调用">tool use</span><span class="tag kw" data-zh="不用框架">no frameworks</span><span class="tag c-api">API</span></div>
 						<p data-i18n="83eac4c042">CS329Z's first homework builds a company assistant with no agent framework: a chat-completion call and code you write yourself. Do the same with one or two tools, then evaluate on tasks with
 							controlled transient failures (timeouts, rate limits) and invalid arguments.</p>
 						<div class="row2">
@@ -353,9 +362,9 @@
 							<a href="https://modelcontextprotocol.io/" target="_blank">MCP</a> for tool definitions &middot; <a href="https://github.com/stanfordnlp/dspy" target="_blank">DSPy</a> once the plain version works.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent comp">
+					<div class="brief" id="A5" data-c="api" data-tags="loop research hot agents rank">
 						<h4 data-i18n="c7b9da076d"><span class="id">A5</span>Improve a working method under a sealed evaluation (RSI-Exam)</h4>
-						<div class="meta"><span class="tag">self-improvement</span><span class="tag">sealed test</span><span class="tag c-api">API</span><span class="tag c-comp">benchmark</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-topic" data-t="research">&#128301; AI does research</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag kw" data-zh="自我改进">self-improvement</span><span class="tag kw" data-zh="封闭测试">sealed test</span><span class="tag c-api">API</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 排行榜">&#127942; leaderboard</span></div>
 						<p data-i18n="d53ba642b1">RSI-Exam gives an agent a task, a visible development split, and an "autoresearch protocol": loop through experiments, record every version, aim for what transfers. The artifact
 							(a method, or a harness driving a frozen model) is scored once on hidden data in a sealed verifier container. Use one public task with a grader, or define a small task of your own.</p>
 						<div class="row2">
@@ -368,9 +377,9 @@
 							(the organizers list Dec. 15, 2026 for RSI-Exam 2.0 task contributions and review proposals before implementation).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent reasoning">
+					<div class="brief" id="A6" data-c="api" data-tags="study reason speed easy agents">
 						<h4 data-i18n="7e7b922d71"><span class="id">A6</span>Test-time scaling: the quality&ndash;latency&ndash;cost frontier</h4>
-						<div class="meta"><span class="tag">reasoning</span><span class="tag">verifiers / search</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-topic" data-t="reason">&#129513; reasoning &amp; search</span><span class="tag f f-topic" data-t="speed">&#9889; speed &amp; cost</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="验证器">verifiers</span><span class="tag c-api">API</span></div>
 						<p data-i18n="592cb5a4bc">Improve solution quality by spending more compute at inference, at a stated latency and cost budget. Methods: self-consistency over diverse samples, reflection loops,
 							solution + verifier dual tracks, beam or tree search, evidence sampling with self-checking. Tasks: grade-school to olympiad math, code generation or repair, knowledge QA with citations.</p>
 						<div class="row2">
@@ -383,9 +392,9 @@
 							<a href="materials/2026_fall_slides/Lecture06_RL_for_LLM_Post-Training.pdf" target="_blank">Lecture 6 slides</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="agent code comp">
+					<div class="brief" id="A7" data-c="gpu1" data-tags="code loop agents rank">
 						<h4 data-i18n="5c4dfd2282"><span class="id">A7</span>A repository-repair agent on real issues</h4>
-						<div class="meta"><span class="tag">SWE agents</span><span class="tag">held-out tests</span><span class="tag c-gpu">1 GPU</span><span class="tag c-comp">competition</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="code">&#128187; code generation</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag kw" data-zh="SWE 智能体">SWE agents</span><span class="tag kw" data-zh="留出测试">held-out tests</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 比赛">&#127942; competition</span></div>
 						<p data-i18n="86dbd7807a">Agents repair real repository issues and held-out tests score the patches. The Gemma 4 Developer Agent competition on Kaggle (entry Nov. 25, final Dec. 2) uses an offline scoring harness with an approved
 							Gemma 4 variant (31B, 12B, E4B or E2B). Even without entering, SWE-bench-style tasks make a clean course project.</p>
 						<div class="row2">
@@ -398,9 +407,9 @@
 							<a href="https://github.com/laude-institute/terminal-bench" target="_blank">Terminal-Bench</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent reasoning">
+					<div class="brief" id="A8" data-c="api" data-tags="reason memory kit hot agents">
 						<h4 data-i18n="b67e9cfe14"><span class="id">A8</span>Program search vs. direct prediction on ARC, and memory in interactive ARC-AGI-3</h4>
-						<div class="meta"><span class="tag">abstract reasoning</span><span class="tag">search budgets</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="reason">&#129513; reasoning &amp; search</span><span class="tag f f-topic" data-t="memory">&#128190; memory</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag kw" data-zh="程序搜索">program search</span><span class="tag c-api">API</span></div>
 						<p data-i18n="3c0001face">The 2026 ARC Prize prediction tracks closed on Nov. 2, but the public tasks remain. Compare direct grid prediction with executable program search on ARC-AGI-2, or test how an agent's memory design
 							affects progress in the public ARC-AGI-3 interactive environments. Allocate the search budget across tasks and report it.</p>
 						<div class="row2">
@@ -412,9 +421,9 @@
 							<a href="https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/overview" target="_blank">ARC-AGI-3</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent skill">
+					<div class="brief" id="A9" data-c="api" data-tags="tool easy hot agents">
 						<h4 data-i18n="444b56dc29"><span class="id">A9</span>Build a skill that people actually install, and prove it helps</h4>
-						<div class="meta"><span class="tag">Agent Skills</span><span class="tag">reusable workflow</span><span class="tag">evals</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="tool">&#129520; reusable tool</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag kw">Agent Skills</span><span class="tag kw" data-zh="评测">evals</span><span class="tag c-api">API</span></div>
 						<p data-i18n="149d78e316">Since Anthropic published <a href="https://agentskills.io/" target="_blank">Agent Skills</a> as an open standard (Dec. 2025), a "skill" is a folder with a short description, instructions and optional scripts that an agent
 							loads only when a task matches. The same file works in Claude Code, Codex, Cursor and others, and directories such as <a href="https://skills.sh/" target="_blank">skills.sh</a> rank installs. Lecture 8 showed
 							<a href="https://github.com/zarazhangrui/frontend-slides" target="_blank">frontend-slides</a> as an example; <a href="https://github.com/Donchitos/Claude-Code-Game-Studios" target="_blank">Claude-Code-Game-Studios</a> (49 agents, 74 skills, 30k+ stars)
@@ -433,9 +442,9 @@
 							<a href="https://x.com/ai_tosea/status/2117444964770849105" target="_blank">slide-creation skills</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="agent research">
+					<div class="brief" id="A10" data-c="api" data-tags="research faithful rag agents">
 						<h4 data-i18n="9ed678ad01"><span class="id">A10</span>An agent that writes the related-work survey, audited against a human one</h4>
-						<div class="meta"><span class="tag">AI for research</span><span class="tag">citation checking</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="research">&#128301; AI does research</span><span class="tag f f-topic" data-t="faithful">&#9989; anti-hallucination</span><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag kw" data-zh="综述写作">survey writing</span><span class="tag kw" data-zh="引用核查">citation checking</span><span class="tag c-api">API</span></div>
 						<p data-i18n="554bf75ee2">Lecture 8 listed "a survey of a specific LLM topic" as a project; in 2026 the interesting version is to let an agent write it and to measure what it gets wrong. AutoSurvey (NeurIPS 2024) and the
 							AI Scientist (Sakana, whose paper passed workshop peer review in 2025) are the references. Choose a narrow topic with an existing human-written survey of 100&ndash;300 references, hide that survey,
 							and compare a one-shot prompt with a pipeline: retrieval from arXiv and Semantic Scholar, an outline step, section writers, and a citation checker that verifies every reference exists and says what the text claims.</p>
@@ -449,9 +458,9 @@
 							<a href="https://github.com/camel-ai/owl" target="_blank">OWL</a> and <a href="https://github.com/mannaandpoem/OpenManus" target="_blank">OpenManus</a> for autonomous agent scaffolds &middot; pairs with <a href="#trackD">D4</a> (faithfulness of AI-written scientific statements).</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="agent code comp">
+					<div class="brief" id="A11" data-c="gpu1" data-tags="code hot new hard loop reason research agents rank">
 						<h4 data-i18n="eb628be611"><span class="id">A11</span>An MLE agent that enters a Kaggle competition on its own</h4>
-						<div class="meta"><span class="tag">ML-engineering agents</span><span class="tag">Kaggle API</span><span class="tag">search over solutions</span><span class="tag c-gpu">1 GPU</span><span class="tag c-comp">competition</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="code">&#128187; code generation</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="new">&#127381; new Nov. 9</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw">MLE-bench</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 比赛">&#127942; competition</span></div>
 						<p data-i18n="c62731dd7d">Machine-learning engineering is the agent task with the cleanest outside score: a Kaggle leaderboard. MLE-bench (OpenAI) packages 75 past Kaggle competitions with their medal thresholds and a local grader, and by 2026 the best
 							open agents (MLEvolve, ML-Master 2.0, AIDE-style tree search) earn a medal on about three quarters of its 22-task Lite split. Build an agent that reads a competition page and its data, plans, writes and debugs training code,
 							validates locally and submits through the Kaggle API. Develop it on MLE-bench, then point it at a <i>live</i> competition (a monthly Playground Series episode or a Getting Started competition) whose private leaderboard nobody has seen.</p>
@@ -556,9 +565,9 @@
 
 					<h3 data-i18n="89582f4c95">Featured briefs</h3>
 
-					<div class="brief" data-c="multi" data-tags="train">
+					<div class="brief" id="B1" data-c="multi" data-tags="model datacentric hard">
 						<h4 data-i18n="88f3784929"><span class="id">B1</span>From scratch to a 0.5B training experiment</h4>
-						<div class="meta"><span class="tag">pre-training</span><span class="tag">data intervention</span><span class="tag c-gpu">1 GPU to start</span><span class="tag c-multi">multi-GPU for 0.5B</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="datacentric">&#129529; data quality</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw" data-zh="预训练">pre-training</span><span class="tag c-gpu" data-zh="起步 1 块 GPU">1 GPU to start</span><span class="tag c-multi" data-zh="0.5B 需多块 GPU">multi-GPU for 0.5B</span></div>
 						<p data-i18n="3bf352c940">Under a fixed token budget, compare random sampling with a single data intervention (deduplication, an educational-quality filter, a different code fraction), keeping architecture, tokenizer and
 							optimizer fixed. Start with a small randomly initialized model to establish the learning curves, then run both conditions at 0.5B only if measured throughput and available compute permit.</p>
 						<div class="row2">
@@ -572,9 +581,9 @@
 							<a href="https://github.com/huggingface/datatrove" target="_blank">datatrove</a> for dedup and filtering.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train sys">
+					<div class="brief" id="B2" data-c="gpu1" data-tags="model speed course hard">
 						<h4 data-i18n="81b99e6665"><span class="id">B2</span>Train and profile a small language model from scratch <span class="sub">adapted from Stanford CS336</span></h4>
-						<div class="meta"><span class="tag">pre-training</span><span class="tag">profiling</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="speed">&#9889; speed &amp; cost</span><span class="tag f f-why" data-t="course">&#127979; top-course classic</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw" data-zh="预训练">pre-training</span><span class="tag kw" data-zh="性能剖析">profiling</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="15e8216ef4">Follow the CS336 sequence: tokenizer, decoder, optimizer, training loop, all written by you. Then run a clean experiment: two model sizes at a matched approximate compute budget, or one throughput setting
 							(sequence length, batch size, attention kernel, mixed precision) varied with the model held fixed.</p>
 						<div class="row2">
@@ -586,9 +595,9 @@
 							<a href="https://pytorch.org/docs/stable/profiler.html" target="_blank">torch.profiler</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train data">
+					<div class="brief" id="B3" data-c="gpu1" data-tags="model datacentric course">
 						<h4 data-i18n="a78736f695"><span class="id">B3</span>Reproduce a model result and test one data change <span class="sub">adapted from Tsinghua AML (Tang Jie)</span></h4>
-						<div class="meta"><span class="tag">replication</span><span class="tag">data quality</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="datacentric">&#129529; data quality</span><span class="tag f f-why" data-t="course">&#127979; top-course classic</span><span class="tag kw" data-zh="复现">replication</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="8abee1e8d9">The Tsinghua course pairs implementation exercises (reproducing GLM-4-9B basics, fine-tuning plus RAG, visual LLMs, advanced reasoning) with a team research project. Reproduce a small published result with
 							its configuration, then compare the original data with one deduplicated or quality-filtered variant. Keep tokenizer, architecture and token budget fixed.</p>
 						<div class="row2">
@@ -600,9 +609,9 @@
 							<a href="https://github.com/zai-org/GLM-5" target="_blank">GLM-5 repo</a> &middot; <a href="https://huggingface.co/docs/trl/index" target="_blank">TRL</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="internals">
+					<div class="brief" id="B4" data-c="api" data-tags="internals kit hot hard">
 						<h4 data-i18n="1ec3b5a833"><span class="id">B4</span>Weight-space programming: a language model reads and edits a checkpoint</h4>
-						<div class="meta"><span class="tag">model internals</span><span class="tag">no gradients</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for the small model</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="internals">&#128300; inside the model</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw" data-zh="权重编辑">weight editing</span><span class="tag kw" data-zh="无梯度">no gradients</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="小模型需 1 块 GPU">1 GPU for the small model</span></div>
 						<p data-i18n="7c563760f8">Takehi, Teoh, Zhang and Khattab (MIT CSAIL, Nov. 2026) report that a frontier model can infer behaviour from raw weights and edit them to change it: identifying which game a PPO policy plays from its weights,
 							fixing a Kinetix car policy by changing 3.5% of weights, and lifting Qwen3.5-0.8B from 7.9% to 48.1% on MATH-500 by editing 0.016% of its weights with 50 forward passes. The same method gave no gain on Gemma 3 270M.
 							Replicate the idea at a scale you control.</p>
@@ -618,9 +627,9 @@
 							<a href="https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming" target="_blank">edited Qwen3.5-0.8B</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="internals">
+					<div class="brief" id="B5" data-c="gpu1" data-tags="internals kit">
 						<h4 data-i18n="0daf68e36f"><span class="id">B5</span>Mechanistic interpretability at scale: do SAE features have consistent causal effects?</h4>
-						<div class="meta"><span class="tag">interpretability</span><span class="tag">sparse autoencoders</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="internals">&#128300; inside the model</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag kw" data-zh="可解释性">interpretability</span><span class="tag kw" data-zh="稀疏自编码器">sparse autoencoders</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="2a786d2151">Use released Gemma Scope sparse autoencoders to study one behaviour, such as copying a repeated sequence. Select features from activation examples on development prompts, then intervene on held-out prompts.
 							The question is whether an explanation that looks right on examples survives a causal test across templates.</p>
 						<div class="row2">
@@ -633,9 +642,9 @@
 							the <a href="https://aimo-interp.github.io" target="_blank">AIMO Interpretability Challenge</a> (NeurIPS 2026) for a reasoning-model variant.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train rl">
+					<div class="brief" id="B6" data-c="gpu1" data-tags="model rl tutorial new">
 						<h4 data-i18n="685fad034d"><span class="id">B6</span>A twist on SFT or RL: train on the right tokens, the right data, or with a cheaper PPO</h4>
-						<div class="meta"><span class="tag">post-training variants</span><span class="tag">SFT / GRPO / PPO</span><span class="tag">ablation</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="rl">&#127919; RL &amp; rewards</span><span class="tag f f-why" data-t="tutorial">&#128210; builds on our tutorials</span><span class="tag f f-why" data-t="new">&#127381; new Nov. 9</span><span class="tag kw">SFT / GRPO / PPO</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="ed1339cb19">This is not a reproduction. Pick one ingredient of SFT or RL, propose a variant of your own, and show at matched compute whether it helps and why. Several of the most cited post-training results of 2024&ndash;2026 are
 							changes of a few lines (which tokens receive gradient, which problems are sampled, how the loss is normalised), so the format fits four weeks and one GPU. Choose one family, read its starting points, and make your own twist the research question.</p>
 						<div class="tblwrap"><table class="tbl">
@@ -666,9 +675,9 @@
 							<a href="materials/2026_fall_slides/Lecture06_RL_for_LLM_Post-Training.pdf" target="_blank">Lecture 6 slides</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train domain">
+					<div class="brief" id="B7" data-c="gpu1" data-tags="model lang lab health">
 						<h4 data-i18n="cbc3568579"><span class="id">B7</span>Domain or low-resource language adaptation, with forgetting measured</h4>
-						<div class="meta"><span class="tag">continued pre-training</span><span class="tag">forgetting</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-field" data-t="lang">&#127759; languages &amp; cultures</span><span class="tag f f-why" data-t="lab">&#129404; our lab</span><span class="tag kw" data-zh="继续预训练">continued pre-training</span><span class="tag kw" data-zh="遗忘">forgetting</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="77028c2e3f">Adapt a small model to a domain (medicine, law, a dialect) with a small curated corpus. The point is not the domain score alone but what is lost, and whether a replay mixture recovers it.</p>
 						<div class="row2">
 							<div data-i18n="e6e3bd15c0"><b class="k">Compare</b>base &middot; domain-adapted &middot; domain-adapted with 10&ndash;20% replay of general data.</div>
@@ -679,9 +688,9 @@
 							<a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf" target="_blank">Lecture 9: Medical LLMs</a> &middot; <a href="https://github.com/huggingface/peft" target="_blank">PEFT</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train rl">
+					<div class="brief" id="B8" data-c="gpu1" data-tags="rl reason model">
 						<h4 data-i18n="04fb7a5fca"><span class="id">B8</span>Process rewards for stepwise reasoning</h4>
-						<div class="meta"><span class="tag">process supervision</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="rl">&#127919; RL &amp; rewards</span><span class="tag f f-topic" data-t="reason">&#129513; reasoning &amp; search</span><span class="tag kw" data-zh="过程监督">process supervision</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="7cf64c1164">Train or prompt a step-level verifier and use it to re-rank or guide a small reasoning model. Compare outcome-only reward with process reward at the same number of labelled or generated examples.</p>
 						<div class="row2">
 							<div data-i18n="41877b6ad7"><b class="k">Compare</b>outcome reward &middot; process reward &middot; both, same budget.</div>
@@ -691,9 +700,9 @@
 						<div class="links">Start from: <a href="https://arxiv.org/abs/2305.20050" target="_blank">Let's Verify Step by Step</a> &middot; <a href="https://arxiv.org/abs/2402.03300" target="_blank">DeepSeekMath (GRPO)</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train">
+					<div class="brief" id="B9" data-c="gpu1" data-tags="model tutorial course">
 						<h4 data-i18n="dbc1c89f73"><span class="id">B9</span>Where should a fixed LoRA budget go?</h4>
-						<div class="meta"><span class="tag">parameter-efficient tuning</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-why" data-t="tutorial">&#128210; builds on our tutorials</span><span class="tag f f-why" data-t="course">&#127979; top-course classic</span><span class="tag kw">LoRA / QLoRA</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="7b90a9d112">Given a fixed number of trainable parameters, compare uniform LoRA ranks with allocations that favour attention, MLP, or late layers; include LoRA vs. QLoRA vs. adapters under one evaluation protocol, as in the Tsinghua AML week-14 assignment.</p>
 						<div class="row2">
 							<div data-i18n="698260561f"><b class="k">Compare</b>allocation schemes at equal parameter count.</div>
@@ -703,9 +712,9 @@
 						<div class="links">Start from: <a href="https://github.com/huggingface/peft" target="_blank">PEFT</a> &middot; <a href="https://arxiv.org/abs/2101.00190" target="_blank">Prefix-Tuning</a> &middot; <a href="tutorial2.html">Tutorial 2 (LoRA/QLoRA)</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train arch">
+					<div class="brief" id="B10" data-c="gpu1" data-tags="model internals speed hot hard rank">
 						<h4 data-i18n="eca3f6eb49"><span class="id">B10</span>A nanoGPT speedrun experiment: one architecture or optimizer change at a fixed budget</h4>
-						<div class="meta"><span class="tag">architecture engineering</span><span class="tag">modded-nanogpt</span><span class="tag c-gpu">1 GPU (scaled track)</span><span class="tag c-multi">8&times;H100 for the official record</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="internals">&#128300; inside the model</span><span class="tag f f-topic" data-t="speed">&#9889; speed &amp; cost</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw">modded-nanogpt</span><span class="tag c-gpu" data-zh="1 块 GPU（缩小版）">1 GPU (scaled track)</span><span class="tag c-multi" data-zh="官方纪录需 8×H100">8&times;H100 for the official record</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 速通纪录">&#127942; speedrun records</span></div>
 						<p data-i18n="f0c22e112e">Keller Jordan's <a href="https://github.com/KellerJordan/modded-nanogpt" target="_blank">modded-nanogpt</a> turned "train GPT-2 124M to 3.28 validation loss on FineWeb" into a public speedrun: 45 minutes in 2024,
 							under two minutes by the end of 2025, about 40 seconds by August 2026, and a disputed 6.7-second entry in late October 2026 that uses n-gram hints built on idle CPUs. Every record is a documented change:
 							the Muon optimizer, QK-norm, ReLU&sup2; MLPs, U-net skip connections, value embeddings, sliding-window FlexAttention, logit soft-capping, paired-head attention, fused Triton kernels. That changelog is a
@@ -725,9 +734,9 @@
 							<a href="materials/2026_fall_slides/Lecture04_Transformer_and_Beyond.pdf" target="_blank">Lecture 4: Transformer and beyond</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train domain">
+					<div class="brief" id="B11" data-c="gpu1" data-tags="model rl rag tutorial lab health">
 						<h4 data-i18n="5aea9f0d31"><span class="id">B11</span>A vertical model with the Tutorial 2 recipe: continued pre-training, SFT, preference optimization, RAG</h4>
-						<div class="meta"><span class="tag">vertical LLM</span><span class="tag">Tutorial 2</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="rl">&#127919; RL &amp; rewards</span><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag f f-why" data-t="tutorial">&#128210; builds on our tutorials</span><span class="tag f f-why" data-t="lab">&#129404; our lab</span><span class="tag kw" data-zh="垂类模型">vertical LLM</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="02473b8199">Lecture 8's first topic is the vertical LLM: medicine, law, finance, a trade, a university's own regulations. The four tools are continued pre-training on domain text, supervised fine-tuning on
 							domain tasks, preference optimization (DPO or GRPO with a verifier), and retrieval. <a href="tutorial2.html">Tutorial 2</a> gives you the SFT, reward-model, PPO, GRPO and DPO notebooks on a 4-bit base with LoRA
 							adapters; HuatuoGPT and HuatuoGPT-II are the lab's worked examples. The question is not "can we build one" but <b>which stage buys what</b> for your domain at a fixed budget.</p>
@@ -742,9 +751,9 @@
 							<a href="https://github.com/huggingface/trl" target="_blank">TRL</a> &middot; <a href="https://github.com/hiyouga/LLaMA-Factory" target="_blank">LLaMA-Factory</a> &middot; <a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf" target="_blank">Lecture 9</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="train multimodal">
+					<div class="brief" id="B12" data-c="gpu1" data-tags="model speech health lab hard">
 						<h4 data-i18n="88472c47b9"><span class="id">B12</span>Teach an LLM a new modality: speech, bio-signals or time series through a small adapter</h4>
-						<div class="meta"><span class="tag">multimodal</span><span class="tag">encoder + adapter</span><span class="tag">time series / ECG / EEG</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="speech">&#127908; speech &amp; audio</span><span class="tag f f-field" data-t="health">&#127973; health &amp; medicine</span><span class="tag f f-why" data-t="lab">&#129404; our lab</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw" data-zh="时间序列 / ECG / EEG">time series / ECG / EEG</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="a5b9641a0d">Lecture 8 (Topic 8) and Lecture 10 describe the recipe: a modality encoder, a small projector or cross-attention adapter, and an LLM that stays mostly frozen. The lab's Soundwave reached
 							Qwen2-Audio quality on speech tasks with one-fiftieth of the data by adding a CTC alignment loss and better data engineering; OpenTSLM (Stanford, 2025) made 1B models reason over ECG, sleep and activity
 							time series, beating GPT-4o on those tasks. The project: pick one signal type and one task family (speech commands, ECG rhythm QA, EEG sleep staging, accelerometer activity, sensor logs, stock or weather
@@ -839,9 +848,9 @@
 
 					<h3 data-i18n="3f87a4ed62">Featured briefs: 3D worlds &amp; digital humans</h3>
 
-					<div class="brief" data-c="api" data-tags="3d agent">
+					<div class="brief" id="C1" data-c="api" data-tags="game 3d agents memory hot demo rag kit sim">
 						<h4 data-i18n="87b1a1aba9"><span class="id">C1</span>A GTA-style CUHK-Shenzhen campus with LLM characters</h4>
-						<div class="meta"><span class="tag">3D / game</span><span class="tag">agents + memory</span><span class="tag">spatial language</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="game">&#128126; games</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="agents">&#129302; agents</span><span class="tag f f-topic" data-t="memory">&#128190; memory</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag kw" data-zh="LLM NPC">LLM NPCs</span><span class="tag c-api">API</span></div>
 						<p data-i18n="8788b4fdd3">Build a playable slice of the campus with a few recognizable landmarks, two NPCs, and three tasks such as finding a room, asking about an event, and following
 							directions. The map can be extruded from OpenStreetMap building footprints or modelled by hand; the point is the characters, not the architecture.
 							NPCs need a memory of what they saw and said, an action interface (walk to, point at, give directions), and a source of campus facts.
@@ -863,9 +872,9 @@
 							<a href="https://www.bilibili.com/video/BV1dLnt6tExU/" target="_blank">a GTA6-style China map made with AI</a> (Jack-Cui, Forbidden City; <a href="https://github.com/Jack-Cherish/GTA-demo" target="_blank">open-source code</a>).</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="3d">
+					<div class="brief" id="C2" data-c="gpu1" data-tags="demo 3d hci">
 						<h4 data-i18n="98fa7bc767"><span class="id">C2</span>A three.js world with AI-generated assets that adapts to its user</h4>
-						<div class="meta"><span class="tag">3D / web</span><span class="tag">asset generation</span><span class="tag">preference modelling</span><span class="tag c-gpu">1 GPU</span><span class="tag c-api">API for the LLM</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="hci">&#128172; interaction design</span><span class="tag kw" data-zh="资产生成">asset generation</span><span class="tag kw" data-zh="偏好建模">preference modelling</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span><span class="tag c-api" data-zh="LLM 用 API">API for the LLM</span></div>
 						<p data-i18n="0eb57f3632">Build one browser scene and generate a small library of assets for it with an image-to-3D model, then import the meshes as glTF. The research question is how
 							the scene should adapt to what a user asks for: free-text preferences interpreted by the model, or structured preferences the model fills in.</p>
 						<div class="row2">
@@ -881,9 +890,9 @@
 							<a href="https://github.com/Tencent-Hunyuan/HY-World-2.0" target="_blank">HY-World 2.0</a> for whole scenes (meshes / 3DGS).</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="3d audio">
+					<div class="brief" id="C3" data-c="gpu1" data-tags="demo 3d speech">
 						<h4 data-i18n="7a9c44bd35"><span class="id">C3</span>A digital human that dances to audio</h4>
-						<div class="meta"><span class="tag">digital human</span><span class="tag">audio + language conditioning</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="speech">&#127908; speech &amp; audio</span><span class="tag kw" data-zh="数字人">digital human</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="c47fd7877c">Retarget a small library of motion clips to a single rigged avatar and make it move to any input track. The language angle: a short style instruction
 							("sharper on the beat", "lazy hip-hop") should change which clips are chosen and how transitions are made.</p>
 						<div class="row2">
@@ -900,9 +909,9 @@
 							<a href="https://librosa.org/doc/latest/generated/librosa.beat.beat_track.html" target="_blank">librosa beat tracking</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="3d agent">
+					<div class="brief" id="C4" data-c="api" data-tags="demo vision memory hci kit new rag lab">
 						<h4 data-i18n="9943e80439"><span class="id">C4</span>A visual personal assistant: it sees what you see, remembers it, and asks which one you mean</h4>
-						<div class="meta"><span class="tag">egocentric video</span><span class="tag">visual memory</span><span class="tag">clarification</span><span class="tag c-api">API or 1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="vision">&#128247; vision &amp; video</span><span class="tag f f-topic" data-t="memory">&#128190; memory</span><span class="tag f f-topic" data-t="hci">&#128172; interaction design</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag f f-why" data-t="new">&#127381; new Nov. 9</span><span class="tag kw" data-zh="第一视角视频">egocentric video</span><span class="tag c-api" data-zh="API 或 1 块 GPU">API or 1 GPU</span></div>
 						<p data-i18n="8be7cbe6b6">Smart glasses and phone cameras (Meta's Ray-Ban glasses, Gemini Live with camera sharing, DeepMind's Project Astra) turn the assistant into something that watches your day with you. Build a small one and study a single design choice.
 							Input: a first-person video stream (your own recordings with consent, or clips from EgoLife or Ego4D). State: a memory of timestamped observations. Three kinds of request: about <i>now</i> ("what does this label say?"),
 							about <i>the past</i> ("where did I leave my keys?", "how many coffees today?"), and <i>ambiguous</i> ones ("is that one cheaper?") where the right move may be to ask which object the user means.</p>
@@ -918,9 +927,9 @@
 							pairs with <a href="#trackC">C16</a> (when should an assistant ask?) and <a href="#trackD">D1</a> (long-context failures).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="3d">
+					<div class="brief" id="C5" data-c="api" data-tags="demo 3d hci">
 						<h4 data-i18n="65de5c5f10"><span class="id">C5</span>Multi-turn language editing for 3D scenes</h4>
-						<div class="meta"><span class="tag">3D editor</span><span class="tag">typed actions + checker</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="hci">&#128172; interaction design</span><span class="tag kw" data-zh="类型化动作 + 检查器">typed actions + checker</span><span class="tag c-api">API</span></div>
 						<p data-i18n="6e45cb6ae6">"Move the chair beside the desk without blocking the door." Compare direct generation of scene edits with a typed action schema whose outputs pass through a geometry
 							checker (collisions, reachability, relation satisfaction). Include follow-up references ("no, the other one") and corrections.</p>
 						<div class="row2">
@@ -931,9 +940,9 @@
 						<div class="links">Start from: <a href="https://ucsb-ai.github.io/edit-room.github.io/" target="_blank">EditRoom</a> &middot; <a href="https://threejs.org/docs/#examples/en/controls/TransformControls" target="_blank">three.js TransformControls</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="3d embodied">
+					<div class="brief" id="C6" data-c="gpu1" data-tags="vision embodied kit new hard agents">
 						<h4 data-i18n="c9bc1cb708"><span class="id">C6</span>Look before you answer: active embodied question answering in a simulated home</h4>
-						<div class="meta"><span class="tag">embodied QA</span><span class="tag">active perception</span><span class="tag">simulator-state checker</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="vision">&#128247; vision &amp; video</span><span class="tag f f-topic" data-t="embodied">&#129470; robots &amp; embodied</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag f f-why" data-t="new">&#127381; new Nov. 9</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw" data-zh="具身问答">embodied QA</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="7b15ca7097">"Is the stove on?" or "how many mugs are in the sink?" cannot be answered from where the agent starts: it has to decide where to go, what to look at, and when it has seen enough. The task is fixed and small.
 							Use the active split of OpenEQA (HM3D homes in Habitat), or write 60 questions in AI2-THOR whose answers you read from simulator state. The agent is a vision-language model with a short action list
 							(move forward, turn left or right, look up or down, open) and a budget of 20 actions; it ends an episode by answering. The research question is how much a question-guided search strategy saves, and which failure remains.</p>
@@ -948,9 +957,9 @@
 							<a href="https://aihabitat.org/habitat3/" target="_blank">Habitat 3.0</a> &middot; <a href="https://github.com/QwenLM/Qwen3-VL" target="_blank">Qwen3-VL</a> as the vision model.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="embodied comp">
+					<div class="brief" id="C7" data-c="gpu1" data-tags="vision embodied hard model rank">
 						<h4 data-i18n="6bcd0d3fe6"><span class="id">C7</span>Make a frozen manipulation policy robust (OpenLET / LIBERO)</h4>
-						<div class="meta"><span class="tag">VLA / robotics</span><span class="tag">simulation</span><span class="tag c-gpu">1 GPU</span><span class="tag c-comp">competition</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="vision">&#128247; vision &amp; video</span><span class="tag f f-topic" data-t="embodied">&#129470; robots &amp; embodied</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw">VLA</span><span class="tag kw" data-zh="仿真">simulation</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 比赛">&#127942; competition</span></div>
 						<p data-i18n="67be849d51">Take an existing vision-language-action policy on a single pick-and-place task in simulation. Do not train a new policy; instead test one small adaptation
 							(a few LoRA steps on perturbed episodes) or one recovery rule (re-grasp on detected failure) against the frozen policy.</p>
 						<div class="row2">
@@ -964,9 +973,9 @@
 							<a href="https://github.com/OpenHelix-Team/LLaVA-VLA" target="_blank">LLaVA-VLA</a> (a plain VLA baseline meant for students).</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="audio hci">
+					<div class="brief" id="C8" data-c="gpu1" data-tags="demo speech memory hci speed">
 						<h4 data-i18n="0728d815f7"><span class="id">C8</span>A talking digital human: speech-to-speech with barge-in and memory</h4>
-						<div class="meta"><span class="tag">speech</span><span class="tag">real-time</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="speech">&#127908; speech &amp; audio</span><span class="tag f f-topic" data-t="memory">&#128190; memory</span><span class="tag f f-topic" data-t="hci">&#128172; interaction design</span><span class="tag kw" data-zh="实时">real-time</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="b2ae004f81">Build a voice assistant for a narrow task (campus directions, a vocabulary drill) with streaming ASR, an LLM, and streaming TTS. The variable is the interaction design:
 							how interruptions are handled and what the assistant remembers across turns.</p>
 						<div class="row2">
@@ -978,9 +987,9 @@
 							<a href="https://github.com/openai/whisper" target="_blank">Whisper</a> &middot; <a href="https://github.com/snakers4/silero-vad" target="_blank">Silero VAD</a> for barge-in detection.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="3d xr hci">
+					<div class="brief" id="C9" data-c="api" data-tags="demo xr 3d speech hci">
 						<h4 data-i18n="9e03df5b05"><span class="id">C9</span>An LLM assistant inside a WebXR scene: AR/VR editing by voice</h4>
-						<div class="meta"><span class="tag">AR / VR</span><span class="tag">WebXR</span><span class="tag">voice + spatial language</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="xr">&#129405; VR / AR</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="speech">&#127908; speech &amp; audio</span><span class="tag kw">WebXR</span><span class="tag c-api">API</span></div>
 						<p data-i18n="54a02cd904">Lecture 8 asked for an "open world experience using AI + VR". The research version: a user wearing a headset (or using a phone's AR view, or the browser's WebXR emulator) says "put a lamp on the desk, facing the window"
 							and the assistant edits the scene. Microsoft's LLMR (CHI 2024) showed that scene understanding, task planning and self-debugging cut GPT-4's error rate four-fold in Unity; DecartXR (open source, Quest) restyles the
 							room in real time from speech. Your variable is how much of the scene the model gets to see: nothing, a text scene graph, or the scene graph plus the user's gaze and hand targets.</p>
@@ -997,9 +1006,9 @@
 							<a href="https://x.com/EugenioFierro3/status/2093345842925060172" target="_blank">Meta XR Operator</a> (an agent that launches and tests Quest scenes, Aug. 2026) &middot; reuse the checker from <a href="#trackC">C5</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="world-model embodied">
+					<div class="brief" id="C10" data-c="gpu1" data-tags="model embodied speed hot hard rl vision kit">
 						<h4 data-i18n="334cd8b529"><span class="id">C10</span>A small JEPA-style world model that decides fast: latent planning vs. an LLM planner</h4>
-						<div class="meta"><span class="tag">world models</span><span class="tag">real-time decisions</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="embodied">&#129470; robots &amp; embodied</span><span class="tag f f-topic" data-t="speed">&#9889; speed &amp; cost</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw" data-zh="世界模型">world models</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="4fc1e44738">Language models plan slowly; a game NPC, a drone or a robot gripper needs a decision every few milliseconds. Meta's V-JEPA 2 (June 2025) learns a video world model by predicting in latent space and plans by
 							rolling out candidate actions with a 300M-parameter action-conditioned head; DreamerV3 and TD-MPC2 are the model-based RL references. The project: in one small environment (PushT, a MetaWorld task, or a 2D
 							game you write), train or fine-tune a compact predictive model and compare a latent planner against an LLM that is asked to choose the next action from a text description.</p>
@@ -1100,9 +1109,9 @@
 
 					<h3 data-i18n="cf309a7b6a">Featured briefs: education &amp; interaction</h3>
 
-					<div class="brief" data-c="gpu1" data-tags="edu audio video">
+					<div class="brief" id="C11" data-c="gpu1" data-tags="content speech edu">
 						<h4 data-i18n="5003168ce6"><span class="id">C11</span>Textbook passages as short English skits</h4>
-						<div class="meta"><span class="tag">language learning</span><span class="tag">TTS + video</span><span class="tag c-gpu">1 GPU</span><span class="tag c-api">API for the script</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="content">&#127916; videos &amp; lessons</span><span class="tag f f-topic" data-t="speech">&#127908; speech &amp; audio</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag kw" data-zh="语言学习">language learning</span><span class="tag kw" data-zh="TTS + 视频">TTS + video</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span><span class="tag c-api" data-zh="脚本用 API">API for the script</span></div>
 						<p data-i18n="a5b90d3375">Adapt one textbook passage into a 60&ndash;90 second dialogue that teaches four to six target words through context, then voice it with an open TTS model and, optionally, animate it.
 							The Gaoyou duck-egg and WordsFunny posts are format references: a tiny story, a few characters, the words appearing naturally.</p>
 						<div class="row2">
@@ -1117,9 +1126,9 @@
 							<a href="https://www.remotion.dev/" target="_blank">Remotion</a> to assemble subtitles and scenes programmatically.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="edu video">
+					<div class="brief" id="C12" data-c="api" data-tags="content edu stem easy">
 						<h4 data-i18n="5770d9378e"><span class="id">C12</span>A math explanation video whose narration follows the diagram</h4>
-						<div class="meta"><span class="tag">math education</span><span class="tag">Manim</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="content">&#127916; videos &amp; lessons</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-field" data-t="stem">&#129514; science &amp; engineering</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw">Manim</span><span class="tag c-api">API</span></div>
 						<p data-i18n="1efac114ad">Teach one concept, for example why a secant slope approaches the tangent slope. A single curve, two movable points and a line are enough. The variable is the storyboard: unconstrained,
 							or structured so that each narrated step links to an equation and a visual event.</p>
 						<div class="row2">
@@ -1131,9 +1140,9 @@
 							<a href="https://github.com/FunAudioLLM/CosyVoice" target="_blank">CosyVoice 3</a> for narration.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="edu 3d">
+					<div class="brief" id="C13" data-c="api" data-tags="demo 3d edu stem easy">
 						<h4 data-i18n="9eb09a4fe2"><span class="id">C13</span>An interactive 3D biology lesson grounded in a molecular structure</h4>
-						<div class="meta"><span class="tag">biology</span><span class="tag">3D viewer + LLM</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-field" data-t="stem">&#129514; science &amp; engineering</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="生物">biology</span><span class="tag c-api">API</span></div>
 						<p data-i18n="df83c14e6c">Teach students to distinguish protein chains from bound ligands and to locate heme in hemoglobin (PDB 4HHB). Learners rotate the structure and ask "which heme is associated with this chain?".
 							The model sees the lesson text in both conditions; only one condition also receives the viewer's selected component and structure annotations.</p>
 						<div class="row2">
@@ -1145,9 +1154,9 @@
 							<a href="https://www.rcsb.org/docs/exploring-a-3d-structure/structure-3d-visualization" target="_blank">RCSB Mol* viewer</a> (embeddable).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="edu 3d sim">
+					<div class="brief" id="C14" data-c="api" data-tags="demo 3d edu stem easy">
 						<h4 data-i18n="1538381fcf"><span class="id">C14</span>A language-controlled 3D physics experiment</h4>
-						<div class="meta"><span class="tag">physics</span><span class="tag">typed commands</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-field" data-t="stem">&#129514; science &amp; engineering</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="物理">physics</span><span class="tag c-api">API</span></div>
 						<p data-i18n="5d50c9e4ba">Teach how launch speed and angle affect projectile range. One scene: a sphere, a ground plane, a trajectory trace. Learners request controlled changes, predict the outcome, run, and compare.
 							Compare a prompt-only interpretation of requests with a model that issues typed commands and explains results from the simulator trace.</p>
 						<div class="row2">
@@ -1159,9 +1168,9 @@
 							a pendulum (pivot, rod, bob), or one model from <a href="https://science.nasa.gov/3d-resources/" target="_blank">NASA 3D resources</a> with one measurable interaction. Keep asset sources and lesson assumptions in the README.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="edu hci">
+					<div class="brief" id="C15" data-c="api" data-tags="content tool 3d edu">
 						<h4 data-i18n="4cfc89189c"><span class="id">C15</span>An AIGC-for-education workflow for one textbook unit, with reusable 3D assets</h4>
-						<div class="meta"><span class="tag">workflow</span><span class="tag">asset reuse</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for 3D generation</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="content">&#127916; videos &amp; lessons</span><span class="tag f f-make" data-t="tool">&#129520; reusable tool</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag kw" data-zh="资产复用">asset reuse</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="3D 生成需 1 块 GPU">1 GPU for 3D generation</span></div>
 						<p data-i18n="3db40dece3">Pick one unit of a real textbook (one chapter of a middle-school science book, one lesson of an English coursebook) and build the pipeline from source to artifacts: a glossary, a short skit, a
 							diagram animation, and one interactive 3D object generated once and reused across lessons. The research question is about the workflow: where does a source-mapping step pay for itself, and where does it not?</p>
 						<div class="row2">
@@ -1172,9 +1181,9 @@
 						<div class="links">Combine C11&ndash;C14; generate assets with <a href="https://huggingface.co/microsoft/TRELLIS.2-4B" target="_blank">TRELLIS.2</a>; present with <a href="https://streamlit.io/" target="_blank">Streamlit</a> or <a href="https://www.gradio.app/" target="_blank">Gradio</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="hci">
+					<div class="brief" id="C16" data-c="api" data-tags="hci course easy">
 						<h4 data-i18n="e22fb00923"><span class="id">C16</span>When should an assistant ask for clarification? <span class="sub">adapted from Stanford CS329X</span></h4>
-						<div class="meta"><span class="tag">human-centered LLMs</span><span class="tag">interaction policy</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="hci">&#128172; interaction design</span><span class="tag f f-why" data-t="course">&#127979; top-course classic</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="以人为中心的 LLM">human-centered LLMs</span><span class="tag kw" data-zh="交互策略">interaction policy</span><span class="tag c-api">API</span></div>
 						<p data-i18n="7e4845484f">Pick one setting: object selection in a visual assistant (see <a href="#trackC">C4</a>), GUI actions, or document editing. Compare immediate execution, asking on every ambiguous case, and asking only when a defined trigger fires.
 							Freeze the model, the task instances, and the information available before the decision.</p>
 						<div class="row2">
@@ -1187,9 +1196,9 @@
 							<a href="https://cogym.saltlab.stanford.edu/" target="_blank">Collaborative Gym</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="hci edu">
+					<div class="brief" id="C17" data-c="api" data-tags="memory sim edu easy rag">
 						<h4 data-i18n="982d65f1e6"><span class="id">C17</span>Memory and reflection in an educational assistant</h4>
-						<div class="meta"><span class="tag">tutoring</span><span class="tag">memory design</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="memory">&#128190; memory</span><span class="tag f f-topic" data-t="sim">&#127917; role-play &amp; simulation</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="辅导">tutoring</span><span class="tag c-api">API</span></div>
 						<p data-i18n="b1ef9ba17e">Build a tutoring assistant for one topic and vary only its memory: none, a running summary, or retrieval over past sessions plus a reflection step that updates a learner model. Script learners with
 							known misconceptions so the evaluation is repeatable, then optionally run a small study.</p>
 						<div class="row2">
@@ -1200,9 +1209,9 @@
 						<div class="links">Related: <a href="https://arxiv.org/abs/2304.03442" target="_blank">Generative Agents</a> (reflection) &middot; the <a href="https://www.kaggle.com/competitions" target="_blank">Kaggle</a> "root misconceptions in K&ndash;12 math solutions" task listed on <a href="https://mlcontests.com/" target="_blank">ML Contests</a> for data ideas.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="hci sim">
+					<div class="brief" id="C18" data-c="api" data-tags="sim safety kit easy agents">
 						<h4 data-i18n="9d2a87b3e6"><span class="id">C18</span>An AI town or class forum: simulating group dynamics and moderation</h4>
-						<div class="meta"><span class="tag">social simulation</span><span class="tag">multi-agent</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="sim">&#127917; role-play &amp; simulation</span><span class="tag f f-topic" data-t="safety">&#128274; safety &amp; security</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="多智能体">multi-agent</span><span class="tag kw" data-zh="内容治理">moderation</span><span class="tag c-api">API</span></div>
 						<p data-i18n="41f2f4c2b2">Simulate a class forum with LLM personas and test moderation designs: none, rule-based, or an LLM moderator with a stated policy. The simulation is the test bed; the contribution is a replayable protocol
 							and clear metrics for civility and diversity of opinion.</p>
 						<div class="row2">
@@ -1213,9 +1222,9 @@
 						<div class="links">Start from: <a href="https://github.com/a16z-infra/ai-town" target="_blank">AI Town</a> &middot; <a href="https://arxiv.org/abs/2411.10109" target="_blank">Generative agent simulations of 1,000 people</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="edu content pipeline">
+					<div class="brief" id="C19" data-c="api" data-tags="content tool edu access people">
 						<h4 data-i18n="69151a065a"><span class="id">C19</span>A reusable AIGC content pipeline for K-12, special groups, or a profession, with a human in the loop</h4>
-						<div class="meta"><span class="tag">content generation</span><span class="tag">pipeline + curation</span><span class="tag">accessibility</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for images / TTS</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="content">&#127916; videos &amp; lessons</span><span class="tag f f-make" data-t="tool">&#129520; reusable tool</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-field" data-t="access">&#9855; accessibility</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="人在回路">human in the loop</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="图像 / TTS 需 1 块 GPU">1 GPU for images / TTS</span></div>
 						<p data-i18n="a5bef4aa61">Most AIGC demos make one nice artifact. The useful research object is a <b>pipeline</b> that makes a hundred, plus the small manual step that turns the good ones into great ones. Choose one audience and one format:
 							a picture book that explains AI to five-year-olds (a Lecture 8 "special topic"), audio-described science stories for blind pupils, simplified-Chinese safety cards for migrant workers, nursing-handover drills for
 							nursing students, Cantonese-opera synopses for primary schools, or case vignettes for a specific major. Build the pipeline as a template (brief &rarr; outline &rarr; text &rarr; image/audio &rarr; checks) so a new topic
@@ -1233,9 +1242,9 @@
 							<a href="https://x.com/DisabledWorld/status/2023502540663394411" target="_blank">Visionauta, a free app by a blind engineer</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="edu video audio">
+					<div class="brief" id="C20" data-c="api" data-tags="content tool speech edu people new kit">
 						<h4 data-i18n="1801bce90b"><span class="id">C20</span>An AI lecture series: generated courseware, TTS narration and a recurring host for one topic</h4>
-						<div class="meta"><span class="tag">courseware generation</span><span class="tag">TTS + avatar</span><span class="tag">series / host character</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for TTS / avatar</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="content">&#127916; videos &amp; lessons</span><span class="tag f f-make" data-t="tool">&#129520; reusable tool</span><span class="tag f f-topic" data-t="speech">&#127908; speech &amp; audio</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag f f-why" data-t="new">&#127381; new Nov. 9</span><span class="tag kw" data-zh="TTS + 数字人">TTS + avatar</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="TTS / 数字人需 1 块 GPU">1 GPU for TTS / avatar</span></div>
 						<p data-i18n="a08a5445f1">Our <a href="lecture10.html">Lecture 10 page</a> is the worked example: the slides are narrated by a cloned voice and a photo avatar, a laser pointer follows the narration, and a chapter panel and lecture map sit beside the video.
 							Turn that into a pipeline and make a <b>series</b>. Choose one topic (probability through card games, the history of Chinese characters, how vaccines work, LLMs for high-school students) and one source (a textbook chapter, a set of notes),
 							and generate four to six connected lessons: outline, slides, script, narration, pointer cues and a short quiz per lesson. A recurring host makes a series feel like one: an original mascot, a figure from public-domain
@@ -1327,9 +1336,9 @@
 
 					<h3 data-i18n="171c4449b1">Featured briefs: evaluation</h3>
 
-					<div class="brief" data-c="gpu1" data-tags="eval">
+					<div class="brief" id="D1" data-c="gpu1" data-tags="bench vision kit lab new">
 						<h4 data-i18n="d68c9b29d7"><span class="id">D1</span>A long-context evaluation that detects a specific failure</h4>
-						<div class="meta"><span class="tag">long context</span><span class="tag c-gpu">1 GPU or API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="bench">&#128207; build a benchmark</span><span class="tag f f-topic" data-t="vision">&#128247; vision &amp; video</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag f f-why" data-t="lab">&#129404; our lab</span><span class="tag f f-why" data-t="new">&#127381; new Nov. 9</span><span class="tag kw" data-zh="长上下文">long context</span><span class="tag c-gpu" data-zh="1 块 GPU 或 API">1 GPU or API</span></div>
 						<p data-i18n="cc728982d4">Design a small long-context suite where retrieval and reasoning are separable (find the facts; then combine them), run it across context lengths and models, and show which failure appears first.
 							Text is the default. The multimodal version puts the facts in images: one relevant image among 100&ndash;1,000, or two images that must be compared. Our lab's LongLLaVA, a hybrid Mamba&ndash;Transformer model that reads about 1,000 images on one 80 GB GPU,
 							is a baseline to beat or to analyse, and MileBench supplies multi-image tasks to start from.</p>
@@ -1342,9 +1351,9 @@
 							<a href="https://arxiv.org/abs/2409.02889" target="_blank">LongLLaVA</a> (our lab; <a href="https://github.com/FreedomIntelligence/LongLLaVA" target="_blank">code and weights</a>) &middot; <a href="https://arxiv.org/abs/2404.18532" target="_blank">MileBench</a> (our lab; long-context multi-image tasks).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval safety agent">
+					<div class="brief" id="D2" data-c="api" data-tags="safety agents kit">
 						<h4 data-i18n="0b0a3e2c89"><span class="id">D2</span>Combined defenses against prompt injection in a web agent</h4>
-						<div class="meta"><span class="tag">red teaming</span><span class="tag">agents</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="safety">&#128274; safety &amp; security</span><span class="tag f f-topic" data-t="agents">&#129302; agents</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag kw" data-zh="红队测试">red teaming</span><span class="tag c-api">API</span></div>
 						<p data-i18n="d91ed7759f">Take an agent benchmark with injected instructions in tool outputs and test defenses alone and combined: input sanitization, a sandboxed tool layer, a policy model that screens actions.</p>
 						<div class="row2">
 							<div data-i18n="d0d8b51162"><b class="k">Compare</b>no defense &middot; each defense &middot; combined, on the same tasks and attacks.</div>
@@ -1354,9 +1363,9 @@
 						<div class="links">Start from: <a href="https://github.com/ethz-spylab/agentdojo" target="_blank">AgentDojo</a> &middot; <a href="https://arxiv.org/abs/2401.17256" target="_blank">Weak-to-Strong Jailbreaking</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="eval comp">
+					<div class="brief" id="D3" data-c="gpu1" data-tags="model safety hot bonus new rank">
 						<h4 data-i18n="a780cd22ab"><span class="id">D3</span>Who wrote this? Detecting and attributing LLM-generated text</h4>
-						<div class="meta"><span class="tag">detection</span><span class="tag">attribution</span><span class="tag c-gpu">1 GPU</span><span class="tag c-comp">competition</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="safety">&#128274; safety &amp; security</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="bonus">&#11088; bonus question</span><span class="tag kw" data-zh="检测">detection</span><span class="tag kw" data-zh="溯源">attribution</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 比赛">&#127942; competition</span></div>
 						<p data-i18n="2d19017516">Two live or archived tasks fit: Kaggle's <i>Name That LLM</i> (identify which of 18 models wrote a passage; offline notebooks, nine-hour limit; entry Jan. 6, final Jan. 13, 2027) and NLPCC 2026 Shared Task 6
 							(three-way: human-written, LLM-generated, LLM-refined; Chinese news and academic text). Compare character n-grams with a small encoder on held-out prompts, and test transfer across generator families.</p>
 						<p data-i18n="50aa922e43"><b>Bonus question: which model is really behind the API?</b> Attribution has a practical twin. Relay services (中转站, "shadow APIs") resell access to frontier models, and a 2026 audit found that 11 of 24 such endpoints failed fingerprint verification;
@@ -1375,9 +1384,9 @@
 							<a href="https://arxiv.org/abs/2610.36801" target="_blank">API-TAIL</a> (partial substitution).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval comp">
+					<div class="brief" id="D4" data-c="api" data-tags="faithful research easy rank">
 						<h4 data-i18n="a8f99330fc"><span class="id">D4</span>Reliability of AI-assisted scientific reporting</h4>
-						<div class="meta"><span class="tag">faithfulness</span><span class="tag c-api">API</span><span class="tag c-comp">archived task</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="faithful">&#9989; anti-hallucination</span><span class="tag f f-topic" data-t="research">&#128301; AI does research</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw">NLPCC 2026</span><span class="tag c-api">API</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 往届任务">&#127942; archived task</span></div>
 						<p data-i18n="ba5ad03a96">NLPCC 2026 Shared Task 10 asks: given scientific evidence and an AI-generated statement, does the statement faithfully reflect the evidence it summarizes or cites? Track 1 is claim-level faithfulness to experimental
 							results; track 2 is citation-level faithfulness. The data and metrics are public; run it locally with your own comparison.</p>
 						<div class="row2">
@@ -1388,9 +1397,9 @@
 						<div class="links">Start from: <a href="https://github.com/NLP2CT/NLPCC-2026-Task10-Science" target="_blank">NLPCC 2026 Task 10</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval">
+					<div class="brief" id="D5" data-c="api" data-tags="study faithful people agents">
 						<h4 data-i18n="b7a7c890eb"><span class="id">D5</span>Auditing verifier bias and unsupported success claims</h4>
-						<div class="meta"><span class="tag">meta-evaluation</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-topic" data-t="faithful">&#9989; anti-hallucination</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="元评估">meta-evaluation</span><span class="tag c-api">API</span></div>
 						<p data-i18n="386850b46b">Many agent results depend on an LLM verifier. Collect trajectories from one benchmark, have humans label success, and measure how often the verifier accepts unsupported claims ("I have fixed the bug") and whether its bias
 							depends on the generator model or on the phrasing of the final message.</p>
 						<div class="row2">
@@ -1401,9 +1410,9 @@
 						<div class="links">Related: <a href="https://github.com/UKGovernmentBEIS/inspect_ai" target="_blank">Inspect AI</a> &middot; <a href="https://aimslab.stanford.edu/competition" target="_blank">Predictive AI Evaluation Competition</a> (NeurIPS 2026).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval comp">
+					<div class="brief" id="D6" data-c="api" data-tags="bench easy rank">
 						<h4 data-i18n="16d35fd2f5"><span class="id">D6</span>Steerability: does the model do what the instruction asked, and only that?</h4>
-						<div class="meta"><span class="tag">instruction following</span><span class="tag c-api">API</span><span class="tag c-comp">competition</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="bench">&#128207; build a benchmark</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="指令遵循">instruction following</span><span class="tag c-api">API</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 比赛">&#127942; competition</span></div>
 						<p data-i18n="ef70e0881e">The NeurIPS 2026 Steerability Challenge measures whether a model can be moved to a requested target in a multi-dimensional output space without side effects. Build a small steerability suite for one domain
 							(tone, length, reading level, citation style) and compare prompting strategies or a lightweight fine-tune.</p>
 						<div class="row2">
@@ -1414,9 +1423,9 @@
 						<div class="links">Start from: <a href="https://steerability.github.io/competition/" target="_blank">The Steerability Challenge</a> &middot; <a href="https://github.com/THUDM/AlignBench" target="_blank">AlignBench</a> (Chinese alignment evaluation).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval benchmark">
+					<div class="brief" id="D7" data-c="api" data-tags="bench data people nocode lang">
 						<h4 data-i18n="3bfaed1faa"><span class="id">D7</span>Where do frontier models still fail? Build a small benchmark they cannot pass yet</h4>
-						<div class="meta"><span class="tag">benchmark construction</span><span class="tag">human baseline</span><span class="tag">contamination check</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="bench">&#128207; build a benchmark</span><span class="tag f f-make" data-t="data">&#128194; release a dataset</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag f f-why" data-t="nocode">&#128221; light on code</span><span class="tag kw" data-zh="人类基线">human baseline</span><span class="tag kw" data-zh="污染检查">contamination check</span><span class="tag c-api">API</span></div>
 						<p data-i18n="bf80df5084">Take one area from the Lecture 8 list (Chinese idioms and 歇后语, regional stereotypes, humour, formal logic, sense-making, EQ, speech or vision, long multi-turn dialogue, ethics) or one the 2026
 							leaderboards point to: tasks that are easy for people and hard for models (SimpleBench, ARC-AGI-3 interactive environments), predicting how specific cohorts behave (Kaggle's Human Behavior Bench),
 							dialect speakers (Hofmann et al., Nature 2024), cross-cultural everyday knowledge (Naous et al., ACL 2024), long-horizon business tasks (Vending-Bench, TheAgentCompany). Write 100&ndash;300 fresh items with
@@ -1435,9 +1444,9 @@
 							<a href="https://x.com/Contrary_Res/status/2112247206690562314" target="_blank">contamination and "benchmaxxing"</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval rubric">
+					<div class="brief" id="D8" data-c="api" data-tags="bench rl people health kit tutorial">
 						<h4 data-i18n="1a726462e1"><span class="id">D8</span>Rubric-based evaluation: write rubrics, measure judge agreement, then use them as rewards</h4>
-						<div class="meta"><span class="tag">rubrics</span><span class="tag">LLM-as-a-judge</span><span class="tag">reward modelling</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for the RL step</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="bench">&#128207; build a benchmark</span><span class="tag f f-topic" data-t="rl">&#127919; RL &amp; rewards</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="评分细则">rubrics</span><span class="tag kw" data-zh="LLM 评审">LLM-as-a-judge</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="RL 步骤需 1 块 GPU">1 GPU for the RL step</span></div>
 						<p data-i18n="99fe7b100b">A rubric decomposes "is this answer good?" into criteria with points: HealthBench pairs 5,000 health conversations with 48,562 physician-written criteria and finds model&ndash;physician agreement close to
 							physician&ndash;physician agreement. Rubrics then became rewards: <i>Rubrics as Rewards</i> (Scale AI, 2025) trains with checklist feedback beyond verifiable domains, <i>Reinforcement Learning with Rubric Anchors</i>
 							scales rubric construction, <i>OpenRubrics</i> generates rubrics by contrasting preferred and rejected answers, and <i>Checklists are better than reward models</i> makes the case against scalar rewards.
@@ -1522,9 +1531,9 @@
 
 					<h3 data-i18n="c36dc222d0">Featured briefs: datasets &amp; evidence</h3>
 
-					<div class="brief" data-c="api" data-tags="eval rag">
+					<div class="brief" id="D9" data-c="api" data-tags="rag faithful health lab">
 						<h4 data-i18n="146fb22059"><span class="id">D9</span>Auditable evidence chains for medical or legal QA</h4>
-						<div class="meta"><span class="tag">RAG + verification</span><span class="tag">abstention</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag f f-topic" data-t="faithful">&#9989; anti-hallucination</span><span class="tag f f-field" data-t="health">&#127973; health &amp; medicine</span><span class="tag kw" data-zh="拒答">abstention</span><span class="tag kw" data-zh="医疗 / 法律">medical / legal</span><span class="tag c-api">API</span></div>
 						<p data-i18n="8272b59d76">Choose one dated public medical guideline collection or one legal corpus. Build a replayable pipeline that records, for each claim, the retrieved passage, the document version, the exact supporting span, and the verifier's
 							decision. Compare ordinary retrieval-augmented generation with the same retriever and model plus span verification and abstention.</p>
 						<div class="row2">
@@ -1538,9 +1547,9 @@
 							<a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf" target="_blank">Lecture 9</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval rag">
+					<div class="brief" id="D10" data-c="api" data-tags="rag agents tutorial bench">
 						<h4 data-i18n="d61aef7a61"><span class="id">D10</span>An agentic RAG pipeline with a regression suite</h4>
-						<div class="meta"><span class="tag">agentic RAG</span><span class="tag">observability</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag f f-topic" data-t="agents">&#129302; agents</span><span class="tag f f-why" data-t="tutorial">&#128210; builds on our tutorials</span><span class="tag kw" data-zh="可观测性">observability</span><span class="tag c-api">API</span></div>
 						<p data-i18n="3f9ef2b3df">Implement the workflow pieces one at a time: query planner (decomposition), retriever ensemble, draft and critic, citation repair; then a regression suite of gold questions over a versioned corpus so that every change is
 							measured. The research result is an ablation across components.</p>
 						<div class="row2">
@@ -1552,9 +1561,9 @@
 							<a href="https://github.com/langchain-ai/langgraph" target="_blank">LangGraph</a> &middot; Tutorial 4 (RAG and agent development, Nov. 13).</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="eval rag">
+					<div class="brief" id="D11" data-c="api" data-tags="data rag faithful easy">
 						<h4 data-i18n="f9886e47a2"><span class="id">D11</span>Retrieval triggers, conflicting sources, stale documents</h4>
-						<div class="meta"><span class="tag">RAG failure modes</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="data">&#128194; release a dataset</span><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag f f-topic" data-t="faithful">&#9989; anti-hallucination</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="RAG 失效模式">RAG failure modes</span><span class="tag c-api">API</span></div>
 						<p data-i18n="e4689afeff">Construct a corpus with deliberate version conflicts (an old and a new guideline) and questions whose answers changed. Test when the system retrieves, how it resolves conflicts, and whether it reports the version it used.</p>
 						<div class="row2">
 							<div data-i18n="006c1f3f0f"><b class="k">Compare</b>always retrieve &middot; retrieve on uncertainty &middot; retrieve with version-aware ranking.</div>
@@ -1563,9 +1572,9 @@
 						</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="data">
+					<div class="brief" id="D12" data-c="api" data-tags="tool datacentric safety">
 						<h4 data-i18n="fcd9246b47"><span class="id">D12</span>A reproducible data pipeline with deduplication and quality scoring</h4>
-						<div class="meta"><span class="tag">data engineering</span><span class="tag">data cards</span><span class="tag c-api">API or CPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="tool">&#129520; reusable tool</span><span class="tag f f-topic" data-t="datacentric">&#129529; data quality</span><span class="tag kw" data-zh="去重">deduplication</span><span class="tag kw" data-zh="数据卡片">data cards</span><span class="tag c-api" data-zh="API 或 CPU">API or CPU</span></div>
 						<p data-i18n="bed75f489e">Build a web or text cleaning pipeline (extraction, language ID, deduplication, quality scoring, PII and toxicity checks) and evaluate the choices downstream on a small training run or an existing model's fine-tune.
 							Alternatives from the research area: construct a small preference dataset and study its effect on instruction following; compare synthetic vs. curated human data for one task; select the hardest SFT examples; audit train&ndash;test overlap.</p>
 						<div class="row2">
@@ -1576,9 +1585,9 @@
 						<div class="links">Start from: <a href="https://github.com/huggingface/datatrove" target="_blank">datatrove</a> &middot; <a href="https://github.com/allenai/dolma" target="_blank">Dolma toolkit</a> &middot; <a href="https://arxiv.org/abs/2402.13064" target="_blank">synthetic data for instruction tuning</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="data train">
+					<div class="brief" id="D13" data-c="gpu1" data-tags="data model datacentric tutorial lang lab">
 						<h4 data-i18n="284a938019"><span class="id">D13</span>Build and release a training dataset for one stage, in the format that stage expects</h4>
-						<div class="meta"><span class="tag">dataset release</span><span class="tag">pre-training / SFT / preference / RL</span><span class="tag c-gpu">1 GPU for the check</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="data">&#128194; release a dataset</span><span class="tag f f-make" data-t="model">&#129504; train a model</span><span class="tag f f-topic" data-t="datacentric">&#129529; data quality</span><span class="tag f f-why" data-t="tutorial">&#128210; builds on our tutorials</span><span class="tag kw" data-zh="预训练 / SFT / 偏好 / RL">pre-training / SFT / preference / RL</span><span class="tag c-gpu" data-zh="训练验证需 1 块 GPU">1 GPU for the check</span></div>
 						<p data-i18n="d8fb4f7e75">Choose the stage first, because the format and the quality checks follow from it. Then choose a domain or audience nobody has covered well (a Chinese dialect, a vocational trade, a university's regulations,
 							a hospital department's FAQs, a game engine's API, your own course's lecture notes) and build 2k&ndash;50k items with provenance. The Lecture 8 examples from the lab are Huatuo-26M, MedPajama and VLFeedback;
 							the 2026 open releases to imitate are Tulu 3, HelpSteer, DAPO-Math and the K2 Horizon data drop. Validate the dataset by training: a small model on your data against the same model on an existing dataset of the same size.</p>
@@ -1602,9 +1611,9 @@
 							<a href="tutorial2.html">Tutorial 2</a> for the training check.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="data rag evidence">
+					<div class="brief" id="D14" data-c="api" data-tags="data rag faithful datacentric health">
 						<h4 data-i18n="725c74517a"><span class="id">D14</span>An evidence-based corpus for RAG, and an AI-built corpus with a verifier</h4>
-						<div class="meta"><span class="tag">evidence corpus</span><span class="tag">synthetic data + verification</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="data">&#128194; release a dataset</span><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag f f-topic" data-t="faithful">&#9989; anti-hallucination</span><span class="tag f f-topic" data-t="datacentric">&#129529; data quality</span><span class="tag kw" data-zh="合成数据 + 验证">synthetic data + verification</span><span class="tag c-api">API</span></div>
 						<p data-i18n="e77c7f7b8b">Lecture 8 asks you to "replicate OpenEvidence": a medical answer engine whose every sentence points at a guideline or trial. Part one builds the corpus such a system needs, in a domain you can access:
 							one society's guidelines, a university's regulations, a city's public-health notices, a game's wiki. Every chunk carries source, date, version and section, and a question set with gold evidence spans
 							measures retrieval. Part two asks whether AI can <b>construct</b> corpus text: rephrase documents into textbook style (Nemotron-CC, Cosmopedia), synthesise documents from a knowledge graph (EntiGraph),
@@ -1722,9 +1731,9 @@
 
 					<h3 data-i18n="89582f4c95">Featured briefs</h3>
 
-					<div class="brief" data-c="api" data-tags="society position">
+					<div class="brief" id="E1" data-c="api" data-tags="study nocode easy">
 						<h4 data-i18n="d421a11f3b"><span class="id">E1</span>A position paper with an audit behind it: "AI will widen (or narrow) X unless Y"</h4>
-						<div class="meta"><span class="tag">position / perspective paper</span><span class="tag">ICML / NeurIPS position style</span><span class="tag c-api">no GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-why" data-t="nocode">&#128221; light on code</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="立场论文">position / perspective paper</span><span class="tag kw" data-zh="ICML / NeurIPS 立场论文体例">ICML / NeurIPS position style</span><span class="tag c-api" data-zh="无需 GPU">no GPU</span></div>
 						<p data-i18n="b475be594b">Choose one of the six questions above and write a six-page position paper in the ICML position-track format: claim, context, evidence organised by theme, the best counter-argument, and a recommendation.
 							The course adds one requirement: at least one section reports a measurement you ran (a small audit from E2&ndash;E6, a replication of a published finding on a current model, or a survey of 30 classmates).
 							Models change every quarter, so a replication of a 2023&ndash;2024 finding on 2026 models is itself a contribution.</p>
@@ -1738,9 +1747,9 @@
 							<a href="https://arxiv.org/abs/2602.21012" target="_blank">International AI Safety Report 2026</a> for the state of the evidence &middot; the <a href="writing-tips.html">writing tips</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="society language">
+					<div class="brief" id="E2" data-c="api" data-tags="study lang people lab">
 						<h4 data-i18n="dddf19e316"><span class="id">E2</span>Do all languages cost the same? A dialect and minority-language audit of 2026 models</h4>
-						<div class="meta"><span class="tag">language inequality</span><span class="tag">audit</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-field" data-t="lang">&#127759; languages &amp; cultures</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="语言不平等">language inequality</span><span class="tag c-api">API</span></div>
 						<p data-i18n="818f0b32dc">Ahia et al. (EMNLP 2023) showed that speakers of many languages pay more tokens for worse results; Hofmann et al. (Nature 2024) showed that models judge people more harshly when they write in African American
 							English. Replicate both designs for languages close to you: 粤语, 闽南语, 客家话, 藏语, 维吾尔语, 壮语, or a Southeast Asian language, against Mandarin and English. Use matched-guise probing: the same content, two
 							language varieties, and decisions (job, credit, medical urgency) that should not change.</p>
@@ -1753,9 +1762,9 @@
 							<a href="https://github.com/FreedomIntelligence/AceGPT" target="_blank">AceGPT</a> (our lab: vocabulary expansion and native alignment for Arabic) &middot; <a href="https://arxiv.org/abs/2406.03368" target="_blank">IrokoBench</a> as a format reference &middot; pairs with <a href="#trackB">B7</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="society bias">
+					<div class="brief" id="E3" data-c="api" data-tags="study access nocode easy">
 						<h4 data-i18n="1182442bf7"><span class="id">E3</span>Matched-persona audits: gender and disability in generated decisions and recommendations</h4>
-						<div class="meta"><span class="tag">gender</span><span class="tag">disability</span><span class="tag">audit</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-field" data-t="access">&#9855; accessibility</span><span class="tag f f-why" data-t="nocode">&#128221; light on code</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="性别">gender</span><span class="tag c-api">API</span></div>
 						<p data-i18n="b0669bc9ac">Generate the texts that shape people's lives (reference letters, resume screens, performance reviews, loan explanations, career advice, triage notes) for personas that differ only in gender or in a disability
 							cue, in Chinese and English. Wan et al. found "warm" language for women and "competent" language for men in LLM-written letters; Glazko et al. found resumes with a disability-related award ranked lower.
 							Check whether 2026 models still do this, whether the pattern differs by language, and whether a mitigation (a rubric in the prompt, a critique pass) removes it without flattening everything.</p>
@@ -1768,9 +1777,9 @@
 							<a href="https://aclanthology.org/2020.acl-main.485/" target="_blank">Blodgett et al.</a> (define the harm before you measure it) &middot; pairs with <a href="#trackD">D8</a> for the rubric.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="society work edu">
+					<div class="brief" id="E4" data-c="api" data-tags="study edu people nocode">
 						<h4 data-i18n="31cbc47f80"><span class="id">E4</span>Who gains? Novices vs. experts with an AI assistant on a real task, and what remains when it is removed</h4>
-						<div class="meta"><span class="tag">productivity and learning</span><span class="tag">small experiment</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag f f-why" data-t="nocode">&#128221; light on code</span><span class="tag kw" data-zh="生产力与学习">productivity and learning</span><span class="tag kw" data-zh="小型实验">small experiment</span><span class="tag c-api">API</span></div>
 						<p data-i18n="167ac5aeb0">Brynjolfsson, Li and Raymond (QJE 2025) found that customer-support novices gained most from an assistant; Bastani et al. (PNAS 2025) found that high-school students who practised with unrestricted GPT-4 scored
 							lower when it was taken away, while a tutor-style version with guardrails did not hurt. Run a small version in your own cohort: one task (debugging, data analysis, a translation, a proof), two assistant
 							designs, and a follow-up without the assistant.</p>
@@ -1783,9 +1792,9 @@
 							<a href="https://www.science.org/doi/10.1126/science.adh2586" target="_blank">Noy &amp; Zhang</a> &middot; <a href="https://arxiv.org/abs/2609.28470" target="_blank">StudentBench</a> &middot; follow the ethics guidance in <a href="#faq">the FAQ</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="society accessibility">
+					<div class="brief" id="E5" data-c="api" data-tags="tool access people vision speech">
 						<h4 data-i18n="4a3bf7aadc"><span class="id">E5</span>An accessibility intervention, evaluated with the people it is for</h4>
-						<div class="meta"><span class="tag">disability and welfare</span><span class="tag">multimodal</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for local speech models</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="tool">&#129520; reusable tool</span><span class="tag f f-field" data-t="access">&#9855; accessibility</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="多模态">multimodal</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="本地语音模型需 1 块 GPU">1 GPU for local speech models</span></div>
 						<p data-i18n="4ac98e2d1d">The benefit side of the disability question: multimodal models now describe images, read documents aloud, transcribe atypical speech and gloss sign language. Build one narrow tool with an accessibility
 							organisation or a classmate who needs it, and evaluate it on tasks the users choose, not on a generic benchmark. Candidates: image descriptions for campus notices and lecture slides; a reading assistant for
 							dyslexic students; speech recognition tuned to one dysarthric speaker; a Chinese Sign Language glossing aid; a plain-language rewriter for government forms.</p>
@@ -1799,9 +1808,9 @@
 							pairs with <a href="#trackC">C19</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="society global">
+					<div class="brief" id="E6" data-c="api" data-tags="study rag lang people">
 						<h4 data-i18n="3dd7a68bf5"><span class="id">E6</span>Whose knowledge? A Global South audit with a retrieval intervention</h4>
-						<div class="meta"><span class="tag">Global South</span><span class="tag">retrieval intervention</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag f f-field" data-t="lang">&#127759; languages &amp; cultures</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="全球南方">Global South</span><span class="tag c-api">API</span></div>
 						<p data-i18n="7f5fd565fb">Ask practical questions (a fever in a child, a crop disease, a tenancy dispute, a scholarship deadline) as a user in Nairobi, Dhaka, Lima, Lagos and Lanzhou, and compare the answers with those for a user in
 							San Francisco: which sources are cited, which institutions are assumed, how often the advice is wrong or unusable locally. Then test the smallest fix: retrieval over local sources (ministry guidelines,
 							local-language news, regional NGO documents) in front of the same model.</p>
@@ -1870,9 +1879,9 @@
 
 					<h3 data-i18n="89582f4c95">Featured briefs</h3>
 
-					<div class="brief" data-c="gpu1" data-tags="sys agent comp">
+					<div class="brief" id="F1" data-c="gpu1" data-tags="code loop hard speed rank">
 						<h4 data-i18n="24717d1154"><span class="id">F1</span>Feedback for GPU kernel generation on KernelBench</h4>
-						<div class="meta"><span class="tag">kernel generation</span><span class="tag">CUDA / Triton</span><span class="tag c-gpu">1 GPU</span><span class="tag c-comp">leaderboards</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="code">&#128187; code generation</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw">CUDA / Triton</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span><span class="tag c-comp" data-t="rank" data-zh="&#127942; 排行榜">&#127942; leaderboards</span></div>
 						<p data-i18n="2d0d04079d">KernelBench asks a model to replace a PyTorch reference module with a faster kernel: level 1 single operators, level 2 fused operators, level 3 full architectures. Pick a fixed subset and compare
 							independent candidates with iterative repair that receives compiler errors, correctness failures on fresh inputs, or profiler traces, under a shared generation budget.</p>
 						<div class="row2">
@@ -1886,9 +1895,9 @@
 							<a href="https://github.com/gpu-mode/lectures" target="_blank">GPU MODE lectures</a> &middot; for Ascend NPUs: <a href="https://arxiv.org/abs/2607.20518" target="_blank">CANN Bench</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="sys">
+					<div class="brief" id="F2" data-c="gpu1" data-tags="study speed">
 						<h4 data-i18n="4f03f48a9e"><span class="id">F2</span>Serving short and long requests together</h4>
-						<div class="meta"><span class="tag">serving</span><span class="tag">scheduling</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag kw" data-zh="推理服务">serving</span><span class="tag kw" data-zh="调度">scheduling</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="eee882a675">Replay a mixed workload (short interactive requests, long prompts) on one model and one GPU. Vary the serving engine's batched-token budget and other scheduler knobs, and measure what each setting does to the
 							two populations.</p>
 						<div class="row2">
@@ -1900,9 +1909,9 @@
 							<a href="materials/2026_fall_slides/Lecture11_Efficiency_in_LLMs.pdf" target="_blank">Lecture 11: Efficiency in LLMs</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="sys">
+					<div class="brief" id="F3" data-c="gpu1" data-tags="study speed">
 						<h4 data-i18n="5710a91389"><span class="id">F3</span>Engine comparison under identical prompts, with energy</h4>
-						<div class="meta"><span class="tag">benchmarking</span><span class="tag">energy</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag kw" data-zh="基准测试">benchmarking</span><span class="tag kw" data-zh="能耗">energy</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="183829f64b">vLLM, SGLang, llama.cpp (and TensorRT-LLM if available) on the same model, prompts and hardware. The contribution is a careful protocol and an honest table, including joules per token.</p>
 						<div class="row2">
 							<div data-i18n="e769700eb3"><b class="k">Compare</b>engines and their default vs. tuned settings.</div>
@@ -1912,9 +1921,9 @@
 						<div class="links">Start from: <a href="https://github.com/vllm-project/vllm" target="_blank">vLLM</a> &middot; <a href="https://github.com/sgl-project/sglang" target="_blank">SGLang</a> &middot; <a href="https://github.com/ggml-org/llama.cpp" target="_blank">llama.cpp</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="sys train">
+					<div class="brief" id="F4" data-c="gpu1" data-tags="study speed">
 						<h4 data-i18n="3b1559d17f"><span class="id">F4</span>What quantization and distillation cost</h4>
-						<div class="meta"><span class="tag">compression</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag kw" data-zh="压缩">compression</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="8d90b84f20">Quantize one model with two or three backends (AWQ, GPTQ, FP8) and optionally distil a smaller student; measure accuracy deltas on tasks that matter (long-context, math, code) rather than only perplexity.
 							Pruning variants: LLM-Pruner, ShortGPT.</p>
 						<div class="row2">
@@ -1925,9 +1934,9 @@
 						<div class="links">Start from: <a href="https://github.com/vllm-project/llm-compressor" target="_blank">llm-compressor</a> &middot; <a href="https://github.com/horseee/LLM-Pruner" target="_blank">LLM-Pruner</a> &middot; <a href="https://arxiv.org/abs/2403.03853" target="_blank">ShortGPT</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="sys">
+					<div class="brief" id="F5" data-c="gpu1" data-tags="study bonus new model speed">
 						<h4 data-i18n="23fc8453b6"><span class="id">F5</span>Speculative decoding across domains</h4>
-						<div class="meta"><span class="tag">decoding</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-why" data-t="bonus">&#11088; bonus question</span><span class="tag kw" data-zh="解码">decoding</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="cbcb1bb7aa">Measure acceptance rate and wall-clock speedup of speculative decoding (EAGLE-style or n-gram drafts) on code, chat, and long-form writing, with the same target model.</p>
 						<p data-i18n="6a5c181d7b"><b>Bonus question: does the draft model have to be trained for each target ("teacher") model?</b> EAGLE-style heads are trained on one target's hidden states, and a small draft is usually just a smaller sibling of the target.
 							Take one draft and three targets (the original, a fine-tuned or RL-tuned version of it, and a different family with a compatible tokenizer) and measure how much acceptance falls. Then re-align the draft to each target, by distillation on the target's
@@ -1942,9 +1951,9 @@
 							<a href="https://arxiv.org/abs/2502.05202" target="_blank">speculative decoding with heterogeneous vocabularies</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="sys edge">
+					<div class="brief" id="F6" data-c="api" data-tags="demo hot bonus new speech vision speed">
 						<h4 data-i18n="82e23a81a8"><span class="id">F6</span>An edge real-time pipeline with limited memory</h4>
-						<div class="meta"><span class="tag">on-device</span><span class="tag c-api">laptop / phone</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="demo">&#127918; playable demo</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="bonus">&#11088; bonus question</span><span class="tag kw" data-zh="端侧">on-device</span><span class="tag c-api" data-zh="笔记本 / 手机">laptop / phone</span></div>
 						<p data-i18n="995a44f558">Run a small model (ASR + LLM, or a VLM) on a laptop or phone under a stated memory budget and latency target. The research question is what to drop (precision, context, model size) and what it costs.</p>
 						<p data-i18n="fd88ab2b38"><b>Bonus: how far can a memory budget stretch?</b> kimi-k3-in-c runs the 2.78-trillion-parameter Kimi K3 on one CPU in portable C99, with no GPU and no BLAS. Only 16 of 896 experts fire per layer (about 104B active parameters),
 							so the dense trunk stays in RAM while the 1.45 TB of routed 4-bit experts stream from an NVMe drive through an LRU cache with prefetching. The output is byte-identical from 8 GB of RAM (about 26 s per token) to 128 GB (about 6 s); only the clock changes,
@@ -1960,9 +1969,9 @@
 							<a href="https://huggingface.co/moonshotai/Kimi-K3" target="_blank">Kimi K3 weights</a> (1.56 TB: check your disk first) &middot; smaller mixture-of-experts models: <a href="https://github.com/allenai/OLMoE" target="_blank">OLMoE</a>, <a href="https://huggingface.co/Qwen/Qwen3-30B-A3B" target="_blank">Qwen3-30B-A3B</a>.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="sys agent">
+					<div class="brief" id="F7" data-c="gpu1" data-tags="study agents speed">
 						<h4 data-i18n="6e957b7edc"><span class="id">F7</span>Prefix-cache reuse for agent workloads</h4>
-						<div class="meta"><span class="tag">KV cache</span><span class="tag">agents</span><span class="tag c-gpu">1 GPU</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="study">&#128202; measurement study</span><span class="tag f f-topic" data-t="agents">&#129302; agents</span><span class="tag kw">KV cache</span><span class="tag c-gpu" data-zh="1 块 GPU">1 GPU</span></div>
 						<p data-i18n="c119294b39">Agent loops resend long, mostly identical contexts. Measure how much prefix caching and context layout (stable system prompt first, tool results last) save in an agent trace replay, and what it does to latency under concurrency.</p>
 						<div class="row2">
 							<div data-i18n="fbca42fef0"><b class="k">Compare</b>caching on/off and two context layouts on the same replayed traces.</div>
@@ -1972,9 +1981,9 @@
 						<div class="links">Start from: <a href="https://docs.vllm.ai/en/stable/features/automatic_prefix_caching/" target="_blank">vLLM automatic prefix caching</a> &middot; <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank">context engineering for agents</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="sys edge">
+					<div class="brief" id="F8" data-c="api" data-tags="bench tool hot easy speed">
 						<h4 data-i18n="fc71dd0bf4"><span class="id">F8</span>An on-device benchmark: measure, then improve, a small model on a phone or laptop</h4>
-						<div class="meta"><span class="tag">on-device</span><span class="tag">phone / laptop / NPU</span><span class="tag c-api">no GPU needed</span></div>
+						<div class="meta"><span class="tag f f-make" data-t="bench">&#128207; build a benchmark</span><span class="tag f f-make" data-t="tool">&#129520; reusable tool</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="easy">&#127793; easy start</span><span class="tag kw" data-zh="端侧">on-device</span><span class="tag kw" data-zh="手机 / 笔记本 / NPU">phone / laptop / NPU</span><span class="tag c-api" data-zh="无需 GPU">no GPU needed</span></div>
 						<p data-i18n="6f39333772">Gemma 4 E2B (2.3B effective, audio and vision input, Apache-2.0) runs on an iPhone 17 Pro at roughly 40 tokens per second with MLX; Qwen3-0.6B/1.7B, SmolLM3 and Liquid's LFM2.5 are the other usual suspects.
 							The research question is a protocol, not a demo: on <b>your</b> device, which runtime, quantization, context length and speculative-decoding setting meets a stated latency target, and what does each setting
 							cost in accuracy and battery? A fixed task set (50 prompts: QA, summarisation, a tool call, one image) and a fixed measurement script make the numbers comparable across teams.</p>
@@ -1991,9 +2000,9 @@
 							<a href="https://x.com/leopardracer/article/2063911046994084066" target="_blank">the local LLM playbook (Raspberry Pi to RTX 5090)</a> &middot; <a href="https://x.com/SciFi/status/1810823305701540289" target="_blank">mllm-NPU</a> for NPU prefill.</div>
 					</div>
 
-					<div class="brief" data-c="gpu1" data-tags="sys agent rsi">
+					<div class="brief" id="F9" data-c="gpu1" data-tags="code loop hot hard research agents kit speed">
 						<h4 data-i18n="4c25de8929"><span class="id">F9</span>Let an evolutionary agent (RSI-style) optimise your kernel or serving config, under a sealed test</h4>
-						<div class="meta"><span class="tag">recursive self-improvement</span><span class="tag">AlphaEvolve / OpenEvolve</span><span class="tag c-gpu">1 GPU or a phone</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="code">&#128187; code generation</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag f f-why" data-t="hard">&#129495; hard mode</span><span class="tag kw" data-zh="递归自我改进">recursive self-improvement</span><span class="tag kw">AlphaEvolve / OpenEvolve</span><span class="tag c-gpu" data-zh="1 块 GPU 或手机">1 GPU or a phone</span></div>
 						<p data-i18n="802d869b90">DeepMind's AlphaEvolve (May 2025) and its open-source counterpart OpenEvolve run a loop: an LLM proposes code edits, an evaluator scores them, a database keeps the best diverse programs, and the loop
 							continues for hours. OpenEvolve's Metal-kernel experiment reported a 12.5% attention speedup on Apple silicon; Sakana's "AI CUDA Engineer" is the cautionary tale, where the loop found a way to cheat the
 							benchmark. Apply the loop to one efficiency target you own, such as a Triton kernel from F1, a llama.cpp or vLLM configuration from F2/F3, or the on-device settings from F8, and measure whether the gains
@@ -2189,9 +2198,9 @@
 
 					<h3 data-i18n="89582f4c95">Featured briefs</h3>
 
-					<div class="brief" data-c="api" data-tags="startup edu">
+					<div class="brief" id="H1" data-c="api" data-tags="rag edu people kit new product">
 						<h4 data-i18n="3a09c98afd"><span class="id">H1</span>AI tutor for one course, with retention as the metric</h4>
-						<div class="meta"><span class="tag">AI tutor</span><span class="tag">retrieval over course materials</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="rag">&#128214; RAG</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag f f-why" data-t="new">&#127381; new Nov. 9</span><span class="tag kw" data-zh="AI 导师">AI tutor</span><span class="tag c-api">API</span></div>
 						<p data-i18n="e6a20f7d98">Build a tutor for one real course (ask the instructor), grounded in its slides, notes and past assignments, and give it to classmates. 薯塔AI grew from exactly this. The product variable is grounding; the business
 							variable is whether students come back. Design the tutor so it explains rather than solves (Bastani et al., PNAS 2025) and measure whether that costs you users.
 							Do not start from zero: HKU's open-source DeepTutor already combines citation-grounded answers, difficulty-calibrated practice questions and a learner memory, and ships TutorBench for evaluation; use it as your codebase or as the baseline to beat.</p>
@@ -2205,9 +2214,9 @@
 							posts on X: <a href="https://x.com/Kawsar_Ai/status/2060388016934527027" target="_blank">Brilliant's Koji</a>, <a href="https://x.com/aakashgupta/status/2100448276717928849" target="_blank">Aristotle refuses to give answers</a>, <a href="https://x.com/geekwire/status/2085368488588444147" target="_blank">a $6M seed round for a tutor that makes kids figure it out</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="startup sales">
+					<div class="brief" id="H2" data-c="api" data-tags="agents people product">
 						<h4 data-i18n="d74ba179a1"><span class="id">H2</span>AI seller: a sales and support agent for a real small shop</h4>
-						<div class="meta"><span class="tag">AI seller</span><span class="tag">WeChat / Taobao / campus shop</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="agents">&#129302; agents</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="AI 销售">AI seller</span><span class="tag kw" data-zh="微信 / 淘宝 / 校园小店">WeChat / Taobao / campus shop</span><span class="tag c-api">API</span></div>
 						<p data-i18n="8788b1ad41">Find one small business (a campus caf&eacute;, a family's online store, a tutoring centre) and build the agent that answers product questions, recommends, and closes orders in its chat channel, with a human
 							approving anything irreversible. The research question is what the agent may say: a free conversational policy against one constrained by an approved product sheet and a refund policy.</p>
 						<div class="row2">
@@ -2218,9 +2227,9 @@
 						<div class="links">Start from: <a href="#trackA">A4</a> for the harness &middot; <a href="https://github.com/langgenius/dify" target="_blank">Dify</a> or <a href="https://github.com/langchain-ai/langgraph" target="_blank">LangGraph</a> &middot; <a href="https://github.com/sierra-research/tau2-bench" target="_blank">&tau;&sup2;-bench</a> for retail-style agent evaluation before going live.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="startup agent">
+					<div class="brief" id="H3" data-c="api" data-tags="agents sim kit product">
 						<h4 data-i18n="fc15962adc"><span class="id">H3</span>AI CEO: an agent runs a tiny business, and you measure where it fails</h4>
-						<div class="meta"><span class="tag">AI CEO</span><span class="tag">long-horizon agent</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="agents">&#129302; agents</span><span class="tag f f-topic" data-t="sim">&#127917; role-play &amp; simulation</span><span class="tag f f-why" data-t="kit">&#128230; starter kit</span><span class="tag kw">AI CEO</span><span class="tag kw" data-zh="长程智能体">long-horizon agent</span><span class="tag c-api">API</span></div>
 						<p data-i18n="2bd54430db">Anthropic's Project Vend let Claude run a small office shop for a month: it found suppliers and answered customers, but it also sold at a loss, gave discounts to anyone who asked, invented a supplier contact and
 							had an identity crisis. Andon Labs' Vending-Bench turns the same setting into a simulator. Run an agent as the manager of a tiny real or simulated business (a vending box in your dorm, a print-on-demand shop,
 							a weekly snack pre-order) and study its decisions.</p>
@@ -2233,9 +2242,9 @@
 							<a href="https://github.com/TheAgentCompany/TheAgentCompany" target="_blank">TheAgentCompany</a> &middot; the "startup simulator" idea from Lecture 8.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="startup medical edu">
+					<div class="brief" id="H4" data-c="api" data-tags="sim health edu people lab product">
 						<h4 data-i18n="8c32f3a688"><span class="id">H4</span>AI for expertise training: simulated patients, interview coaches, exam examiners</h4>
-						<div class="meta"><span class="tag">expertise training</span><span class="tag">role simulation</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="sim">&#127917; role-play &amp; simulation</span><span class="tag f f-field" data-t="health">&#127973; health &amp; medicine</span><span class="tag f f-field" data-t="edu">&#127891; education</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag f f-why" data-t="lab">&#129404; our lab</span><span class="tag kw" data-zh="专业技能训练">expertise training</span><span class="tag c-api">API</span></div>
 						<p data-i18n="410d6c6335">Medical students practise on simulated patients; job seekers practise interviews; law students practise moots. The lab's AI Hospital and Agentic Hospital papers simulate patients and examiners with LLMs. Build the
 							trainer for one skill with a partner who teaches it (a clinical teacher, a career centre, a debate coach), and measure transfer to a human assessor, not just scores inside the simulator.</p>
 						<div class="row2">
@@ -2247,9 +2256,9 @@
 							<a href="#trackD">D8</a> for rubric design &middot; <a href="materials/2026_fall_slides/Lecture09_Medical_LLMs_Towards_Generalist_Medical_AI.pdf" target="_blank">Lecture 9</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="startup game">
+					<div class="brief" id="H5" data-c="api" data-tags="game code loop people lab demo product">
 						<h4 data-i18n="6caa5ca298"><span class="id">H5</span>AI game designer: text-to-game and text-to-app as a product</h4>
-						<div class="meta"><span class="tag">text-to-game</span><span class="tag">text-to-app</span><span class="tag c-api">API</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="game">&#128126; games</span><span class="tag f f-topic" data-t="code">&#128187; code generation</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag f f-why" data-t="lab">&#129404; our lab</span><span class="tag kw" data-zh="文本生成游戏">text-to-game</span><span class="tag kw" data-zh="文本生成应用">text-to-app</span><span class="tag c-api">API</span></div>
 						<p data-i18n="0c07a6ed48">The lab's GameCraft-Bench measures whether agents can turn a spec into a playable Godot game; vibe-coding jams show solo builders shipping multiplayer games in a weekend. The product question is the user, not the
 							model: a teacher who wants a quiz game, a parent who wants a story game for a child, a small brand that wants a promotional mini-game in WeChat. Build the generator with a repair loop and test it with ten such users.</p>
 						<div class="row2">
@@ -2261,9 +2270,9 @@
 							posts on X: <a href="https://x.com/realBigBrainAI/status/2060360634882220138" target="_blank">a capybara delivery game, solo in 14 days</a>, <a href="https://x.com/tencentcloud/status/2070406394894078130" target="_blank">a Hong Kong jump game from text prompts</a>, <a href="https://x.com/NicolasZu/status/1899931187398979890" target="_blank">20 hours, 500 prompts, 20 euros</a>.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="startup xr">
+					<div class="brief" id="H6" data-c="api" data-tags="xr 3d people demo product">
 						<h4 data-i18n="f347d3a393"><span class="id">H6</span>Open-world experience: an AI + VR product people pay for</h4>
-						<div class="meta"><span class="tag">AI + VR</span><span class="tag">experience design</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for generation</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="xr">&#129405; VR / AR</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag kw" data-zh="体验设计">experience design</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="生成需 1 块 GPU">1 GPU for generation</span></div>
 						<p data-i18n="1a5d0a500d">A VR experience generated or narrated by AI: a guided tour of a historical site with a character who answers questions, a language-immersion caf&eacute;, a calming space that adapts to the visitor. Build on
 							<a href="#trackC">C9</a> (WebXR assistant) and <a href="#trackC">C2</a> (generated assets), then run sessions with real visitors and ask what they would pay for.</p>
 						<div class="row2">
@@ -2274,9 +2283,9 @@
 						<div class="links">Start from: <a href="https://x.com/DecartAI/status/1974534910623859128" target="_blank">DecartXR</a> &middot; <a href="https://arxiv.org/abs/2309.12276" target="_blank">LLMR</a> &middot; <a href="https://github.com/Tencent-Hunyuan/HY-World-2.0" target="_blank">HY-World 2.0</a> for scenes.</div>
 					</div>
 
-					<div class="brief" data-c="api" data-tags="startup cad">
+					<div class="brief" id="H7" data-c="api" data-tags="speech 3d loop people lab hot hci code stem product">
 						<h4 data-i18n="268555b65d"><span class="id">H7</span>Speech-based 3D printing: from a spoken wish to a printed object</h4>
-						<div class="meta"><span class="tag">speech &rarr; CAD &rarr; print</span><span class="tag">BlenderLLM</span><span class="tag c-api">API</span><span class="tag c-gpu">1 GPU for a local CAD model</span></div>
+						<div class="meta"><span class="tag f f-topic" data-t="speech">&#127908; speech &amp; audio</span><span class="tag f f-topic" data-t="3d">&#129482; 3D</span><span class="tag f f-topic" data-t="loop">&#128257; repair loop</span><span class="tag f f-why" data-t="people">&#128101; real people</span><span class="tag f f-why" data-t="lab">&#129404; our lab</span><span class="tag f f-why" data-t="hot">&#128293; 2026 hot topic</span><span class="tag kw" data-zh="语音 &#8594; CAD &#8594; 打印">speech &#8594; CAD &#8594; print</span><span class="tag c-api">API</span><span class="tag c-gpu" data-zh="本地 CAD 模型需 1 块 GPU">1 GPU for a local CAD model</span></div>
 						<p data-i18n="35dd5c33f1">"A phone stand that also holds my earbuds." The pipeline is speech recognition, a CAD-code generator (parametric CadQuery or build123d, or Blender Python as in the lab's BlenderLLM), a printability check
 							(manifold, overhangs, dimensions), and a slicer. Open-source text-to-CAD agents appeared in 2026 for Claude Code and Codex; Adam CAD sells speech-to-3D. Your product variable is the repair loop and the
 							questions the system asks before it prints.</p>
@@ -2524,6 +2533,8 @@ Track and brief (e.g., Track A, brief A2) or custom:
 	</div>
 
 	<script src="js/fp-zh.js"></script>
+	<script src="js/fp-tags.js?v=20261113"></script>
+	<script src="js/fp-search.js?v=20261113"></script>
 	<script>
 	document.addEventListener('DOMContentLoaded', function () {
 		/* lazy thumbnails */
@@ -2624,15 +2635,21 @@ Track and brief (e.g., Track A, brief A2) or custom:
 			allOpen = open; foldBtn.innerHTML = open ? UI[LANG].collapse : UI[LANG].expand;
 		}
 		foldBtn.addEventListener('click', function () { setAll(!allOpen); });
-		function openForHash() {
-			if (!location.hash) return;
-			var el; try { el = document.querySelector(location.hash); } catch (e) { return; }
+		/* open every fold around an element, lift the compute filter if it hides the element, scroll to it */
+		function reveal(el, flash) {
 			if (!el) return;
+			if (el.closest('.brief.hidden')) { var allBtn = document.querySelector('#filters button[data-f=all]'); if (allBtn) allBtn.click(); }
 			var d = el.closest('details.fold');
 			while (d) { d.open = true; d = d.parentElement && d.parentElement.closest('details.fold'); }
 			if (el.tagName === 'DETAILS') el.open = true;
 			if (el.classList.contains('brief')) el.querySelectorAll('details.fold').forEach(function (x) { x.open = true; });
 			el.scrollIntoView();
+			if (flash) { document.querySelectorAll('.fs-flash').forEach(function (x) { x.classList.remove('fs-flash'); }); void el.offsetWidth; el.classList.add('fs-flash'); }
+		}
+		function openForHash() {
+			if (!location.hash) return;
+			var el; try { el = document.querySelector(location.hash); } catch (e) { return; }
+			if (el) reveal(el, el.classList.contains('brief'));
 		}
 		window.addEventListener('hashchange', openForHash);
 
@@ -2657,6 +2674,7 @@ Track and brief (e.g., Track A, brief A2) or custom:
 			var q = new URLSearchParams(location.search);
 			if ((q.get('lang') || 'en') !== lang) { q.set('lang', lang); history.replaceState(null, '', location.pathname + '?' + q.toString() + location.hash); }
 			applyFilter(currentFilter);
+			if (window.FPSearch) FPSearch.setLang(lang);
 		}
 		document.getElementById('langbtn').addEventListener('click', function () { applyLang(LANG === 'zh' ? 'en' : 'zh'); });
 
@@ -2678,6 +2696,10 @@ Track and brief (e.g., Track A, brief A2) or custom:
 				btn.classList.add('on'); applyFilter(btn.getAttribute('data-f'));
 			});
 		});
+
+		/* search panel and tag chips (js/fp-search.js). It indexes the page when the panel is first opened, in both languages:
+		   Chinese from ZH, English from the original text that applyLang keeps in EN. */
+		if (window.FPSearch) FPSearch.init({ zh: ZH, en: function (k) { return EN.get(k); }, reveal: function (el) { reveal(el, true); } });
 
 		var want = new URLSearchParams(location.search).get('lang');
 		if (!want) { try { want = localStorage.getItem('fpLang'); } catch (e) {} }
