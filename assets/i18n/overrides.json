@@ -22,7 +22,9 @@
   "🧭 Lecture map": "🧭 课程导览",
   "click a chapter or a slide to jump": "点击章节或幻灯片即可跳转",
   "chapters ·": "章 ·",
-  "min": "分钟"
+  "min": "分钟",
+  "This course offers a comprehensive study of Natural Language Processing (NLP). We will delve into word representations, the construction of language models, the application of deep learning in NLP, and Large Language Models (LLMs). Specifically, we will discuss the architectural engineering, data engineering, prompt engineering, training techniques, and efficiency enhancements of LLMs. Students will gain insights into the application of NLP and LLMs in various domains, such as text mining, search engines, human-machine interaction, medical-legal consulting, low-resource languages, and AI for Science, as well as how to handle issues of data privacy, bias, and ethics. The course will also investigate the limitations of NLP and LLMs, such as challenges in alignment. The curriculum includes guest lectures on advanced topics and in-class presentations to stimulate practical understanding. This course is ideal for anyone seeking to master the use of NLP and LLMs in their field.": "本课程全面介绍自然语言处理（NLP），深入探讨词表示、语言模型的构建、深度学习在 NLP 中的应用以及大语言模型（LLM）。课程重点涵盖大语言模型的架构工程、数据工程、提示工程、训练技巧和效率提升。学生将了解 NLP 和大语言模型在文本挖掘、搜索引擎、人机交互、医疗与法律咨询、低资源语言及人工智能驱动的科学研究等领域的应用，以及如何处理数据隐私、偏见和伦理问题。课程还将探讨 NLP 和大语言模型的局限性，包括模型对齐方面的挑战，并通过前沿专题讲座和课堂展示促进实践理解。本课程适合希望在自身领域掌握 NLP 和大语言模型应用的学习者。",
+  "TA": "助教"
  },
  "es": {
   "Logistics": "Información práctica del curso",
@@ -40,7 +42,8 @@
   "Slide →": "Diapositiva siguiente →",
   "{chapters} chapters · {minutes} min": "{chapters} capítulos · {minutes} min",
   "chapters ·": "capítulos ·",
-  "min": "min"
+  "min": "min",
+  "TA": "Asistente docente"
  },
  "hi": {
   "Logistics": "पाठ्यक्रम व्यवस्था",
@@ -57,7 +60,8 @@
   "Slide →": "अगली स्लाइड →",
   "{chapters} chapters · {minutes} min": "{chapters} अध्याय · {minutes} मिनट",
   "chapters ·": "अध्याय ·",
-  "min": "मिनट"
+  "min": "मिनट",
+  "TA": "शिक्षण सहायक"
  },
  "ar": {
   "Logistics": "تنظيم المقرر",
@@ -75,7 +79,8 @@
   "Slide →": "الشريحة التالية →",
   "{chapters} chapters · {minutes} min": "{chapters} فصول · {minutes} دقيقة",
   "chapters ·": "فصول ·",
-  "min": "دقيقة"
+  "min": "دقيقة",
+  "TA": "مساعد تدريس"
  },
  "fr": {
   "Logistics": "Organisation du cours",
@@ -92,7 +97,8 @@
   "Slide →": "Diapositive suivante →",
   "{chapters} chapters · {minutes} min": "{chapters} chapitres · {minutes} min",
   "chapters ·": "chapitres ·",
-  "min": "min"
+  "min": "min",
+  "TA": "Assistant pédagogique"
  },
  "pt": {
   "Logistics": "Organização do curso",
@@ -109,7 +115,8 @@
   "Slide →": "Próximo slide →",
   "{chapters} chapters · {minutes} min": "{chapters} capítulos · {minutes} min",
   "chapters ·": "capítulos ·",
-  "min": "min"
+  "min": "min",
+  "TA": "Assistente de ensino"
  },
  "ru": {
   "Logistics": "Организация курса",
@@ -126,7 +133,8 @@
   "Slide →": "Следующий слайд →",
   "{chapters} chapters · {minutes} min": "{chapters} глав · {minutes} мин",
   "chapters ·": "глав ·",
-  "min": "мин"
+  "min": "мин",
+  "TA": "Ассистент преподавателя"
  },
  "bn": {
   "Logistics": "কোর্সের ব্যবস্থা",
@@ -143,7 +151,8 @@
   "Slide →": "পরের স্লাইড →",
   "{chapters} chapters · {minutes} min": "{chapters} অধ্যায় · {minutes} মিনিট",
   "chapters ·": "অধ্যায় ·",
-  "min": "মিনিট"
+  "min": "মিনিট",
+  "TA": "শিক্ষণ সহকারী"
  },
  "ja": {
   "Logistics": "授業の案内",
@@ -160,6 +169,7 @@
   "Slide →": "次のスライド →",
   "{chapters} chapters · {minutes} min": "{chapters} 章 · {minutes} 分",
   "chapters ·": "章 ·",
-  "min": "分"
+  "min": "分",
+  "TA": "ティーチングアシスタント"
  }
 }
