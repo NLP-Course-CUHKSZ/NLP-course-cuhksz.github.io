@@ -4,7 +4,7 @@
   const G = window.G, W = G.world, ui = G.ui, I = G.input, L = G.L, $ = id => document.getElementById(id);
   THREE.ColorManagement.legacyMode = false;
   G.save.load();
-  G.lang = G.query.get('lang') || G.S().opt.lang || ((navigator.language || 'zh').toLowerCase().startsWith('zh') ? 'zh' : 'en');
+  G.lang = 'en'; // Shared course selector translates the English UI.
   G.setLang = l => { G.lang = l; G.S().opt.lang = l; G.save.store(); document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en'; ui.relabel(); G.emit('lang'); };
 
   let renderer, scene, camera, last = 0, fpsAcc = 0, fpsN = 0, lowT = 0, scale = 1, autoStep = 0;

@@ -1,0 +1,4530 @@
+[
+ [
+  "教学",
+  "Teaching"
+ ],
+ [
+  "科研",
+  "Research"
+ ],
+ [
+  "行政与会议",
+  "Admin & Events"
+ ],
+ [
+  "图书馆",
+  "Libraries"
+ ],
+ [
+  "书院",
+  "Colleges"
+ ],
+ [
+  "体育",
+  "Sports"
+ ],
+ [
+  "生活服务",
+  "Campus Life"
+ ],
+ [
+  "教职工住宅",
+  "Staff Housing"
+ ],
+ [
+  "地标与自然",
+  "Landmarks & Nature"
+ ],
+ [
+  "校门",
+  "Gates"
+ ],
+ [
+  "周边",
+  "Neighbours"
+ ],
+ [
+  "下园",
+  "Lower Campus"
+ ],
+ [
+  "教学、科研与行政的核心区，沿龙翔大道展开。",
+  "The academic heart of the university, stretched along Longxiang Boulevard."
+ ],
+ [
+  "上园",
+  "Upper Campus"
+ ],
+ [
+  "依山而建的书院生活区。",
+  "Residential colleges terraced into the hillside."
+ ],
+ [
+  "中园",
+  "Middle Campus"
+ ],
+ [
+  "音乐学院与第八书院所在地，毗邻神仙湖。",
+  "Home of the School of Music and the Eighth College, beside Shenxian Lake."
+ ],
+ [
+  "大学图书馆",
+  "University Library"
+ ],
+ [
+  "下园中轴上的标志性建筑，白色体量横跨林荫轴线，与学生中心之间隔着一方睡莲池。",
+  "The landmark on the central axis of the Lower Campus: a white volume bridging the tree-lined mall, facing the Student Centre across a water-lily pond."
+ ],
+ [
+  "行政楼",
+  "Administration Building"
+ ],
+ [
+  "大学行政中枢，分东、西两翼，屋顶覆有绿植；楼前即是秋冬盛放的美丽异木棉。",
+  "The administrative hub, with east and west wings under a planted roof. The silk-floss trees beside it turn pink every autumn."
+ ],
+ [
+  "教学楼 A",
+  "Teaching A (TA)"
+ ],
+ [
+  "沿龙翔大道一字排开的教学楼群之首。交叉错落的体量把城市喧嚣挡在外面，让内侧的林荫中轴保持安静。",
+  "First of the teaching blocks lined up along Longxiang Boulevard. Their interlocking slabs screen the mall behind from traffic noise."
+ ],
+ [
+  "教学楼 B",
+  "Teaching B (TB)"
+ ],
+ [
+  "教学楼群之一，以二层连廊与 TA、TC 相连。正门就在楼前。",
+  "One of the linked teaching blocks, joined to TA and TC by second-floor walkways. The main gate is right outside."
+ ],
+ [
+  "教学楼 C",
+  "Teaching C (TC)"
+ ],
+ [
+  "教学楼群之一，折线形平面围合出一个个小庭院。",
+  "One of the linked teaching blocks; its zig-zag plan encloses a series of small courtyards."
+ ],
+ [
+  "教学楼 D（张灵斌楼）",
+  "Teaching D (TD)"
+ ],
+ [
+  "教学楼群最西端的一栋，又名张灵斌楼。内山书店就在一旁。",
+  "The westernmost teaching block, also named the Zhang Lingbin Building. The university bookstore sits beside it."
+ ],
+ [
+  "教学综合楼",
+  "Teaching Complex (TX)"
+ ],
+ [
+  "二期工程的核心，2023 年启用。由 TxA–TxD 等多栋高低错落的塔楼组成，以 6 米、12 米两层空中连廊串联。人文社科学院、经管学院在此办公。",
+  "The centrepiece of Phase II (opened 2023): a cluster of towers, TxA to TxD, tied together by walkways at the 6 m and 12 m levels. Home to the School of Humanities and Social Science and the School of Management and Economics."
+ ],
+ [
+  "礼文堂",
+  "Liwen Hall"
+ ],
+ [
+  "大学礼堂，毕业典礼与大型演出的场地。屋顶是一整片三角形天窗与绿植交织的“第五立面”。",
+  "The university auditorium, used for congregations and concerts. Its roof is a field of triangular skylights set in planting."
+ ],
+ [
+  "逸夫国际会议中心",
+  "Run Run Shaw International Conference Centre"
+ ],
+ [
+  "国际学术交流中心，与礼文堂相邻，临湖而建。",
+  "The international conference centre, next to Liwen Hall and overlooking the pond."
+ ],
+ [
+  "学生中心",
+  "Student Centre"
+ ],
+ [
+  "餐厅、社团空间与学生服务集中于此，楼前是校巴站。",
+  "Canteens, society rooms and student services under one roof, with the shuttle-bus stop at the door."
+ ],
+ [
+  "李贤义楼（实验楼 A）",
+  "Lee Yin Yee Building (Research A)"
+ ],
+ [
+  "科研实验楼 A 座。",
+  "Research Building A."
+ ],
+ [
+  "涂辉龙楼（实验楼 B）",
+  "H.L. Tu Building (Research B)"
+ ],
+ [
+  "科研实验楼 B 座。",
+  "Research Building B."
+ ],
+ [
+  "逸夫书院",
+  "Shaw College"
+ ],
+ [
+  "大学创办的第一所书院，也是唯一位于下园的书院，六栋宿舍楼背靠山林。",
+  "The first college, and the only one on the Lower Campus: six residential blocks backing onto the wooded hill."
+ ],
+ [
+  "道远楼",
+  "Dao Yuan Building"
+ ],
+ [
+  "数据科学学院所在地（3–6 楼）。弧形立面朝向启动区广场，老南门进门右手边、台阶之上就是它。",
+  "Home of the School of Data Science (floors 3–6). Its curved front faces the Main Square, up the steps to the right of the old South Gate."
+ ],
+ [
+  "知新楼",
+  "Zhi Xin Building"
+ ],
+ [
+  "启动区的主楼，2014 年大学在这里开学。楼内设有黄宜弘梁凤仪伉俪图书馆。",
+  "The main building of the start-up zone, where the university opened in 2014. It houses the Philip Wong and Anita Leung Library."
+ ],
+ [
+  "诚道楼",
+  "Cheng Dao Building"
+ ],
+ [
+  "启动区教学办公楼之一。",
+  "One of the teaching and office buildings of the start-up zone."
+ ],
+ [
+  "志仁楼",
+  "Zhi Ren Building"
+ ],
+ [
+  "启动区教学办公楼之一。",
+  "One of the teaching and office buildings of the start-up zone."
+ ],
+ [
+  "乐天楼",
+  "Le Tian Building"
+ ],
+ [
+  "启动区教学办公楼之一，紧邻逸夫书院。",
+  "One of the start-up zone buildings, next to Shaw College."
+ ],
+ [
+  "科研楼",
+  "Research Complex"
+ ],
+ [
+  "二期的科研综合大楼，下园最高的建筑。与钟楼一同立在中轴西端，是连接上、下园的转折点。",
+  "The Phase II research complex and the tallest building on the Lower Campus. With the Clock Tower it closes the west end of the axis, where the route to the Upper Campus begins."
+ ],
+ [
+  "钟楼",
+  "Clock Tower"
+ ],
+ [
+  "二期的地标，王维仁设计，造型取意中国传统的密檐塔，共十四层檐。同学们叫它“薯塔”。",
+  "The landmark of Phase II, designed by Wang Weijen after the Chinese dense-eave pagoda, with fourteen tiers of eaves. Students call it the “Potato Tower”."
+ ],
+ [
+  "大学体育馆",
+  "University Sports Hall"
+ ],
+ [
+  "室内篮球馆、游泳池与健身空间。",
+  "Indoor courts, a swimming pool and fitness rooms."
+ ],
+ [
+  "综合运动馆",
+  "Sports Complex"
+ ],
+ [
+  "田径场看台与运动馆，折板屋面是它的标志。",
+  "The grandstand and sports rooms beside the track, under a folded-plate roof."
+ ],
+ [
+  "齐贤楼",
+  "Qi Xian Building"
+ ],
+ [
+  "林间的一栋公寓楼。",
+  "An apartment block tucked into the trees."
+ ],
+ [
+  "学勤书院",
+  "Diligentia College"
+ ],
+ [
+  "淡黄色的外墙衬着深圳的蓝天，推窗即可远眺。楼下有麦当劳。",
+  "Pale-yellow walls against the Shenzhen sky, with long views from every window. There is a McDonald’s downstairs."
+ ],
+ [
+  "思廷书院",
+  "Muse College"
+ ],
+ [
+  "浅灰与翠绿相间，楼下是公共绿地，四周林木环绕。",
+  "Light grey and emerald green, above a public lawn ringed by trees."
+ ],
+ [
+  "祥波书院",
+  "Harmonia College"
+ ],
+ [
+  "朱红色的外观在青山绿树间格外醒目，四栋楼沿上园东缘排开。",
+  "Vermilion red against the green hills: four blocks along the eastern edge of the Upper Campus."
+ ],
+ [
+  "道扬书院",
+  "Ling College"
+ ],
+ [
+  "蓝白相间，与蓝天白云相呼应，位于上园正门内。",
+  "Blue and white, like the sky above it, just inside the Upper Campus gate."
+ ],
+ [
+  "厚含书院",
+  "Minerva College"
+ ],
+ [
+  "橙白配色，爽朗而有设计感，位于上园最北端的高台上。",
+  "Orange and white, bright and confident, on the high terrace at the north end of the Upper Campus."
+ ],
+ [
+  "永平书院",
+  "Yongping College"
+ ],
+ [
+  "原称第七书院，紫白基调，清雅稳重，是首间以研究生为主的书院，与厚含书院相邻。",
+  "Formerly the Seventh College. Purple and white, calm and composed, it is the first college mainly for postgraduates and stands beside Minerva."
+ ],
+ [
+  "服务中心",
+  "Amenity Centre"
+ ],
+ [
+  "上园的生活配套：便利店、银行、餐饮都在这里。",
+  "Everyday services for the Upper Campus: convenience store, bank and places to eat."
+ ],
+ [
+  "附属幼儿园",
+  "Affiliated Kindergarten"
+ ],
+ [
+  "香港中文大学（深圳）附属幼儿园。",
+  "The kindergarten affiliated to the university."
+ ],
+ [
+  "教职工宿舍",
+  "Staff Residences"
+ ],
+ [
+  "上园西北坡地上的教职工公寓，五栋板楼依山势错落。",
+  "Five slab blocks of staff apartments stepping up the north-west slope of the Upper Campus."
+ ],
+ [
+  "明园",
+  "Ming Yuan"
+ ],
+ [
+  "林间的一组低层院落，带一片坡地花园。",
+  "A low courtyard compound in the woods, with a sloping garden."
+ ],
+ [
+  "物流服务点",
+  "Parcel Station"
+ ],
+ [
+  "上园的快递收发点。",
+  "Where parcels arrive and leave on the Upper Campus."
+ ],
+ [
+  "音乐学院",
+  "School of Music"
+ ],
+ [
+  "深圳音乐学院校园，2025 年 8 月启用。几座流线形的白色音乐厅像卵石一样落在山脚下。",
+  "The School of Music campus (Shenzhen Conservatory of Music), opened in August 2025. Its concert halls sit at the foot of the hill like white pebbles."
+ ],
+ [
+  "音乐学院图书馆",
+  "Music Library"
+ ],
+ [
+  "音乐学院校园内的图书馆。",
+  "The library of the School of Music campus."
+ ],
+ [
+  "音乐学院教学楼",
+  "Music Teaching Buildings"
+ ],
+ [
+  "琴房、排练厅与教学用房。",
+  "Practice rooms, rehearsal halls and classrooms."
+ ],
+ [
+  "第八书院",
+  "The Eighth College"
+ ],
+ [
+  "大学最新的一所书院，随音乐学院校园一同启用，A、B 两座宿舍楼临神仙湖而立。",
+  "The newest college, opened together with the School of Music campus. Its two residential blocks stand by Shenxian Lake."
+ ],
+ [
+  "神仙湖",
+  "Shenxian Lake"
+ ],
+ [
+  "即神仙岭水库。湖畔正在建设医学院所在的神仙湖校园，预计 2027 年底竣工。",
+  "Shenxianling Reservoir. The lakeside campus for the School of Medicine is under construction on its shores, due for completion at the end of 2027."
+ ],
+ [
+  "医学院 · 神仙湖校园（在建）",
+  "School of Medicine · Lakeside Campus (under construction)"
+ ],
+ [
+  "2023 年 5 月开工，预计 2027 年底竣工。模型中以工地和塔吊示意。",
+  "Construction began in May 2023 and is due to finish at the end of 2027. Shown here as a building site with tower cranes."
+ ],
+ [
+  "铜鼓岭",
+  "Tonggu Ridge"
+ ],
+ [
+  "上园与下园之间的山体，海拔约 146 米。“山—林—院”的校园规划把它完整保留了下来。",
+  "The hill between the Upper and Lower Campuses, about 146 m above sea level. The campus plan, “hill, grove, courtyard”, left it untouched."
+ ],
+ [
+  "大岭鼓",
+  "Dalinggu"
+ ],
+ [
+  "铜鼓岭南侧的山头，盐龙大道的大岭鼓隧道从山下穿过。",
+  "The southern summit of the ridge. Yanlong Boulevard runs beneath it through the Dalinggu Tunnel."
+ ],
+ [
+  "睡莲池",
+  "Water-lily Pond"
+ ],
+ [
+  "大学图书馆与学生中心之间的水池。",
+  "The pool between the University Library and the Student Centre."
+ ],
+ [
+  "启动区广场",
+  "Main Square"
+ ],
+ [
+  "知新楼与道远楼前的广场，大学最初的起点。",
+  "The square in front of Zhi Xin and Dao Yuan, where the university began."
+ ],
+ [
+  "田径场",
+  "Track & Field"
+ ],
+ [
+  "标准 400 米跑道与足球场。",
+  "A 400 m track around a football pitch."
+ ],
+ [
+  "正门",
+  "Main Gate"
+ ],
+ [
+  "龙翔大道上的主入口，正对教学楼群。",
+  "The main entrance on Longxiang Boulevard, facing the teaching blocks."
+ ],
+ [
+  "东门",
+  "East Gate"
+ ],
+ [
+  "礼文堂旁的入口，门外是“港中大深圳校区”公交站，步行可达地铁大运中心站。",
+  "The entrance beside Liwen Hall. The bus stop is outside, and Universiade Center metro station is a walk away."
+ ],
+ [
+  "老南门",
+  "Old South Gate"
+ ],
+ [
+  "启动区的入口，进门右手边就是道远楼。",
+  "The entrance to the start-up zone; Dao Yuan Building is up the steps on the right."
+ ],
+ [
+  "上园正门",
+  "Upper Campus Gate"
+ ],
+ [
+  "大学道上的上园入口，校巴由此往返上、下园。",
+  "The Upper Campus entrance on University Drive, used by the shuttle buses between the campuses."
+ ],
+ [
+  "大运中心",
+  "Universiade Sports Centre"
+ ],
+ [
+  "2011 年深圳世界大学生运动会主场馆，晶体般的“水晶石”造型。大学校址的前身正是为大运会而建的文化园与射击场。",
+  "Main venue of the 2011 Universiade, shaped like a cluster of crystals. The university’s own site began as venues built for the same Games."
+ ],
+ [
+  "深圳信息职业技术大学",
+  "Shenzhen Institute of Information Technology"
+ ],
+ [
+  "龙翔大道对面的邻居，同学们口中的“深信大”。",
+  "The neighbour across Longxiang Boulevard."
+ ],
+ [
+  "深圳北理莫斯科大学",
+  "Shenzhen MSU-BIT University"
+ ],
+ [
+  "南侧的邻居，主楼尖塔仿照莫斯科大学主楼。",
+  "The neighbour to the south; the spire of its main building echoes Moscow State University."
+ ],
+ [
+  "龙岗区体育中心",
+  "Longgang Sports Centre"
+ ],
+ [
+  "神仙湖南侧的体育场馆群。",
+  "The sports venues south of Shenxian Lake."
+ ],
+ [
+  "香港中文大学（深圳）",
+  "CUHK-Shenzhen"
+ ],
+ [
+  "校园背靠神仙岭，由上园、中园、下园三部分组成，占地约 133 万平方米。",
+  "Set against Shenxian Ridge, the campus has three parts, Upper, Middle and Lower, on about 133 hectares."
+ ],
+ [
+  "下园 · 正门",
+  "Lower Campus · Main Gate"
+ ],
+ [
+  "教学楼群沿龙翔大道排开，把车流的喧闹挡在外面。",
+  "The teaching blocks line Longxiang Boulevard and shield the campus from its traffic."
+ ],
+ [
+  "大学图书馆",
+  "University Library"
+ ],
+ [
+  "横跨林荫中轴的白色体量，身旁是睡莲池与学生中心。",
+  "A white volume bridging the central mall, beside the water-lily pond and the Student Centre."
+ ],
+ [
+  "教学综合楼与礼文堂",
+  "Teaching Complex & Liwen Hall"
+ ],
+ [
+  "2023 年启用的二期校园：空中连廊把一栋栋塔楼串在一起。",
+  "Phase II, opened in 2023: towers strung together by walkways in the air."
+ ],
+ [
+  "启动区 · 道远楼",
+  "Start-up Zone · Dao Yuan"
+ ],
+ [
+  "大学 2014 年从这里起步。道远楼是数据科学学院的家。",
+  "Where the university began in 2014. Dao Yuan is home to the School of Data Science."
+ ],
+ [
+  "钟楼与科研楼",
+  "Clock Tower & Research Complex"
+ ],
+ [
+  "十四层密檐的钟楼立在中轴西端，同学们叫它“薯塔”。",
+  "Fourteen tiers of eaves at the west end of the axis. Students call it the “Potato Tower”."
+ ],
+ [
+  "中园 · 音乐学院",
+  "Middle Campus · School of Music"
+ ],
+ [
+  "2025 年启用，白色的音乐厅像卵石落在山脚。",
+  "Opened in 2025: white concert halls like pebbles at the foot of the hill."
+ ],
+ [
+  "神仙湖",
+  "Shenxian Lake"
+ ],
+ [
+  "湖畔的医学院校园正在建设中。",
+  "The lakeside campus for the School of Medicine is taking shape on its shores."
+ ],
+ [
+  "上园 · 书院群",
+  "Upper Campus · The Colleges"
+ ],
+ [
+  "学勤、思廷、祥波、道扬、厚含、永平，六所书院依山而建，各有各的颜色。",
+  "Diligentia, Muse, Harmonia, Ling, Minerva and Yongping: six colleges on the hillside, each in its own colour."
+ ],
+ [
+  "山 · 林 · 院",
+  "Hill · Grove · Courtyard"
+ ],
+ [
+  "点击任意建筑查看介绍，或拖动时间轴看看校园的夜晚。",
+  "Click any building to learn more, or drag the time slider to see the campus at night."
+ ],
+ [
+  "可玩 Demo",
+  "playable demo"
+ ],
+ [
+  "视频与课件",
+  "videos & lessons"
+ ],
+ [
+  "亲手训模型",
+  "train a model"
+ ],
+ [
+  "自建评测基准",
+  "build a benchmark"
+ ],
+ [
+  "发布数据集",
+  "release a dataset"
+ ],
+ [
+  "测量与审计",
+  "measurement study"
+ ],
+ [
+  "可复用工具",
+  "reusable tool"
+ ],
+ [
+  "有用户的产品",
+  "product with users"
+ ],
+ [
+  "智能体",
+  "agents"
+ ],
+ [
+  "反馈修复循环",
+  "repair loop"
+ ],
+ [
+  "代码生成",
+  "code generation"
+ ],
+ [
+  "游戏",
+  "games"
+ ],
+ [
+  "语音与音频",
+  "speech & audio"
+ ],
+ [
+  "视觉与视频",
+  "vision & video"
+ ],
+ [
+  "机器人与具身",
+  "robots & embodied"
+ ],
+ [
+  "RAG 检索",
+  "RAG"
+ ],
+ [
+  "记忆",
+  "memory"
+ ],
+ [
+  "强化学习与奖励",
+  "RL & rewards"
+ ],
+ [
+  "推理与搜索",
+  "reasoning & search"
+ ],
+ [
+  "安全与攻防",
+  "safety & security"
+ ],
+ [
+  "防幻觉",
+  "anti-hallucination"
+ ],
+ [
+  "模型内部",
+  "inside the model"
+ ],
+ [
+  "数据质量",
+  "data quality"
+ ],
+ [
+  "速度与成本",
+  "speed & cost"
+ ],
+ [
+  "角色与模拟",
+  "role-play & simulation"
+ ],
+ [
+  "AI 做科研",
+  "AI does research"
+ ],
+ [
+  "交互设计",
+  "interaction design"
+ ],
+ [
+  "医疗健康",
+  "health & medicine"
+ ],
+ [
+  "教育",
+  "education"
+ ],
+ [
+  "理工科学",
+  "science & engineering"
+ ],
+ [
+  "语言与文化",
+  "languages & cultures"
+ ],
+ [
+  "无障碍",
+  "accessibility"
+ ],
+ [
+  "2026 热点",
+  "2026 hot topic"
+ ],
+ [
+  "11.9 新增",
+  "new Nov. 9"
+ ],
+ [
+  "含加分问题",
+  "bonus question"
+ ],
+ [
+  "有比赛或排行榜",
+  "contest / leaderboard"
+ ],
+ [
+  "本实验室方向",
+  "our lab"
+ ],
+ [
+  "名校课程同款",
+  "top-course classic"
+ ],
+ [
+  "接着 Tutorial 做",
+  "builds on our tutorials"
+ ],
+ [
+  "有现成起点",
+  "starter kit"
+ ],
+ [
+  "上手快",
+  "easy start"
+ ],
+ [
+  "硬核挑战",
+  "hard mode"
+ ],
+ [
+  "需要真人参与",
+  "real people"
+ ],
+ [
+  "代码量少",
+  "light on code"
+ ],
+ [
+  "逸夫书院",
+  "Shaw College"
+ ],
+ [
+  "下园 · 离教学楼最近",
+  "Lower Campus · steps from class"
+ ],
+ [
+  "大学创办的第一所书院，也是唯一位于下园的书院，六栋宿舍楼背靠山林。",
+  "The first college and the only one on the Lower Campus: six residential blocks backing onto the wooded hill."
+ ],
+ [
+  "学勤书院",
+  "Diligentia College"
+ ],
+ [
+  "上园 · 楼下有麦当劳",
+  "Upper Campus · McDonald's downstairs"
+ ],
+ [
+  "淡黄色的外墙衬着深圳的蓝天，楼下就有麦当劳。",
+  "Pale-yellow walls against the Shenzhen sky, with a McDonald's downstairs."
+ ],
+ [
+  "思廷书院",
+  "Muse College"
+ ],
+ [
+  "上园 · 紧邻服务中心",
+  "Upper Campus · by the Amenity Centre"
+ ],
+ [
+  "浅灰与翠绿相间，四周林木环绕，旁边就是服务中心。",
+  "Light grey and emerald green, ringed by trees, right beside the Amenity Centre."
+ ],
+ [
+  "祥波书院",
+  "Harmonia College"
+ ],
+ [
+  "上园东缘 · 朱红色",
+  "Upper Campus east · vermilion"
+ ],
+ [
+  "朱红色的外观在青山绿树间格外醒目，四栋楼沿上园东缘排开。",
+  "Vermilion red against the green hills: four blocks along the eastern edge of the Upper Campus."
+ ],
+ [
+  "道扬书院",
+  "Ling College"
+ ],
+ [
+  "上园正门内 · 蓝白相间",
+  "Inside the Upper gate · blue & white"
+ ],
+ [
+  "蓝白相间，与蓝天白云相呼应，位于上园正门内。",
+  "Blue and white like the sky above it, just inside the Upper Campus gate."
+ ],
+ [
+  "厚含书院",
+  "Minerva College"
+ ],
+ [
+  "上园最北 · 橙白配色",
+  "Upper Campus north · orange & white"
+ ],
+ [
+  "橙白配色，位于上园最北端的高台上，背靠青山。",
+  "Orange and white, on the high terrace at the north end of the Upper Campus."
+ ],
+ [
+  "第八书院",
+  "The Eighth College"
+ ],
+ [
+  "中园 · 临神仙湖",
+  "Middle Campus · by Shenxian Lake"
+ ],
+ [
+  "大学最新的一所书院，随音乐学院校园一同启用，宿舍楼临神仙湖而立。",
+  "The newest college, opened with the School of Music campus; its blocks stand by Shenxian Lake."
+ ],
+ [
+  "永平书院",
+  "Yongping College"
+ ],
+ [
+  "上园 · 以研究生为主",
+  "Upper Campus · mainly postgraduates"
+ ],
+ [
+  "原称第七书院，紫白基调，是首间以研究生为主的书院，与厚含书院相邻。",
+  "Formerly the Seventh College: purple and white, the first college mainly for postgraduates, beside Minerva."
+ ],
+ [
+  "下园中轴上的标志性建筑，白色体量横跨林荫轴线，与学生中心之间隔着一方睡莲池。自习、借阅、研讨间都在这里。",
+  "The landmark on the central axis of the Lower Campus: a white volume bridging the tree-lined mall, facing the Student Centre across a water-lily pond."
+ ],
+ [
+  "学生事务的大本营，楼前是校巴站：二楼饭堂，三楼职业规划与发展处（CPDO）和多功能厅，四楼心理咨询室，还有社团排练空间。",
+  "Hub of student life with the shuttle stop at the door: canteen on 2F, CPDO and the multi-function hall on 3F, counselling rooms on 4F, plus society rooms."
+ ],
+ [
+  "大学行政中枢，分东、西两翼，屋顶覆有绿植。楼前广场是新生杯彩色跑的起点，旁边的美丽异木棉每到秋冬盛放。",
+  "The administrative hub, with east and west wings under a planted roof. The square hosts the Color Run start; the silk-floss trees beside it bloom pink every autumn."
+ ],
+ [
+  "教学楼 A（TA）：沿龙翔大道一字排开的教学楼群之首，错落的体量把城市喧嚣挡在外面。",
+  "Teaching A (TA): first of the teaching blocks along Longxiang Boulevard, screening the mall behind from traffic noise."
+ ],
+ [
+  "教学楼 B（TB）：以二层连廊与 TA、TC 相连，正门就在楼前。",
+  "Teaching B (TB): joined to TA and TC by second-floor walkways, with the main gate right outside."
+ ],
+ [
+  "教学楼 C（TC）：折线形平面围合出一个个小庭院。",
+  "Teaching C (TC): its zig-zag plan encloses a series of small courtyards."
+ ],
+ [
+  "教学楼 D（TD），又名张灵斌楼，内山书店就在一旁。下园社康中心（校内医务室）在下首层。",
+  "Teaching D (TD), also the Zhang Lingbin Building, with the university bookstore beside it. The Lower Campus health centre (campus clinic) is on the lower ground floor."
+ ],
+ [
+  "教学综合楼（TX）：二期工程的核心，2023 年启用，由多栋高低错落的塔楼以空中连廊串联。",
+  "Teaching Complex (TX): the centrepiece of Phase II, opened in 2023 — a cluster of towers tied together by sky bridges."
+ ],
+ [
+  "大学礼堂：毕业典礼、大型演出与书院高桌晚宴的场地。",
+  "The university auditorium: congregations, concerts and college High Table dinners."
+ ],
+ [
+  "国际学术交流中心，与礼文堂相邻，临湖而建。讲座、论坛与校长面对面在此举行。",
+  "The international conference centre beside Liwen Hall, overlooking the pond — home to talks, forums and town halls."
+ ],
+ [
+  "数据科学学院所在地。弧形立面朝向启动区广场，老南门进门右手边、台阶之上就是它。",
+  "Home of the School of Data Science. Its curved front faces the Main Square, up the steps to the right of the old South Gate."
+ ],
+ [
+  "启动区的主楼，2014 年大学在这里开学。楼内设有黄宜弘梁凤仪伉俪图书馆。",
+  "The main building of the start-up zone, where the university opened in 2014. It houses the Philip Wong and Anita Leung Library."
+ ],
+ [
+  "启动区教学办公楼之一，设有教学与实验用房。",
+  "One of the start-up zone buildings, with teaching rooms and labs."
+ ],
+ [
+  "启动区教学办公楼之一，设有教学与实验用房。",
+  "One of the start-up zone buildings, with teaching rooms and labs."
+ ],
+ [
+  "启动区教学办公楼之一，紧邻逸夫书院。",
+  "One of the start-up zone buildings, next to Shaw College."
+ ],
+ [
+  "涂辉龙楼（实验楼 B 栋）：多个诺奖科学家研究院落户于此。",
+  "H.L. Tu Building (Research B), home to several Nobel-laureate institutes."
+ ],
+ [
+  "李贤义楼（实验楼 A 栋）：四层有本科生物类教学实验室。",
+  "LEE Yin Yee Building (Research A) — undergraduate biology teaching labs on 4F."
+ ],
+ [
+  "二期的科研综合大楼，下园最高的建筑，与钟楼一同立在中轴西端。",
+  "The Phase II research complex, tallest building on the Lower Campus, closing the west end of the axis with the Clock Tower."
+ ],
+ [
+  "室内球场、游泳池与健身空间。",
+  "Indoor courts, a swimming pool and fitness rooms."
+ ],
+ [
+  "田径场看台与运动馆，折板屋面是它的标志。",
+  "The grandstand and sports rooms beside the track, under a folded-plate roof."
+ ],
+ [
+  "二期的地标，王维仁设计，造型取意中国传统的密檐塔，共十四层檐。同学们叫它\"薯塔\"。",
+  "The landmark of Phase II, designed by Wang Weijen after the Chinese dense-eave pagoda, with fourteen tiers of eaves. Students call it the \"Potato Tower\"."
+ ],
+ [
+  "林间的一栋公寓楼。",
+  "An apartment block tucked into the trees."
+ ],
+ [
+  "上园的生活配套：便利店、银行、餐饮都在这里；另设社康执业点。",
+  "Everyday services for the Upper Campus: convenience store, bank, food — and a clinic point."
+ ],
+ [
+  "林间的一组低层院落，带一片坡地花园。",
+  "A low courtyard compound in the woods, with a sloping garden."
+ ],
+ [
+  "音乐学院校园 2025 年启用。几座流线形的白色音乐厅像卵石一样落在山脚下。",
+  "The School of Music campus opened in 2025. Its concert halls sit at the foot of the hill like white pebbles."
+ ],
+ [
+  "音乐学院校园内的图书馆。",
+  "The library of the School of Music campus."
+ ],
+ [
+  "琴房、排练厅与教学用房。",
+  "Practice rooms, rehearsal halls and classrooms."
+ ],
+ [
+  "深圳大运中心体育场——2011 年世界大学生运动会主场馆，晶体般的\"水晶石\"造型。",
+  "Universiade Stadium, main venue of the 2011 Summer Universiade, shaped like a cluster of crystals."
+ ],
+ [
+  "图书馆",
+  "Library"
+ ],
+ [
+  "按索书号找书：先比字母（类号），再比数字，最后比作者号。自助借还机刷校园卡即可。",
+  "Find books by call number: letters (class) first, then numbers, then the author code. Self-checkout takes your campus card."
+ ],
+ [
+  "看病",
+  "Seeing a doctor"
+ ],
+ [
+  "下园社康中心在教学楼 D 栋下首层；上园服务中心另有执业点。可刷社保卡。AI 预问诊只是辅助，诊断听医生的。",
+  "The Lower Campus health centre is on the lower ground floor of Teaching D; another point is in the Upper Campus Service Centre. AI pre-consultation only assists — the doctor decides."
+ ],
+ [
+  "心理支持",
+  "Counselling"
+ ],
+ [
+  "学生中心四楼设有一对一心理咨询室。求助是成熟的表现，不是软弱。预约方式见学校官网。",
+  "One-to-one counselling rooms are on 4F of the Student Centre. Asking for help is a strength. See the official site to book."
+ ],
+ [
+  "职业规划（CPDO）",
+  "Careers (CPDO)"
+ ],
+ [
+  "职业规划与发展处在学生中心 304：简历修改、模拟面试、一对一咨询；招聘会常在 301 多功能厅。",
+  "CPDO is in Student Centre 304: résumé clinics, mock interviews, 1-on-1 advising; job fairs are often in hall 301."
+ ],
+ [
+  "书院生活",
+  "College life"
+ ],
+ [
+  "书院是你的\"家\"：室友公约、导师、高桌晚宴都在这里发生。晚宴穿学生袍与正装，祝酒用葡萄汁，碰杯碰杯肚。",
+  "Your college is home: roommate agreements, tutors and High Table. Wear the gown with formal dress; toasts use grape juice — clink at the bowl of the glass."
+ ],
+ [
+  "新生杯彩色跑",
+  "Freshman Cup Color Run"
+ ],
+ [
+  "每年新生杯的开幕活动：沿下园道路设 5 个彩粉站，终点还有水球大战。",
+  "The opener of the annual Freshman Cup: five powder stations around the Lower Campus and a water-balloon fight at the finish."
+ ],
+ [
+  "实验室安全",
+  "Lab safety"
+ ],
+ [
+  "进实验室先穿实验服、戴护目镜和手套；离心机要对称配平；不带食物饮料进入。",
+  "Lab coat, goggles and gloves first; always balance the centrifuge; no food or drink."
+ ],
+ [
+  "校内交通",
+  "Getting around"
+ ],
+ [
+  "上园、中园、下园之间可乘校巴；共享单车扫码即骑，注意礼让行人。",
+  "Shuttles link the Upper, Middle and Lower campuses; shared bikes unlock by scan — give way to pedestrians."
+ ],
+ [
+  "紧急情况",
+  "Emergencies"
+ ],
+ [
+  "遇到紧急情况请拨打 120 / 110，或立即联系校园保安与书院值班老师。",
+  "In an emergency dial 120 / 110, or contact campus security and your college duty tutor at once."
+ ],
+ [
+  "下园 · 大学图书馆",
+  "Lower · University Library"
+ ],
+ [
+  "教学楼群、学生中心",
+  "Teaching buildings, Student Centre"
+ ],
+ [
+  "下园 · 启动区钟楼",
+  "Lower · Bell Tower"
+ ],
+ [
+  "诚道楼、志仁楼、逸夫书院",
+  "Start-up Zone, Shaw College"
+ ],
+ [
+  "下园 · 体育馆",
+  "Lower · Sports Hall"
+ ],
+ [
+  "田径场、综合运动馆",
+  "Track, Sports Complex"
+ ],
+ [
+  "下园 · 正门",
+  "Lower · Main Gate"
+ ],
+ [
+  "龙翔大道",
+  "Longxiang Boulevard"
+ ],
+ [
+  "上园 · 服务中心",
+  "Upper · Amenity Centre"
+ ],
+ [
+  "思廷、学勤、道扬书院",
+  "Muse, Diligentia, Ling"
+ ],
+ [
+  "上园 · 厚含书院",
+  "Upper · Minerva College"
+ ],
+ [
+  "永平书院、教职工宿舍",
+  "Yongping College, staff housing"
+ ],
+ [
+  "中园 · 音乐学院",
+  "Middle · School of Music"
+ ],
+ [
+  "第八书院、神仙湖",
+  "The Eighth College, Shenxian Lake"
+ ],
+ [
+  "大学图书馆",
+  "University Library"
+ ],
+ [
+  "白色体量横跨中轴，门前是一方睡莲池。",
+  "A white volume bridging the mall, fronted by a water-lily pond."
+ ],
+ [
+  "钟楼",
+  "Clock Tower"
+ ],
+ [
+  "取意密檐塔的十四层檐，同学们叫它“薯塔”。",
+  "Fourteen tiers of eaves after a Chinese pagoda — students call it the “Potato Tower”."
+ ],
+ [
+  "启动区广场",
+  "Main Square"
+ ],
+ [
+  "知新楼与道远楼前的广场，大学最初的起点。",
+  "The square in front of Zhi Xin and Dao Yuan, where the university began."
+ ],
+ [
+  "行政楼广场",
+  "Administration Square"
+ ],
+ [
+  "彩色跑的起点，也是新生拍照热点。",
+  "Start line of the Color Run and a favourite photo spot."
+ ],
+ [
+  "逸夫国际会议中心",
+  "Shaw Conference Centre"
+ ],
+ [
+  "大师讲座与校长面对面在这里举行。",
+  "Home to big talks and town halls."
+ ],
+ [
+  "礼文堂",
+  "Liwen Hall"
+ ],
+ [
+  "高桌晚宴与典礼的场地。",
+  "Venue for High Table and ceremonies."
+ ],
+ [
+  "学生中心",
+  "Student Centre"
+ ],
+ [
+  "CPDO、心理咨询、饭堂、排练室一站式。",
+  "CPDO, counselling, canteen and rehearsal rooms."
+ ],
+ [
+  "教学楼群",
+  "Teaching Buildings"
+ ],
+ [
+  "W 形的教学楼群，TD 下首层有社康中心。",
+  "The W-shaped teaching cluster; the clinic is under TD."
+ ],
+ [
+  "大学体育馆",
+  "University Sports Hall"
+ ],
+ [
+  "挥汗如雨的地方。",
+  "Where the sweat happens."
+ ],
+ [
+  "田径场",
+  "Track & Field"
+ ],
+ [
+  "夜跑圣地。",
+  "The night-run favourite."
+ ],
+ [
+  "正门",
+  "Main Gate"
+ ],
+ [
+  "龙翔大道上的主入口，正对教学楼群。",
+  "The main entrance on Longxiang Boulevard, facing the teaching blocks."
+ ],
+ [
+  "逸夫书院",
+  "Shaw College"
+ ],
+ [
+  "大学的第一所书院，也是唯一位于下园的书院。",
+  "The first college, and the only one on the Lower Campus."
+ ],
+ [
+  "上园服务中心",
+  "Amenity Centre"
+ ],
+ [
+  "便利店、银行、餐饮，生活所需都在这。",
+  "Shop, bank and food — daily life sorted."
+ ],
+ [
+  "学勤书院",
+  "Diligentia College"
+ ],
+ [
+  "淡黄色外墙的书院，楼下有麦当劳。",
+  "Pale-yellow walls, and a McDonald's downstairs."
+ ],
+ [
+  "厚含书院",
+  "Minerva College"
+ ],
+ [
+  "橙白配色，位于上园最北端的高台上。",
+  "Orange and white, on the high terrace at the north end."
+ ],
+ [
+  "音乐学院",
+  "School of Music"
+ ],
+ [
+  "白色的音乐厅像卵石一样落在山脚下。",
+  "Concert halls like white pebbles at the foot of the hill."
+ ],
+ [
+  "铜鼓岭",
+  "Tonggu Ridge"
+ ],
+ [
+  "上园与下园之间的山体，海拔约 146 米；\"山—林—院\"的规划把它完整保留。",
+  "The hill between the Upper and Lower campuses, about 146 m; the campus plan left it untouched."
+ ],
+ [
+  "神仙湖",
+  "Shenxian Lake"
+ ],
+ [
+  "即神仙岭水库。湖畔正在建设医学院的神仙湖校园。",
+  "Shenxianling Reservoir; the lakeside campus for the School of Medicine is rising on its shore."
+ ],
+ [
+  "会议中心湖畔",
+  "Lakeside by the Conference Centre"
+ ],
+ [
+  "会议中心临湖而建，背后就是铜鼓岭。",
+  "The conference centre overlooks this pond, with Tonggu Ridge behind."
+ ],
+ [
+  "大运中心\"水晶石\"",
+  "Universiade \"Crystal\""
+ ],
+ [
+  "2011 年世界大学生运动会主场馆。",
+  "Main stadium of the 2011 Summer Universiade."
+ ],
+ [
+  "学霸",
+  "Scholar"
+ ],
+ [
+  "总在图书馆门口\"监督\"大家学习。",
+  "Supervises studying at the library door."
+ ],
+ [
+  "大橘",
+  "Big Orange"
+ ],
+ [
+  "十只橘猫九只胖。",
+  "Nine in ten orange cats are chonky."
+ ],
+ [
+  "奶茶",
+  "Milk Tea"
+ ],
+ [
+  "喜欢蹭社团活动的热闹。",
+  "Loves crashing club events."
+ ],
+ [
+  "警长",
+  "Sheriff"
+ ],
+ [
+  "黑白分明，巡视启动区。",
+  "Patrols the Start-up Zone in black and white."
+ ],
+ [
+  "闪电",
+  "Bolt"
+ ],
+ [
+  "田径场上最快的不是你。",
+  "You're not the fastest on this track."
+ ],
+ [
+  "总在你最忙的时候出现。",
+  "Always shows up when you are busiest."
+ ],
+ [
+  "便利",
+  "Convenience"
+ ],
+ [
+  "守着便利店等投喂。",
+  "Guards the shop, hoping for snacks."
+ ],
+ [
+  "缪斯",
+  "Muse"
+ ],
+ [
+  "灵感女神本猫。",
+  "The muse herself."
+ ],
+ [
+  "哆来咪",
+  "Do-Re-Mi"
+ ],
+ [
+  "听得懂和弦进行。",
+  "Understands chord progressions."
+ ],
+ [
+  "绅士",
+  "Gentleman"
+ ],
+ [
+  "自带\"燕尾服\"的奶牛猫。",
+  "A tuxedo cat, always dressed for High Table."
+ ],
+ [
+  "今晚去图书馆吗？",
+  "Library tonight?"
+ ],
+ [
+  "TD 的电梯又在排队…",
+  "The TD lift queue again…"
+ ],
+ [
+  "DDL 是第一生产力。",
+  "Deadlines are the real motivation."
+ ],
+ [
+  "饭堂还是外卖？",
+  "Canteen or delivery?"
+ ],
+ [
+  "Quiz 考得怎么样？",
+  "How was the quiz?"
+ ],
+ [
+  "下午还有 tutorial。",
+  "Got a tutorial this afternoon."
+ ],
+ [
+  "周末去爬神仙岭吧！",
+  "Let's hike Shenxian Ridge this weekend!"
+ ],
+ [
+  "社团招新你报了几个？",
+  "How many clubs did you sign up for?"
+ ],
+ [
+  "这学期想选一门没碰过的课。",
+  "I want to pick a course I have never tried."
+ ],
+ [
+  "高桌晚宴的袍子借到了吗？",
+  "Got your gown for High Table?"
+ ],
+ [
+  "彩色跑的衣服洗不掉了哈哈。",
+  "My Color Run shirt will never be white again."
+ ],
+ [
+  "Office hour 去问问教授吧。",
+  "Let's ask at office hours."
+ ],
+ [
+  "校巴来了快跑！",
+  "Shuttle is here, run!"
+ ],
+ [
+  "今天的晚霞好美。",
+  "Tonight's sunset is gorgeous."
+ ],
+ [
+  "加油！",
+  "You got this!"
+ ],
+ [
+  "Group project 约几点？",
+  "What time for the group project?"
+ ],
+ [
+  "我去 CPDO 改个简历。",
+  "Off to CPDO to fix my résumé."
+ ],
+ [
+  "手机",
+  "Phone"
+ ],
+ [
+  "室友 小航",
+  "Roommate Hang"
+ ],
+ [
+  "O营组长 林晓",
+  "O-Leader Lin"
+ ],
+ [
+  "交换生 Sofia",
+  "Sofia (exchange)"
+ ],
+ [
+  "书院导师 陈老师",
+  "College Tutor Ms Chen"
+ ],
+ [
+  "图书馆员",
+  "Librarian"
+ ],
+ [
+  "王教授",
+  "Prof. Wang"
+ ],
+ [
+  "助教 Kevin",
+  "TA Kevin"
+ ],
+ [
+  "华佗GPT · AI 预问诊",
+  "HuatuoGPT · AI pre-consultation"
+ ],
+ [
+  "李医生",
+  "Dr Li"
+ ],
+ [
+  "书院院长",
+  "College Master"
+ ],
+ [
+  "主礼嘉宾",
+  "Guest of Honour"
+ ],
+ [
+  "咨询师 周老师",
+  "Counsellor Ms Zhou"
+ ],
+ [
+  "CPDO 顾问 Grace",
+  "CPDO Adviser Grace"
+ ],
+ [
+  "面试官",
+  "Interviewer"
+ ],
+ [
+  "实验员 赵老师",
+  "Lab Instructor Ms Zhao"
+ ],
+ [
+  "乐团指挥",
+  "Conductor"
+ ],
+ [
+  "保安大叔",
+  "Security Guard"
+ ],
+ [
+  "主持人",
+  "Host"
+ ],
+ [
+  "同学",
+  "Classmate"
+ ],
+ [
+  "体育老师",
+  "Coach"
+ ],
+ [
+  "校长",
+  "President"
+ ],
+ [
+  "香港中文大學（深圳）",
+  "The Chinese University of Hong Kong, Shenzhen"
+ ],
+ [
+  "撸猫",
+  "Pet the cat"
+ ],
+ [
+  "同学，骑车慢一点，礼让行人。校园里限速，安全第一！",
+  "Slow down on the bike and give way to pedestrians — safety first on campus!"
+ ],
+ [
+  "迷路了就看小地图，或者按 M 打开大地图点一栋楼导航。",
+  "Lost? Check the minimap, or press M and tap a building to navigate."
+ ],
+ [
+  "上园、中园有点远，可以用手机里的\"校巴快线\"。",
+  "The Upper and Middle campuses are a hike — try the Shuttle app on your phone."
+ ],
+ [
+  "哎呀！慢点骑！",
+  "Whoa! Slow down!"
+ ],
+ [
+  "看路呀同学！",
+  "Watch where you are going!"
+ ],
+ [
+  "⚠️ 文明骑行：请礼让行人。",
+  "⚠️ Ride politely — give way to pedestrians."
+ ],
+ [
+  "校园猫图鉴",
+  "CAMPUS CAT"
+ ],
+ [
+  "喵~（心情变好了）",
+  "Meow~ (you feel better)"
+ ],
+ [
+  "发现地标",
+  "LANDMARK DISCOVERED"
+ ],
+ [
+  "骑上共享单车",
+  "Ride shared bike"
+ ],
+ [
+  "驾驶校园观光车",
+  "Drive campus cart"
+ ],
+ [
+  "交谈",
+  "Talk"
+ ],
+ [
+  "读取真实校园地图…",
+  "Reading the real campus map…"
+ ],
+ [
+  "点亮天空…",
+  "Lighting the sky…"
+ ],
+ [
+  "欢迎来到港中大（深圳）",
+  "Welcome to CUHK-Shenzhen"
+ ],
+ [
+  "小深",
+  "Alex"
+ ],
+ [
+  "无法启动 3D 画面：请使用支持 WebGL 的新版 Chrome / Edge / Safari。",
+  "Could not start 3D graphics: please use a recent Chrome / Edge / Safari with WebGL enabled."
+ ],
+ [
+  "访客",
+  "Visitor"
+ ],
+ [
+  "校巴到站",
+  "SHUTTLE"
+ ],
+ [
+  "任务进行中，稍后再拍吧。",
+  "Finish the mission first."
+ ],
+ [
+  "姿势",
+  "Pose"
+ ],
+ [
+  "时间",
+  "Time"
+ ],
+ [
+  "拍照",
+  "Snap"
+ ],
+ [
+  "神仙岭下 · 港中大（深圳）",
+  "Campus Odyssey · CUHK-Shenzhen"
+ ],
+ [
+  "退出",
+  "Exit"
+ ],
+ [
+  "继续",
+  "Continue"
+ ],
+ [
+  "室友公约",
+  "Roommate Agreement"
+ ],
+ [
+  "把话说在前头",
+  "Talk it through first"
+ ],
+ [
+  "<b>作息</b>：小航习惯凌晨 1 点睡，你习惯 11 点。你怎么说？",
+  "<b>Sleep</b>: Hang sleeps at 1 a.m., you at 11 p.m. What do you say?"
+ ],
+ [
+  "\"12 点后你用台灯和耳机，我戴眼罩耳塞，怎么样？\"",
+  "\"After midnight you use a desk lamp and headphones, and I'll wear an eye mask and earplugs — deal?\""
+ ],
+ [
+  "各退一步，具体可执行。",
+  "A concrete compromise both can keep."
+ ],
+ [
+  "\"你必须 11 点熄灯。\"",
+  "\"You must turn the lights off at 11.\""
+ ],
+ [
+  "单方面要求容易引发对抗。",
+  "One-sided demands invite pushback."
+ ],
+ [
+  "\"没事，我都行。\"（其实很介意）",
+  "\"It's fine, whatever.\" (You actually mind.)"
+ ],
+ [
+  "回避一时爽，矛盾会攒到后面。把需求说出来。",
+  "Avoiding it now stores up trouble. Say what you need."
+ ],
+ [
+  "<b>空调</b>：你怕冷，小航怕热。",
+  "<b>Air-con</b>: you get cold easily; Hang runs hot."
+ ],
+ [
+  "\"定 26 度？我加件外套，你那边开个小风扇。\"",
+  "\"Set it at 26°C? I'll wear a layer and you can use a small fan.\""
+ ],
+ [
+  "找到中间值，各自再微调。",
+  "Meet in the middle, then adjust individually."
+ ],
+ [
+  "趁他不注意偷偷调高。",
+  "Quietly turn it up when he is not looking."
+ ],
+ [
+  "暗中较劲只会让信任流失。",
+  "A secret thermostat war erodes trust."
+ ],
+ [
+  "\"谁先回宿舍谁说了算。\"",
+  "\"Whoever gets back first decides.\""
+ ],
+ [
+  "算个规则，但总有一方不舒服。",
+  "It is a rule, but someone always loses."
+ ],
+ [
+  "<b>卫生</b>：公共区域谁来打扫？",
+  "<b>Cleaning</b>: who looks after the shared areas?"
+ ],
+ [
+  "\"排个值日表，周日晚上一起大扫除。\"",
+  "\"Let's make a rota and do a big clean together on Sunday nights.\""
+ ],
+ [
+  "写下来的约定最不容易扯皮。",
+  "A written rota avoids arguments."
+ ],
+ [
+  "\"谁看不下去谁打扫。\"",
+  "\"Whoever can't stand the mess cleans it.\""
+ ],
+ [
+  "最后总是同一个人在打扫。",
+  "The same person always ends up cleaning."
+ ],
+ [
+  "\"各扫各的桌面，公共区域再说。\"",
+  "\"We each clean our own desk; shared areas later.\""
+ ],
+ [
+  "\"再说\"通常等于\"没人管\"。",
+  "\"Later\" usually means \"never\"."
+ ],
+ [
+  "书架",
+  "Bookshelf"
+ ],
+ [
+  "衣柜",
+  "Wardrobe"
+ ],
+ [
+  "书桌",
+  "Desk"
+ ],
+ [
+  "洗漱台",
+  "Sink"
+ ],
+ [
+  "专业教材",
+  "Textbook"
+ ],
+ [
+  "衬衫",
+  "Shirt"
+ ],
+ [
+  "笔记本电脑",
+  "Laptop"
+ ],
+ [
+  "香皂",
+  "Soap"
+ ],
+ [
+  "外套",
+  "Jacket"
+ ],
+ [
+  "洗发水",
+  "Shampoo"
+ ],
+ [
+  "台灯",
+  "Desk lamp"
+ ],
+ [
+  "小说",
+  "Novel"
+ ],
+ [
+  "<b>限时收纳</b>：行李里的东西该放哪儿？点击家具或按 <b>1–4</b>。",
+  "<b>Speed unpacking</b>: where does each thing go? Click a spot or press <b>1–4</b>."
+ ],
+ [
+  "图书馆 · 归架挑战",
+  "Library · Shelving Challenge"
+ ],
+ [
+  "索书号（美国国会图书馆分类法）",
+  "Call numbers (Library of Congress)"
+ ],
+ [
+  "第 1 关 · <b>先比字母</b>：按字母表顺序 B → H → P → Q。",
+  "Round 1 · <b>Letters first</b>: alphabetical — B → H → P → Q."
+ ],
+ [
+  "电影的语言",
+  "Film Language"
+ ],
+ [
+  "哲学导论",
+  "Philosophy"
+ ],
+ [
+  "经济学原理",
+  "Economics"
+ ],
+ [
+  "唐诗选",
+  "Tang Poems"
+ ],
+ [
+  "深度学习",
+  "Deep Learning"
+ ],
+ [
+  "自然语言处理",
+  "NLP"
+ ],
+ [
+  "PN 在 PL 之后、Q 之前。",
+  "PN comes after PL and before Q."
+ ],
+ [
+  "第 2 关 · <b>再比数字</b>：小数点后按小数比较——76.73 比 76.9 小！",
+  "Round 2 · <b>Then numbers</b>: decimals compare as decimals — 76.73 is smaller than 76.9!"
+ ],
+ [
+  "Python 编程",
+  "Python"
+ ],
+ [
+  "计算机系统",
+  "Systems"
+ ],
+ [
+  "算法设计",
+  "Algorithms"
+ ],
+ [
+  "数据库",
+  "Databases"
+ ],
+ [
+  "数值方法",
+  "Numerical"
+ ],
+ [
+  "数学建模",
+  "Modelling"
+ ],
+ [
+  "第 3 关 · <b>最后比作者号</b>：类号相同，就看 . 后面的字母。",
+  "Round 3 · <b>Finally the author code</b>: same class number, so compare the letter after the dot."
+ ],
+ [
+  "语音与语言处理",
+  "Speech & Language"
+ ],
+ [
+  "信息安全",
+  "Security"
+ ],
+ [
+  "数据挖掘",
+  "Data Mining"
+ ],
+ [
+  "人机交互",
+  "HCI"
+ ],
+ [
+  "系统分析",
+  "Sys. Analysis"
+ ],
+ [
+  "用户体验",
+  "UX"
+ ],
+ [
+  "N 在 H 之后、S 之前。",
+  "N comes after H and before S."
+ ],
+ [
+  "手里的书 →",
+  "Book in hand →"
+ ],
+ [
+  "点书架上正确的<b>空位</b>",
+  "Click the right <b>gap</b> on the shelf"
+ ],
+ [
+  "再想想——",
+  "Try again — "
+ ],
+ [
+  "刷校园卡",
+  "Tap campus card"
+ ],
+ [
+  "把书放到感应区",
+  "Place the book on the pad"
+ ],
+ [
+  "确认借阅，取凭条",
+  "Confirm and take the slip"
+ ],
+ [
+  "直接把书塞进书包走人",
+  "Just stuff it in your bag and leave"
+ ],
+ [
+  "最后一步：<b>自助借书机</b>。按正确顺序点击三个步骤。",
+  "Last step: the <b>self-checkout</b> machine. Click the three steps in the right order."
+ ],
+ [
+  "借阅成功！记得按期归还或续借。",
+  "Borrowed! Remember to return or renew on time."
+ ],
+ [
+  "嘀嘀嘀——门禁响了！没办借阅手续的书带不出去。",
+  "BEEP BEEP — the gate alarm! You can't leave with an unborrowed book."
+ ],
+ [
+  "顺序不对，再想想。",
+  "Wrong order — think again."
+ ],
+ [
+  "热烈欢迎新同学",
+  "WELCOME FRESHERS"
+ ],
+ [
+  "百团招新 本周五",
+  "CLUB FAIR FRIDAY"
+ ],
+ [
+  "新生杯 等你来战",
+  "FRESHMAN CUP"
+ ],
+ [
+  "图书馆 24 小时陪你",
+  "LIBRARY LOVES YOU"
+ ],
+ [
+  "早八冲刺",
+  "THE 8:30 DASH"
+ ],
+ [
+  "左右滑动换道 · 上滑跳 · 下滑铲",
+  "Swipe left/right to switch lanes · up to jump · down to slide"
+ ],
+ [
+  "<b>A/D</b> 换道 · <b>W/空格</b> 跳（路锥、水坑）· <b>S</b> 滑铲（横幅）· 人群和单车只能绕",
+  "<b>A/D</b> switch lane · <b>W/Space</b> jump (cones, puddles) · <b>S</b> slide (banners) · dodge crowds and bikes"
+ ],
+ [
+  "💦 踩进水坑！",
+  "💦 Splash!"
+ ],
+ [
+  "\"同学看路呀！\"",
+  "\"Watch it!\""
+ ],
+ [
+  "横幅糊了一脸…",
+  "Face full of banner…"
+ ],
+ [
+  "撞上了！",
+  "Ouch!"
+ ],
+ [
+  "☕ 咖啡加速！",
+  "☕ Coffee boost!"
+ ],
+ [
+  "迟到了…",
+  "LATE…"
+ ],
+ [
+  "准时到达！",
+  "ON TIME!"
+ ],
+ [
+  "跑！",
+  "GO!"
+ ],
+ [
+  "课程体验",
+  "Course Taster"
+ ],
+ [
+  "全英文授课 · 小班互动",
+  "Taught in English · interactive"
+ ],
+ [
+  "王教授：今天来点不一样的——你们自己选一个主题。",
+  "Prof. Wang: Let's do something different today — you choose the topic."
+ ],
+ [
+  "自然语言处理",
+  "Natural Language Processing"
+ ],
+ [
+  "你来当一回\"语言模型\"：猜下一个词。",
+  "Be the language model: predict the next word."
+ ],
+ [
+  "经济学原理",
+  "Principles of Economics"
+ ],
+ [
+  "机会成本：天下没有免费的午餐。",
+  "Opportunity cost: no free lunch."
+ ],
+ [
+  "翻译工作坊",
+  "Translation Workshop"
+ ],
+ [
+  "在中文与英文之间\"信、达、雅\"。",
+  "Faithful, fluent, elegant — between Chinese and English."
+ ],
+ [
+  "深圳是一座年轻的<u>?</u>",
+  "Shenzhen is a young <u>?</u>"
+ ],
+ [
+  "语言模型的工作，就是给\"下一个词\"打分。你觉得哪个概率最高？",
+  "A language model scores candidates for the next word. Which is most likely?"
+ ],
+ [
+  "城市",
+  "city"
+ ],
+ [
+  "大学",
+  "university"
+ ],
+ [
+  "程序",
+  "program"
+ ],
+ [
+  "动物",
+  "animal"
+ ],
+ [
+  "模型从海量文本里学到：\"年轻的\"后面最常跟\"城市\"。",
+  "From vast text the model learned that \"young\" is most often followed by \"city\" here."
+ ],
+ [
+  "早八之前，我需要一杯<u>?</u>",
+  "Before my 8:30 class I need a cup of <u>?</u>"
+ ],
+ [
+  "这次有两个都很合理——模型输出的是<b>概率分布</b>，不是唯一答案。选一个你觉得最可能的。",
+  "Two fit well here — the model outputs a <b>distribution</b>, not one answer. Pick the likeliest."
+ ],
+ [
+  "咖啡",
+  "coffee"
+ ],
+ [
+  "茶",
+  "tea"
+ ],
+ [
+  "键盘",
+  "keyboard"
+ ],
+ [
+  "雨",
+  "rain"
+ ],
+ [
+  "\"温度\"调高，模型就更愿意选\"茶\"甚至更意外的词——这就是它每次回答不一样的原因。",
+  "Raise the \"temperature\" and the model more often picks \"tea\" or something stranger — that is why answers vary."
+ ],
+ [
+  "模型读的不是\"字\"，而是 <b>token</b>。\"unbelievable\" 最可能被切成什么？",
+  "Models read <b>tokens</b>, not words. How is \"unbelievable\" most likely split?"
+ ],
+ [
+  "子词切分（如 BPE）把常见片段当作一个 token，生僻词也能拼出来。",
+  "Subword tokenisation (e.g. BPE) treats frequent pieces as tokens, so even rare words can be spelled out."
+ ],
+ [
+  "港中大（深圳）位于深圳市<u>?</u>区",
+  "CUHK-Shenzhen is in <u>?</u> District, Shenzhen"
+ ],
+ [
+  "最后一题：事实题。模型也会\"一本正经地说错\"，这叫<b>幻觉</b>。正确答案是？",
+  "Last one, a fact. Models can be confidently wrong — a <b>hallucination</b>. The right answer?"
+ ],
+ [
+  "龙岗",
+  "Longgang"
+ ],
+ [
+  "南山",
+  "Nanshan"
+ ],
+ [
+  "福田",
+  "Futian"
+ ],
+ [
+  "罗湖",
+  "Luohu"
+ ],
+ [
+  "龙岗区。注意：模型给\"南山\"也分了不低的概率——所以重要事实一定要核查。",
+  "Longgang. Notice the model still gave \"Nanshan\" real probability — always verify important facts."
+ ],
+ [
+  "周六你可以去兼职（赚 200 元），也可以去听一场免费讲座。去听讲座的<b>机会成本</b>是？",
+  "On Saturday you could work a shift (¥200) or attend a free talk. The <b>opportunity cost</b> of the talk is?"
+ ],
+ [
+  "放弃的 200 元兼职收入",
+  "The ¥200 you give up"
+ ],
+ [
+  "0 元，因为讲座免费",
+  "¥0 — the talk is free"
+ ],
+ [
+  "讲座的场地费",
+  "The venue cost"
+ ],
+ [
+  "机会成本 = 为了这个选择所放弃的最好的另一个选择。",
+  "Opportunity cost is the best alternative you give up."
+ ],
+ [
+  "你已经花 80 元买了电影票，但当天发高烧。理性的做法是？",
+  "You paid ¥80 for a film ticket but have a high fever that day. The rational choice?"
+ ],
+ [
+  "在家休息——80 元是沉没成本",
+  "Rest — the ¥80 is a sunk cost"
+ ],
+ [
+  "硬撑着去，不能浪费钱",
+  "Go anyway, or the money is wasted"
+ ],
+ [
+  "再买一张票请朋友陪你",
+  "Buy another ticket for a friend"
+ ],
+ [
+  "已经花掉、收不回的钱，不该影响接下来的决定。",
+  "Money already spent shouldn't drive the next decision."
+ ],
+ [
+  "第 1 个包子很香，第 5 个就吃不下了。这说明？",
+  "The first bun is delicious; by the fifth you are stuffed. This shows?"
+ ],
+ [
+  "边际效用递减",
+  "Diminishing marginal utility"
+ ],
+ [
+  "通货膨胀",
+  "Inflation"
+ ],
+ [
+  "比较优势",
+  "Comparative advantage"
+ ],
+ [
+  "每多消费一单位，带来的额外满足感在下降。",
+  "Each extra unit adds less satisfaction."
+ ],
+ [
+  "校训\"<b>博文约礼</b>\"的官方英译是？",
+  "The official English rendering of the motto \"<b>博文约礼</b>\" is?"
+ ],
+ [
+  "\"博学于文，约之以礼\"——既要广博，也要自律。",
+  "Broad learning, restrained by propriety."
+ ],
+ [
+  "\"画蛇添足\"最贴切的英文是？",
+  "The best English for \"画蛇添足\" is?"
+ ],
+ [
+  "意译比字面直译更能传达\"多此一举\"。",
+  "An idiom-for-idiom rendering conveys \"overdoing it\" better than a literal one."
+ ],
+ [
+  "\"It's raining cats and dogs.\" 怎么翻最自然？",
+  "How would you best put \"It's raining cats and dogs\" into Chinese?"
+ ],
+ [
+  "翻译传达的是意思，而不是字词。深圳的雨，你很快就会懂。",
+  "Translate meaning, not words. You'll meet Shenzhen rain soon enough."
+ ],
+ [
+  "王教授：\"Any questions?\" 全班安静。你……",
+  "Prof. Wang: \"Any questions?\" The room is silent. You…"
+ ],
+ [
+  "🙋 举手，用英语问出刚才没想明白的地方",
+  "🙋 Raise your hand and ask about the part you didn't get"
+ ],
+ [
+  "\"好问题！\"——教授眼睛一亮。课后他还记住了你的名字。",
+  "\"Good question!\" His eyes light up — and he remembers your name."
+ ],
+ [
+  "🙈 低头假装记笔记",
+  "🙈 Look down and pretend to take notes"
+ ],
+ [
+  "没关系——下课后去 Office hour 问也一样。但下次试试举手？",
+  "No worries — office hours work too. But try raising your hand next time?"
+ ],
+ [
+  "投篮挑战",
+  "Free Throws"
+ ],
+ [
+  "看准力度条再出手",
+  "Time the power bar"
+ ],
+ [
+  "点击画面出手",
+  "Tap to shoot"
+ ],
+ [
+  "<b>空格</b> 或点击出手",
+  "<b>Space</b> or click to shoot"
+ ],
+ [
+  "空心入网！",
+  "Swish!"
+ ],
+ [
+  "短了…",
+  "Short…"
+ ],
+ [
+  "大了…",
+  "Long…"
+ ],
+ [
+  "华佗GPT · 预问诊",
+  "HuatuoGPT · Pre-consultation"
+ ],
+ [
+  "AI 分诊助手（演示脚本，非医疗建议）",
+  "AI triage assistant (scripted demo, not medical advice)"
+ ],
+ [
+  "华佗GPT 正在输入…",
+  "HuatuoGPT is typing…"
+ ],
+ [
+  "⚕️ 提示：AI 只帮医生整理信息。诊断与用药以医生为准。",
+  "⚕️ Note: the AI only organises information for the doctor. Diagnosis and medication are the doctor's call."
+ ],
+ [
+  "你好，我是<b>华佗GPT</b>预问诊助手，由本校团队研发。看医生之前，我先帮你把情况整理清楚。<br>请问哪里不舒服？",
+  "Hello, I'm <b>HuatuoGPT</b>, a pre-consultation assistant developed at this university. Before you see the doctor, let me help organise your situation.<br>What seems to be the trouble?"
+ ],
+ [
+  "从下午彩色跑淋雨后开始，喉咙痛、流清鼻涕，有点发冷。",
+  "Since getting soaked at the Color Run this afternoon: sore throat, runny nose, a bit chilly."
+ ],
+ [
+  "我感觉不太好。",
+  "I don't feel well."
+ ],
+ [
+  "描述得很清楚 👍：<b>部位</b>（咽喉、鼻）、<b>起始时间</b>（今天下午）、<b>诱因</b>（淋雨受凉）都有了。",
+  "Very clear 👍: <b>where</b> (throat, nose), <b>since when</b> (this afternoon) and the <b>trigger</b> (rain and chill)."
+ ],
+ [
+  "别着急，我来帮你理一理。试着告诉我三件事：<b>哪里</b>不舒服、<b>从什么时候</b>开始、<b>可能的诱因</b>。",
+  "No rush — let's sort it out. Tell me three things: <b>where</b> it hurts, <b>since when</b>, and the <b>likely trigger</b>."
+ ],
+ [
+  "喉咙痛、流鼻涕；今天下午开始；彩色跑时淋了雨。",
+  "Sore throat and runny nose; since this afternoon; I got rained on at the Color Run."
+ ],
+ [
+  "这样就清楚多了，谢谢。",
+  "Much clearer — thank you."
+ ],
+ [
+  "量过体温吗？桌上有电子体温计，可以现在量一下。",
+  "Have you taken your temperature? There is a digital thermometer on the desk."
+ ],
+ [
+  "量体温",
+  "Take temperature"
+ ],
+ [
+  "应该没发烧吧。",
+  "I don't think I have a fever."
+ ],
+ [
+  "收到：<b>低热 37.8℃</b>。具体数字比\"好像有点烧\"有用得多。",
+  "Noted: <b>low-grade fever, 37.8 °C</b>. A number is far more useful than \"maybe a bit warm\"."
+ ],
+ [
+  "体温计显示 <b>37.8℃</b>，属于低热。下次直接报数字，医生判断更快。",
+  "The thermometer reads <b>37.8 °C</b>, a low-grade fever. Next time give the number — it helps the doctor."
+ ],
+ [
+  "有没有<b>药物过敏史</b>或长期服用的药？",
+  "Any <b>drug allergies</b> or regular medication?"
+ ],
+ [
+  "没有已知过敏，也没有长期服药。",
+  "No known allergies and no regular medication."
+ ],
+ [
+  "这个……重要吗？",
+  "Does that… matter?"
+ ],
+ [
+  "很重要：过敏史决定了医生<b>能不能开某些药</b>。不确定就说\"不确定\"，也比不说好。",
+  "It matters a lot: allergies decide <b>which drugs are safe</b>. If unsure, say \"not sure\" — that still helps."
+ ],
+ [
+  "最后确认<b>危险信号</b>：有没有呼吸困难、胸痛、持续 39℃ 以上高热、意识模糊？",
+  "Finally, the <b>red flags</b>: any trouble breathing, chest pain, a persistent fever above 39 °C, or confusion?"
+ ],
+ [
+  "都没有。",
+  "None of those."
+ ],
+ [
+  "好的。出现以上任何一项都不要等——<b>立刻就医或拨打 120</b>。你目前没有。",
+  "Good. Any one of those means don't wait — <b>seek care at once or dial 120</b>. You have none."
+ ],
+ [
+  "预问诊小结（已发送给值班医生）",
+  "Pre-consultation summary (sent to the duty doctor)"
+ ],
+ [
+  "主诉：咽痛、流涕、畏寒，今天下午起，淋雨后",
+  "Complaint: sore throat, runny nose, chills since this afternoon, after rain"
+ ],
+ [
+  "体温 37.8℃；无过敏史；无危险信号",
+  "Temp 37.8 °C; no allergies; no red flags"
+ ],
+ [
+  "分诊建议：<b>普通门诊</b>",
+  "Triage: <b>general clinic</b>"
+ ],
+ [
+  "我可能出错。最终判断请以医生为准。",
+  "I can be wrong. The doctor makes the final call."
+ ],
+ [
+  "小测：如果 AI 的建议和医生说的不一样，应该听谁的？",
+  "Quick check: if the AI's advice differs from the doctor's, whom do you follow?"
+ ],
+ [
+  "听医生的，并把 AI 说了什么告诉医生",
+  "The doctor — and tell the doctor what the AI said"
+ ],
+ [
+  "对。AI 是助手，医生负责诊断。",
+  "Right. The AI assists; the doctor diagnoses."
+ ],
+ [
+  "听 AI 的，它读的书多",
+  "The AI — it has read more"
+ ],
+ [
+  "AI 可能出错，也没法给你做检查。",
+  "AI can be wrong and can't examine you."
+ ],
+ [
+  "谁说得好听听谁的",
+  "Whoever sounds nicer"
+ ],
+ [
+  "健康可不能看心情。",
+  "Health isn't a matter of taste."
+ ],
+ [
+  "赴宴着装",
+  "Dress for High Table"
+ ],
+ [
+  "学生袍 + 正装",
+  "Gown + formal dress"
+ ],
+ [
+  "上装",
+  "Top"
+ ],
+ [
+  "衬衫 / 礼服",
+  "Shirt / dress"
+ ],
+ [
+  "运动背心",
+  "Gym vest"
+ ],
+ [
+  "印花 T 恤",
+  "Graphic tee"
+ ],
+ [
+  "下装",
+  "Bottom"
+ ],
+ [
+  "沙滩短裤",
+  "Beach shorts"
+ ],
+ [
+  "西裤 / 礼服裙",
+  "Trousers / skirt"
+ ],
+ [
+  "睡裤",
+  "Pyjamas"
+ ],
+ [
+  "鞋子",
+  "Shoes"
+ ],
+ [
+  "拖鞋",
+  "Flip-flops"
+ ],
+ [
+  "荧光跑鞋",
+  "Neon trainers"
+ ],
+ [
+  "皮鞋 / 正装鞋",
+  "Dress shoes"
+ ],
+ [
+  "外披",
+  "Over it"
+ ],
+ [
+  "反光背心",
+  "Hi-vis vest"
+ ],
+ [
+  "学生袍",
+  "Academic gown"
+ ],
+ [
+  "羽绒服",
+  "Puffer jacket"
+ ],
+ [
+  "高桌晚宴是书院最正式的场合。为每一栏选一件，然后<b>照镜子</b>检查。",
+  "High Table is the most formal college occasion. Pick one per row, then <b>check the mirror</b>."
+ ],
+ [
+  "还有没选的。",
+  "Something is still missing."
+ ],
+ [
+  "✔ 得体！镜子里的你很精神。",
+  "✔ Sharp! You look the part."
+ ],
+ [
+  "✘ 镜子里的你……有点不对劲。把标红的换掉。",
+  "✘ Hmm… something is off. Swap the ones marked red."
+ ],
+ [
+  "照镜子",
+  "Check the mirror"
+ ],
+ [
+  "高桌晚宴",
+  "High Table Dinner"
+ ],
+ [
+  "礼文堂 · 18:30",
+  "Liwen Hall · 18:30"
+ ],
+ [
+  "钟声响起，主持人宣布：<b>高桌嘉宾入场</b>。院长和主礼嘉宾走进礼堂。你……",
+  "A bell rings and the host announces the <b>high-table procession</b>. The Master and the guest of honour walk in. You…"
+ ],
+ [
+  "起立，鼓掌欢迎，等嘉宾落座后再坐下",
+  "Stand, applaud, and sit after they are seated"
+ ],
+ [
+  "入场时全体起立，是高桌晚宴最经典的仪式。",
+  "Standing for the procession is the classic High Table ritual."
+ ],
+ [
+  "坐着继续和旁边的人聊天",
+  "Stay seated and keep chatting"
+ ],
+ [
+  "全场都站起来了，只有你坐着……",
+  "Everyone else is standing…"
+ ],
+ [
+  "趁没人注意先吃一口面包",
+  "Sneak a bite of bread"
+ ],
+ [
+  "开席要等祝酒之后哦。",
+  "Dinner begins after the toast."
+ ],
+ [
+  "院长开始致欢迎辞。你的手机在口袋里震个不停。",
+  "The Master begins the welcome address. Your phone keeps buzzing in your pocket."
+ ],
+ [
+  "调成静音收好，专心听",
+  "Silence it, put it away and listen"
+ ],
+ [
+  "专注，是对讲者最好的尊重。",
+  "Attention is the best form of respect."
+ ],
+ [
+  "掏出来开直播",
+  "Start a livestream"
+ ],
+ [
+  "拍照可以等合影环节。",
+  "Photos can wait for the group shot."
+ ],
+ [
+  "在桌下偷偷刷视频",
+  "Scroll videos under the table"
+ ],
+ [
+  "屏幕的光在昏暗的礼堂里很显眼……",
+  "The glow is very visible in a dim hall…"
+ ],
+ [
+  "主礼嘉宾提议<b>祝酒</b>！（杯子里是葡萄汁。）和邻座碰杯时，应该碰杯子的哪里？<b>点一下</b>。",
+  "The guest of honour proposes a <b>toast</b>! (It is grape juice.) Where on the glass do you clink with your neighbour? <b>Click it</b>."
+ ],
+ [
+  "✔ 叮——轻碰杯肚，声音清脆又不易碰碎。",
+  "✔ Clink — the bowl rings clearly and is the sturdiest part."
+ ],
+ [
+  "✘ 杯口最薄、最容易碰裂。应该轻碰杯肚。",
+  "✘ The rim is the thinnest part and chips easily. Clink at the bowl."
+ ],
+ [
+  "✘ 碰杯脚可碰不响。应该轻碰杯肚。",
+  "✘ The stem won't ring. Clink at the bowl."
+ ],
+ [
+  "开席了。你面前摆着好几副刀叉。",
+  "Dinner is served. Several sets of cutlery sit before you."
+ ],
+ [
+  "从最外侧开始，每上一道菜向内换一副",
+  "Start from the outside and work inward with each course"
+ ],
+ [
+  "\"由外向内\"——不确定时，看看旁边的人怎么做。",
+  "\"Outside in\" — and when unsure, watch your neighbours."
+ ],
+ [
+  "挑一副最大的用到底",
+  "Pick the biggest set and stick with it"
+ ],
+ [
+  "每道菜配的餐具不一样。",
+  "Each course has its own set."
+ ],
+ [
+  "问服务员要一双筷子",
+  "Ask for chopsticks"
+ ],
+ [
+  "也不是不行……但今晚不妨入乡随俗试试。",
+  "Not forbidden… but tonight is a chance to try the custom."
+ ],
+ [
+  "主礼嘉宾恰好坐在你这一桌。席间出现了短暂的沉默。",
+  "The guest of honour happens to sit at your table. There is a brief silence."
+ ],
+ [
+  "\"教授您好，我是大一的{name}。您刚才提到 AI 时代的诚信，我想请教……\"",
+  "\"Good evening, Professor. I'm {name}, a first-year. You mentioned integrity in the age of AI — may I ask…\""
+ ],
+ [
+  "自我介绍 + 一个具体问题，是最好的开场。",
+  "An introduction plus one specific question is the best opener."
+ ],
+ [
+  "\"教授，能加个微信吗？\"",
+  "\"Professor, can I add you on WeChat?\""
+ ],
+ [
+  "先有交流，再谈联系方式会更自然。",
+  "A real exchange first makes that request natural."
+ ],
+ [
+  "低头认真切牛排，假装很忙",
+  "Study your steak very intently"
+ ],
+ [
+  "这样的机会很难得，鼓起勇气说一句吧。",
+  "Such chances are rare — find the courage for one sentence."
+ ],
+ [
+  "生物教学实验室",
+  "Biology Teaching Lab"
+ ],
+ [
+  "李贤义楼",
+  "LEE Yin Yee Building"
+ ],
+ [
+  "穿实验服",
+  "Lab coat"
+ ],
+ [
+  "戴护目镜",
+  "Safety goggles"
+ ],
+ [
+  "戴手套",
+  "Gloves"
+ ],
+ [
+  "穿不露脚趾的鞋",
+  "Closed-toe shoes"
+ ],
+ [
+  "带杯奶茶进去",
+  "Bring bubble tea"
+ ],
+ [
+  "穿拖鞋凉快",
+  "Flip-flops"
+ ],
+ [
+  "长发披着就好",
+  "Leave long hair loose"
+ ],
+ [
+  "<b>安全第一</b>：进实验室前，选出该做的 <b>4</b> 件事。",
+  "<b>Safety first</b>: choose the <b>4</b> things to do before entering the lab."
+ ],
+ [
+  "✔ 装备齐全！长发要扎起，食物饮料留在门外。",
+  "✔ All set! Tie long hair back and leave food and drink outside."
+ ],
+ [
+  "✘ 标红的会带来危险（污染、化学品溅到皮肤、卷入设备）。",
+  "✘ The red ones are hazards (contamination, splashes on skin, entanglement)."
+ ],
+ [
+  "进入实验室",
+  "Enter the lab"
+ ],
+ [
+  "<b>移液</b>：按住 <b>空格</b>（或按住画面）吸液，到目标体积时<b>松开</b>。越接近越好。",
+  "<b>Pipetting</b>: hold <b>Space</b> (or press the canvas) to draw liquid and <b>release</b> at the target volume."
+ ],
+ [
+  "完美！",
+  "Perfect!"
+ ],
+ [
+  "不错",
+  "Good"
+ ],
+ [
+  "偏差有点大",
+  "A bit off"
+ ],
+ [
+  "差太多了",
+  "Way off"
+ ],
+ [
+  "目标体积",
+  "Target"
+ ],
+ [
+  "当前",
+  "Now"
+ ],
+ [
+  "配平原理：所有离心管的\"位置向量\"加起来要等于零——对称放置，或者组成等边三角形。",
+  "Balancing: the position vectors of all tubes must sum to zero — opposite pairs, or an equilateral triangle."
+ ],
+ [
+  "✔ 平衡！转子平稳加速……",
+  "✔ Balanced! The rotor spins up smoothly…"
+ ],
+ [
+  "✘ 不平衡！机器剧烈抖动并自动停机。",
+  "✘ Unbalanced! The machine shudders and cuts out."
+ ],
+ [
+  " 提示：5 = 2 + 3，一对对称 + 一个三角形。",
+  " Hint: 5 = 2 + 3 — an opposite pair plus a triangle."
+ ],
+ [
+  " 提示：每隔 4 个孔放一支。",
+  " Hint: one tube every 4 slots."
+ ],
+ [
+  " 提示：放在正对面。",
+  " Hint: directly opposite."
+ ],
+ [
+  "启动离心机",
+  "Start centrifuge"
+ ],
+ [
+  "心理咨询室",
+  "Counselling Room"
+ ],
+ [
+  "学生中心四楼 · 这里很安全",
+  "Student Centre 4F · a safe space"
+ ],
+ [
+  "<b>4-2-6 呼吸</b>：圆圈变大时<b>吸气</b>（按住空格或按住画面），停住时屏息，变小时松开、慢慢<b>呼气</b>。一共三轮。",
+  "<b>4-2-6 breathing</b>: <b>inhale</b> as the circle grows (hold Space or press the canvas), hold while it rests, then release and <b>exhale</b> slowly as it shrinks. Three rounds."
+ ],
+ [
+  "跳过",
+  "Skip"
+ ],
+ [
+  "吸气…",
+  "Breathe in…"
+ ],
+ [
+  "屏息",
+  "Hold"
+ ],
+ [
+  "呼气…",
+  "Breathe out…"
+ ],
+ [
+  "周老师：感觉好一点了吗？接下来我们看看脑子里那些\"自动冒出来的话\"。给每一句，找一个<b>更公平</b>的说法。",
+  "Ms Zhou: Feeling a little better? Now let us look at those automatic thoughts. For each, find a <b>fairer</b> way to say it."
+ ],
+ [
+  "💭 \"小测才 60 分，我根本不适合这里。\"",
+  "💭 \"Only 60% on the quiz. I clearly don't belong here.\""
+ ],
+ [
+  "\"一次小测说明这次的准备方式要调整。我可以找助教复盘，下次换个方法。\"",
+  "\"One quiz tells me my preparation needs adjusting. I can review it with the TA and try another approach.\""
+ ],
+ [
+  "具体、可行动，不否定自己这个人。",
+  "Specific and actionable, without condemning yourself."
+ ],
+ [
+  "\"完了，接下来四年都会这样。\"",
+  "\"That's it. The next four years will all be like this.\""
+ ],
+ [
+  "这是\"灾难化\"：把一次结果放大成永远。",
+  "That is catastrophising: one result blown up into forever."
+ ],
+ [
+  "\"无所谓，反正分数不重要。\"",
+  "\"Whatever, grades don't matter anyway.\""
+ ],
+ [
+  "假装不在乎，并不能让难受消失。",
+  "Pretending not to care doesn't make it hurt less."
+ ],
+ [
+  "💭 \"大家好像都交到朋友了，只有我一个人。\"",
+  "💭 \"Everyone seems to have made friends except me.\""
+ ],
+ [
+  "\"融入需要时间，很多人和我一样在适应。我可以先从一个社团、一位同学开始。\"",
+  "\"Settling in takes time, and many others are adjusting too. I can start with one club and one classmate.\""
+ ],
+ [
+  "朋友圈里的热闹，只是别人生活的一小部分。",
+  "The highlights in someone's feed are a small slice of their life."
+ ],
+ [
+  "\"肯定是我性格有问题。\"",
+  "\"There must be something wrong with my personality.\""
+ ],
+ [
+  "这是\"贴标签\"：用一时的处境定义整个自己。",
+  "That is labelling: defining your whole self by a passing situation."
+ ],
+ [
+  "\"那我也不需要朋友。\"",
+  "\"Then I don't need friends either.\""
+ ],
+ [
+  "把门关上，只会更孤单。",
+  "Closing the door only makes it lonelier."
+ ],
+ [
+  "💭 \"这么大了还想家，我太脆弱了。\"",
+  "💭 \"Homesick at my age — I am so weak.\""
+ ],
+ [
+  "\"想家很正常，说明我有在乎的人。我可以约个固定时间和家人视频，同时在这里建立新的日常。\"",
+  "\"Missing home is normal — it means I have people I care about. I can set a regular video call and build new routines here.\""
+ ],
+ [
+  "接纳情绪，再给它一个去处。",
+  "Accept the feeling, then give it somewhere to go."
+ ],
+ [
+  "\"别人都不想家，就我不行。\"",
+  "\"Nobody else is homesick. Just me.\""
+ ],
+ [
+  "其实大多数新生都想家，只是很少有人说出口。",
+  "Most new students are homesick; few say it out loud."
+ ],
+ [
+  "\"忍一忍就过去了，不能跟任何人说。\"",
+  "\"Just endure it. I mustn't tell anyone.\""
+ ],
+ [
+  "说出来，往往就轻了一半。",
+  "Saying it aloud often halves the weight."
+ ],
+ [
+  "CPDO · 简历与模拟面试",
+  "CPDO · Résumé & Mock Interview"
+ ],
+ [
+  "学生中心 304",
+  "Student Centre 304"
+ ],
+ [
+  "AI 产品实习生（暑期）· Early Bird 项目",
+  "AI Product Intern (Summer) · Early Bird"
+ ],
+ [
+  "要求：<b>数据分析</b>能力、<b>沟通协作</b>、对 <b>AI 产品</b>有热情。",
+  "Looking for: <b>data analysis</b>, <b>communication & teamwork</b>, passion for <b>AI products</b>."
+ ],
+ [
+  "课程项目：用 Python 分析 5000 条用户评论，提出 3 条产品改进建议",
+  "Course project: analysed 5,000 user reviews in Python and proposed 3 product improvements"
+ ],
+ [
+  "社团：组织 200 人规模的招新活动，协调 6 个小组",
+  "Club: organised a 200-person recruitment event, coordinating 6 teams"
+ ],
+ [
+  "个人项目：用大模型 API 做了一个选课助手，30 位同学试用",
+  "Side project: built a course-picking assistant with an LLM API, tried by 30 classmates"
+ ],
+ [
+  "高中获得校运会跳高第三名",
+  "Third place in high jump at a high-school sports day"
+ ],
+ [
+  "爱好：打游戏、看剧",
+  "Hobbies: gaming, binge-watching"
+ ],
+ [
+  "熟练使用微信和 Word",
+  "Proficient in WeChat and Word"
+ ],
+ [
+  "简历只有一页。从下面选出<b>最相关的 3 条</b>经历。",
+  "A résumé is one page. Pick the <b>3 most relevant</b> experiences."
+ ],
+ [
+  "请选满 3 条。",
+  "Pick exactly 3."
+ ],
+ [
+  "✔ 每一条都对应岗位要求：数据、协作、AI 热情。",
+  "✔ Each one maps to a requirement: data, teamwork, AI passion."
+ ],
+ [
+  "✘ 标红的和这个岗位关系不大。对着\"要求\"逐条找证据。",
+  "✘ The red ones barely relate to this role. Match evidence to each requirement."
+ ],
+ [
+  "提交简历",
+  "Submit résumé"
+ ],
+ [
+  "同一段经历，哪种写法更有说服力？",
+  "Same experience — which wording is more convincing?"
+ ],
+ [
+  "\"主导 5 人小组完成用户调研，访谈 40 人，输出的报告被社团采纳\"",
+  "\"Led a 5-person team through user research, interviewed 40 people; the report was adopted by the club\""
+ ],
+ [
+  "动词开头 + 数字 + 结果。",
+  "Verb first + numbers + result."
+ ],
+ [
+  "\"参与了一些调研工作，学到了很多\"",
+  "\"Took part in some research work and learned a lot\""
+ ],
+ [
+  "\"一些\"\"很多\"都是空话，面试官看不到你做了什么。",
+  "\"Some\" and \"a lot\" say nothing about what you did."
+ ],
+ [
+  "面试官：\"讲一次团队合作中的冲突，你是怎么处理的？\"",
+  "Interviewer: \"Tell me about a conflict in a team and how you handled it.\""
+ ],
+ [
+  "\"上学期小组作业，两位组员对选题意见相反（情境）。我是组长，要保证按时交（任务）。我让双方各列三条理由，再一起对照评分标准投票（行动）。最后提前两天完成，拿了 A-（结果）。\"",
+  "\"Last term two teammates disagreed on our topic (Situation). As leader I had to deliver on time (Task). I had each list three reasons, then we voted against the rubric (Action). We finished two days early and got an A- (Result).\""
+ ],
+ [
+  "这就是 STAR：情境-任务-行动-结果。",
+  "That is STAR: Situation, Task, Action, Result."
+ ],
+ [
+  "\"我一般不跟人起冲突，我脾气很好。\"",
+  "\"I don't really have conflicts. I'm easy-going.\""
+ ],
+ [
+  "回避了问题，也没有任何例子。",
+  "It dodges the question and gives no example."
+ ],
+ [
+  "\"有个组员特别不靠谱，全靠我一个人做完的。\"",
+  "\"One teammate was useless, so I did everything myself.\""
+ ],
+ [
+  "抱怨队友，面试官会担心你怎么评价未来的同事。",
+  "Blaming a teammate makes interviewers wonder how you would describe future colleagues."
+ ],
+ [
+  "面试官：\"你最大的缺点是什么？\"",
+  "Interviewer: \"What is your biggest weakness?\""
+ ],
+ [
+  "\"我做汇报容易紧张。这学期我报名了辩论社，并且每次小组展示都主动讲第一部分，现在好多了。\"",
+  "\"I get nervous presenting. This term I joined the debate club and always volunteer to open our group presentations — it is getting much better.\""
+ ],
+ [
+  "真实的缺点 + 正在做的改进。",
+  "A real weakness plus what you are doing about it."
+ ],
+ [
+  "\"我最大的缺点是太追求完美。\"",
+  "\"My biggest weakness is that I'm a perfectionist.\""
+ ],
+ [
+  "这句话面试官每天听十遍。",
+  "Interviewers hear this ten times a day."
+ ],
+ [
+  "\"我没什么缺点。\"",
+  "\"I don't really have any.\""
+ ],
+ [
+  "缺乏自我认知，才是最大的缺点。",
+  "Lack of self-awareness is the real weakness."
+ ],
+ [
+  "面试官：\"你有什么想问我们的吗？\"",
+  "Interviewer: \"Do you have any questions for us?\""
+ ],
+ [
+  "\"这个岗位的实习生，做得最好的人通常有什么共同点？\"",
+  "\"What do your most successful interns in this role have in common?\""
+ ],
+ [
+  "好问题既显示你认真想过，又帮你判断这份工作。",
+  "A good question shows thought and helps you judge the job."
+ ],
+ [
+  "\"没有了，谢谢。\"",
+  "\"No, thank you.\""
+ ],
+ [
+  "错过了最后一次展示兴趣的机会。",
+  "A missed last chance to show interest."
+ ],
+ [
+  "\"实习期间可以经常请假吗？\"",
+  "\"Can I take lots of days off during the internship?\""
+ ],
+ [
+  "第一个问题就问请假……先聊工作吧。",
+  "Leading with time off… talk about the work first."
+ ],
+ [
+  "校长面对面",
+  "Meet the President"
+ ],
+ [
+  "逸夫国际会议中心",
+  "Shaw Conference Centre"
+ ],
+ [
+  "※ 演示文稿：台词为草稿（改写自校长公开演讲的主题），并非其原话；正式发布前请替换为经校长办公室审定的文稿与授权录音（data/president.js）。",
+  "※ Demo script: these lines are drafts paraphrasing themes from the President's public speeches, not his own words. Replace with wording and recordings approved by the President's Office (data/president.js)."
+ ],
+ [
+  "🙋 主持人把话筒递到了你手里。你想问：",
+  "🙋 The host hands you the microphone. You ask:"
+ ],
+ [
+  "🙋 还可以再问一个：",
+  "🙋 One more question:"
+ ],
+ [
+  "再问一个",
+  "Ask another"
+ ],
+ [
+  "谢谢校长",
+  "Thank you"
+ ],
+ [
+  "合影留念",
+  "Group photo"
+ ],
+ [
+  "MAX 精舞团 · 试跳八拍",
+  "MAX Dancing · try-out"
+ ],
+ [
+  "《茉莉花》· 江苏民歌",
+  "Jasmine Flower · Jiangsu folk song"
+ ],
+ [
+  "《欢乐颂》· 贝多芬",
+  "Ode to Joy · Beethoven"
+ ],
+ [
+  "跟上节拍",
+  "Catch the Beat"
+ ],
+ [
+  "神仙岭之夜 · 东西合璧",
+  "East Meets West"
+ ],
+ [
+  "你来演奏主旋律",
+  "You play the melody"
+ ],
+ [
+  "音符落到横线时，点对应的轨道",
+  "Tap a lane when its note reaches the line"
+ ],
+ [
+  "音符落到横线时按 <b>D F J K</b>（或点击轨道）。你按对了，旋律才会响！",
+  "Press <b>D F J K</b> (or click a lane) as notes reach the line. The melody only sounds when you hit!"
+ ],
+ [
+  "准备",
+  "Ready"
+ ],
+ [
+  "开始",
+  "Start"
+ ],
+ [
+  "下一步",
+  "NEXT"
+ ],
+ [
+  "校园活动",
+  "ACTIVITY"
+ ],
+ [
+  "任务未完成，可以回到起点重新开始。",
+  "Mission not completed — head back to the start marker to retry."
+ ],
+ [
+  "已放弃当前任务。",
+  "Mission abandoned."
+ ],
+ [
+  "校园开放日",
+  "OPEN DAY"
+ ],
+ [
+  "欢迎参观港中大（深圳）",
+  "Welcome to CUHK-Shenzhen"
+ ],
+ [
+  "自由漫游 · 打卡地标 · 体验校园活动",
+  "Roam freely · discover landmarks · try campus activities"
+ ],
+ [
+  "开放日",
+  "OPEN DAY"
+ ],
+ [
+  "自由参观校园。按 <b>M</b> 看地图，按 <b>Tab</b> 打开手机（无人机航拍、校巴快线、图鉴）。",
+  "Explore freely. <b>M</b> for the map, <b>Tab</b> for your phone (drone, shuttle, collection)."
+ ],
+ [
+  "进行中",
+  "In progress"
+ ],
+ [
+  "放弃",
+  "Quit"
+ ],
+ [
+  "校园活动",
+  "ACTIVITIES"
+ ],
+ [
+  "已完成",
+  "Done"
+ ],
+ [
+  "完成前置任务后解锁",
+  "Locked"
+ ],
+ [
+  "已导航到：",
+  "Navigating to: "
+ ],
+ [
+  "地标",
+  "LANDMARKS"
+ ],
+ [
+  "尚未发现",
+  "Undiscovered"
+ ],
+ [
+  "校园猫",
+  "CAMPUS CATS"
+ ],
+ [
+  "在校园里找找看",
+  "Somewhere on campus…"
+ ],
+ [
+  "第一章 · 报到日",
+  "CHAPTER 1 · ARRIVAL"
+ ],
+ [
+  "第二章 · 第一堂课",
+  "CHAPTER 2 · FIRST CLASS"
+ ],
+ [
+  "第三章 · 彩色的一天",
+  "CHAPTER 3 · A DAY IN COLOUR"
+ ],
+ [
+  "第四章 · 融入",
+  "CHAPTER 4 · BELONGING"
+ ],
+ [
+  "第五章 · 成长",
+  "CHAPTER 5 · GROWING"
+ ],
+ [
+  "终章 · 神仙岭下",
+  "FINALE · UNDER THE RIDGE"
+ ],
+ [
+  "报到：回\"家\"",
+  "Check-in: Finding Home"
+ ],
+ [
+  "学校正门",
+  "Main Gate"
+ ],
+ [
+  "找到你的书院宿舍",
+  "Find your college dorm"
+ ],
+ [
+  "室友之间把需求说出来、各退一步，比忍着更长久。",
+  "With roommates, say what you need and meet halfway — it beats silently putting up with things."
+ ],
+ [
+  "书院是你在大学的\"家\"：导师、活动、伙伴都从这里开始。",
+  "Your college is home base: tutors, events and friends all start here."
+ ],
+ [
+  "欢迎来到港中大（深圳）！我是 O 营组长林晓。你就是 {name} 吧？",
+  "Welcome to CUHK-Shenzhen! I'm Lin, your orientation leader. You must be {name}?"
+ ],
+ [
+  "听说你是这学期的交换生——别担心，这里全英文授课，饭堂天南海北都有，很快就习惯啦。",
+  "I hear you're on exchange this term — classes are in English and the canteens serve a bit of everything. You'll feel at home fast."
+ ],
+ [
+  "从今天起，这座山水之间的校园就是你的大学了。",
+  "From today, this campus between the hills and the water is your university."
+ ],
+ [
+  "先教你两招：左下摇杆走路，拖动屏幕转视角。右下角的按钮可以冲刺和互动。",
+  "Two quick tips: use the stick to walk and drag the screen to look around. The buttons on the right sprint and interact."
+ ],
+ [
+  "先教你两招：*WASD* 走路，按住 *Shift* 冲刺，点一下画面后用鼠标转视角。",
+  "Two quick tips: *WASD* to walk, hold *Shift* to sprint, click the view and use the mouse to look around."
+ ],
+ [
+  "🚌 坐校巴过去",
+  "🚌 Take the shuttle"
+ ],
+ [
+  "🚲 我想骑车逛过去",
+  "🚲 I would rather ride there"
+ ],
+ [
+  "校巴到站。以后可以按 <b>Tab</b> 打开手机，用\"校巴快线\"在三个园区之间穿梭。",
+  "Here we are. Later, press <b>Tab</b> and use the Shuttle app to hop between campuses."
+ ],
+ [
+  "嗨！你就是我室友吧？我叫小航，计算机专业的。床位我给你留了靠窗的那个！",
+  "Hey! You must be my roommate — I'm Hang, CS major. I saved you the bed by the window!"
+ ],
+ [
+  "趁行李还没拆，咱们先把\"室友公约\"聊清楚？学长说这个特别重要。",
+  "Before we unpack, shall we sort out a roommate agreement? Seniors say it really matters."
+ ],
+ [
+  "合作愉快！感觉我们会成为很好的室友。",
+  "Deal! I think we are going to get along great."
+ ],
+ [
+  "慢慢磨合吧，有事直接说就行！",
+  "We'll figure it out — just tell me straight if something bugs you!"
+ ],
+ [
+  "同学们好，我是书院导师陈老师。生活上有任何问题随时来找我。对了——去图书馆办个入馆手续吧，接下来四年你会常去的。",
+  "Hello, I'm Ms Chen, your college tutor. Come to me with anything. Oh — go get set up at the library; you'll be there a lot over the next four years."
+ ],
+ [
+  "图书馆初体验",
+  "Library 101"
+ ],
+ [
+  "大学图书馆",
+  "University Library"
+ ],
+ [
+  "学会按索书号找书",
+  "Learn to find books by call number"
+ ],
+ [
+  "索书号像门牌：先比字母，再比数字（76.73 排在 76.9 前面！），最后比作者号。",
+  "A call number is an address: letters first, then numbers (76.73 comes before 76.9!), then the author code."
+ ],
+ [
+  "找不到书、订研讨间、查数据库——直接问馆员，他们是最被低估的\"外挂\"。",
+  "Can't find a book, need a discussion room or a database? Ask a librarian — the most underrated cheat code."
+ ],
+ [
+  "欢迎来到大学图书馆。新同学？来，我教你最有用的一招：*按索书号找书*。",
+  "Welcome to the University Library. New here? Let me teach you the most useful trick: *finding books by call number*."
+ ],
+ [
+  "还书车上正好有几本书要归架。放对了位置，下一位同学才能找到它。",
+  "There are a few books on the returns trolley. Shelve them correctly and the next student can find them."
+ ],
+ [
+  "不错！你已经比很多高年级同学熟练了。",
+  "Nice! You're already better than many seniors."
+ ],
+ [
+  "没关系，多来几次就熟了。书架侧面都有索书号范围。",
+  "No worries, it comes with practice. Each shelf end shows its call-number range."
+ ],
+ [
+  "早八冲刺",
+  "The 8:30 Dash"
+ ],
+ [
+  "回书院休息（到第二天）",
+  "Rest at your dorm (next day)"
+ ],
+ [
+  "休息到明早",
+  "Sleep until morning"
+ ],
+ [
+  "别迟到！",
+  "Don't be late!"
+ ],
+ [
+  "早八的秘诀不是跑得快，是前一晚把闹钟和书包准备好。",
+  "The secret to an 8:30 class isn't running fast — it's setting the alarm and packing your bag the night before."
+ ],
+ [
+  "这里全英文授课。听不懂很正常：录音回放、Office hour、同学笔记都是你的后援。",
+  "Classes are taught in English. Getting lost is normal: recordings, office hours and classmates have your back."
+ ],
+ [
+  "大语言模型输出的是\"概率\"，会一本正经地说错——用它，但要核查。",
+  "LLMs output probabilities and can be confidently wrong — use them, but verify."
+ ],
+ [
+  "{name}！！醒醒！8:18 了！8:30 是王教授的课，点名的！",
+  "{name}!! Wake up! It's 8:18! Prof. Wang's class is at 8:30 and he takes attendance!"
+ ],
+ [
+  "你抓起书包冲出门——校巴把你放在了启动区钟楼。离教学楼 B 还有好几百米……",
+  "You grab your bag and bolt — the shuttle drops you at the Bell Tower. Teaching B is still several hundred metres away…"
+ ],
+ [
+  "很好，踩点到。请坐——我们今天聊点有意思的。",
+  "Good, right on time. Take a seat — today's topic is a fun one."
+ ],
+ [
+  "百团招新",
+  "Club Fair"
+ ],
+ [
+  "学生中心前广场",
+  "Student Centre plaza"
+ ],
+ [
+  "集章，找到你的圈子",
+  "Collect stamps, find your people"
+ ],
+ [
+  "社团不在多：选一两个真心喜欢的，坚持下去。",
+  "Don't over-join: pick one or two clubs you truly enjoy and stick with them."
+ ],
+ [
+  "不认识人？招新摊位是最容易开口的地方——大家都在等你搭话。",
+  "Don't know anyone? A fair booth is the easiest place to say hi — they're waiting for you."
+ ],
+ [
+  "新生杯彩色跑",
+  "Freshman Cup Color Run"
+ ],
+ [
+  "行政楼广场",
+  "Administration Square"
+ ],
+ [
+  "五个彩粉站，跑出你的颜色",
+  "Five powder stations"
+ ],
+ [
+  "运动是最便宜的\"情绪调节器\"：每周三次、每次三十分钟就很有效。",
+  "Exercise is the cheapest mood regulator: three 30-minute sessions a week go a long way."
+ ],
+ [
+  "跑步配速比冲刺重要：留点体力给终点。",
+  "Pacing beats sprinting: save something for the finish."
+ ],
+ [
+  "哇，说下就下！快跑——你怎么在发抖？……阿嚏？",
+  "Whoa, it's pouring! Run — wait, are you shivering? …Achoo?"
+ ],
+ [
+  "你淋湿了又吹风，小心感冒。教学楼 D 下首层有社康中心，不舒服就去看看。",
+  "You're soaked and it's windy — careful not to catch a cold. There's a health centre under Teaching D if you feel off."
+ ],
+ [
+  "医务室与华佗GPT",
+  "The Clinic & HuatuoGPT"
+ ],
+ [
+  "教学楼 D · 下园社康中心",
+  "Teaching D · health centre"
+ ],
+ [
+  "学会看病，也学会和 AI 打交道",
+  "Seeing a doctor — and working with AI"
+ ],
+ [
+  "描述症状三要素：哪里不舒服、从什么时候开始、可能的诱因。",
+  "Describe symptoms with three things: where, since when, and the likely trigger."
+ ],
+ [
+  "AI 预问诊帮医生整理信息，但诊断和用药以医生为准。",
+  "AI pre-consultation organises information for the doctor — diagnosis and medication are the doctor's call."
+ ],
+ [
+  "呼吸困难、胸痛、持续高热、意识模糊：别等，立刻就医或拨打 120。",
+  "Trouble breathing, chest pain, persistent high fever or confusion: seek care at once or dial 120."
+ ],
+ [
+  "晚上，你的喉咙越来越痛。社康中心的分诊台上放着一块平板：",
+  "By evening your throat is getting worse. At the triage desk of the health centre sits a tablet:"
+ ],
+ [
+  "我看了华佗GPT整理的预问诊小结，很清楚。来，张嘴——咽部有点红，是普通的上呼吸道感染。",
+  "I've read the HuatuoGPT summary — very clear. Open wide… your throat is a bit red. It's an ordinary upper respiratory infection."
+ ],
+ [
+  "多喝温水、好好睡觉。我开点对症的药；*48 小时不退烧或者加重，一定回来复诊*。",
+  "Warm fluids and proper sleep. I'll prescribe something for the symptoms; *if the fever lasts 48 hours or it gets worse, come back*."
+ ],
+ [
+  "记住：AI 是帮我整理信息的助手，诊断和用药还是我来负责。结算刷社保卡就行。",
+  "Remember: the AI helps me organise information, but diagnosis and medication are my responsibility. Just swipe your social-security card to pay."
+ ],
+ [
+  "高桌晚宴",
+  "High Table Dinner"
+ ],
+ [
+  "回书院换装",
+  "Dress up at your dorm"
+ ],
+ [
+  "换装赴宴",
+  "Dress for dinner"
+ ],
+ [
+  "袍子、祝酒与餐桌上的对话",
+  "Gowns, toasts and table talk"
+ ],
+ [
+  "高桌晚宴源自英式学院传统：着学生袍与正装，嘉宾入场时起立。",
+  "High Table comes from the British collegiate tradition: gown and formal dress, and stand as the high-table guests enter."
+ ],
+ [
+  "祝酒用的是葡萄汁；碰杯时轻碰杯肚，而不是杯口。",
+  "The toast is grape juice; clink gently at the bowl of the glass, not the rim."
+ ],
+ [
+  "和嘉宾聊天的万能开场：自我介绍 + 一个具体的问题。",
+  "A universal opener with a guest: introduce yourself, then ask one specific question."
+ ],
+ [
+  "生物医学实验课",
+  "Biomedical Lab"
+ ],
+ [
+  "李贤义楼 · 教学实验室",
+  "LEE Yin Yee Bldg · teaching lab"
+ ],
+ [
+  "防护、移液与离心机配平",
+  "PPE, pipetting, balancing the centrifuge"
+ ],
+ [
+  "进实验室：实验服、护目镜、手套、不露脚趾的鞋；长发扎起，食物饮料留在外面。",
+  "In the lab: coat, goggles, gloves, closed-toe shoes; tie back long hair and leave food and drink outside."
+ ],
+ [
+  "离心机必须对称配平——不平衡的转子是实验室里最常见的事故源之一。",
+  "Always balance the centrifuge — an unbalanced rotor is one of the most common lab accidents."
+ ],
+ [
+  "欢迎来到生物教学实验室。今天做一个小实验：从样本里提取 DNA。动手之前，先过安全关。",
+  "Welcome to the biology teaching lab. Today's mini-experiment: extracting DNA from a sample. Safety check first."
+ ],
+ [
+  "漂亮！离心管底部那一小团白色沉淀就是 DNA。你的手很稳，考虑来我们课题组做本科生科研吗？",
+  "Beautiful! That little white pellet at the bottom is DNA. Steady hands — ever thought of joining a lab for undergraduate research?"
+ ],
+ [
+  "第一次已经不错了。实验就是这样：耐心、规范、多练。",
+  "Not bad for a first time. That's lab work: patience, protocol, practice."
+ ],
+ [
+  "生涯第一课",
+  "Career Kick-off"
+ ],
+ [
+  "学生中心 · CPDO",
+  "Student Centre · CPDO"
+ ],
+ [
+  "简历与模拟面试",
+  "Résumé and mock interview"
+ ],
+ [
+  "简历写\"做了什么 + 结果如何\"：动词开头，带上数字。",
+  "Write résumé bullets as action + result: start with a verb, include a number."
+ ],
+ [
+  "面试答题用 STAR：情境、任务、行动、结果。",
+  "Answer interview questions with STAR: Situation, Task, Action, Result."
+ ],
+ [
+  "生涯规划从大一开始不嫌早：CPDO 有一对一咨询、模拟面试和招聘会。",
+  "First year isn't too early: CPDO offers 1-on-1 advising, mock interviews and job fairs."
+ ],
+ [
+  "你好，我是 CPDO 的 Grace。大一就来？太好了——生涯规划越早开始越从容。",
+  "Hi, I'm Grace from CPDO. A first-year? Wonderful — the earlier you start, the calmer you'll be."
+ ],
+ [
+  "正好有个 Early Bird 暑期实习训练项目。我们先改简历，再来一场模拟面试。",
+  "There's an Early Bird summer internship training programme. Let's polish your résumé, then do a mock interview."
+ ],
+ [
+  "表现很好！把今天的简历存好，下次招聘会直接用。",
+  "Great job! Save today's résumé — you can use it at the next job fair."
+ ],
+ [
+  "思路有了，再练几次会更好。随时约我一对一。",
+  "You've got the idea — a few more rounds will polish it. Book a 1-on-1 any time."
+ ],
+ [
+  "和自己聊聊",
+  "A Talk With Yourself"
+ ],
+ [
+  "学生中心 · 心理咨询室",
+  "Student Centre · counselling"
+ ],
+ [
+  "求助是一种能力",
+  "Asking for help is a skill"
+ ],
+ [
+  "情绪低落、想家、压力大都很正常。求助不是软弱，是对自己负责。",
+  "Feeling low, homesick or stressed is normal. Asking for help isn't weakness — it's taking care of yourself."
+ ],
+ [
+  "\"4-2-6\"呼吸：吸气 4 秒、屏息 2 秒、呼气 6 秒，重复几轮。",
+  "\"4-2-6\" breathing: inhale 4 s, hold 2 s, exhale 6 s, for a few rounds."
+ ],
+ [
+  "把\"我完了\"换成\"这一次没做好，我可以怎么调整\"。",
+  "Swap \"I'm doomed\" for \"this one went badly — what can I adjust?\""
+ ],
+ [
+  "这一周事情一件接一件：小测只拿了 60 分，朋友圈里别人好像都过得很精彩，夜里有点想家。",
+  "It's been one thing after another: 60% on the quiz, everyone else's feed looks amazing, and at night you miss home."
+ ],
+ [
+  "你这两天话好少……要不要去学生中心四楼的心理咨询室聊聊？我上学期去过，真的有用。我陪你到门口。",
+  "You've been so quiet… Want to talk to someone at the counselling rooms on 4F of the Student Centre? I went last term; it really helped. I'll walk you there."
+ ],
+ [
+  "你好，{name}。先坐。来这里不需要\"有大问题\"，想聊聊就可以。我们从一次呼吸开始，好吗？",
+  "Hello, {name}. Have a seat. You don't need a 'big problem' to come here. Shall we start with a breath?"
+ ],
+ [
+  "谢谢你愿意说出来。刚才你做的，其实就是心理学里说的\"认知重构\"——不是假装没事，而是换一个更公平的角度看自己。",
+  "Thank you for sharing. What you just did is called cognitive reframing — not pretending you're fine, but looking at yourself more fairly."
+ ],
+ [
+  "想聊随时再来。如果某天觉得撑不住，*不要一个人扛*：找室友、导师、我们，紧急时拨打 120。",
+  "Come back whenever you like. And if a day ever feels unbearable, *don't carry it alone*: your roommate, your tutor, us — and 120 in an emergency."
+ ],
+ [
+  "怎么样？……走，请你喝糖水！",
+  "How was it? …Come on, dessert is on me!"
+ ],
+ [
+  "你照顾了自己",
+  "You took care of yourself"
+ ],
+ [
+  "安好",
+  "WELL"
+ ],
+ [
+  "校长面对面",
+  "Meet the President"
+ ],
+ [
+  "逸夫国际会议中心",
+  "Shaw Conference Centre"
+ ],
+ [
+  "带上你的问题",
+  "Bring your questions"
+ ],
+ [
+  "敢提问，是大学里最值钱的习惯之一。",
+  "Daring to ask questions is one of the most valuable habits at university."
+ ],
+ [
+  "你问出了自己的问题",
+  "You asked your own question"
+ ],
+ [
+  "神仙岭之夜音乐会",
+  "Concert Under the Ridge"
+ ],
+ [
+  "中园 · 音乐学院",
+  "Middle Campus · School of Music"
+ ],
+ [
+  "和乐团一起演奏",
+  "Play with the orchestra"
+ ],
+ [
+  "一周前你还不认识这里的任何一条路。适应，就是这样一点点发生的。",
+  "A week ago you didn't know a single path here. That's how settling in happens — bit by bit."
+ ],
+ [
+  "球场约起",
+  "Shoot Some Hoops"
+ ],
+ [
+  "下园篮球场",
+  "Lower Campus courts"
+ ],
+ [
+  "来投几个？十个球，看你能进几个。出手看准力度条！",
+  "Fancy a few shots? Ten balls — watch the power bar!"
+ ],
+ [
+  "航拍校园",
+  "Aerial Campus Tour"
+ ],
+ [
+  "启动区广场",
+  "Start-up Zone Square"
+ ],
+ [
+  "换个高度看校园：上园、中园、下园被青山连在一起。",
+  "See the campus from above: the Upper, Middle and Lower campuses are stitched together by green hills."
+ ],
+ [
+  "神仙湖",
+  "Shenxian Lake"
+ ],
+ [
+  "铺设地形…",
+  "Shaping terrain…"
+ ],
+ [
+  "修建道路…",
+  "Paving roads…"
+ ],
+ [
+  "建造楼宇…",
+  "Raising buildings…"
+ ],
+ [
+  "种树、亮灯…",
+  "Planting trees…"
+ ],
+ [
+  "布置校园…",
+  "Dressing the campus…"
+ ],
+ [
+  "无人机协会",
+  "Drone Society"
+ ],
+ [
+  "MAX 精舞团",
+  "MAX Dancing Club"
+ ],
+ [
+  "粤语社",
+  "The Cantonese Club"
+ ],
+ [
+  "聚乐部",
+  "Music Union"
+ ],
+ [
+  "流浪猫关爱协会",
+  "Campus Cat Care"
+ ],
+ [
+  "社团联合部",
+  "Clubs Union Desk"
+ ],
+ [
+  "✅ 集满 3 章！可以去社团联合部登记了。",
+  "✅ Three stamps! Head to the Clubs Union Desk."
+ ],
+ [
+  "我们航拍校园、做编队灯光秀，周末还去神仙岭上飞。想不想现在就试飞一圈？",
+  "We film the campus from the air, fly formation light shows, and head up Shenxian Ridge at weekends. Want a test flight right now?"
+ ],
+ [
+  "试飞！",
+  "Let's fly!"
+ ],
+ [
+  "先看看",
+  "Just looking"
+ ],
+ [
+  "WASD 飞行 · Space 上升 · C 下降 · F 降落（30 秒体验）",
+  "WASD fly · Space up · C down · F land (30-second trial)"
+ ],
+ [
+  "手感不错！加入我们，以后随时能在手机里呼叫无人机。",
+  "Nice hands! Join us and you can call up a drone from your phone any time."
+ ],
+ [
+  "MAX 精舞团！不需要基础，敢跳就行。来，跟我们试一个八拍——",
+  "MAX Dancing Club! No experience needed, just the nerve. Come on, try eight bars with us —"
+ ],
+ [
+  "节奏感可以啊！周四晚上学生中心排练室见？",
+  "You've got rhythm! Thursday night in the Student Centre studio?"
+ ],
+ [
+  "没关系，跳舞最重要的是开心！",
+  "No worries — dancing is about having fun!"
+ ],
+ [
+  "你好呀！深圳离香港这么近，学两句粤语，饮茶都方便啲～ 考考你：",
+  "Hello! Shenzhen is right next to Hong Kong — a little Cantonese makes yum cha easier. Quick quiz:"
+ ],
+ [
+  "粤语三句半",
+  "Cantonese in Three Lines"
+ ],
+ [
+  "有人帮你扶了一下门，你说 <b>\"唔该\"</b>（m4 goi1）。意思是？",
+  "Someone holds the door and you say <b>\"唔該\" (m4 goi1)</b>. It means?"
+ ],
+ [
+  "谢谢 / 劳驾",
+  "Thanks / excuse me"
+ ],
+ [
+  "对不起",
+  "Sorry"
+ ],
+ [
+  "再见",
+  "Goodbye"
+ ],
+ [
+  "\"唔该\"用于感谢别人的帮忙；收到礼物说\"多谢\"。",
+  "\"M4 goi1\" thanks someone for a favour; for a gift you say \"do1 ze6\"."
+ ],
+ [
+  "同学见面问你 <b>\"食咗饭未呀？\"</b> 他其实是在……",
+  "A classmate greets you with <b>\"食咗飯未呀?\"</b> They are really…"
+ ],
+ [
+  "打招呼（\"吃了吗？\"）",
+  "Just saying hi (\"Eaten yet?\")"
+ ],
+ [
+  "要请你吃饭",
+  "Inviting you to dinner"
+ ],
+ [
+  "问你饭卡余额",
+  "Asking about your meal card"
+ ],
+ [
+  "和\"吃了吗\"一样，是一句亲切的问候。",
+  "Like \"have you eaten?\", it is a warm everyday greeting."
+ ],
+ [
+  "早上遇到老师，说 <b>\"早晨\"</b>（zou2 san4）是？",
+  "Meeting a teacher in the morning, <b>\"早晨\" (zou2 san4)</b> means?"
+ ],
+ [
+  "早上好",
+  "Good morning"
+ ],
+ [
+  "我起晚了",
+  "I overslept"
+ ],
+ [
+  "清晨的空气",
+  "Morning air"
+ ],
+ [
+  "\"早晨！\"就是\"早上好！\"",
+  "\"Zou2 san4!\" is simply \"Good morning!\""
+ ],
+ [
+  "叻仔/叻女！（真棒！）",
+  "Lek1! (Well done!)"
+ ],
+ [
+  "慢慢嚟，唔使急～（慢慢来，不着急）",
+  "Take your time, no rush~"
+ ],
+ [
+  "聚乐部——弹琴、唱歌、组乐队的都在这儿。学生中心有排练室，周末常有草地音乐会。",
+  "Music Union — players, singers and bands all live here. There are rehearsal rooms in the Student Centre and lawn gigs at weekends."
+ ],
+ [
+  "对了，周末音乐学院有一场\"神仙岭之夜\"，指挥老师想请一位新同学上台和乐团互动。我看你就不错！",
+  "By the way, the School of Music is hosting \"A Night Under the Ridge\" this weekend, and the conductor wants a newcomer to join the orchestra on stage. You look perfect!"
+ ],
+ [
+  "我们照顾校园里的流浪猫：定点投喂、带它们绝育和看病。看到猫可以摸，但别喂人吃的零食哦。",
+  "We look after the campus cats: feeding stations, neutering and vet visits. Pet them if they like — but please don't feed them human snacks."
+ ],
+ [
+  "我把猫咪常出没的地点标在你的地图上了。集齐十只，你就是\"猫咪图鉴\"大师！",
+  "I've marked their favourite spots on your map. Find all ten and you are a certified cat whisperer!"
+ ],
+ [
+  "📝 登记",
+  "📝 Register"
+ ],
+ [
+  "社团登记",
+  "Club Registration"
+ ],
+ [
+  "最多选 2 个——贵精不贵多",
+  "Choose up to 2 — quality over quantity"
+ ],
+ [
+  "确认加入",
+  "Join"
+ ],
+ [
+  "至少选一个吧！",
+  "Pick at least one!"
+ ],
+ [
+  "登记好了！无人机协会的设备可以在手机\"无人机\"App 里呼叫。",
+  "All set! The Drone Society's kit is available from the Drone app on your phone."
+ ],
+ [
+  "登记好了！另外，社团联合部的公用无人机对所有社员开放——手机里的\"无人机\"App 已解锁。",
+  "All set! The Clubs Union's shared drone is open to every member — the Drone app on your phone is now unlocked."
+ ],
+ [
+  "百团招新！九十多个社团，每年最热闹的就是今天。规矩很简单：*逛摊位、聊一聊、集章*。",
+  "The Club Fair! Ninety-odd clubs — the liveliest day of the year. Simple rules: *visit booths, chat, collect stamps*."
+ ],
+ [
+  "集满 3 个章就能去社团联合部登记。记住，社团贵精不贵多。",
+  "With three stamps you can register at the Clubs Union Desk. Remember: quality over quantity."
+ ],
+ [
+  "紫",
+  "Purple"
+ ],
+ [
+  "金",
+  "Gold"
+ ],
+ [
+  "粉",
+  "Pink"
+ ],
+ [
+  "青",
+  "Cyan"
+ ],
+ [
+  "绿",
+  "Green"
+ ],
+ [
+  "欢迎来到新生杯开幕式——*彩色跑*！不计名次，只管开心：沿路 5 个彩粉站，一个都别漏。",
+  "Welcome to the Freshman Cup opener — the *Color Run*! No rankings, just joy: five powder stations along the route, hit them all."
+ ],
+ [
+  "{name}！一起跑吧！在我们那儿可没有这么酷的开学活动。",
+  "{name}! Let's run together! We have nothing this cool back home."
+ ],
+ [
+  "白 T 恤已就位。配速别太猛，留点体力冲刺——按住 Shift 会掉体力条。",
+  "White tee: ready. Pace yourself and save some for the finish — holding Shift drains your stamina bar."
+ ],
+ [
+  "跑！",
+  "GO!"
+ ],
+ [
+  "最后冲刺！终点在<b>启动区广场</b>",
+  "Final sprint! The finish is at the <b>Start-up Zone Square</b>"
+ ],
+ [
+  "冲线！",
+  "FINISH!"
+ ],
+ [
+  "💦 终点彩蛋：水球大战！",
+  "💦 Finish-line surprise: water-balloon fight!"
+ ],
+ [
+  "今晚是书院的高桌晚宴！通知上写着：*学生袍 + 正装*。你准备穿什么？",
+  "Tonight is our college's High Table Dinner! The notice says: *gown + formal dress*. What are you wearing?"
+ ],
+ [
+  "🚌 坐书院大巴",
+  "🚌 Take the college coach"
+ ],
+ [
+  "🚲 自己过去（看看傍晚的校园）",
+  "🚲 Go on my own (enjoy the campus at dusk)"
+ ],
+ [
+  "在 <b>18:30</b> 前赶到<b>礼文堂</b>（可以骑车）",
+  "Reach <b>Liwen Hall</b> before <b>18:30</b> (bikes allowed)"
+ ],
+ [
+  "你迟到了几分钟，悄悄从侧门进来吧。下次记得提前出发。",
+  "A few minutes late — slip in by the side door. Leave earlier next time."
+ ],
+ [
+  "准时到达。座位已经排好了，你在第三桌。",
+  "Right on time. Seating is arranged — you are at table three."
+ ],
+ [
+  "各位来宾、各位同学，晚上好。请全体起立，欢迎高桌嘉宾入场——",
+  "Distinguished guests and students, good evening. Please rise to welcome the high-table party —"
+ ],
+ [
+  "高桌晚宴不只是一顿饭。它让不同专业、不同年级、不同国家的人坐在同一张桌前——这就是书院。",
+  "High Table is more than a meal. It seats people of different majors, years and countries at one table — that is what a college is."
+ ],
+ [
+  "刚才那位同学的问题很好。保持提问的习惯，它会带你走得很远。",
+  "That was a fine question earlier. Keep asking — the habit will take you far."
+ ],
+ [
+  "第一次参加难免紧张。多来几次，你会享受这样的夜晚。",
+  "Nerves are natural the first time. A few more of these and you will enjoy such evenings."
+ ],
+ [
+  "干杯！（葡萄汁也可以很有仪式感，对吧？）",
+  "Cheers! (Grape juice can be ceremonial too, right?)"
+ ],
+ [
+  "港中深",
+  "CUHK-SZ"
+ ],
+ [
+  "欢迎你",
+  "WELCOME"
+ ],
+ [
+  "你来啦！指挥老师在等你。别紧张——你只要跟着落下的音符，把主旋律\"点\"出来就行。",
+  "You made it! The conductor is waiting. Relax — just follow the falling notes and tap out the melody."
+ ],
+ [
+  "今晚的曲目是《茉莉花》和《欢乐颂》——一首东方，一首西方。这所大学的使命正是\"结合传统与现代，融会中国与西方\"。",
+  "Tonight we play \"Jasmine Flower\" and \"Ode to Joy\" — one from the East, one from the West. This university's mission is exactly that: to combine tradition with modernity and bring together China and the West."
+ ],
+ [
+  "你来演奏主旋律，乐团为你伴奏。准备好了吗？",
+  "You carry the melody; the orchestra accompanies you. Ready?"
+ ],
+ [
+  "Bravo！你听——这是为你响起的掌声。",
+  "Bravo! Listen — that applause is for you."
+ ],
+ [
+  "音乐不怕错音，只怕不敢开始。谢谢你站上来。",
+  "Music forgives wrong notes; it only fears the ones never played. Thank you for stepping up."
+ ],
+ [
+  "{name}！太帅了！快出来，外面还有惊喜——",
+  "{name}! That was amazing! Come outside, there is one more surprise —"
+ ],
+ [
+  "无人机灯光秀",
+  "DRONE LIGHT SHOW"
+ ],
+ [
+  "神仙岭之夜",
+  "A Night Under the Ridge"
+ ],
+ [
+  "圆满",
+  "BRAVO"
+ ],
+ [
+  "一周前，你站在校门口，连宿舍都找不到。",
+  "A week ago you stood at the gate and couldn't even find your dorm."
+ ],
+ [
+  "现在你会找书、会看病、会求助、会和陌生人碰杯，还敢向校长提问。这就是*适应力*——它不是天生的，是一步步走出来的。",
+  "Now you can find a book, see a doctor, ask for help, clink glasses with strangers and put a question to the President. That is *adaptability* — nobody is born with it; you walk your way into it."
+ ],
+ [
+  "大学才刚开始呢。走，夜宵去！",
+  "University has only just begun. Come on — late-night snacks!"
+ ],
+ [
+  "第一周 · 完",
+  "WEEK ONE · COMPLETE"
+ ],
+ [
+  "神仙岭下",
+  "Campus Odyssey"
+ ],
+ [
+  "自由探索已解锁：打卡地标、寻找校园猫、航拍校园",
+  "Free roam unlocked: landmarks, campus cats, aerial tours"
+ ],
+ [
+  "带你飞一圈下园！依次穿过空中的<b>金色光环</b>就行。",
+  "Let's do a lap of the Lower Campus! Just fly through the <b>golden rings</b> in order."
+ ],
+ [
+  "无人机提前降落了。回到起点可以重新开始。",
+  "The drone landed early. Head back to the start to retry."
+ ],
+ [
+  "航线完成",
+  "Route complete"
+ ],
+ [
+  "同学",
+  "friend"
+ ],
+ [
+  "确认",
+  "Confirm"
+ ],
+ [
+  "取消",
+  "Cancel"
+ ],
+ [
+  "确定",
+  "OK"
+ ],
+ [
+  "任务完成",
+  "Mission Complete"
+ ],
+ [
+  "通关",
+  "DONE"
+ ],
+ [
+  "继续",
+  "Continue"
+ ],
+ [
+  "下园",
+  "Lower Campus"
+ ],
+ [
+  "上园",
+  "Upper Campus"
+ ],
+ [
+  "中园 · 音乐学院",
+  "Middle Campus · School of Music"
+ ],
+ [
+  "周一",
+  "Mon"
+ ],
+ [
+  "周二",
+  "Tue"
+ ],
+ [
+  "周三",
+  "Wed"
+ ],
+ [
+  "周四",
+  "Thu"
+ ],
+ [
+  "周五",
+  "Fri"
+ ],
+ [
+  "周六",
+  "Sat"
+ ],
+ [
+  "周日",
+  "Sun"
+ ],
+ [
+  "适应力",
+  "Adaptability"
+ ],
+ [
+  "高度",
+  "ALT"
+ ],
+ [
+  "移动",
+  "Move"
+ ],
+ [
+  "冲刺",
+  "Sprint"
+ ],
+ [
+  "跳",
+  "Jump"
+ ],
+ [
+  "互动",
+  "Interact"
+ ],
+ [
+  "载具",
+  "Vehicle"
+ ],
+ [
+  "手机",
+  "Phone"
+ ],
+ [
+  "地图",
+  "Map"
+ ],
+ [
+  "加速/刹车",
+  "Throttle/Brake"
+ ],
+ [
+  "转向",
+  "Steer"
+ ],
+ [
+  "铃",
+  "Bell"
+ ],
+ [
+  "下车",
+  "Exit"
+ ],
+ [
+  "飞行",
+  "Fly"
+ ],
+ [
+  "升",
+  "Up"
+ ],
+ [
+  "降",
+  "Down"
+ ],
+ [
+  "加速",
+  "Boost"
+ ],
+ [
+  "降落",
+  "Land"
+ ],
+ [
+  "龙岗 · 大运",
+  "Longgang · Dayun"
+ ],
+ [
+  "大运山 · 神仙岭",
+  "Dayun Hill · Shenxian Ridge"
+ ],
+ [
+  "郊野径",
+  "Country trail"
+ ],
+ [
+  "龙岗 · 大运",
+  "Longgang · Dayun"
+ ],
+ [
+  "深圳",
+  "Shenzhen"
+ ],
+ [
+  "初来乍到",
+  "Newcomer"
+ ],
+ [
+  "渐入佳境",
+  "Settling In"
+ ],
+ [
+  "如鱼得水",
+  "At Home"
+ ],
+ [
+  "校园达人",
+  "Campus Pro"
+ ],
+ [
+  "神仙岭居民",
+  "Ridge Local"
+ ],
+ [
+  "港中深之星",
+  "CUHK-SZ Star"
+ ],
+ [
+  "适应力提升",
+  "LEVEL UP"
+ ],
+ [
+  "校园地图",
+  "Campus Map"
+ ],
+ [
+  "港中大（深圳）楼宇",
+  "CUHK-Shenzhen"
+ ],
+ [
+  "周边建筑",
+  "Neighbours"
+ ],
+ [
+  "绿道",
+  "Greenway"
+ ],
+ [
+  "导航路线",
+  "Route"
+ ],
+ [
+  "港中大（深圳）校园建筑。",
+  "A CUHK-Shenzhen campus building."
+ ],
+ [
+  "校园周边建筑。",
+  "A neighbouring building."
+ ],
+ [
+  "自定义地点",
+  "Custom point"
+ ],
+ [
+  "导航到这里",
+  "Navigate here"
+ ],
+ [
+  "已设置导航，看小地图上的紫色路线。",
+  "Route set — follow the purple line on the minimap."
+ ],
+ [
+  "取消导航",
+  "Clear route"
+ ],
+ [
+  "返回",
+  "Back"
+ ],
+ [
+  "任务",
+  "Quests"
+ ],
+ [
+  "地图",
+  "Map"
+ ],
+ [
+  "成长",
+  "Growth"
+ ],
+ [
+  "图鉴",
+  "Collection"
+ ],
+ [
+  "校园指南",
+  "Guide"
+ ],
+ [
+  "校巴快线",
+  "Shuttle"
+ ],
+ [
+  "无人机",
+  "Drone"
+ ],
+ [
+  "拍照",
+  "Photo"
+ ],
+ [
+  "休息",
+  "Rest"
+ ],
+ [
+  "设置",
+  "Settings"
+ ],
+ [
+  "加入无人机协会后解锁（去社团招新看看）。",
+  "Join the Drone Society at the club fair to unlock."
+ ],
+ [
+  "现在不方便起飞。",
+  "Can't launch right now."
+ ],
+ [
+  "无人机已起飞：WASD 飞行，Space/C 升降，F 降落。",
+  "Drone up: WASD fly, Space/C up/down, F to land."
+ ],
+ [
+  "任务",
+  "Quests"
+ ],
+ [
+  "成长档案",
+  "Growth"
+ ],
+ [
+  "图鉴",
+  "Collection"
+ ],
+ [
+  "校园指南",
+  "Campus Guide"
+ ],
+ [
+  "信息整理自公开资料，可能与现状有出入，请以学校官网及各部门通知为准。",
+  "Compiled from public sources and may be out of date — always check the official university website."
+ ],
+ [
+  "校巴快线",
+  "Campus Shuttle"
+ ],
+ [
+  "任务进行中，先完成手头的事吧。",
+  "Finish your current mission first."
+ ],
+ [
+  "上车",
+  "Ride"
+ ],
+ [
+  "休息一下",
+  "Rest"
+ ],
+ [
+  "任务进行中。",
+  "A mission is in progress."
+ ],
+ [
+  "到早上 8:00",
+  "Until 8:00"
+ ],
+ [
+  "到下午 14:00",
+  "Until 14:00"
+ ],
+ [
+  "到傍晚 18:30",
+  "Until 18:30"
+ ],
+ [
+  "到晚上 21:00",
+  "Until 21:00"
+ ],
+ [
+  "确定",
+  "Go"
+ ],
+ [
+  "精神饱满！",
+  "Feeling refreshed!"
+ ],
+ [
+  "设置",
+  "Settings"
+ ],
+ [
+  "画质",
+  "Graphics"
+ ],
+ [
+  "自动",
+  "Auto"
+ ],
+ [
+  "流畅",
+  "Low"
+ ],
+ [
+  "均衡",
+  "Medium"
+ ],
+ [
+  "精致",
+  "High"
+ ],
+ [
+  "音乐",
+  "Music"
+ ],
+ [
+  "音效",
+  "Sound FX"
+ ],
+ [
+  "镜头灵敏度",
+  "Look sensitivity"
+ ],
+ [
+  "反转 Y 轴",
+  "Invert Y"
+ ],
+ [
+  "存档",
+  "Save game"
+ ],
+ [
+  "立即保存",
+  "Save now"
+ ],
+ [
+  "已保存。",
+  "Saved."
+ ],
+ [
+  "回到标题",
+  "Back to title"
+ ],
+ [
+  "退出",
+  "Quit"
+ ],
+ [
+  "关于",
+  "ABOUT"
+ ],
+ [
+  "《神仙岭下》是以港中大（深圳）真实校园为蓝本的原创开放世界校园游戏。",
+  "Campus Odyssey is an original open-world game modelled on the real CUHK-Shenzhen campus."
+ ],
+ [
+  "适应力经验",
+  "Adaptability XP"
+ ],
+ [
+  "完成任务",
+  "Missions"
+ ],
+ [
+  "生成我的适应力报告",
+  "Generate my report card"
+ ],
+ [
+  "神仙岭下",
+  "Campus Odyssey"
+ ],
+ [
+  "适应力报告",
+  "Adaptability Report"
+ ],
+ [
+  "同学",
+  "Student"
+ ],
+ [
+  "完成任务",
+  "Missions"
+ ],
+ [
+  "地标打卡",
+  "Landmarks"
+ ],
+ [
+  "校园猫",
+  "Campus cats"
+ ],
+ [
+  "在校天数",
+  "Days"
+ ],
+ [
+  "博文约礼 · 结合传统与现代 融会中国与西方",
+  "Through learning and temperance to virtue"
+ ],
+ [
+  "我的适应力报告",
+  "My Report Card"
+ ],
+ [
+  "保存图片",
+  "Download"
+ ],
+ [
+  "一座真实校园，一段属于你的第一周。<br>在港中大（深圳）自由漫游：赶早八、泡图书馆、跑彩色跑、赴高桌晚宴、和校长面对面。",
+  "A real campus. Your very first week.<br>Roam CUHK-Shenzhen freely — sprint to an 8:30 class, learn the library, run the Color Run, dress up for High Table and meet the President."
+ ],
+ [
+  "继续旅程",
+  "Continue"
+ ],
+ [
+  "新的旅程",
+  "New Journey"
+ ],
+ [
+  "新生 / 交换生",
+  "Freshman / Exchange"
+ ],
+ [
+  "开始新旅程会覆盖现有存档，确定吗？",
+  "Starting over will overwrite your save. Continue?"
+ ],
+ [
+  "校园开放日",
+  "Open Day Tour"
+ ],
+ [
+  "自由参观 · 无任务",
+  "Free roam"
+ ],
+ [
+  "原创校园开放世界游戏 · 地图数据 © OpenStreetMap 贡献者 · 部分设施信息整理自公开资料，以学校官方为准",
+  "An original open-world campus game · Map data © OpenStreetMap contributors · Facility details compiled from public sources"
+ ],
+ [
+  "新生报到",
+  "Check-in"
+ ],
+ [
+  "创建你的角色",
+  "Create your character"
+ ],
+ [
+  "你的名字",
+  "YOUR NAME"
+ ],
+ [
+  "例如：小深",
+  "e.g. Alex"
+ ],
+ [
+  "你的身份",
+  "YOU ARE"
+ ],
+ [
+  "大一新生",
+  "Freshman"
+ ],
+ [
+  "交换生",
+  "Exchange student"
+ ],
+ [
+  "外观",
+  "LOOK"
+ ],
+ [
+  "短发",
+  "Short hair"
+ ],
+ [
+  "长发",
+  "Long hair"
+ ],
+ [
+  "选择书院（你的家）",
+  "CHOOSE YOUR COLLEGE (YOUR HOME)"
+ ],
+ [
+  "✈️ 交换生模式：剧情会多一些跨文化适应的小提示。",
+  "✈️ Exchange mode: the story adds a few cross-cultural tips."
+ ],
+ [
+  "🎒 新生模式：从报到第一天开始你的大学生活。",
+  "🎒 Freshman mode: your university life starts at check-in."
+ ],
+ [
+  "返回",
+  "Back"
+ ],
+ [
+  "开始大学生活 →",
+  "Begin →"
+ ],
+ [
+  "小深",
+  "Alex"
+ ]
+]

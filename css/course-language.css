@@ -1,0 +1,36 @@
+#course-language {
+  position: fixed; top: 10px; right: 14px; z-index: 10000;
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  max-width: calc(100vw - 28px); padding: 6px 10px;
+  color: #222; background: #fff; border: 1px solid #d5d9df;
+  border-radius: 8px; box-shadow: 0 2px 10px #0002;
+  font: 14px/1.4 system-ui, sans-serif; direction: ltr;
+}
+#course-language label { margin: 0; font-size: 18px; }
+#course-language select { max-width: 160px; min-height: 30px; color: #222; background: white; border: 0; font: inherit; cursor: pointer; }
+#course-language select:focus-visible, #course-language button:focus-visible { outline: 3px solid #1769aa; outline-offset: 2px; }
+#course-language .course-language-status { font-size: 11px; max-width: 175px; }
+#course-language .course-language-status:empty { display: none; }
+#course-language button { color: #222; background: #f3f4f6; border: 1px solid #ccc; border-radius: 4px; }
+#course-language button[hidden] { display: none; }
+.has-course-language { padding-top: 58px !important; }
+.course-topbar { flex-wrap: wrap; max-width: calc(100vw - 20px); justify-content: flex-end; align-items: center; }
+.course-topbar #course-language { position: static; }
+.course-topbar #langbtn { display: none; }
+html[dir="rtl"] body { text-align: right; }
+html[dir="rtl"] pre, html[dir="rtl"] code, html[dir="rtl"] video, html[dir="rtl"] #transcript { direction: ltr; text-align: left; }
+.course-campus-3d #tools { top: 66px; }
+.course-campus-3d #bLang { display: none; }
+.course-campus-odyssey #clock { top: 66px; }
+.course-campus-odyssey #zone { top: 112px; }
+@media (min-width: 881px) { .course-campus-3d #card { top: 66px; } }
+@media (max-width: 880px) {
+  .course-campus-3d #brand { top: 66px; }
+  .course-campus-3d #side { top: 116px; }
+  .course-campus-3d #more { top: 176px; }
+}
+@media (max-width: 600px) {
+  #course-language { top: 6px; right: 6px; padding: 4px 7px; gap: 4px; }
+  #course-language .course-language-status { max-width: 110px; }
+  .has-course-language:has(.course-topbar) { padding-top: 102px !important; }
+}

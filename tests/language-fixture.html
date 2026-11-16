@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Language component regression fixture</title>
+<script>
+// Test-only network and storage failures. No external requests or stored data.
+Storage.prototype.getItem = Storage.prototype.setItem = function () { throw new Error('Storage blocked'); };
+let attempts = 0;
+window.fetch = async function (url) {
+  const language = String(url).split('/').pop().replace('.json','');
+  if (language === 'ar') await new Promise(resolve => setTimeout(resolve, 800));
+  if (language === 'ja' && attempts++ === 0) throw new Error('Simulated network failure');
+  const translations = {
+    en: {}, fr: {'Hello world':'Bonjour le monde','Machine translation':'Traduction automatique'},
+    ar: {'Hello world':'مرحبا بالعالم','Machine translation':'الترجمة الآلية'},
+    ja: {'Hello world':'こんにちは世界','Machine translation':'機械翻訳'}
+  };
+  return new Response(JSON.stringify(translations[language] || {}), {status:200});
+};
+</script>
+<link rel="stylesheet" href="../css/course-language.css">
+<script defer src="../js/course-language.js"></script>
+</head><body>
+<h1>Hello world</h1>
+<code id="protected-code">Hello world</code>
+<span class="math">Hello world</span>
+<p><button id="add" type="button">Add dynamic label</button></p>
+<div id="dynamic"></div>
+<a id="link" href="../tutorial1.html?foo=bar#nb1">Test internal link</a>
+<output id="result" translate="no"></output>
+<script>
+document.getElementById('add').onclick = () => {
+  const p=document.createElement('p'); p.textContent='Hello world'; document.getElementById('dynamic').append(p);
+};
+document.getElementById('link').onclick = event => {
+  event.preventDefault(); document.getElementById('result').textContent=event.currentTarget.href;
+};
+</script>
+</body></html>

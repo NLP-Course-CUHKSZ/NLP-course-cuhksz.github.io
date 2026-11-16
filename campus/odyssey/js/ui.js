@@ -326,7 +326,6 @@
     if (G.save.has()) add(L('继续旅程', 'Continue'), G.S().name ? esc(G.S().name) + ' · ' + L('第' + G.S().day + '天', 'Day ' + G.S().day) : '', 'main', () => G.startGame(false));
     add(L('新的旅程', 'New Journey'), L('新生 / 交换生', 'Freshman / Exchange'), G.save.has() ? '' : 'main', async () => { if (G.save.has() && !(await ui.confirm(L('开始新旅程会覆盖现有存档，确定吗？', 'Starting over will overwrite your save. Continue?')))) return; ui.create(); });
     add(L('校园开放日', 'Open Day Tour'), L('自由参观 · 无任务', 'Free roam'), '', () => G.startGame(true, { visitor: true }));
-    add(G.lang === 'zh' ? 'English' : '中文', L('切换语言', 'Switch language'), '', () => { G.setLang(G.lang === 'zh' ? 'en' : 'zh'); ui.showTitle(); });
     $('tFoot').innerHTML = L('原创校园开放世界游戏 · 地图数据 © OpenStreetMap 贡献者 · 部分设施信息整理自公开资料，以学校官方为准', 'An original open-world campus game · Map data © OpenStreetMap contributors · Facility details compiled from public sources');
   };
   ui.hideTitle = function () { $('title').classList.add('hidden'); };

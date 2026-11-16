@@ -69,10 +69,10 @@
 		one(c); Array.prototype.forEach.call(c.querySelectorAll('[data-i18n]'), one);
 		return c;
 	}
-	function enOf(node) { return S.lang === 'zh' ? textOf(inLang(node, 'en'), true) : textOf(node); }
+	function enOf(node) { return textOf(inLang(node, 'en'), true); }
 	/* heading text without the brief id, section number, counters and side notes; lang 'en' or 'zh', or none for what the page shows now */
 	function heading(node, lang, max, sel) {
-		var c = !lang || (lang === 'en' && S.lang !== 'zh') ? node.cloneNode(true) : inLang(node, lang);
+		var c = !lang ? node.cloneNode(true) : inLang(node, lang);
 		if (sel) c = c.querySelector(sel) || c;   /* the heading sits inside the translated block (a callout's title) */
 		Array.prototype.forEach.call(c.querySelectorAll('.id, .lab, .num, .cnt, .sub'), function (x) { x.remove(); });
 		var t = squeeze(c.textContent);
@@ -175,6 +175,10 @@
 	}
 	function score(r, terms) {
 		var s = 0;
+		var locale = document.documentElement.lang;
+		if (r.localLanguage !== locale) {
+			r.localLanguage = locale; r.localRaw = squeeze(textOf(r.el)); r.localText = norm(r.localRaw);
+		}
 		for (var i = 0; i < terms.length; i++) {
 			var t = terms[i], hit = 0;
 			if (r.kind === 'b') {
@@ -182,7 +186,7 @@
 				if (r.tagtxt.indexOf(t) >= 0) hit += 40;
 			}
 			hit += titleHit(r, t);
-			var c = count(r.en, t) + count(r.zh, t);
+			var c = count(r.en, t) + count(r.zh, t) + count(r.localText, t);
 			if (c) hit += 8 + 2 * c;
 			if (!hit) return 0;
 			s += hit;
@@ -213,6 +217,7 @@
 	function snippet(r, terms) {
 		if (!terms.length) return '';
 		var order = S.lang === 'zh' ? [r.zhRaw, r.enRaw] : [r.enRaw, r.zhRaw];
+		if (r.localRaw && !/^(en|zh)/.test(document.documentElement.lang)) order.unshift(r.localRaw);
 		for (var k = 0; k < order.length; k++) {
 			var raw = order[k]; if (!raw) continue;
 			var low = same(raw); if (low.length !== raw.length) continue;

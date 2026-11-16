@@ -12,6 +12,9 @@
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<link rel="stylesheet" href="./css/tutorial.css">
 	<link rel="stylesheet" href="./css/project.css?v=20261113">
+
+<link rel="stylesheet" href="./css/course-language.css">
+<script defer src="./js/course-language.js"></script>
 </head>
 
 <body>
@@ -2672,7 +2675,7 @@ Track and brief (e.g., Track A, brief A2) or custom:
 			foldBtn.innerHTML = allOpen ? UI[lang].collapse : UI[lang].expand;
 			try { localStorage.setItem('fpLang', lang); } catch (e) {}
 			var q = new URLSearchParams(location.search);
-			if ((q.get('lang') || 'en') !== lang) { q.set('lang', lang); history.replaceState(null, '', location.pathname + '?' + q.toString() + location.hash); }
+			if (!window.CourseLanguage && (q.get('lang') || 'en') !== lang) { q.set('lang', lang); history.replaceState(null, '', location.pathname + '?' + q.toString() + location.hash); }
 			applyFilter(currentFilter);
 			if (window.FPSearch) FPSearch.setLang(lang);
 		}
@@ -2703,7 +2706,8 @@ Track and brief (e.g., Track A, brief A2) or custom:
 
 		var want = new URLSearchParams(location.search).get('lang');
 		if (!want) { try { want = localStorage.getItem('fpLang'); } catch (e) {} }
-		if (!want && /^zh/i.test(navigator.language || '')) want = 'zh';
+		// The shared selector owns language choice; initialize a stable English source.
+		if (window.CourseLanguage) want = 'en';
 		applyLang(want === 'zh' ? 'zh' : 'en');
 		setAll(false); openForHash();
 

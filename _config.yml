@@ -8,3 +8,9 @@ exclude:
   - materials/videos                  # Lecture 10 chapters now served from https://wabyking.github.io/nlp2026-videos-2/lecture10/
   - README.md
   - .gitignore
+  - scripts
+  - tests
+  - assets/i18n/source.json
+  - assets/i18n/dynamic-source.json
+  - assets/i18n/overrides.json
+  - assets/i18n/bilingual-source.json

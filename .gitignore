@@ -1,1 +1,4 @@
 /Assignments/Assignment1/gpt3keys.txt
+__pycache__/
+*.py[cod]
+assets/i18n/*.tmp
