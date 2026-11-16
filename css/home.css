@@ -1,5 +1,28 @@
 /* Homepage additions (Nov. 2026): coursework hub and the schedule table (Slides and Video columns).
    Palette follows the homepage itself: Bootstrap link blue #428bca / #357ebd, beige band #f7f6f1, text #333, muted #777. */
+/* The university signature, course details and language control share a top edge. */
+body.course-home.has-course-language { padding-top: 0 !important; }
+.course-home #header {
+  display: grid; grid-template-columns: minmax(200px, 280px) minmax(0, 1fr) auto;
+  align-items: start; gap: 28px; max-width: 1170px;
+  margin: 32px auto; padding: 0 15px;
+}
+.course-home #header .cuhksz-brand { width: 100%; margin: 0; }
+.course-home .course-heading { min-width: 0; text-align: start; }
+.course-home #header h1 { margin: 0 0 12px; text-align: start; font-size: 28px; line-height: 1.25; overflow-wrap: anywhere; }
+.course-home #header .text-center { text-align: start; }
+.course-home #header h4 { margin: 0 0 8px; font-size: 16px; line-height: 1.5; }
+.course-home #header #course-language { position: static; margin: 0; max-width: 170px; box-shadow: none; }
+@media (max-width: 900px) {
+  .course-home #header { grid-template-columns: 170px minmax(0, 1fr) auto; gap: 18px; }
+}
+@media (max-width: 600px) {
+  .course-home #header { grid-template-columns: minmax(0, 1fr) auto; gap: 20px 12px; margin: 20px auto; }
+  .course-home #header .cuhksz-brand { max-width: 260px; }
+  .course-home #header #course-language { grid-column: 2; grid-row: 1; max-width: 145px; }
+  .course-home .course-heading { grid-column: 1 / -1; grid-row: 2; }
+  .course-home #header h1 { font-size: 25px; }
+}
 .hub { padding: 10px 15px 20px; }
 .hub h2 { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px solid #ddd; }
 .hub .sub { color: #555; font-size: 16px; margin: 0 0 24px; line-height: 1.6; }
