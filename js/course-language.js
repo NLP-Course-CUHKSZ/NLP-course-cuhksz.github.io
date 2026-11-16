@@ -120,7 +120,7 @@
         cache.set('en', await base.json());
       }
       if (!cache.has(next)) {
-        const response = await fetch(new URL('assets/i18n/' + next + '.json', root));
+        const response = await fetch(new URL('assets/i18n/' + next + '.json?v=20261116-terms', root));
         if (!response.ok) throw new Error('Translation ' + response.status);
         cache.set(next, await response.json());
       }
@@ -132,7 +132,7 @@
       const target = new URL(location.href);
       target.searchParams.set('lang', next);
       history.replaceState(null, '', target.pathname + target.search + target.hash);
-      status.textContent = next === 'en' ? '' : (catalog['Machine translation'] || 'Machine translation');
+      status.textContent = '';
       document.dispatchEvent(new CustomEvent('course-language-change', {detail:{language:next}}));
     } catch (error) {
       if (ticket !== generation) return;
