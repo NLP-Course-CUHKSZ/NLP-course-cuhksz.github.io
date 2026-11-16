@@ -3,21 +3,21 @@
 /* The university signature, course details and language control share a top edge. */
 body.course-home.has-course-language { padding-top: 0 !important; }
 .course-home #header {
-  display: grid; grid-template-columns: 280px minmax(0, 1fr) 280px;
-  align-items: start; gap: 16px; max-width: 1240px;
+  display: grid; grid-template-columns: 350px minmax(0, 1fr) auto;
+  align-items: start; gap: 28px; max-width: 1240px;
   margin: 0 auto; padding: 24px 24px 22px;
 }
 .course-home #header .cuhksz-brand { width: 100%; margin: 0; padding-top: 2px; }
-.course-home .course-heading { min-width: 0; text-align: center; }
-.course-home #header h1 { margin: 0 0 8px; text-align: center; font-size: 28px; font-weight: 400; line-height: 1.2; overflow-wrap: normal; }
+.course-home .course-heading { min-width: 0; text-align: start; }
+.course-home #header h1 { margin: 0 0 8px; text-align: start; font-size: 28px; font-weight: 400; line-height: 1.2; overflow-wrap: normal; }
 .course-home .course-code { display: block; margin: 0 0 6px; color: #707078; font: 500 12px/1.4 Arial, sans-serif; letter-spacing: 1px; }
 .course-home .course-title { display: block; text-wrap: balance; color: #29262e; }
-.course-home #header .text-center { text-align: center; }
-.course-home #header h4 { max-width: 500px; margin: 0 auto 4px; color: #62616a; font-size: 13px; font-weight: 400; line-height: 1.45; text-wrap: balance; }
+.course-home #header .text-center { text-align: start; }
+.course-home #header h4 { max-width: 500px; margin: 0 0 4px; color: #62616a; font-size: 13px; font-weight: 400; line-height: 1.45; text-wrap: pretty; }
 .course-home #header h4:last-child { margin-top: 5px; margin-bottom: 0; color: #80558c; font-size: 12px; font-weight: 500; }
 .course-home #header #course-language { position: static; justify-self: end; margin: 0; max-width: 170px; padding: 4px 8px; border-color: #e5e2e8; border-radius: 6px; box-shadow: none; }
 @media (max-width: 1050px) {
-  .course-home #header { grid-template-columns: 220px minmax(0, 1fr) 220px; gap: 14px; padding-inline: 20px; }
+  .course-home #header { grid-template-columns: 280px minmax(0, 1fr) auto; gap: 20px; padding-inline: 20px; }
   .course-home #header h1 { font-size: 25px; }
 }
 @media (max-width: 850px) {
