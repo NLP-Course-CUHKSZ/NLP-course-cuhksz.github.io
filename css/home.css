@@ -2,6 +2,8 @@
    Palette follows the homepage itself: Bootstrap link blue #428bca / #357ebd, beige band #f7f6f1, text #333, muted #777. */
 /* The university signature, course details and language control share a top edge. */
 body.course-home.has-course-language { padding-top: 0 !important; }
+.course-home .instructor { display: block; margin: 0 auto; }
+.course-home .instructor .instructorphoto img { display: block; margin: 0 auto 10px; }
 .course-home #header {
   display: grid; grid-template-columns: 350px minmax(0, 1fr) auto;
   align-items: start; gap: 28px; max-width: 1240px;
