@@ -31,26 +31,23 @@ body.course-home.has-course-language { padding-top: 0 !important; }
   .course-home .course-code { font-size: 11px; letter-spacing: .8px; }
 }
 .hub { padding: 10px 15px 20px; }
-.hub h2 { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px solid #ddd; }
+.hub h2 { margin: 20px 0 10px; }
 .hub .sub { color: #555; font-size: 16px; margin: 0 0 24px; line-height: 1.6; }
 .hub-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.hub-card { min-width: 0; padding: 0; padding-inline-start: 24px; border-inline-start: 1px solid #ddd; position: relative; }
+.hub-card { min-width: 0; padding: 0; position: relative; }
 .hub-card:first-child { padding-inline-start: 0; border-inline-start: 0; }
-.hub-card h3 { margin: 0 0 12px; font-size: 20px; font-weight: 500; color: #333; }
+.hub-card h3 { margin: 0 0 12px; padding-bottom: 12px; border-bottom: 1px solid #eee; font-size: 20px; font-weight: 400; color: #333; }
 .hub-card .pct { float: inline-end; font-size: 14px; color: #666; margin: 3px 0 6px 10px; }
 .hub-card .lead { color: #555; font-size: 15px; margin: 0 0 16px; line-height: 1.6; }
 .hub-card ul { list-style: none; padding: 0; margin: 0; }
-.hub-card li { padding: 12px 0; border-top: 1px solid #e2e2e2; font-size: 15px; line-height: 1.6; }
+.hub-card li { padding: 10px 0; border-top: 1px solid #eee; font-size: 15px; line-height: 1.6; }
 .hub-card li b { font-weight: 500; color: #333; }
-.hub-card li .when { color: #666; font-size: 14px; margin-inline-start: 6px; }
+.hub-card li .when { display: block; color: #666; font-size: 13px; margin-top: 4px; }
 .hub-card li .when.due { color: #555; font-weight: 500; }
 .hub-card li .links { display: block; font-size: 14px; color: #666; margin-top: 4px; }
 .hub-card li .links a { overflow-wrap: anywhere; }
 .hub-card .btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-.hub-card .btns a { display: inline-block; max-width: 100%; font-size: 14px; line-height: 1.42857143; padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333; text-decoration: none; }
-.hub-card .btns a.main { background: #428bca; border-color: #357ebd; color: #fff; }
-.hub-card .btns a:hover { background: #f1f1f1; text-decoration: none; }
-.hub-card .btns a.main:hover { background: #3276b1; border-color: #285e8e; }
+.hub-card .btns .btn { max-width: 100%; white-space: normal; text-align: start; }
 .hub-card .btns a:focus-visible { outline: 2px solid #357ebd; outline-offset: 3px; }
 .deadlines { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 24px 0 0; padding-top: 16px; border-top: 1px solid #ddd; }
 .deadlines span { font-size: 14px; color: #555; line-height: 1.6; }
