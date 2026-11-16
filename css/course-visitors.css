@@ -1,0 +1,14 @@
+.cuhksz-brand { display: block; width: min(480px, 88%); margin: 0 auto 24px; }
+.cuhksz-brand img { display: block; width: 100%; height: auto; }
+#course-visitors { box-sizing: border-box; color: #555; font: 14px/1.6 Arial, sans-serif; }
+#course-visitors a { color: #337ab7; }
+#course-visitors img { max-width: 100%; height: auto; }
+.course-visitors-map { max-width: 1140px; margin: 36px auto; padding: 24px 15px; border-top: 1px solid #ddd; text-align: center; }
+.course-visitors-map h2 { margin: 0 0 20px; color: #333; font-size: 24px; font-weight: 600; }
+.course-visitors-map > a { display: block; margin: 10px auto; }
+.course-visitors-map p { max-width: 720px; margin: 12px auto; font-size: 13px; }
+.course-visitors-map > a:last-child { font-size: 12px; color: #777; }
+.course-visitors-mini { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 16px; padding: 16px; background: #fff; border-top: 1px solid #ddd; }
+.course-visitors-mini > span { display: none; }
+.course-visitors-overlay { position: fixed; bottom: 0; right: 0; z-index: 20; padding: 4px 8px; font-size: 11px !important; max-width: 85vw; border-radius: 4px 0 0 0; }
+@media (max-width: 600px) { .cuhksz-brand { margin-bottom: 18px; } #header h1 { overflow-wrap: anywhere; } .course-visitors-map { margin: 24px 0; } }

@@ -44,3 +44,27 @@ dynamic UI literals are included; uncatalogued new strings fall back to English.
 
 Validation: `python scripts/check_languages.py`,
 `node --check js/course-language.js`, and `node --check js/fp-search.js`.
+
+## University branding and visitor statistics
+
+The home-page signature is the official CUHK-Shenzhen logo, sourced from
+https://www.cuhk.edu.cn/sites/default/files/zh-hans_logo.png and stored locally
+as `assets/cuhk-shenzhen-logo.png`.
+
+`js/course-visitors.js` and `css/course-visitors.css` are included on all 34
+public HTML pages. They share Flag Counter ID `Ctel` (server `s05`), with a
+world map on the homepage and a compact visible counter on subpages. Public
+visitor totals and country details: https://info.flagcounter.com/Ctel .
+Exactly one counter image is loaded per page, only on the production hostname;
+local previews and language changes do not create additional counter requests.
+
+Collection began November 16, 2026, including initial setup/verification visits.
+There is no historical backfill. The provider deduplicates repeat visits within
+24 hours; page views count image/page loads. Country/region estimates use IP
+geolocation, not nationality or precise location. Images may lag about five
+minutes; blockers and caching can affect counts. This is a free anonymous
+counter, without an account or paid plan. The provider may expire counters
+inactive for 30 days. Provider documentation: https://flagcounter.com/faq.html .
+The visible map links to its statistics; its privacy link is displayed below.
+The new interface labels are localized directly in the shared script for all
+ten course languages, without reloading the counter image on language changes.
