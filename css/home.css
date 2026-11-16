@@ -1,31 +1,36 @@
 /* Homepage additions (Nov. 2026): coursework hub and the schedule table (Slides and Video columns).
    Palette follows the homepage itself: Bootstrap link blue #428bca / #357ebd, beige band #f7f6f1, text #333, muted #777. */
-.hub { padding: 26px 15px 8px; }
-.hub h2 { margin: 0 0 4px; }
-.hub .sub { color: #777; font-size: 14px; margin: 0 0 16px; }
-.hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-@media (max-width: 991px) { .hub-grid { grid-template-columns: 1fr; } }
-.hub-card { background: #fff; border: 1px solid #ddd9cf; border-radius: 6px; padding: 16px 18px 14px; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-.hub-card h3 { margin: 0 0 2px; font-size: 19px; font-weight: 500; color: #333; }
-.hub-card .pct { float: right; font-size: 12.5px; color: #357ebd; background: #eaf2fa; border: 1px solid #d3e3f3; border-radius: 10px; padding: 1px 9px; margin-top: 3px; }
-.hub-card .lead { color: #666; font-size: 13.5px; margin: 0 0 10px; line-height: 1.45; }
+.hub { padding: 10px 15px 20px; }
+.hub h2 { margin: 20px 0; padding-bottom: 20px; border-bottom: 1px solid #ddd; }
+.hub .sub { color: #555; font-size: 16px; margin: 0 0 24px; line-height: 1.6; }
+.hub-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.hub-card { min-width: 0; padding: 0; padding-inline-start: 24px; border-inline-start: 1px solid #ddd; position: relative; }
+.hub-card:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.hub-card h3 { margin: 0 0 12px; font-size: 20px; font-weight: 500; color: #333; }
+.hub-card .pct { float: inline-end; font-size: 14px; color: #666; margin: 3px 0 6px 10px; }
+.hub-card .lead { color: #555; font-size: 15px; margin: 0 0 16px; line-height: 1.6; }
 .hub-card ul { list-style: none; padding: 0; margin: 0; }
-.hub-card li { padding: 7px 0; border-top: 1px dashed #e6e3da; font-size: 14px; line-height: 1.45; }
+.hub-card li { padding: 12px 0; border-top: 1px solid #e2e2e2; font-size: 15px; line-height: 1.6; }
 .hub-card li b { font-weight: 500; color: #333; }
-.hub-card li .when { color: #888; font-size: 12.5px; margin-left: 6px; white-space: nowrap; }
-.hub-card li .when.due { color: #c7302b; }
-.hub-card li .links { display: block; font-size: 13px; color: #777; margin-top: 2px; }
-.hub-card li .links a { white-space: nowrap; }
-.hub-card .btns { margin-top: 10px; }
-.hub-card .btns a { display: inline-block; font-size: 13px; padding: 5px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333; margin: 2px 4px 2px 0; text-decoration: none; }
+.hub-card li .when { color: #666; font-size: 14px; margin-inline-start: 6px; }
+.hub-card li .when.due { color: #555; font-weight: 500; }
+.hub-card li .links { display: block; font-size: 14px; color: #666; margin-top: 4px; }
+.hub-card li .links a { overflow-wrap: anywhere; }
+.hub-card .btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.hub-card .btns a { display: inline-block; max-width: 100%; font-size: 14px; line-height: 1.42857143; padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333; text-decoration: none; }
 .hub-card .btns a.main { background: #428bca; border-color: #357ebd; color: #fff; }
 .hub-card .btns a:hover { background: #f1f1f1; text-decoration: none; }
 .hub-card .btns a.main:hover { background: #3276b1; border-color: #285e8e; }
-.deadlines { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
-.deadlines span { font-size: 13px; background: #fff; border: 1px solid #ddd9cf; border-radius: 4px; padding: 4px 12px; color: #444; }
-.deadlines span b { color: #357ebd; font-weight: 600; margin-right: 4px; }
-.deadlines span.past { color: #999; border-style: dashed; }
-.deadlines span.past b { color: #999; }
+.hub-card .btns a:focus-visible { outline: 2px solid #357ebd; outline-offset: 3px; }
+.deadlines { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 24px 0 0; padding-top: 16px; border-top: 1px solid #ddd; }
+.deadlines span { font-size: 14px; color: #555; line-height: 1.6; }
+.deadlines span b { color: #333; font-weight: 500; margin-inline-end: 4px; }
+.deadlines span.past, .deadlines span.past b { color: #777; }
+@media (max-width: 991px) {
+  .hub-grid { grid-template-columns: 1fr; gap: 24px; }
+  .hub-card, .hub-card:first-child { padding: 0; border-inline-start: 0; }
+  .hub-card + .hub-card { padding-top: 24px; border-top: 1px solid #ddd; }
+}
 
 /* schedule: column widths; Slides and Video are separate columns, the video cell is the thumbnail alone */
 #schedule-table { table-layout: fixed; }
