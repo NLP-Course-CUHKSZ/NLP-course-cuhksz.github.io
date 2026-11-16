@@ -20,7 +20,9 @@
   "How the Course Works: Logistics, Structure and Grading": "课程安排：教学结构与评分",
   "💻 Colab notebooks": "💻 Colab 笔记本",
   "🧭 Lecture map": "🧭 课程导览",
-  "click a chapter or a slide to jump": "点击章节或幻灯片即可跳转"
+  "click a chapter or a slide to jump": "点击章节或幻灯片即可跳转",
+  "chapters ·": "章 ·",
+  "min": "分钟"
  },
  "es": {
   "Logistics": "Información práctica del curso",
@@ -36,7 +38,9 @@
   "{hours} h left": "Quedan {hours} h",
   "← Slide": "← Diapositiva anterior",
   "Slide →": "Diapositiva siguiente →",
-  "{chapters} chapters · {minutes} min": "{chapters} capítulos · {minutes} min"
+  "{chapters} chapters · {minutes} min": "{chapters} capítulos · {minutes} min",
+  "chapters ·": "capítulos ·",
+  "min": "min"
  },
  "hi": {
   "Logistics": "पाठ्यक्रम व्यवस्था",
@@ -51,7 +55,9 @@
   "{hours} h left": "{hours} घंटे शेष",
   "← Slide": "← पिछली स्लाइड",
   "Slide →": "अगली स्लाइड →",
-  "{chapters} chapters · {minutes} min": "{chapters} अध्याय · {minutes} मिनट"
+  "{chapters} chapters · {minutes} min": "{chapters} अध्याय · {minutes} मिनट",
+  "chapters ·": "अध्याय ·",
+  "min": "मिनट"
  },
  "ar": {
   "Logistics": "تنظيم المقرر",
@@ -67,7 +73,9 @@
   "{hours} h left": "متبقي {hours} ساعة",
   "← Slide": "← الشريحة السابقة",
   "Slide →": "الشريحة التالية →",
-  "{chapters} chapters · {minutes} min": "{chapters} فصول · {minutes} دقيقة"
+  "{chapters} chapters · {minutes} min": "{chapters} فصول · {minutes} دقيقة",
+  "chapters ·": "فصول ·",
+  "min": "دقيقة"
  },
  "fr": {
   "Logistics": "Organisation du cours",
@@ -82,7 +90,9 @@
   "{hours} h left": "Il reste {hours} h",
   "← Slide": "← Diapositive précédente",
   "Slide →": "Diapositive suivante →",
-  "{chapters} chapters · {minutes} min": "{chapters} chapitres · {minutes} min"
+  "{chapters} chapters · {minutes} min": "{chapters} chapitres · {minutes} min",
+  "chapters ·": "chapitres ·",
+  "min": "min"
  },
  "pt": {
   "Logistics": "Organização do curso",
@@ -97,7 +107,9 @@
   "{hours} h left": "Restam {hours} h",
   "← Slide": "← Slide anterior",
   "Slide →": "Próximo slide →",
-  "{chapters} chapters · {minutes} min": "{chapters} capítulos · {minutes} min"
+  "{chapters} chapters · {minutes} min": "{chapters} capítulos · {minutes} min",
+  "chapters ·": "capítulos ·",
+  "min": "min"
  },
  "ru": {
   "Logistics": "Организация курса",
@@ -112,7 +124,9 @@
   "{hours} h left": "Осталось {hours} ч.",
   "← Slide": "← Предыдущий слайд",
   "Slide →": "Следующий слайд →",
-  "{chapters} chapters · {minutes} min": "{chapters} глав · {minutes} мин"
+  "{chapters} chapters · {minutes} min": "{chapters} глав · {minutes} мин",
+  "chapters ·": "глав ·",
+  "min": "мин"
  },
  "bn": {
   "Logistics": "কোর্সের ব্যবস্থা",
@@ -127,7 +141,9 @@
   "{hours} h left": "{hours} ঘণ্টা বাকি",
   "← Slide": "← আগের স্লাইড",
   "Slide →": "পরের স্লাইড →",
-  "{chapters} chapters · {minutes} min": "{chapters} অধ্যায় · {minutes} মিনিট"
+  "{chapters} chapters · {minutes} min": "{chapters} অধ্যায় · {minutes} মিনিট",
+  "chapters ·": "অধ্যায় ·",
+  "min": "মিনিট"
  },
  "ja": {
   "Logistics": "授業の案内",
@@ -142,6 +158,8 @@
   "{hours} h left": "残り {hours} 時間",
   "← Slide": "← 前のスライド",
   "Slide →": "次のスライド →",
-  "{chapters} chapters · {minutes} min": "{chapters} 章 · {minutes} 分"
+  "{chapters} chapters · {minutes} min": "{chapters} 章 · {minutes} 分",
+  "chapters ·": "章 ·",
+  "min": "分"
  }
 }
