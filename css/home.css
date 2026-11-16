@@ -3,29 +3,29 @@
 /* The university signature, course details and language control share a top edge. */
 body.course-home.has-course-language { padding-top: 0 !important; }
 .course-home #header {
-  display: grid; grid-template-columns: 220px minmax(0, 1fr) 220px;
-  align-items: start; gap: 24px; max-width: 1200px;
-  margin: 0 auto; padding: 36px 24px 32px;
+  display: grid; grid-template-columns: 280px minmax(0, 1fr) 280px;
+  align-items: start; gap: 16px; max-width: 1240px;
+  margin: 0 auto; padding: 24px 24px 22px;
 }
 .course-home #header .cuhksz-brand { width: 100%; margin: 0; padding-top: 2px; }
 .course-home .course-heading { min-width: 0; text-align: center; }
-.course-home #header h1 { margin: 0 0 16px; text-align: center; font-size: 30px; font-weight: 400; line-height: 1.25; overflow-wrap: normal; }
-.course-home .course-code { display: block; margin: 0 0 12px; color: #707078; font: 500 12px/1.5 Arial, sans-serif; letter-spacing: 1.2px; }
+.course-home #header h1 { margin: 0 0 8px; text-align: center; font-size: 28px; font-weight: 400; line-height: 1.2; overflow-wrap: normal; }
+.course-home .course-code { display: block; margin: 0 0 6px; color: #707078; font: 500 12px/1.4 Arial, sans-serif; letter-spacing: 1px; }
 .course-home .course-title { display: block; text-wrap: balance; color: #29262e; }
 .course-home #header .text-center { text-align: center; }
-.course-home #header h4 { max-width: 500px; margin: 0 auto 8px; color: #62616a; font-size: 14px; font-weight: 400; line-height: 1.65; text-wrap: balance; }
-.course-home #header h4:last-child { margin-top: 10px; margin-bottom: 0; color: #80558c; font-size: 13px; font-weight: 500; }
+.course-home #header h4 { max-width: 500px; margin: 0 auto 4px; color: #62616a; font-size: 13px; font-weight: 400; line-height: 1.45; text-wrap: balance; }
+.course-home #header h4:last-child { margin-top: 5px; margin-bottom: 0; color: #80558c; font-size: 12px; font-weight: 500; }
 .course-home #header #course-language { position: static; justify-self: end; margin: 0; max-width: 170px; padding: 4px 8px; border-color: #e5e2e8; border-radius: 6px; box-shadow: none; }
 @media (max-width: 1050px) {
-  .course-home #header { grid-template-columns: 170px minmax(0, 1fr) 170px; gap: 18px; padding-inline: 20px; }
-  .course-home #header h1 { font-size: 27px; }
+  .course-home #header { grid-template-columns: 220px minmax(0, 1fr) 220px; gap: 14px; padding-inline: 20px; }
+  .course-home #header h1 { font-size: 25px; }
 }
-@media (max-width: 760px) {
-  .course-home #header { grid-template-columns: minmax(0, 1fr) auto; gap: 30px 16px; padding: 24px 20px 28px; }
-  .course-home #header .cuhksz-brand { max-width: 240px; }
+@media (max-width: 850px) {
+  .course-home #header { grid-template-columns: minmax(0, 1fr) auto; gap: 18px 12px; padding: 18px 16px 20px; }
+  .course-home #header .cuhksz-brand { max-width: 300px; }
   .course-home #header #course-language { grid-column: 2; grid-row: 1; max-width: 145px; }
   .course-home .course-heading { grid-column: 1 / -1; grid-row: 2; }
-  .course-home #header h1 { font-size: 28px; }
+  .course-home #header h1 { font-size: 26px; }
   .course-home .course-code { font-size: 11px; letter-spacing: .8px; }
 }
 .hub { padding: 10px 15px 20px; }
