@@ -58,9 +58,19 @@
 		one(node); Array.prototype.forEach.call(node.querySelectorAll('[data-i18n]'), one);
 		return squeeze(out.join(' '));
 	}
+	/* a detached copy of a node with the page's own text: the shared language selector (js/course-language.js, Nov. 16) may
+	   have machine-translated the live page, and it keeps the source of every text node it changed */
+	function sourced(node) {
+		var c = node.cloneNode(true), CL = window.CourseLanguage;
+		if (CL && CL.source) {   /* in English too: the Chinese names of contests are shown machine-translated */
+			var a = document.createTreeWalker(node, NodeFilter.SHOW_TEXT), b = document.createTreeWalker(c, NodeFilter.SHOW_TEXT), x, y, s;
+			while ((x = a.nextNode()) && (y = b.nextNode())) { s = CL.source(x); if (s !== y.nodeValue) y.nodeValue = s; }
+		}
+		return c;
+	}
 	/* a detached copy of a node, put into one language: English from the page's own store of the original text, Chinese from the dictionary */
 	function inLang(node, lang) {
-		var c = node.cloneNode(true);
+		var c = sourced(node);
 		function one(n) {
 			var k = n.getAttribute && n.getAttribute('data-i18n'); if (!k) return;
 			var h = lang === 'zh' ? ZH[k] : (hook.en ? hook.en(k) : null);
@@ -87,11 +97,11 @@
 	var jobs = null;
 	function addBrief(b, i) {
 		var h4 = b.querySelector('h4'), idEl = b.querySelector('h4 .id'); if (!h4 || !idEl) return;
-		var id = squeeze(idEl.textContent), tags = (b.getAttribute('data-tags') || '').split(/\s+/).filter(Boolean);
+		var id = squeeze(sourced(idEl).textContent), tags = (b.getAttribute('data-tags') || '').split(/\s+/).filter(Boolean);
 		var shown = Array.prototype.map.call(b.querySelectorAll('.meta .tag[data-t]'), function (x) { return x.getAttribute('data-t'); });
 		var words = [];
 		tags.forEach(function (k) { var t = T.tags[k]; if (t) words.push(t.en, t.zh, t.kw); });
-		Array.prototype.forEach.call(b.querySelectorAll('.meta .tag:not([data-t])'), function (x) { words.push(x.getAttribute('data-en') || x.textContent, x.getAttribute('data-zh') || ''); });
+		Array.prototype.forEach.call(b.querySelectorAll('.meta .tag:not([data-t])'), function (x) { words.push(x.getAttribute('data-en') || sourced(x).textContent, x.getAttribute('data-zh') || ''); });
 		var body = [], bodyZh = [];
 		Array.prototype.forEach.call(b.querySelectorAll('details.brief-fold > *:not(summary)'), function (x) { body.push(enOf(x)); bodyZh.push(zhOf(x)); });
 		var rec = { kind: 'b', i: briefs.length, el: b, head: h4, id: id, idl: id.toLowerCase(), track: id.charAt(0), comp: b.getAttribute('data-c') || 'api', tags: tags, shown: shown,
@@ -112,7 +122,7 @@
 		others.push(rec);
 	}
 	var DROP = '.brief, .res3, .grid, .media, .tblwrap, .fs-bar, .tracks, .finder, .filters, summary';
-	function pruned(node) { var c = node.cloneNode(true); Array.prototype.forEach.call(c.querySelectorAll(DROP), function (x) { x.remove(); }); return c; }
+	function pruned(node) { var c = sourced(node); Array.prototype.forEach.call(c.querySelectorAll(DROP), function (x) { x.remove(); }); return c; }
 	function addSection(sec) {
 		var sid = sec.id, h2 = sec.querySelector('h2.sec'); if (!h2) return;
 		var kids = Array.prototype.slice.call(sec.children);

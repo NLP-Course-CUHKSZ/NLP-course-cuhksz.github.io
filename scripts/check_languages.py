@@ -14,11 +14,13 @@ for p in pages:
     original = BeautifulSoup(subprocess.check_output(['git','show','HEAD:'+p.relative_to(ROOT).as_posix()],cwd=ROOT,encoding='utf-8'), 'html.parser')
     assert Counter(a.get('href') for a in original.select('a[href]')) == Counter(a.get('href') for a in soup.select('a[href]')), f'Course link changed: {p}'
     assert [el.get_text() for el in original.select('pre,code')] == [el.get_text() for el in soup.select('pre,code')], f'Code changed: {p}'
-    scripts = soup.select('script[src$="/js/course-language.js"]')
-    styles = soup.select('link[href$="/css/course-language.css"]')
+    # Asset URLs carry a cache-busting query (?v=20261116-terms, added by fix_course_terms.py): compare paths only.
+    path_of = lambda url: url.split('?', 1)[0].split('#', 1)[0]
+    scripts = [el for el in soup.select('script[src]') if path_of(el['src']).endswith('/js/course-language.js')]
+    styles = [el for el in soup.select('link[href]') if path_of(el['href']).endswith('/css/course-language.css')]
     assert len(scripts) == len(styles) == 1, f'Missing/duplicate language assets: {p}'
     for el, attr in [(scripts[0],'src'), (styles[0],'href')]:
-        assert (p.parent / el[attr]).resolve().is_file(), f'Invalid nested asset path: {p}'
+        assert (p.parent / path_of(el[attr])).resolve().is_file(), f'Invalid nested asset path: {p}'
 source = set(sources())
 en = json.loads((ROOT/'assets/i18n/en.json').read_text(encoding='utf-8'))
 for lang in LANGS:

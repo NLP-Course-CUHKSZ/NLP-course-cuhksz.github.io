@@ -18,7 +18,9 @@
   const excluded = 'script,style,pre,code,kbd,samp,textarea,svg,math,canvas,.math,.MathJax,.katex,mjx-container,[translate="no"],.notranslate,#transcript,.subtitles';
   const cache = new Map();
   // Project-page initialization reads this before its DOMContentLoaded handler.
-  window.CourseLanguage = {get language() { return language; }, set: setLanguage};
+  window.CourseLanguage = {get language() { return language; }, set: setLanguage,
+    // The page's own text of a text node, whatever language is shown (the project page's search indexes the original).
+    source: node => { const old = originals.get(node); return old && old.output === node.nodeValue ? old.source : node.nodeValue; }};
 
   const panel = document.createElement('div');
   panel.id = 'course-language';

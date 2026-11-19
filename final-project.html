@@ -2673,7 +2673,7 @@ Track and brief (e.g., Track A, brief A2) or custom:
 			});
 			document.querySelectorAll('[data-ui]').forEach(function (el) { el.innerHTML = UI[lang][el.getAttribute('data-ui')]; });
 			syncCalloutSummaries();
-			document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+			if (!window.CourseLanguage) document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');   /* else the selector sets it */
 			document.body.classList.toggle('zh', lang === 'zh');
 			document.getElementById('langbtn').textContent = UI[lang].lang;
 			foldBtn.innerHTML = allOpen ? UI[lang].collapse : UI[lang].expand;
@@ -2713,6 +2713,15 @@ Track and brief (e.g., Track A, brief A2) or custom:
 		// The shared selector owns language choice; initialize a stable English source.
 		if (window.CourseLanguage) want = 'en';
 		applyLang(want === 'zh' ? 'zh' : 'en');
+		/* Nov. 19: when the shared selector is on 简体中文, the page shows its own hand-written Chinese (js/fp-zh.js) again
+		   instead of the selector's machine translation of the same blocks. The selector translates the page first, then fires
+		   this event: the blocks the page translates itself get translate="no", so the selector leaves them to applyLang.
+		   Every other language is the selector's, on the page's English (applyLang('en') puts it back). */
+		if (window.CourseLanguage) document.addEventListener('course-language-change', function () {
+			var lang = CourseLanguage.language === 'zh-CN' ? 'zh' : 'en';
+			document.querySelectorAll('[data-i18n], [data-ui]').forEach(function (el) { if (lang === 'zh') el.setAttribute('translate', 'no'); else el.removeAttribute('translate'); });
+			if (lang !== LANG) applyLang(lang);
+		});
 		setAll(false); openForHash();
 
 		/* track finder (eight tracks) */
