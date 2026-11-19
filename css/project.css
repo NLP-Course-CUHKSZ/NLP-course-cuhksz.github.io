@@ -250,3 +250,44 @@ section > details.sec-fold { margin: 10px 0; }
 	.fs-id.fs-sec { width: 78px; }
 	.fs-head input { font-size: 16px; }
 }
+
+/* ---------- Nov. 19: tags easier to notice: stronger group colours, bigger chips on the briefs, a tag row on the first screen ---------- */
+/* the four groups keep their hues (make red, topic blue, field purple, why amber), now saturated enough to read as labels */
+.tag.f { border-radius: 13px; padding: 0 10px 0 8px; line-height: 22px; font-weight: 500; }
+.tag.f-make, .fs-c.f-make { background: #fde6e1; border-color: #eeb0a2; color: #8a2412; }
+.tag.f-topic, .fs-c.f-topic { background: #e2ecf9; border-color: #a7c0e3; color: #1c4a86; }
+.tag.f-field, .fs-c.f-field { background: #ebe4fa; border-color: #c1b0e9; color: #4a3592; }
+.tag.f-why, .fs-c.f-why { background: #ffefc0; border-color: #e6c056; color: #694700; }
+.fs-c.on { background: var(--red); border-color: var(--red); color: #fff; }
+.brief .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 5px; margin: 6px 0 9px; }
+.brief .meta .tag { margin: 0; }
+.brief .meta .tag.f { font-size: 13.5px; }
+.brief .meta .tag.f:hover, .fs-pop .tag.f:hover { border-color: currentColor; box-shadow: 0 2px 6px rgba(0,0,0,.14); }
+.brief .meta .tag.kw { font-size: 12px; color: #6a6a6a; background: #f4f4f4; }
+
+/* the bar under the track cards: a real label and the same chip size as on the first screen */
+.fs-pop { gap: 6px 6px; }
+.fs-pop .tag { margin: 0; }
+.fs-pop .fs-lbl { font-size: 14px; color: #333; font-weight: 600; }
+.fs-pop .tag, .fs-pop .fs-all { font-size: 14px; }
+.fs-pop .tag.f { line-height: 24px; }
+.fs-pop .tag i { color: inherit; opacity: .6; }
+
+/* the first screen: label in the search button's yellow, the popular tags as solid chips on the dark hero */
+.hero .hero-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 4px; margin: 16px 0 4px; padding: 10px 12px; border: 1px solid rgba(249,171,0,.6); border-radius: 10px; background: rgba(0,0,0,.16); }
+.hero .ht-lbl { color: #f9ab00; font-size: 15px; font-weight: 600; margin-right: 4px; white-space: nowrap; }
+.hero .ht-chips { display: contents; }
+.hero .ht-chips .tag { margin: 0; font-size: 13.5px; line-height: 25px; padding: 0 8px 0 6px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform .12s, box-shadow .12s; }
+.hero .ht-chips .tag.c-comp, .fs-pop .tag.c-comp { border: 1px solid #9fbbe0; border-radius: 13px; padding: 0 8px 0 6px; font-weight: 500; }
+.fs-pop .tag.c-comp { line-height: 24px; padding: 0 10px 0 8px; }
+.hero .ht-chips .tag i { font-style: normal; font-size: 12px; margin-left: 3px; opacity: .62; }
+.hero .ht-chips .tag:hover, .hero .ht-chips .tag:focus-visible { transform: translateY(-1px); box-shadow: 0 0 0 2px #f9ab00, 0 4px 12px rgba(0,0,0,.35); outline: 0; }
+.hero .ht-chips .fs-all { border: 0; background: none; color: #f9ab00; font-size: 14px; font-weight: 500; padding: 0 4px; cursor: pointer; }
+.hero .ht-chips .fs-all:hover { color: #fff; text-decoration: underline; }
+@media (max-width: 600px) {
+	.hero .hero-tags { padding: 9px 10px; gap: 6px 5px; }
+	.hero .ht-lbl { width: 100%; font-size: 15px; }
+	.hero .ht-chips .tag { font-size: 13px; line-height: 23px; }
+	.hero .ht-chips .tag:nth-of-type(n+9) { display: none; }   /* eight on a phone; "all 46 tags" opens the rest */
+	.brief .meta .tag.f { font-size: 13px; }
+}

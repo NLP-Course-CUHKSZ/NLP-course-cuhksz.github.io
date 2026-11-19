@@ -10,7 +10,7 @@
 	var UI = {
 		en: {
 			search: 'Search', ph: 'Search {n} briefs, competitions, tools and the FAQ', input: 'Search: game, medical, Kaggle, "world model", A11 …',
-			pop: 'Browse by tag:', all: 'all {n} tags', hint: 'Every brief carries tags. Click one, here or on any brief, to list the briefs that share it.',
+			pop: 'Browse by tag:', all: 'all {n} tags', hint: 'Every brief carries tags. Click one, here or on any brief, to list the briefs that share it.', heroLbl: 'Find your project by tag',
 			runs: 'Compute you have', c_api: 'API key or a laptop', c_gpu1: 'one GPU', c_multi: 'several GPUs',
 			s_api: 'no GPU', s_gpu1: '1 GPU', s_multi: 'multi-GPU',
 			track: 'Track', nb: '{n} briefs', nb1: '1 brief', ofall: 'of {n}', other: 'Elsewhere on this page',
@@ -22,7 +22,7 @@
 		},
 		zh: {
 			search: '搜索', ph: '搜索 {n} 个选题、比赛、工具和常见问题', input: '搜索：游戏、医疗、Kaggle、世界模型、A11 …',
-			pop: '按标签浏览：', all: '全部 {n} 个标签', hint: '每个选题都带标签。点这里或任一选题上的标签，就能列出所有同类选题。',
+			pop: '按标签浏览：', all: '全部 {n} 个标签', hint: '每个选题都带标签。点这里或任一选题上的标签，就能列出所有同类选题。', heroLbl: '按标签找选题',
 			runs: '你有的算力', c_api: '只有 API 或笔记本', c_gpu1: '一块 GPU', c_multi: '多块 GPU',
 			s_api: '无需 GPU', s_gpu1: '1 块 GPU', s_multi: '多 GPU',
 			track: '方向', nb: '{n} 个选题', nb1: '1 个选题', ofall: '共 {n} 个', other: '页面其他位置',
@@ -145,11 +145,29 @@
 		Array.prototype.forEach.call(document.querySelectorAll('section[id]'), function (sec) { jobs.push(function () { addSection(sec); }); });
 	}
 	function ensureIndex() { if (!jobs) planIndex(); while (jobs.length) jobs.shift()(); }
+	var idle = window.requestIdleCallback ? function (f) { window.requestIdleCallback(f, { timeout: 3000 }); } : function (f) { setTimeout(function () { f(null); }, 80); };
+	/* a record's text as the page shows it now: the shared language selector may have translated it */
+	function localize(r) {
+		var locale = document.documentElement.lang;
+		if (r.localLanguage !== locale) { r.localLanguage = locale; r.localRaw = squeeze(textOf(r.el)); r.localText = norm(r.localRaw); }
+	}
+	/* read ahead in idle time (after the index is built and after every language change), so that the first query
+	   does not stall for reading some 285 blocks */
+	function idleLocalize() {
+		var todo = briefs.concat(others), i = 0;
+		(function step() {
+			if (i >= todo.length) return;
+			idle(function (d) {
+				var t0 = Date.now();
+				do { localize(todo[i++]); } while (i < todo.length && Date.now() - t0 < 10 && (!d || d.didTimeout || d.timeRemaining() > 3));
+				step();
+			});
+		})();
+	}
 	function idleIndex() {
 		if (!jobs) planIndex();
-		var idle = window.requestIdleCallback ? function (f) { window.requestIdleCallback(f, { timeout: 3000 }); } : function (f) { setTimeout(function () { f(null); }, 80); };
 		(function step() {
-			if (!jobs.length) return;
+			if (!jobs.length) { idleLocalize(); return; }
 			idle(function (d) {
 				var t0 = Date.now();
 				do { if (jobs.length) jobs.shift()(); } while (jobs.length && Date.now() - t0 < 10 && (!d || d.didTimeout || d.timeRemaining() > 3));
@@ -175,10 +193,7 @@
 	}
 	function score(r, terms) {
 		var s = 0;
-		var locale = document.documentElement.lang;
-		if (r.localLanguage !== locale) {
-			r.localLanguage = locale; r.localRaw = squeeze(textOf(r.el)); r.localText = norm(r.localRaw);
-		}
+		localize(r);
 		for (var i = 0; i < terms.length; i++) {
 			var t = terms[i], hit = 0;
 			if (r.kind === 'b') {
@@ -367,18 +382,21 @@
 			if (k || c.classList.contains('kw')) { c.setAttribute('role', 'button'); c.setAttribute('tabindex', '-1'); }
 		});
 	}
+	/* the popular tags with their brief counts, then a button to the panel that lists all tags;
+	   painted twice: in the hero (#fs-hero, first screen) and in the bar under the track cards (#fs-pop) */
+	function popular() {
+		var lang = L(), h = '';
+		(T.popular || []).forEach(function (k) {
+			var t = T.tags[k]; if (!t) return;
+			var c = document.querySelectorAll('.brief[data-tags~="' + k + '"]').length;
+			h += '<span class="tag ' + (k === 'rank' ? 'c-comp' : 'f f-' + t.g) + '" data-t="' + k + '" role="button" tabindex="0" title="' + esc(desc(k)) + '">' + esc(label(k)) + ' <i>' + c + '</i></span>';
+		});
+		return h + '<button type="button" class="fs-all" data-fs-open="1">' + fmt(lang.all, T.order.length) + ' ›</button>';
+	}
 	function paintBar() {
-		var lang = L(), box = document.getElementById('fs-pop');
-		if (box) {
-			var h = '<span class="fs-lbl">' + lang.pop + '</span>';
-			(T.popular || []).forEach(function (k) {
-				var t = T.tags[k]; if (!t) return;
-				var c = document.querySelectorAll('.brief[data-tags~="' + k + '"]').length;
-				h += '<span class="tag ' + (k === 'rank' ? 'c-comp' : 'f f-' + t.g) + '" data-t="' + k + '" role="button" tabindex="0" title="' + esc(desc(k)) + '">' + esc(label(k)) + ' <i>' + c + '</i></span>';
-			});
-			h += '<button type="button" class="fs-all" data-fs-open="1">' + fmt(lang.all, T.order.length) + ' ›</button>';
-			box.innerHTML = h;
-		}
+		var lang = L(), box = document.getElementById('fs-pop'), hero = document.getElementById('fs-hero');
+		if (box) box.innerHTML = '<span class="fs-lbl">' + lang.pop + '</span>' + popular();
+		if (hero) hero.innerHTML = popular();
 		Array.prototype.forEach.call(document.querySelectorAll('[data-fs]'), function (x) {
 			var k = x.getAttribute('data-fs'); if (lang[k]) x.textContent = fmt(lang[k], S.nb);
 		});
@@ -432,12 +450,21 @@
 		bk.addEventListener('click', function (e) { if (e.target.classList.contains('fs-back-x')) { bk.hidden = true; return; } open(); });
 	}
 
+	/* With the shared language selector (js/course-language.js) on the page, it decides the language: for Chinese the tags,
+	   the search bar and the panel use the hand-written Chinese of fp-tags.js and UI.zh, marked translate="no" so that the
+	   selector's dictionary leaves them alone; every other language gets the English labels, which the dictionary translates. */
+	function owned() {
+		return [el.overlay, el.backBox, document.getElementById('fs-pop'), document.getElementById('fs-hero'), document.getElementById('searchbtn')]
+			.concat(Array.prototype.slice.call(document.querySelectorAll('[data-fs], .brief .meta')));
+	}
 	function setLang(lang) {
+		if (window.CourseLanguage && CourseLanguage.language) lang = CourseLanguage.language === 'zh-CN' ? 'zh' : 'en';
 		S.lang = lang === 'zh' ? 'zh' : 'en';
 		if (!el.overlay) return;
 		paintChips(); paintBar();
 		el.input.placeholder = L().input; el.clear.textContent = L().clear; el.closeBtn.title = L().close; el.foot.textContent = L().keys;
 		el.panel.setAttribute('aria-label', L().search);
+		owned().forEach(function (n) { if (!n) return; if (S.lang === 'zh') n.setAttribute('translate', 'no'); else n.removeAttribute('translate'); });
 		if (S.open) render();
 	}
 
@@ -446,6 +473,7 @@
 		ZH = (opt && opt.zh) || window.FP_ZH || {}; hook = opt || {};
 		S.nb = document.querySelectorAll('.brief').length;
 		buildPanel();
+		document.addEventListener('course-language-change', function () { setLang(); if (jobs && !jobs.length) idleLocalize(); });
 		setTimeout(idleIndex, 1500);   /* after the page's own start-up work */
 		/* tags and keywords on the page open the panel */
 		function fromChip(c) {
@@ -454,7 +482,7 @@
 		}
 		document.addEventListener('click', function (e) {
 			if (!e.target.closest) return;
-			var c = e.target.closest('.brief .meta .tag[role=button], .fs-pop .tag[data-t]');
+			var c = e.target.closest('.brief .meta .tag[role=button], .fs-pop .tag[data-t], #fs-hero .tag[data-t]');
 			if (c) { e.preventDefault(); fromChip(c); return; }
 			var b = e.target.closest('[data-fs-open], #searchbtn, #hero-search');
 			if (b) { e.preventDefault(); open(); }
@@ -474,7 +502,7 @@
 			var a = document.activeElement, typing = a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable);
 			if ((e.key === 'k' || e.key === 'K') && (e.ctrlKey || e.metaKey) && !e.altKey) { e.preventDefault(); open(); return; }
 			if (e.key === '/' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); open(); return; }
-			if ((e.key === 'Enter' || e.key === ' ') && a && a.matches && a.matches('.brief .meta .tag[role=button], .fs-pop .tag[data-t]')) { e.preventDefault(); fromChip(a); }
+			if ((e.key === 'Enter' || e.key === ' ') && a && a.matches && a.matches('.brief .meta .tag[role=button], .fs-pop .tag[data-t], #fs-hero .tag[data-t]')) { e.preventDefault(); fromChip(a); }
 		});
 		/* links such as final-project.html?q=kaggle or ?tag=demo,3d open the panel directly */
 		var p = new URLSearchParams(location.search), q = p.get('q'), tg = p.get('tag');
